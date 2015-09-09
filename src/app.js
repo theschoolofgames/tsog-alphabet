@@ -17,7 +17,10 @@ var HelloWorldLayer = cc.Layer.extend({
             res.CloseNormal_png,
             res.CloseSelected_png,
             function () {
-                cc.log("Menu is clicked!");
+                jsb.reflection.callStaticMethod("H102Wrapper",
+                                                "openScheme:withData:",
+                                                "com.hub102.tsog",
+                                                "sampleData");
             }, this);
         closeItem.attr({
             x: size.width - 20,
