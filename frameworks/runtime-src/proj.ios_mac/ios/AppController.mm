@@ -127,7 +127,24 @@ static AppDelegate s_sharedApplication;
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation {
-  NSLog(@"%@", [url absoluteString]);
+  NSString* receivedData = [url absoluteString];
+  NSRange range = [receivedData rangeOfString:@"://"];
+  receivedData = [receivedData substringFromIndex:range.location+3];
+  
+  NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:receivedData options:0];
+  NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+  
+  NSArray* dataArray = [decodedString componentsSeparatedByString:@":"];
+  NSString* message = [NSString stringWithFormat:@"UserId: %@\nSchoolID: %@\nSchoolName: %@",
+                       dataArray[0], dataArray[1], dataArray[2]];
+  
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"TSOG"
+                                                    message:message
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+  [alertView show];
+
   return YES;
 }
 
