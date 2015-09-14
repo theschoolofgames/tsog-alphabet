@@ -51,16 +51,67 @@ cc.game.onStart = function(){
     if(!cc.sys.isNative && document.getElementById("cocosLoading")) //If referenced loading.js, please remove it
         document.body.removeChild(document.getElementById("cocosLoading"));
 
+    cc.log(jsb.fileUtils.getWritablePath());
+
+    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
+        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
+        var hostUrl = "http://tsog.hub102.com";
+        jsb.reflection.callStaticMethod("H102Wrapper",
+                                             "countlyStart:withUrl:",
+                                             appKey,
+                                             hostUrl);
+    }
+
     // Pass true to enable retina display, disabled by default to improve performance
     cc.view.enableRetina(false);
     // Adjust viewport meta
     cc.view.adjustViewPort(true);
+
     // Setup the resolution policy and design resolution size
-    cc.view.setDesignResolutionSize(800, 450, cc.ResolutionPolicy.SHOW_ALL);
+    var mediumResource = { size: cc.size(960, 640), directory: "res/SD" };
+    var largeResource = { size: cc.size(2730, 1536), directory: "res/HD" };
+    var designResolutionSize = cc.size(960, 640);
+    var frameSize = cc.director.getOpenGLView().getFrameSize();
+
+    cc.view.setDesignResolutionSize(
+        designResolutionSize.width,
+        designResolutionSize.height,
+        cc.ResolutionPolicy.FIXED_HEIGHT);
+
+    if (cc.sys.isNative) {
+        var searchPaths = jsb.fileUtils.getSearchPaths();
+
+        if (frameSize.height >= largeResource.size.height) {
+            searchPaths.push(largeResource.directory);
+            cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
+            cc.log("Use largeResource");
+        } else if (frameSize.height >= mediumResource.size.height) {
+            searchPaths.push(mediumResource.directory);
+            cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
+            cc.log("Use mediumResource");
+        } else {
+            searchPaths.push(smallResource.directory);
+            cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
+            cc.log("Use smallResource");
+        }
+        searchPaths.push("res");
+        jsb.fileUtils.setSearchPaths(searchPaths);
+    }
+    else {
+        // web html5
+        cc.view.setDesignResolutionSize(designResolutionSize.width,
+            designResolutionSize.height,
+            cc.ResolutionPolicy.SHOW_ALL);
+
+        jsb.fileUtils.setSearchPaths("res/SD");
+    }
+    cc.log(cc.winSize.width + " - " + cc.winSize.height);
+
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
+        // KVDatabase.setupInstance(CocosKVImpl);
         cc.director.runScene(new ForestScene());
     }, this);
 };

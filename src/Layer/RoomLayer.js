@@ -29,7 +29,7 @@ var RoomLayer = cc.Layer.extend({
         this._super();
 
         this.createBackground();
-        this.getRandomPosArray();
+        this.createObject();
     },
 
     createBackground: function() {
@@ -39,12 +39,23 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(bg);
     },
 
-    getRandomPosArray: function() {
-        var randomedArray = [];
-        for( var i = 0; i < POSITION_ARRAY.length; i++) {
+    createObject: function() {
+        var randomedPositionArray = shuffle(POSITION_ARRAY);
+        var roomObjectButton = null;
 
+        for ( i = 0; i < randomedPositionArray.length; i++ ) {
+            var buttonPosition = randomedPositionArray[i];
+            roomObjectButton = new ccui.Button();
+            roomObjectButton.x = buttonPosition.posX;
+            roomObjectButton.y = buttonPosition.posY;
+
+            this.addChild(roomObjectButton);
+
+            roomObjectButton.addClickEventListener(function() {
+                cc.log("room object clicked");
+            });
         }
-    }
+    },
 
 });
 
