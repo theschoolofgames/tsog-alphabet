@@ -12,6 +12,8 @@
 
     "jsList" : [
         "src/resource.js",
-        "src/app.js"
+        "src/Layer/ForestLayer.js",
+        "src/Layer/RoomLayer.js",
+        "src/Constants.js"
     ]
 }
