@@ -6,14 +6,7 @@ var RoomLayer = cc.Layer.extend({
                     add background...
                 }
             random position
-                function(positionArray) {
-                    var newArray = [];
-                    for (...) {
-                        newArray.push(positionArray[i])
-                    }
-
-                    return newArray;
-                }
+                use shuffle function
 
             create object with random position
                 function() {
