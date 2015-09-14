@@ -33,7 +33,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var bg = new cc.Sprite();
+        var bg = new cc.Sprite(res.forest_jpg);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
