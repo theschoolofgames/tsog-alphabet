@@ -11,6 +11,7 @@
     "modules" : ["cocos2d"],
 
     "jsList" : [
+        "src/WhoAmI.js",
         "src/resource.js",
         "src/Layer/ForestLayer.js",
         "src/Layer/RoomLayer.js",

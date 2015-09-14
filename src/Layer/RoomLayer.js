@@ -1,5 +1,6 @@
 var RoomLayer = cc.Layer.extend({
     ctor: function() {
+        cc.log("Dev: " + whoAmI);
         /*
             create background
                 function() {
@@ -33,7 +34,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var bg = new cc.Sprite(res.forest_jpg);
+        var bg = new cc.Sprite(res.room_jpg);
+        var scale = cc.winSize.width / bg.width;
+        bg.setScale(scale);
         bg.x = cc.winSize.width / 2;
         bg.y = cc.winSize.height / 2;
         this.addChild(bg);
@@ -45,10 +48,16 @@ var RoomLayer = cc.Layer.extend({
 
         for ( i = 0; i < randomedPositionArray.length; i++ ) {
             var buttonPosition = randomedPositionArray[i];
-            roomObjectButton = new ccui.Button();
+            var name = buttonPosition.name;
+            roomObjectButton = new ccui.Button(res.GrayButton_png,"", "");
+
+            roomObjectButton.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
+
             roomObjectButton.x = buttonPosition.posX;
             roomObjectButton.y = buttonPosition.posY;
-
+            roomObjectButton.setTitleText(name);
+            roomObjectButton.setTitleColor(cc.color.RED);
+            roomObjectButton.setTitleFontSize(32);
             this.addChild(roomObjectButton);
 
             roomObjectButton.addClickEventListener(function() {

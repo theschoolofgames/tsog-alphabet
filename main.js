@@ -112,7 +112,10 @@ cc.game.onStart = function(){
     //load resources
     cc.LoaderScene.preload(g_resources, function () {
         // KVDatabase.setupInstance(CocosKVImpl);
-        cc.director.runScene(new ForestScene());
+        if (whoAmI && whoAmI === "tony")
+            cc.director.runScene(new RoomScene());
+        else
+            cc.director.runScene(new ForestScene());
     }, this);
 };
 cc.game.run();
