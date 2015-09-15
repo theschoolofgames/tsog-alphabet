@@ -34,12 +34,12 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var bg = new cc.Sprite(res.room_jpg);
-        var scale = cc.winSize.width / bg.width;
-        bg.setScale(scale);
-        bg.x = cc.winSize.width / 2;
-        bg.y = cc.winSize.height / 2;
-        this.addChild(bg);
+        var background = new cc.Sprite(res.room_jpg);
+        var scale = cc.winSize.width / background.width;
+        background.setScale(scale);
+        background.x = cc.winSize.width / 2;
+        background.y = cc.winSize.height / 2;
+        this.addChild(background);
     },
 
     createObject: function() {

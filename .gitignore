@@ -26,4 +26,4 @@ frameworks/runtime-src/proj.android/gen/
 frameworks/runtime-src/proj.android/libs/armeabi/
 frameworks/runtime-src/proj.android/libs/x86/
 frameworks/runtime-src/proj.android/obj/
-
+src/WhoAmI.js
