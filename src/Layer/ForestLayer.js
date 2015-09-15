@@ -35,6 +35,20 @@ var ForestLayer = cc.Layer.extend({
 		backGround.y = cc.winSize.height/2;
 		this.addChild(backGround);
 	},
+	createAnimal: function() {
+        var randomedPositionArray = shuffle(POSITION_ARRAY);
+        var forestAnimalButton = null;
+        for (i = 0; i < randomedPositionArray.length; i ++) {
+        	var buttonPositon = randomedPositionArray[i];
+        	forestAnimalButton = new ccui.Button(res.GrayButton_png,"", "");
+        	
+        	forestAnimalButton.setAnchorPoint(buttonPositon.anchorX, buttonPositon.anchorY);
+
+        	forestAnimalButton.x = buttonPositon.posX;
+        	forestAnimalButton.y = buttonPositon.posY;
+
+        	this.addChild(forestAnimalButton);
+        }
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {
