@@ -25,7 +25,8 @@ var ForestLayer = cc.Layer.extend({
 		this._super();
 		this.createBackground();
 		this.createAnimals();
-
+        this.addBackButton();
+        this.addRefreshButton();
 	},
 
 	createBackground: function() {
@@ -44,7 +45,7 @@ var ForestLayer = cc.Layer.extend({
 
  		for (i = 0; i < NUMBER_ITEMS; i++)
  			this.createAnimalButton(randomedPositionArray[i], randomedAnimalArray[i], i);
- 			
+
     },
 
     createAnimalButton : function(buttonPosition, imagePath, i) {
@@ -62,6 +63,29 @@ var ForestLayer = cc.Layer.extend({
     	this.addChild(buttonAnimal);
     },
 
+    addRefreshButton: function() {
+        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
+        refreshButton.x = cc.winSize.width - refreshButton.width;
+        refreshButton.y = cc.winSize.height - refreshButton.height / 2;
+
+        this.addChild(refreshButton);
+
+        refreshButton.addClickEventListener(function() {
+            cc.director.replaceScene(new ForestScene());
+        });
+    },
+
+    addBackButton: function() {
+        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
+        backButton.x = backButton.width;
+        backButton.y = cc.winSize.height - backButton.height / 2;
+
+        this.addChild(backButton);
+
+        backButton.addClickEventListener(function() {
+            cc.director.replaceScene(new RoomScene());
+        });
+    },
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {

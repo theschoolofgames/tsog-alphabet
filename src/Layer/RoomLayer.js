@@ -31,6 +31,8 @@ var RoomLayer = cc.Layer.extend({
 
         this.createBackground();
         this.createObject();
+        this.addRefreshButton();
+        this.addBackButton();
     },
 
     createBackground: function() {
@@ -44,16 +46,16 @@ var RoomLayer = cc.Layer.extend({
 
     createObject: function() {
         var dsInstance = DataStore.getInstance();
+        // get randomed arrays with BEDROOM_ID
         var randomedObjectArray = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
         var randomedPositionArray = dsInstance.getRandomPositions(BEDROOM_ID, NUMBER_ITEMS);
-        var randomedShadeObjectArray = dsInstance.getRandomObjects(BEDROOM_SHADE, NUMBER_ITEMS);
-        var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE, NUMBER_ITEMS);
-        cc.log(JSON.stringify(randomedShadePositionArray[0]));
+        // get randomed arrays with BEDROOM_SHADE
+        var randomedShadeObjectArray = dsInstance.getRandomObjects(BEDROOM_SHADE_ID, NUMBER_ITEMS);
+        var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
 
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             this.createObjectPlaceHolder(randomedShadePositionArray[i], randomedShadeObjectArray[i]);
             this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i]);
-            cc.log(JSON.stringify(randomedShadePositionArray[i]));
         }
     },
 
@@ -65,10 +67,10 @@ var RoomLayer = cc.Layer.extend({
         objectButton.x = buttonPosition.x;
         objectButton.y = buttonPosition.y;
 
-        this.addChild(objectButton);
+        this.addChild(objectButton, 1);
 
         objectButton.addClickEventListener(function() {
-            cc.log("room object clicked");
+
         });
     },
 
@@ -80,8 +82,32 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.x = placeHolderPosition.x;
         shadeObject.y = placeHolderPosition.y;
 
-        this.addChild(shadeObject);
-    }
+        this.addChild(shadeObject, 0);
+    },
+
+    addRefreshButton: function() {
+        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
+        refreshButton.x = cc.winSize.width - refreshButton.width;
+        refreshButton.y = cc.winSize.height - refreshButton.height / 2;
+
+        this.addChild(refreshButton);
+
+        refreshButton.addClickEventListener(function() {
+            cc.director.replaceScene(new RoomScene());
+        });
+    },
+
+    addBackButton: function() {
+        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
+        backButton.x = backButton.width;
+        backButton.y = cc.winSize.height - backButton.height / 2;
+
+        this.addChild(backButton);
+
+        backButton.addClickEventListener(function() {
+            cc.director.replaceScene(new ForestScene());
+        });
+    },
 
 });
 
