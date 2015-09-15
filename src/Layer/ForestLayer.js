@@ -24,6 +24,7 @@ var ForestLayer = cc.Layer.extend({
 	ctor: function() {
 		this._super();
 		this.createBackground();
+		this.createAnimals();
 
 	},
 
@@ -35,20 +36,27 @@ var ForestLayer = cc.Layer.extend({
 		backGround.y = cc.winSize.height/2;
 		this.addChild(backGround);
 	},
-	createAnimal: function() {
-        var randomedPositionArray = shuffle(POSITION_ARRAY);
-        var forestAnimalButton = null;
-        for (i = 0; i < randomedPositionArray.length; i ++) {
-        	var buttonPositon = randomedPositionArray[i];
-        	forestAnimalButton = new ccui.Button(res.GrayButton_png,"", "");
-        	
-        	forestAnimalButton.setAnchorPoint(buttonPositon.anchorX, buttonPositon.anchorY);
 
-        	forestAnimalButton.x = buttonPositon.posX;
-        	forestAnimalButton.y = buttonPositon.posY;
+	createAnimals: function() {
+ 		var dsInstance = DataStore.getInstance();
+ 		var randomedAnimalArray = dsInstance.getRandomObjects(FOREST_ID, NUMBER_ITEMS);
+ 		var randomedPositionArray = dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
 
-        	this.addChild(forestAnimalButton);
-        }
+ 		for (i = 0; i < NUMBER_ITEMS; i++)
+ 			this.createAnimalButton(randomedPositionArray[i], randomedAnimalArray[i]);
+
+    },
+
+    createAnimalButton : function(buttonPosition, imagePath) {
+    	var buttonAnimal =  new ccui.Button(res.GrayButton_png,"", "");
+    	
+    	buttonAnimal.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
+
+    	buttonAnimal.x = buttonPosition.x;
+    	buttonAnimal.y =  buttonPosition.y;
+    	this.addChild(buttonAnimal);
+    },
+
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {

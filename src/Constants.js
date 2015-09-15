@@ -69,15 +69,15 @@ var DataStore = cc.Class.extend({
         // add position
         this._addPosition(FOREST_ID, 100, 100, 0.5, 0);
         this._addPosition(FOREST_ID, 200, 100, 0.5, 0);
-        this._addPosition(FOREST_ID, 300, 100, 0.5, 0);
-        this._addPosition(FOREST_ID, 400, 100, 0.5, 0);
-        this._addPosition(FOREST_ID, 500, 100, 0.5, 0);
+        this._addPosition(FOREST_ID, 300, 200, 0.5, 0);
+        this._addPosition(FOREST_ID, 400, 300, 0.5, 0);
+        this._addPosition(FOREST_ID, 500, 400, 0.5, 0);
         this._addPosition(FOREST_ID, 100, 300, 0.5, 0.5);
         this._addPosition(FOREST_ID, 200, 400, 0.5, 1);
-        this._addPosition(FOREST_ID, 300, 300, 0.5, 0.5);
-        this._addPosition(FOREST_ID, 400, 400, 0.5, 1);
-        this._addPosition(FOREST_ID, 500, 300, 0.5, 0.5);
-        this._addPosition(FOREST_ID, 350, 150, 0.5, 0);
+        this._addPosition(FOREST_ID, 300, 600, 0.5, 0.5);
+        this._addPosition(FOREST_ID, 700, 400, 0.5, 1);
+        this._addPosition(FOREST_ID, 500, 700, 0.5, 0.5);
+        this._addPosition(FOREST_ID, 850, 150, 0.5, 0);
         this._addPosition(FOREST_ID, 450, 250, 0.5, 0.5);
     },
 
