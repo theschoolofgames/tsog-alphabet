@@ -43,17 +43,22 @@ var ForestLayer = cc.Layer.extend({
  		var randomedPositionArray = dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
 
  		for (i = 0; i < NUMBER_ITEMS; i++)
- 			this.createAnimalButton(randomedPositionArray[i], randomedAnimalArray[i]);
-
+ 			this.createAnimalButton(randomedPositionArray[i], randomedAnimalArray[i], i);
+ 			
     },
 
-    createAnimalButton : function(buttonPosition, imagePath) {
+    createAnimalButton : function(buttonPosition, imagePath, i) {
     	var buttonAnimal =  new ccui.Button(res.GrayButton_png,"", "");
-    	
+    	buttonAnimal.scale = 0;
     	buttonAnimal.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
 
     	buttonAnimal.x = buttonPosition.x;
     	buttonAnimal.y =  buttonPosition.y;
+    	buttonAnimal.runAction(
+                cc.sequence(
+                    cc.delayTime(i*0.1),
+                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+                ));
     	this.addChild(buttonAnimal);
     },
 
