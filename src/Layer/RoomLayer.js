@@ -42,29 +42,35 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(background);
     },
 
-    createObject: function() {
-        var randomedPositionArray = shuffle(POSITION_ARRAY);
-        var roomObjectButton = null;
+    createObject: function(numberOfObject) {
+        var dsInstance = DataStore.getInstance();
+        var randomedObjectArray = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
+        var randomedPositionArray = dsInstance.getRandomPositions(BEDROOM_ID, NUMBER_ITEMS);
+        var objectButton = null;
 
-        for ( i = 0; i < randomedPositionArray.length; i++ ) {
-            var buttonPosition = randomedPositionArray[i];
-            var name = buttonPosition.name;
-            roomObjectButton = new ccui.Button(res.GrayButton_png,"", "");
-
-            roomObjectButton.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
-
-            roomObjectButton.x = buttonPosition.posX;
-            roomObjectButton.y = buttonPosition.posY;
-            roomObjectButton.setTitleText(name);
-            roomObjectButton.setTitleColor(cc.color.RED);
-            roomObjectButton.setTitleFontSize(32);
-            this.addChild(roomObjectButton);
-
-            roomObjectButton.addClickEventListener(function() {
-                cc.log("room object clicked");
-            });
-        }
+        for ( i = 0; i < NUMBER_ITEMS; i++)
+            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i]);
     },
+
+    createObjectButton: function(buttonPosition, imagePath) {
+        var objectButton = new ccui.Button(res.GrayButton_png,"", "");
+
+        objectButton.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
+
+        objectButton.x = buttonPosition.x;
+        objectButton.y = buttonPosition.y;
+
+        this.addChild(objectButton);
+
+        objectButton.addClickEventListener(function() {
+            cc.log("room object clicked");
+        });
+    },
+
+    createObjectButtonPlaceHolder: function(buttonPosition) {
+        // var objButtonPlaceHolderPos = BUTTON_PLACEHOLDER_POSITION[buttonPosition.placeHolderId];
+
+    }
 
 });
 
