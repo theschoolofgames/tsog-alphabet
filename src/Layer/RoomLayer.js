@@ -42,14 +42,19 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(background);
     },
 
-    createObject: function(numberOfObject) {
+    createObject: function() {
         var dsInstance = DataStore.getInstance();
         var randomedObjectArray = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
         var randomedPositionArray = dsInstance.getRandomPositions(BEDROOM_ID, NUMBER_ITEMS);
-        var objectButton = null;
+        var randomedShadeObjectArray = dsInstance.getRandomObjects(BEDROOM_SHADE, NUMBER_ITEMS);
+        var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE, NUMBER_ITEMS);
+        cc.log(JSON.stringify(randomedShadePositionArray[0]));
 
-        for ( i = 0; i < NUMBER_ITEMS; i++)
+        for ( var i = 0; i < NUMBER_ITEMS; i++) {
+            this.createObjectPlaceHolder(randomedShadePositionArray[i], randomedShadeObjectArray[i]);
             this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i]);
+            cc.log(JSON.stringify(randomedShadePositionArray[i]));
+        }
     },
 
     createObjectButton: function(buttonPosition, imagePath) {
@@ -67,9 +72,15 @@ var RoomLayer = cc.Layer.extend({
         });
     },
 
-    createObjectButtonPlaceHolder: function(buttonPosition) {
-        // var objButtonPlaceHolderPos = BUTTON_PLACEHOLDER_POSITION[buttonPosition.placeHolderId];
+    createObjectPlaceHolder: function(placeHolderPosition, imagePath) {
+        var shadeObject = new cc.Sprite(res.Red_PlaceHolder_jpg);
 
+        shadeObject.setAnchorPoint(placeHolderPosition.anchorX, placeHolderPosition.anchorY);
+
+        shadeObject.x = placeHolderPosition.x;
+        shadeObject.y = placeHolderPosition.y;
+
+        this.addChild(shadeObject);
     }
 
 });

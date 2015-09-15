@@ -3,6 +3,7 @@ FOREST_OBJECT_POSITIONS = [];
 
 var BEDROOM_ID = 0;
 var FOREST_ID = 1;
+var BEDROOM_SHADE = 2;
 var NUMBER_ITEMS = 6;
 
 var DataStore = cc.Class.extend({
@@ -79,6 +80,29 @@ var DataStore = cc.Class.extend({
         this._addPosition(FOREST_ID, 500, 500, 0.5, 0.5);
         this._addPosition(FOREST_ID, 850, 150, 0.5, 0);
         this._addPosition(FOREST_ID, 450, 250, 0.5, 0.5);
+        // ------------------------------
+
+        this.positionSets[BEDROOM_SHADE] = [];
+        this.objectSets[BEDROOM_SHADE] = [];
+        //add object
+        this._addObject(BEDROOM_SHADE, "pen-shade");
+        this._addObject(BEDROOM_SHADE, "cup-shade");
+        this._addObject(BEDROOM_SHADE, "doll-shade");
+        this._addObject(BEDROOM_SHADE, "toy-shade");
+        this._addObject(BEDROOM_SHADE, "ball-shade");
+        // add position
+        this._addPosition(BEDROOM_SHADE, 150, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 250, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 350, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 650, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 550, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 950, 350, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE, 750, 450, 0.5, 1);
+        this._addPosition(BEDROOM_SHADE, 350, 350, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE, 450, 450, 0.5, 1);
+        this._addPosition(BEDROOM_SHADE, 850, 350, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE, 400, 200, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE, 600, 300, 0.5, 0.5);
     },
 
     getPosition: function(setId, index) {
