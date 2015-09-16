@@ -2,6 +2,7 @@ var RoomLayer = cc.Layer.extend({
     _objectTouching: null,
     _objectPositions: [],
     _objects: [],
+    _shadeObjects: [],
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
@@ -92,16 +93,17 @@ var RoomLayer = cc.Layer.extend({
         });
     },
 
-    createObjectShade: function(placeHolderPosition, imagePath) {
+    createObjectShade: function(shadePosition, imagePath) {
         var shadeObject = new cc.Sprite(res.Red_PlaceHolder_jpg);
+        shadeObject.setScale(1.5);
+        shadeObject.setAnchorPoint(shadePosition.anchorX, shadePosition.anchorY);
 
-        shadeObject.setAnchorPoint(placeHolderPosition.anchorX, placeHolderPosition.anchorY);
-
-        shadeObject.x = placeHolderPosition.x;
-        shadeObject.y = placeHolderPosition.y;
+        shadeObject.x = shadePosition.x;
+        shadeObject.y = shadePosition.y;
         shadeObject.visible = false;
 
         this.addChild(shadeObject, 0);
+        this._shadeObjects.push(shadeObject);
     },
 
     addRefreshButton: function() {
@@ -135,9 +137,10 @@ var RoomLayer = cc.Layer.extend({
         for ( var i = 0; i < this._objects.length; i++) {
             objBoundingBox = this._objects[i].getBoundingBox();
             // cc.log("objBoundingBox: " + JSON.stringify(objBoundingBox));
-            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x, objBoundingBox.y));
+            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x + objBoundingBox.width/2,
+                                                    objBoundingBox.y + objBoundingBox.height/2));
             // cc.log("distance: " + distance);
-            if (distance < objBoundingBox.width) {
+            if (distance < objBoundingBox.width/2) {
                 // cc.log("distance true: " + distance);
                 // cc.log("bbox.width: " +objBoundingBox.width);
                 this._objectTouching = this._objects[i];
@@ -161,7 +164,11 @@ var RoomLayer = cc.Layer.extend({
             return false;
 
         targetNode._objectTouching.setPosition(touchedPos);
+
+        //set shadeObject to visible
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
+        targetNode._shadeObjects[index].visible = true;
+        targetNode.highLightObjectCorrectPos(index);
 
         return true;
     },
@@ -171,22 +178,47 @@ var RoomLayer = cc.Layer.extend({
         var touchedPos = touch.getLocation();
 
         targetNode._objectTouching.setPosition(touchedPos);
-        cc.log("touchedPos: " + JSON.stringify(touchedPos));
-        cc.log("object pos: " + JSON.stringify(targetNode._objectTouching.getPosition()));
+        // cc.log("touchedPos: " + JSON.stringify(touchedPos));
+        // cc.log("object pos: " + JSON.stringify(targetNode._objectTouching.getPosition()));
 
         return true;
     },
 
     onTouchEnded: function (touch, event) {
-       var targetNode = event.getCurrentTarget();
-       targetNode._objectTouching = null;
+        var targetNode = event.getCurrentTarget();
+        //set shadeObject visible to false
+        var index = targetNode.getObjectIndex(targetNode._objectTouching);
+        targetNode._shadeObjects[index].visible = false;
+        targetNode.handleObjectCorrectPos(index);
 
-       return true;
+        targetNode._objectTouching = null;
+
+        return true;
     },
 
     resetObjectArrays: function() {
         this._objectPositions = [];
         this._objects = [];
+        this._shadeObjects = [];
+    },
+
+    highLightObjectCorrectPos: function(index) {
+        var shadeObject = this._shadeObjects[index];
+        shadeObject.runAction(
+            cc.repeatForever(
+                    cc.sequence(
+                        // cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
+                        cc.scaleTo(0.8, 0.8),
+                        cc.scaleTo(0.8, 1.2)
+            )));
+    },
+
+    handleObjectCorrectPos: function(index) {
+        // var objectPos = this._objectTouching.getPosition();
+        // var shadePos = this._shadeObjects[index].getPosition();
+        // var distance = cc.pDistance(objectPos, shadePos);
+
+        // if (distance < )
     }
 });
 
