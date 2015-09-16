@@ -1,4 +1,8 @@
 var RoomLayer = cc.Layer.extend({
+    _objectTouching: null,
+    _objectPositions: [],
+    _objects: [],
+
     ctor: function() {
         cc.log("Dev: " + whoAmI);
         /*
@@ -29,10 +33,19 @@ var RoomLayer = cc.Layer.extend({
         */
         this._super();
 
+        this.resetObjectArrays();
         this.createBackground();
         this.createObject();
         this.addRefreshButton();
         this.addBackButton();
+
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved,
+                onTouchEnded: this.onTouchEnded
+        }, this);
     },
 
     createBackground: function() {
@@ -54,33 +67,39 @@ var RoomLayer = cc.Layer.extend({
         var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
 
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            this.createObjectPlaceHolder(randomedShadePositionArray[i], randomedShadeObjectArray[i]);
-            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i]);
+            this.createObjectShade(randomedShadePositionArray[i], randomedShadeObjectArray[i]);
+            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i], randomedShadePositionArray[i]);
         }
     },
 
-    createObjectButton: function(buttonPosition, imagePath) {
-        var objectButton = new ccui.Button(res.GrayButton_png,"", "");
+    createObjectButton: function(objPosition, imgPath, shadePos) {
+        var object = new cc.Sprite(res.GrayButton_png);
 
-        objectButton.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
+        object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
-        objectButton.x = buttonPosition.x;
-        objectButton.y = buttonPosition.y;
+        object.x = objPosition.x;
+        object.y = objPosition.y;
 
-        this.addChild(objectButton, 1);
+        this.addChild(object, 1);
 
-        objectButton.addClickEventListener(function() {
+        /*  _objectPositions là mảng gồm position của object và placeHolder tương ứng
+            */
+        this._objects.push(object);
 
+        this._objectPositions.push({
+            objectPos: objPosition,
+            shadePos: shadePos
         });
     },
 
-    createObjectPlaceHolder: function(placeHolderPosition, imagePath) {
+    createObjectShade: function(placeHolderPosition, imagePath) {
         var shadeObject = new cc.Sprite(res.Red_PlaceHolder_jpg);
 
         shadeObject.setAnchorPoint(placeHolderPosition.anchorX, placeHolderPosition.anchorY);
 
         shadeObject.x = placeHolderPosition.x;
         shadeObject.y = placeHolderPosition.y;
+        shadeObject.visible = false;
 
         this.addChild(shadeObject, 0);
     },
@@ -109,6 +128,66 @@ var RoomLayer = cc.Layer.extend({
         });
     },
 
+    _isTouchingObject: function(touchedPos) {
+        // nếu vị trí bấm vào nằm trong object thì gán object đó vào _objectTouching để sử dụng
+        var distance = 0;
+        var objBoundingBox = null;
+        for ( var i = 0; i < this._objects.length; i++) {
+            objBoundingBox = this._objects[i].getBoundingBox();
+            // cc.log("objBoundingBox: " + JSON.stringify(objBoundingBox));
+            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x, objBoundingBox.y));
+            // cc.log("distance: " + distance);
+            if (distance < objBoundingBox.width) {
+                // cc.log("distance true: " + distance);
+                // cc.log("bbox.width: " +objBoundingBox.width);
+                this._objectTouching = this._objects[i];
+                return true;
+            }
+        }
+        cc.log("--------------------");
+
+    },
+
+    getObjectIndex: function(object) {
+        for ( var i = 0; i < this._objects.length; i++)
+            if (object === this._objects[i])
+                return i;
+    },
+
+    onTouchBegan: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = touch.getLocation();
+        if (!targetNode._isTouchingObject(touchedPos))
+            return false;
+
+        targetNode._objectTouching.setPosition(touchedPos);
+        var index = targetNode.getObjectIndex(targetNode._objectTouching);
+
+        return true;
+    },
+
+    onTouchMoved: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = touch.getLocation();
+
+        targetNode._objectTouching.setPosition(touchedPos);
+        cc.log("touchedPos: " + JSON.stringify(touchedPos));
+        cc.log("object pos: " + JSON.stringify(targetNode._objectTouching.getPosition()));
+
+        return true;
+    },
+
+    onTouchEnded: function (touch, event) {
+       var targetNode = event.getCurrentTarget();
+       targetNode._objectTouching = null;
+
+       return true;
+    },
+
+    resetObjectArrays: function() {
+        this._objectPositions = [];
+        this._objects = [];
+    }
 });
 
 var RoomScene = cc.Scene.extend({
