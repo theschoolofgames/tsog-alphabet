@@ -206,7 +206,7 @@ var RoomLayer = cc.Layer.extend({
     completedScene: function() {
         this.createWarnLabel("Completed!");
         this.runAction(cc.sequence(
-            cc.delayTime(1),
+            cc.delayTime(2),
             cc.callFunc(function(){
                 cc.director.replaceScene(new ForestScene());
             })
