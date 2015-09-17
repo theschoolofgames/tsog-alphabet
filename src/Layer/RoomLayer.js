@@ -160,6 +160,7 @@ var RoomLayer = cc.Layer.extend({
         var touchedPos = touch.getLocation();
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
+        // return if the objectTouching is disabled
         for (var i = 0; i < targetNode._objectDisabled.length; i++) {
             if (targetNode._objectTouching === targetNode._objectDisabled[i])
                 return false
@@ -194,17 +195,22 @@ var RoomLayer = cc.Layer.extend({
         targetNode.handleObjectCorrectPos(index);
         targetNode._warningLabel.removeFromParent();
         targetNode._objectTouching = null;
-        if (targetNode._objectDisabled.length == 6) {
-            targetNode.createWarnLabel("Completed!");
-            targetNode.runAction(cc.sequence(
-                cc.delayTime(1),
-                cc.callFunc(function(){
-                    cc.director.replaceScene(new ForestScene());
-                })
-            ));
-        }
+
+        // win condition
+        if (targetNode._objectDisabled.length == 6)
+            targetNode.completedScene()
 
         return true;
+    },
+
+    completedScene: function() {
+        this.createWarnLabel("Completed!");
+        this.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function(){
+                cc.director.replaceScene(new ForestScene());
+            })
+        ));
     },
 
     resetObjectArrays: function() {

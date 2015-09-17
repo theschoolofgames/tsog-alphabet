@@ -21,8 +21,14 @@
  Win condition
 */
 var ForestLayer = cc.Layer.extend({
+    _touchCounting: 0,
+    _warningLabel: null,
+    _disabledButtons: [],
+
 	ctor: function() {
 		this._super();
+
+        this.resetObjectArrays();
 		this.createBackground();
 		this.createAnimals();
         this.addBackButton();
@@ -61,6 +67,22 @@ var ForestLayer = cc.Layer.extend({
                     cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
                 ));
     	this.addChild(buttonAnimal);
+
+        var self = this;
+        buttonAnimal.addClickEventListener(function() {
+            self._touchCounting += 1;
+            if (self._warningLabel)
+                self._warningLabel.removeFromParent()
+
+            // create label when click on animal
+            self.createWarnLabel("clicked on animal!" + i);
+
+            if (self._touchCounting == 6) {
+                self.completedScene();
+            }
+            this.setTouchEnabled(false);
+
+        });
     },
 
     addRefreshButton: function() {
@@ -85,6 +107,39 @@ var ForestLayer = cc.Layer.extend({
         backButton.addClickEventListener(function() {
             cc.director.replaceScene(new RoomScene());
         });
+    },
+
+    createWarnLabel: function(text, object) {
+        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
+        warnLabel.setColor(cc.color.RED);
+        if (object) {
+            warnLabel.x = object.x;
+            warnLabel.y = object.y + object.height + 10;
+        }
+        else {
+            warnLabel.x = cc.winSize.width / 2;
+            warnLabel.y = cc.winSize.height - 100;
+        }
+        this.addChild(warnLabel);
+
+        this._warningLabel = warnLabel;
+    },
+
+    resetObjectArrays: function() {
+        this._disabledButtons = [];
+    },
+
+    completedScene: function() {
+        if (this._warningLabel)
+            this._warningLabel.removeFromParent()
+
+        this.createWarnLabel("Scene Completed!");
+        this.runAction(cc.sequence(
+            cc.delayTime(1),
+            cc.callFunc(function() {
+                cc.director.replaceScene(new RoomScene());
+            })
+        ));
     },
 });
 var ForestScene = cc.Scene.extend({
