@@ -3,6 +3,9 @@ var RoomLayer = cc.Layer.extend({
     _objectPositions: [],
     _objects: [],
     _shadeObjects: [],
+    _correctedObject: [],
+    _objectDisabled: [],
+    _warningLabel: null,
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
@@ -136,19 +139,14 @@ var RoomLayer = cc.Layer.extend({
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
             objBoundingBox = this._objects[i].getBoundingBox();
-            // cc.log("objBoundingBox: " + JSON.stringify(objBoundingBox));
             distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x + objBoundingBox.width/2,
                                                     objBoundingBox.y + objBoundingBox.height/2));
-            // cc.log("distance: " + distance);
             if (distance < objBoundingBox.width/2) {
-                // cc.log("distance true: " + distance);
-                // cc.log("bbox.width: " +objBoundingBox.width);
+
                 this._objectTouching = this._objects[i];
                 return true;
             }
         }
-        cc.log("--------------------");
-
     },
 
     getObjectIndex: function(object) {
@@ -162,6 +160,10 @@ var RoomLayer = cc.Layer.extend({
         var touchedPos = touch.getLocation();
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
+        for (var i = 0; i < targetNode._objectDisabled.length; i++) {
+            if (targetNode._objectTouching === targetNode._objectDisabled[i])
+                return false
+        }
 
         targetNode._objectTouching.setPosition(touchedPos);
 
@@ -169,6 +171,7 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
         targetNode.highLightObjectCorrectPos(index);
+        targetNode.createWarnLabel("Object is moving!", targetNode._objectTouching);
 
         return true;
     },
@@ -178,8 +181,7 @@ var RoomLayer = cc.Layer.extend({
         var touchedPos = touch.getLocation();
 
         targetNode._objectTouching.setPosition(touchedPos);
-        // cc.log("touchedPos: " + JSON.stringify(touchedPos));
-        // cc.log("object pos: " + JSON.stringify(targetNode._objectTouching.getPosition()));
+        targetNode._warningLabel.setPosition(cc.p(touchedPos.x, touchedPos.y + targetNode._objectTouching.height + 10));
 
         return true;
     },
@@ -190,8 +192,17 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
         targetNode.handleObjectCorrectPos(index);
-
+        targetNode._warningLabel.removeFromParent();
         targetNode._objectTouching = null;
+        if (targetNode._objectDisabled.length == 6) {
+            targetNode.createWarnLabel("Completed!");
+            targetNode.runAction(cc.sequence(
+                cc.delayTime(1),
+                cc.callFunc(function(){
+                    cc.director.replaceScene(new ForestScene());
+                })
+            ));
+        }
 
         return true;
     },
@@ -200,6 +211,8 @@ var RoomLayer = cc.Layer.extend({
         this._objectPositions = [];
         this._objects = [];
         this._shadeObjects = [];
+        this._correctedObject = [];
+        this._objectDisabled = [];
     },
 
     highLightObjectCorrectPos: function(index) {
@@ -207,19 +220,37 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.runAction(
             cc.repeatForever(
                     cc.sequence(
-                        // cc.scaleTo(0.4, 1).easing(cc.easeElasticOut(0.6))
                         cc.scaleTo(0.8, 0.8),
                         cc.scaleTo(0.8, 1.2)
             )));
     },
 
     handleObjectCorrectPos: function(index) {
-        // var objectPos = this._objectTouching.getPosition();
-        // var shadePos = this._shadeObjects[index].getPosition();
-        // var distance = cc.pDistance(objectPos, shadePos);
+        var objectPos = this._objectTouching.getPosition();
+        var shadePos = this._shadeObjects[index].getPosition();
+        var distance = cc.pDistance(objectPos, shadePos);
 
-        // if (distance < )
-    }
+        if (distance < 100) {
+            this._objectTouching.setPosition(shadePos)
+            this._objectDisabled.push(this._objectTouching);
+        }
+    },
+
+    createWarnLabel: function(text, object) {
+        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
+        warnLabel.setColor(cc.color.RED);
+        if (object) {
+            warnLabel.x = object.x;
+            warnLabel.y = object.y + object.height + 10;
+        }
+        else {
+            warnLabel.x = cc.winSize.width / 2;
+            warnLabel.y = cc.winSize.height - 100;
+        }
+        this.addChild(warnLabel);
+
+        this._warningLabel = warnLabel;
+    },
 });
 
 var RoomScene = cc.Scene.extend({
