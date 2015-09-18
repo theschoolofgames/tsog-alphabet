@@ -1,6 +1,5 @@
 var RoomLayer = cc.Layer.extend({
     _objectTouching: null,
-    _objectPositions: [],
     _objects: [],
     _shadeObjects: [],
     _correctedObject: [],
@@ -9,32 +8,6 @@ var RoomLayer = cc.Layer.extend({
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
-        /*
-            create background
-                function() {
-                    add background...
-                }
-            random position
-                use shuffle function
-
-            create object with random position
-                function() {
-                    var randomedPositionArray = randomPosition function();
-                    --> create object
-
-                    onObjectClicked() {
-                        tap and hold on an object to see its correct position
-                        highlight correct position
-                    }
-                }
-
-            dragFunction() {
-                drag to correct position ???
-                animation and sound while dragging
-            }
-            auto snap
-            win condition
-        */
         this._super();
 
         this.resetObjectArrays();
@@ -89,11 +62,6 @@ var RoomLayer = cc.Layer.extend({
         /*  _objectPositions là mảng gồm position của object và placeHolder tương ứng
             */
         this._objects.push(object);
-
-        this._objectPositions.push({
-            objectPos: objPosition,
-            shadePos: shadePos
-        });
     },
 
     createObjectShade: function(shadePosition, imagePath) {
