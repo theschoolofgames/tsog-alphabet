@@ -142,3 +142,5 @@ DataStore.setupInstance = function () {
   DataStore._instance = new DataStore();
   return DataStore._instance;
 };
+
+var CHANGE_SCENE_TIME = 2;

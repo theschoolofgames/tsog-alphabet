@@ -25,6 +25,30 @@ var RoomLayer = cc.Layer.extend({
         }, this);
     },
 
+    addRefreshButton: function() {
+        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
+        refreshButton.x = cc.winSize.width - refreshButton.width;
+        refreshButton.y = cc.winSize.height - refreshButton.height / 2;
+
+        this.addChild(refreshButton);
+
+        refreshButton.addClickEventListener(function() {
+            cc.director.replaceScene(new RoomScene());
+        });
+    },
+
+    addBackButton: function() {
+        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
+        backButton.x = backButton.width;
+        backButton.y = cc.winSize.height - backButton.height / 2;
+
+        this.addChild(backButton);
+
+        backButton.addClickEventListener(function() {
+            cc.director.replaceScene(new ForestScene());
+        });
+    },
+
     createBackground: function() {
         var background = new cc.Sprite(res.room_jpg);
         var scale = cc.winSize.width / background.width;
@@ -77,28 +101,20 @@ var RoomLayer = cc.Layer.extend({
         this._shadeObjects.push(shadeObject);
     },
 
-    addRefreshButton: function() {
-        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
-        refreshButton.x = cc.winSize.width - refreshButton.width;
-        refreshButton.y = cc.winSize.height - refreshButton.height / 2;
+    createWarnLabel: function(text, object) {
+        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
+        warnLabel.setColor(cc.color.RED);
+        if (object) {
+            warnLabel.x = object.x;
+            warnLabel.y = object.y + object.height + 10;
+        }
+        else {
+            warnLabel.x = cc.winSize.width / 2;
+            warnLabel.y = cc.winSize.height - 100;
+        }
+        this.addChild(warnLabel);
 
-        this.addChild(refreshButton);
-
-        refreshButton.addClickEventListener(function() {
-            cc.director.replaceScene(new RoomScene());
-        });
-    },
-
-    addBackButton: function() {
-        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
-        backButton.x = backButton.width;
-        backButton.y = cc.winSize.height - backButton.height / 2;
-
-        this.addChild(backButton);
-
-        backButton.addClickEventListener(function() {
-            cc.director.replaceScene(new ForestScene());
-        });
+        this._warningLabel = warnLabel;
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -107,10 +123,8 @@ var RoomLayer = cc.Layer.extend({
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
             objBoundingBox = this._objects[i].getBoundingBox();
-            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x + objBoundingBox.width/2,
-                                                    objBoundingBox.y + objBoundingBox.height/2));
-            if (distance < objBoundingBox.width/2) {
-
+            var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
+            if (isRectContainsPoint) {
                 this._objectTouching = this._objects[i];
                 return true;
             }
@@ -160,6 +174,7 @@ var RoomLayer = cc.Layer.extend({
         //set shadeObject visible to false
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
+
         targetNode.handleObjectCorrectPos(index);
         targetNode._warningLabel.removeFromParent();
         targetNode._objectTouching = null;
@@ -172,12 +187,19 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        this.createWarnLabel("Completed!");
-        this.runAction(cc.sequence(
-            cc.delayTime(2),
-            cc.callFunc(function(){
-                cc.director.replaceScene(new ForestScene());
-            })
+        if (this._warningLabel)
+            this._warningLabel.removeFromParent()
+
+        this.createWarnLabel("Scene Completed!");
+        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
+                    cc.director.replaceScene(new RoomScene());
+                });
+    },
+
+    runObjectAction: function(object, delayTime, func) {
+        object.runAction(cc.sequence(
+            cc.delayTime(delayTime),
+            cc.callFunc(func)
         ));
     },
 
@@ -208,22 +230,6 @@ var RoomLayer = cc.Layer.extend({
             this._objectTouching.setPosition(shadePos)
             this._objectDisabled.push(this._objectTouching);
         }
-    },
-
-    createWarnLabel: function(text, object) {
-        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
-        warnLabel.setColor(cc.color.RED);
-        if (object) {
-            warnLabel.x = object.x;
-            warnLabel.y = object.y + object.height + 10;
-        }
-        else {
-            warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 100;
-        }
-        this.addChild(warnLabel);
-
-        this._warningLabel = warnLabel;
     },
 });
 

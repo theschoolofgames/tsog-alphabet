@@ -21,7 +21,7 @@ var ForestLayer = cc.Layer.extend({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
-        }, this);	
+        }, this);
 	},
 
 	createBackground: function() {
@@ -49,9 +49,8 @@ var ForestLayer = cc.Layer.extend({
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
             objBoundingBox = this._objects[i].getBoundingBox();
-            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x + objBoundingBox.width/2,
-                                                    objBoundingBox.y + objBoundingBox.height/2));
-            if (distance < objBoundingBox.width/2) {
+            var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
+            if (isRectContainsPoint) {
                 this._objectTouching = this._objects[i];
                 return true;
             }
@@ -75,7 +74,7 @@ var ForestLayer = cc.Layer.extend({
     	targetNode.createWarnLabel("animallll", targetNode._objectTouching);
 
         if (targetNode._touchCounting == 6){
-        	targetNode.runObjectAction(targetNode._warningLabel, function(){
+        	targetNode.runObjectAction(targetNode._warningLabel, CHANGE_SCENE_TIME, function(){
         		targetNode.completedScene()
         	});
         }
@@ -146,26 +145,19 @@ var ForestLayer = cc.Layer.extend({
         this._warningLabel = warnLabel;
     },
 
-    resetObjectArrays: function() {
-        this._disabledButtons = [];
-    },
-
     completedScene: function() {
         if (this._warningLabel)
             this._warningLabel.removeFromParent()
 
         this.createWarnLabel("Scene Completed!");
-        this.runAction(cc.sequence(
-            cc.delayTime(2),
-            cc.callFunc(function() {
-                cc.director.replaceScene(new RoomScene());
-            })
-        ));
+        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
+                    cc.director.replaceScene(new RoomScene());
+                });
     },
 
-    runObjectAction: function(object, func) {
+    runObjectAction: function(object, delayTime, func) {
     	object.runAction(cc.sequence(
-    		cc.delayTime(2),
+    		cc.delayTime(delayTime),
     		cc.callFunc(func)
 		));
     }
