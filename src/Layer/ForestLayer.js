@@ -1,29 +1,12 @@
-/*
- create background
- 	function(){
-		add background
- 	}
- 	random position{
-		shuffle(array)
- 	}
- 	create animals with random position
- 		function() {
-			var randomedPositionArray = randomposition function();
-				--> create animal
-			onAnimalTap() {
-				highlightAnimal function()
-				speakAlphabet function()
-				animation function()
-				speakAnimalName function()
-
-		 		}
-		 	}
- Win condition
-*/
 var ForestLayer = cc.Layer.extend({
+    _disabledButtons: [],
+    _objects: [],
+    _objectDisabled: [],
+
     _touchCounting: 0,
     _warningLabel: null,
-    _disabledButtons: [],
+    _warningLabel : null,
+    _objectTouching: null,
 
 	ctor: function() {
 		this._super();
@@ -33,6 +16,12 @@ var ForestLayer = cc.Layer.extend({
 		this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
+
+		cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: this.onTouchBegan
+        }, this);	
 	},
 
 	createBackground: function() {
@@ -50,39 +39,70 @@ var ForestLayer = cc.Layer.extend({
  		var randomedPositionArray = dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
 
  		for (i = 0; i < NUMBER_ITEMS; i++)
- 			this.createAnimalButton(randomedPositionArray[i], randomedAnimalArray[i], i);
+ 			this.createAnimal(randomedPositionArray[i], randomedAnimalArray[i], i);
 
     },
 
-    createAnimalButton : function(buttonPosition, imagePath, i) {
-    	var buttonAnimal =  new ccui.Button(res.GrayButton_png,"", "");
-    	buttonAnimal.scale = 0;
-    	buttonAnimal.setAnchorPoint(buttonPosition.anchorX, buttonPosition.anchorY);
-
-    	buttonAnimal.x = buttonPosition.x;
-    	buttonAnimal.y =  buttonPosition.y;
-    	buttonAnimal.runAction(
-                cc.sequence(
-                    cc.delayTime(i*0.1),
-                    cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-                ));
-    	this.addChild(buttonAnimal);
-
-        var self = this;
-        buttonAnimal.addClickEventListener(function() {
-            self._touchCounting += 1;
-            if (self._warningLabel)
-                self._warningLabel.removeFromParent()
-
-            // create label when click on animal
-            self.createWarnLabel("clicked on animal!" + i);
-
-            if (self._touchCounting == 6) {
-                self.completedScene();
+    _isTouchingObject: function(touchedPos) {
+        // nếu vị trí bấm vào nằm trong object thì gán object đó vào _objectTouching để sử dụng
+        var distance = 0;
+        var objBoundingBox = null;
+        for ( var i = 0; i < this._objects.length; i++) {
+            objBoundingBox = this._objects[i].getBoundingBox();
+            distance = cc.pDistance(touchedPos, cc.p(objBoundingBox.x + objBoundingBox.width/2,
+                                                    objBoundingBox.y + objBoundingBox.height/2));
+            if (distance < objBoundingBox.width/2) {
+                this._objectTouching = this._objects[i];
+                return true;
             }
-            this.setTouchEnabled(false);
+        }
+    },
 
-        });
+    onTouchBegan: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+        var touchedPos = touch.getLocation();
+        if (!targetNode._isTouchingObject(touchedPos))
+            return false;
+        // return if the objectTouching is disabled
+        for (var i = 0; i < targetNode._objectDisabled.length; i++) {
+            if (targetNode._objectTouching === targetNode._objectDisabled[i])
+                return false
+        }
+        targetNode._touchCounting += 1;
+        if (targetNode._warningLabel)
+        	targetNode._warningLabel.removeFromParent();
+
+    	targetNode.createWarnLabel("animallll", targetNode._objectTouching);
+
+        if (targetNode._touchCounting == 6){
+        	targetNode.runObjectAction(targetNode._warningLabel, function(){
+        		targetNode.completedScene()
+        	});
+        }
+        targetNode._objectDisabled.push(targetNode._objectTouching);
+
+        return true;
+    },
+
+    createAnimal : function(Position, imagePath, i) {
+    	var animal =  new cc.Sprite(res.GrayButton_png,"", "");
+    	animal.scale = 0;
+    	animal.setAnchorPoint(Position.anchorX, Position.anchorY);
+
+    	animal.x = Position.x;
+    	animal.y =  Position.y;
+    	animal.runAction(
+            cc.sequence(
+                cc.delayTime(i*0.1),
+                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+            ));
+    	this.addChild(animal);
+    	this._objects.push(animal);
+    },
+
+    resetObjectArrays: function() {
+        this._objects = [];
+        this._objectDisabled = [];
     },
 
     addRefreshButton: function() {
@@ -110,11 +130,12 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, object) {
+    	cc.log("createWarnLabel");
         var warnLabel = new cc.LabelTTF(text, "Arial", 32);
         warnLabel.setColor(cc.color.RED);
         if (object) {
             warnLabel.x = object.x;
-            warnLabel.y = object.y + object.height + 10;
+            warnLabel.y = object.y;
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
@@ -141,6 +162,13 @@ var ForestLayer = cc.Layer.extend({
             })
         ));
     },
+
+    runObjectAction: function(object, func) {
+    	object.runAction(cc.sequence(
+    		cc.delayTime(2),
+    		cc.callFunc(func)
+		));
+    }
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {
