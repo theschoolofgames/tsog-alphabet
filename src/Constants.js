@@ -5,6 +5,7 @@ var BEDROOM_ID = 0;
 var FOREST_ID = 1;
 var BEDROOM_SHADE_ID = 2;
 var NUMBER_ITEMS = 6;
+var CLOCK_INTERVAL = 1;
 
 var DataStore = cc.Class.extend({
     positionSets: [],

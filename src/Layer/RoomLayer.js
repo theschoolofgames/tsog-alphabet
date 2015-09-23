@@ -15,7 +15,7 @@ var RoomLayer = cc.Layer.extend({
         this.createObject();
         this.addRefreshButton();
         this.addBackButton();
-
+        this.addCountDownClock(),
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -231,6 +231,15 @@ var RoomLayer = cc.Layer.extend({
             this._objectDisabled.push(this._objectTouching);
         }
     },
+
+    addCountDownClock: function() {
+        var self = this;
+        var countDownClock = new Clock(300, function(){self.completedScene()});
+        countDownClock.x = cc.winSize.width / 2 - 10;
+        countDownClock.y = cc.winSize.height - 20;
+        this.addChild(countDownClock);
+    },
+
 });
 
 var RoomScene = cc.Scene.extend({

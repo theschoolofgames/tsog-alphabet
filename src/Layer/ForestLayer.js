@@ -7,6 +7,8 @@ var ForestLayer = cc.Layer.extend({
     _warningLabel: null,
     _warningLabel : null,
     _objectTouching: null,
+    _countDownClock: null,
+    _totalSeconds: 0,
 
 	ctor: function() {
 		this._super();
@@ -16,6 +18,7 @@ var ForestLayer = cc.Layer.extend({
 		this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
+        this.addCountDownClock();
 
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -129,7 +132,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, object) {
-    	cc.log("createWarnLabel");
+
         var warnLabel = new cc.LabelTTF(text, "Arial", 32);
         warnLabel.setColor(cc.color.RED);
         if (object) {
@@ -147,7 +150,7 @@ var ForestLayer = cc.Layer.extend({
 
     completedScene: function() {
         if (this._warningLabel)
-            this._warningLabel.removeFromParent()
+            this._warningLabel.removeFromParent();
 
         this.createWarnLabel("Scene Completed!");
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
@@ -160,7 +163,16 @@ var ForestLayer = cc.Layer.extend({
     		cc.delayTime(delayTime),
     		cc.callFunc(func)
 		));
-    }
+    },
+
+    addCountDownClock: function() {
+        var self = this;
+        var countDownClock = new Clock(300, function(){self.completedScene()});
+        countDownClock.x = cc.winSize.width / 2 - 10;
+        countDownClock.y = cc.winSize.height - 20;
+        this.addChild(countDownClock);
+    },
+
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {
