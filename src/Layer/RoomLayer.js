@@ -187,12 +187,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        if (this._warningLabel)
-            this._warningLabel.removeFromParent()
-
         this.createWarnLabel("Scene Completed!");
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                    cc.director.replaceScene(new RoomScene());
+                    cc.director.replaceScene(new ForestScene());
                 });
     },
 
