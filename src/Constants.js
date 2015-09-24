@@ -47,17 +47,17 @@ var DataStore = cc.Class.extend({
         this._addObject(BEDROOM_ID, "toy");
         this._addObject(BEDROOM_ID, "ball");
         // add position
-        this._addPosition(BEDROOM_ID, 100, 100, 0.5, 0);
-        this._addPosition(BEDROOM_ID, 200, 100, 0.5, 0);
-        this._addPosition(BEDROOM_ID, 300, 100, 0.5, 0);
-        this._addPosition(BEDROOM_ID, 600, 100, 0.5, 0);
+        this._addPosition(BEDROOM_ID, 100, 100, 0, 1);
+        this._addPosition(BEDROOM_ID, 200, 100, 1, 0.5);
+        this._addPosition(BEDROOM_ID, 300, 100, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 600, 100, 1, 1);
         this._addPosition(BEDROOM_ID, 500, 100, 0.5, 0);
-        this._addPosition(BEDROOM_ID, 900, 300, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 900, 300, 0, 0.5);
         this._addPosition(BEDROOM_ID, 700, 400, 0.5, 1);
-        this._addPosition(BEDROOM_ID, 300, 300, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 300, 300, 1, 0.5);
         this._addPosition(BEDROOM_ID, 400, 400, 0.5, 1);
         this._addPosition(BEDROOM_ID, 800, 300, 0.5, 0.5);
-        this._addPosition(BEDROOM_ID, 350, 150, 0.5, 0);
+        this._addPosition(BEDROOM_ID, 350, 150, 1, 0);
         this._addPosition(BEDROOM_ID, 550, 250, 0.5, 0.5);
         // ------------------------------
         this.positionSets[FOREST_ID] = [];

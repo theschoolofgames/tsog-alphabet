@@ -150,8 +150,8 @@ var RoomLayer = cc.Layer.extend({
             if (targetNode._objectTouching === targetNode._objectDisabled[i])
                 return false
         }
-
-        targetNode._objectTouching.setPosition(touchedPos);
+        var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
+        targetNode._objectTouching.setPosition(objectPosition);
 
         //set shadeObject to visible
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
@@ -166,9 +166,9 @@ var RoomLayer = cc.Layer.extend({
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
 
-        // var objectAnchorPoint = targetNode._objectTouching.getAnchorPoint();
-        // var objectPosWithDefaultAnchorPoint = cc.p(touchedPos.x*(0.5 - objectAnchorPoint.x), touchedPos.y*(0.5 - objectAnchorPoint.y));
-        targetNode._objectTouching.setPosition(touchedPos);
+        var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
+
+        targetNode._objectTouching.setPosition(objectPosition);
         targetNode._warningLabel.setPosition(cc.p(touchedPos.x, touchedPos.y + targetNode._objectTouching.height + 10));
 
         return true;
@@ -224,6 +224,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     handleObjectCorrectPos: function(index) {
+        if (!this._objectTouching)
+            return;
         var objectPos = this._objectTouching.getPosition();
         var shadePos = this._shadeObjects[index].getPosition();
         var distance = cc.pDistance(objectPos, shadePos);
@@ -241,6 +243,23 @@ var RoomLayer = cc.Layer.extend({
         countDownClock.y = cc.winSize.height - 20;
         this.addChild(countDownClock);
     },
+
+    getObjectPosWithTouchedPos: function(touchedPos) {
+        var objectAnchorPoint = this._objectTouching.getAnchorPoint();
+        var objectSize = this._objectTouching.getContentSize();
+        var anchorPointXRatio = (objectAnchorPoint.x <= 0.5) ? 1 : -1;
+        var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? 1 : -1;
+        cc.log("anchorPointXRatio" + JSON.stringify(anchorPointXRatio));
+        cc.log("anchorPointYRatio" + JSON.stringify(anchorPointYRatio));
+
+        var objectPosDistance = cc.p(objectSize.width*(0.5 - objectAnchorPoint.x)*anchorPointXRatio,
+                                    objectSize.height*(0.5 - objectAnchorPoint.y)*anchorPointYRatio);
+        var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
+        cc.log("objectPosition" + JSON.stringify(objectPosition));
+        cc.log("touchedPos" + JSON.stringify(touchedPos));
+        cc.log("objectAnchorPoint: " + JSON.stringify(objectAnchorPoint));
+        return objectPosition;
+    }
 
 });
 
