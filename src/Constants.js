@@ -49,7 +49,7 @@ var DataStore = cc.Class.extend({
         // add position
         this._addPosition(BEDROOM_ID, 100, 100, 0, 1);
         this._addPosition(BEDROOM_ID, 200, 100, 1, 0.5);
-        this._addPosition(BEDROOM_ID, 300, 100, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 300, 100, 0, 0.5);
         this._addPosition(BEDROOM_ID, 600, 100, 1, 1);
         this._addPosition(BEDROOM_ID, 500, 100, 0.5, 0);
         this._addPosition(BEDROOM_ID, 900, 300, 0, 0.5);
@@ -92,17 +92,17 @@ var DataStore = cc.Class.extend({
         this._addObject(BEDROOM_SHADE_ID, "toy-shade");
         this._addObject(BEDROOM_SHADE_ID, "ball-shade");
         // add position
-        this._addPosition(BEDROOM_SHADE_ID, 150, 150, 0.5, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 250, 150, 0.5, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 350, 150, 0.5, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 650, 150, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE_ID, 150, 150, 0, 1);
+        this._addPosition(BEDROOM_SHADE_ID, 250, 150, 1, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 350, 150, 0, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 650, 150, 1, 1);
         this._addPosition(BEDROOM_SHADE_ID, 550, 150, 0.5, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 950, 350, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 950, 350, 0, 0.5);
         this._addPosition(BEDROOM_SHADE_ID, 750, 450, 0.5, 1);
-        this._addPosition(BEDROOM_SHADE_ID, 350, 350, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 350, 350, 1, 0.5);
         this._addPosition(BEDROOM_SHADE_ID, 450, 450, 0.5, 1);
         this._addPosition(BEDROOM_SHADE_ID, 850, 350, 0.5, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 400, 200, 0.5, 0);
+        this._addPosition(BEDROOM_SHADE_ID, 400, 200, 1, 0);
         this._addPosition(BEDROOM_SHADE_ID, 600, 300, 0.5, 0.5);
     },
 

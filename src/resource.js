@@ -5,7 +5,10 @@ var res = {
    Red_PlaceHolder_jpg: "res/red-place-holder.jpg",
    Button_Refresh_png: "res/refresh-button.png",
    Back_Button_png: "res/back.png",
-   Back_Button_Pressed_png: "res/back-pressed.png"
+   Back_Button_Pressed_png: "res/back-pressed.png",
+   // plist file
+   Forest_plist: "forest.plist",
+   Forest_png: "forest.png"
 };
 
 var g_resources = [];

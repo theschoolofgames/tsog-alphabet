@@ -10,6 +10,8 @@ var RoomLayer = cc.Layer.extend({
         cc.log("Dev: " + whoAmI);
         this._super();
 
+        cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+
         this.resetObjectArrays();
         this.createBackground();
         this.createObject();
@@ -169,7 +171,7 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-        targetNode._warningLabel.setPosition(cc.p(touchedPos.x, touchedPos.y + targetNode._objectTouching.height + 10));
+        targetNode._warningLabel.setPosition(objectPosition);
 
         return true;
     },
@@ -246,18 +248,16 @@ var RoomLayer = cc.Layer.extend({
 
     getObjectPosWithTouchedPos: function(touchedPos) {
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
+        cc.log("objectAnchorPoint" + JSON.stringify(objectAnchorPoint));
         var objectSize = this._objectTouching.getContentSize();
-        var anchorPointXRatio = (objectAnchorPoint.x <= 0.5) ? 1 : -1;
-        var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? 1 : -1;
-        cc.log("anchorPointXRatio" + JSON.stringify(anchorPointXRatio));
-        cc.log("anchorPointYRatio" + JSON.stringify(anchorPointYRatio));
+        // var anchorPointXRatio = (objectAnchorPoint.x <= 0.5) ? -1 : 1;
+        // var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? 1 : 1;
 
-        var objectPosDistance = cc.p(objectSize.width*(0.5 - objectAnchorPoint.x)*anchorPointXRatio,
-                                    objectSize.height*(0.5 - objectAnchorPoint.y)*anchorPointYRatio);
-        var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
-        cc.log("objectPosition" + JSON.stringify(objectPosition));
-        cc.log("touchedPos" + JSON.stringify(touchedPos));
-        cc.log("objectAnchorPoint: " + JSON.stringify(objectAnchorPoint));
+        var objectPosDistance = cc.p(objectSize.width*(0.5 - objectAnchorPoint.x),
+                                    objectSize.height*(0.5 - objectAnchorPoint.y));
+
+        var objectPosition = cc.pSub(touchedPos, objectPosDistance);
+
         return objectPosition;
     }
 
