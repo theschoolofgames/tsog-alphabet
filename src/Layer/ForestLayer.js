@@ -8,6 +8,7 @@ var ForestLayer = cc.Layer.extend({
     _warningLabel : null,
     _objectTouching: null,
     _countDownClock: null,
+    _starLabel: null,
     _totalSeconds: 0,
 
 	ctor: function() {
@@ -19,6 +20,7 @@ var ForestLayer = cc.Layer.extend({
         this.addBackButton();
         this.addRefreshButton();
         this.addCountDownClock();
+        this.createStarsLabel();
 
 		cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -71,18 +73,19 @@ var ForestLayer = cc.Layer.extend({
                 return false
         }
         targetNode._touchCounting += 1;
+        targetNode.computeStars();
         if (targetNode._warningLabel)
-        	targetNode._warningLabel.removeFromParent();
+            targetNode._warningLabel.removeFromParent();
 
-    	targetNode.createWarnLabel("animallll", targetNode._objectTouching);
+        targetNode.createWarnLabel("animallll", 32, targetNode._objectTouching);
 
         if (targetNode._touchCounting == 6){
-        	targetNode.runObjectAction(targetNode._warningLabel, CHANGE_SCENE_TIME, function(){
-        		targetNode.completedScene()
-        	});
+            targetNode.runObjectAction(targetNode._warningLabel, CHANGE_SCENE_TIME, function(){
+                targetNode.completedScene()
+            });
         }
         targetNode._objectDisabled.push(targetNode._objectTouching);
-
+        
         return true;
     },
 
@@ -105,6 +108,7 @@ var ForestLayer = cc.Layer.extend({
     resetObjectArrays: function() {
         this._objects = [];
         this._objectDisabled = [];
+        this._touchCounting = 0;
     },
 
     addRefreshButton: function() {
@@ -131,9 +135,9 @@ var ForestLayer = cc.Layer.extend({
         });
     },
 
-    createWarnLabel: function(text, object) {
+    createWarnLabel: function(text, size, object) {
 
-        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
+        var warnLabel = new cc.LabelTTF(text, "Arial", size);
         warnLabel.setColor(cc.color.RED);
         if (object) {
             warnLabel.x = object.x;
@@ -152,7 +156,7 @@ var ForestLayer = cc.Layer.extend({
         if (this._warningLabel)
             this._warningLabel.removeFromParent();
 
-        this.createWarnLabel("Scene Completed!");
+        this.createWarnLabel("Scene Completed!", 32);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());
                 });
@@ -167,11 +171,35 @@ var ForestLayer = cc.Layer.extend({
 
     addCountDownClock: function() {
         var self = this;
-        var countDownClock = new Clock(300, function(){self.completedScene()});
+        var countDownClock = new Clock(300, function(){
+            self.completedScene();
+        });
         countDownClock.x = cc.winSize.width / 2 - 10;
         countDownClock.y = cc.winSize.height - 20;
         this.addChild(countDownClock);
     },
+
+    createStarsLabel: function() {
+        var starLabel = new cc.LabelTTF("0 star", "Arial", 32);
+        starLabel.x = cc.winSize.width/2 - 30;
+        starLabel.y = cc.winSize.height - 50;
+        starLabel.setColor(cc.color.RED);
+        this.addChild(starLabel);
+
+        this._starLabel = starLabel;
+    },
+
+    computeStars: function() {
+        if (!this._starLabel)
+            return;
+
+        if (this._touchCounting == 3)
+            this._starLabel.setString(1 + " star");
+        if (this._touchCounting == 4 || this._touchCounting == 5)
+            this._starLabel.setString(2 + " stars");
+        if (this._touchCounting == 6) 
+            this._starLabel.setString(3 + " stars");
+    }
 
 });
 var ForestScene = cc.Scene.extend({
