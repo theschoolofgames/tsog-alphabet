@@ -135,8 +135,8 @@ static AppDelegate s_sharedApplication;
   NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
   
   NSArray* dataArray = [decodedString componentsSeparatedByString:@":"];
-  NSString* message = [NSString stringWithFormat:@"UserId: %@\nSchoolID: %@\nSchoolName: %@",
-                       dataArray[0], dataArray[1], dataArray[2]];
+  NSString* message = [NSString stringWithFormat:@"UserName: %@\nSchoolName: %@",
+                       dataArray[0], dataArray[1]];
   
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"TSOG"
                                                     message:message
