@@ -140,6 +140,9 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
+        // disable multitouching
+        if (targetNode._objectTouching)
+            return false;
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
@@ -163,6 +166,8 @@ var RoomLayer = cc.Layer.extend({
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
 
+        // var objectAnchorPoint = targetNode._objectTouching.getAnchorPoint();
+        // var objectPosWithDefaultAnchorPoint = cc.p(touchedPos.x*(0.5 - objectAnchorPoint.x), touchedPos.y*(0.5 - objectAnchorPoint.y));
         targetNode._objectTouching.setPosition(touchedPos);
         targetNode._warningLabel.setPosition(cc.p(touchedPos.x, touchedPos.y + targetNode._objectTouching.height + 10));
 
