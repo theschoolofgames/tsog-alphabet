@@ -28,7 +28,7 @@
             </struct>
             <struct type="AutoSDSettings">
                 <key>scale</key>
-                <double>0.5</double>
+                <double>0.41667</double>
                 <key>extension</key>
                 <string>SD</string>
                 <key>spriteFilter</key>
@@ -105,9 +105,9 @@
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
-            <int>2048</int>
+            <int>4096</int>
             <key>height</key>
-            <int>2048</int>
+            <int>4096</int>
         </QSize>
         <key>fixedTextureSize</key>
         <QSize>

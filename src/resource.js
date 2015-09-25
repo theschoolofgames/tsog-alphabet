@@ -8,7 +8,8 @@ var res = {
    Back_Button_Pressed_png: "res/back-pressed.png",
    // plist file
    Forest_plist: "forest.plist",
-   Forest_png: "forest.png"
+   Forest_png: "forest.png",
+   BG_jpg: "BG.jpg"
 };
 
 var g_resources = [];

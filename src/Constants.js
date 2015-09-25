@@ -145,3 +145,121 @@ DataStore.setupInstance = function () {
 };
 
 var CHANGE_SCENE_TIME = 2;
+
+FOREST_BACKGROUND_DATA = [
+    {
+        imageName: "#cloud-1.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: cc.winSize.width / 2 + 100,
+        y: cc.winSize.height - 100,
+        z: 1
+    },
+    {
+        imageName: "#cloud-3.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: cc.winSize.width/2 -100,
+        y: cc.winSize.height - 70,
+        z: 1
+    },
+    {
+        imageName: "#cloud-4.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: 0,
+        y: cc.winSize.height - 120,
+        z: 1
+    },
+    {
+        imageName: "#river.png",
+        anchorX: 1,
+        anchorY: 0.5,
+        x: cc.winSize.width,
+        y: cc.winSize.height/2 - 110,
+        z: 1
+    },
+    {
+        imageName: "#water-fall.png",
+        anchorX: 0,
+        anchorY: 0.5,
+        x: 0,
+        y: cc.winSize.height/2 + 80,
+        z: 1
+    },
+    {
+        imageName: "#ground.png",
+        anchorX: 0,
+        anchorY: 0.5,
+        x: 0,
+        y: 143,
+        z: 4
+    },
+    {
+        imageName: "BG.jpg",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: cc.winSize.width/2,
+        y: cc.winSize.height/2 - 100,
+        z: 0
+    },
+    {
+        imageName: "#tree-shadow.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: 485,
+        y: cc.winSize.height/2 - 50,
+        z: 5
+    },
+    {
+        imageName: "#tree-1.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: 485,
+        y: cc.winSize.height/2 - 50,
+        z: 5
+    },
+    {
+        imageName: "#tree-2.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: 299,
+        y: cc.winSize.height/2 + 50,
+        z: 3
+    },{
+        imageName: "#tree-3.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: 407,
+        y: cc.winSize.height/2 + 60,
+        z: 2
+    },{
+        imageName: "#tree-4.png",
+        anchorX: 1,
+        anchorY: 0.5,
+        x: cc.winSize.width,
+        y: cc.winSize.height/2 + 20,
+        z: 5
+    },{
+        imageName: "#tree-5.png",
+        anchorX: 1,
+        anchorY: 0.5,
+        x: cc.winSize.width,
+        y: cc.winSize.height/2,
+        z: 2
+    },{
+        imageName: "#bush-1.png",
+        anchorX: 0,
+        anchorY: 0.5,
+        x: 0,
+        y: 76,
+        z: 6
+    },{
+        imageName: "#bush-2.png",
+        anchorX: 0.5,
+        anchorY: 0.5,
+        x: cc.winSize.width/2 + 300,
+        y: 104,
+        z: 6
+    },
+];

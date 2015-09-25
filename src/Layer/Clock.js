@@ -26,10 +26,10 @@ var Clock = cc.Node.extend({
 
     countDownClockAction: function() {
         this._totalSeconds -= 1;
-        var currentTime = this.getCurrentTime(); 
+        var currentTime = this.getCurrentTime();
         this._countDownClock.setString(currentTime);
 
-        if (this.callback && this._totalSeconds == 0) {
+        if (this.callback && this._totalSeconds == 1) {
         	this.callback();
         }
     },
@@ -41,7 +41,7 @@ var Clock = cc.Node.extend({
         if (seconds < 10) {
             currentTime = minutes + ":0" + seconds
         }
-        else 
+        else
             currentTime = minutes + ":" + seconds;
 
         return currentTime;

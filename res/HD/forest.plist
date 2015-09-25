@@ -173,6 +173,19 @@
                 <key>sourceSize</key>
                 <string>{444,424}</string>
             </dict>
+            <key>tree-shadow.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,3565},{309,48}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{309,48}}</string>
+                <key>sourceSize</key>
+                <string>{309,48}</string>
+            </dict>
             <key>water-fall.png</key>
             <dict>
                 <key>frame</key>
@@ -196,7 +209,7 @@
             <key>size</key>
             <string>{2011,3666}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:95bf7b6fc3084f552a9f618a4f675c0b:28282b6d75fca1c2af1d34bb30d8a996:9bbd45b028f96d856e579760e5d92cf2$</string>
+            <string>$TexturePacker:SmartUpdate:297b045db2d79c8e66ce08fe6e2e251a:1e446660ea1b0518f79db85c98797875:9bbd45b028f96d856e579760e5d92cf2$</string>
             <key>textureFileName</key>
             <string>forest.png</string>
         </dict>

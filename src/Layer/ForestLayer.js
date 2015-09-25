@@ -4,6 +4,7 @@ var ForestLayer = cc.Layer.extend({
     _objectDisabled: [],
 
     _touchCounting: 0,
+    _background: null,
     _warningLabel: null,
     _warningLabel : null,
     _objectTouching: null,
@@ -16,7 +17,7 @@ var ForestLayer = cc.Layer.extend({
 
         this.resetObjectArrays();
 		this.createBackground();
-		this.createAnimals();
+		// this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
         this.addCountDownClock();
@@ -30,13 +31,37 @@ var ForestLayer = cc.Layer.extend({
 	},
 
 	createBackground: function() {
-		var backGround = new cc.Sprite(res.forest_jpg);
-		var scale = cc.winSize.width / backGround.width;
-		backGround.setScale(scale);
-		backGround.x = cc.winSize.width/2;
-		backGround.y = cc.winSize.height/2;
-		this.addChild(backGround);
+		var background = new cc.LayerColor(cc.color("#c3eef5"));
+        background.width = cc.winSize.width;
+        background.height = cc.winSize.height;
+
+		this.addChild(background);
+
+        for ( var i = 0; i < FOREST_BACKGROUND_DATA.length; i++) {
+            var element = FOREST_BACKGROUND_DATA[i];
+            var backgroundElt = new cc.Sprite(element.imageName);
+            backgroundElt.x = element.x;
+            backgroundElt.y = element.y;
+            backgroundElt.setAnchorPoint(element.anchorX, element.anchorY);
+            background.addChild(backgroundElt, element.z);
+            if (i < 3)
+                this.runCloudsAction(backgroundElt);
+        }
 	},
+
+    runCloudsAction: function(element) {
+        var randomedRunningTime = 0;
+        var endPoint = null;
+        randomedRunningTime = (Math.random() * 5 + 1) * 100;
+        endPoint = cc.p(cc.winSize.width, element.y);
+        element.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    cc.moveTo(randomedRunningTime, endPoint)
+                )
+            )
+        )
+    },
 
 	createAnimals: function() {
  		var dsInstance = DataStore.getInstance();
@@ -85,7 +110,7 @@ var ForestLayer = cc.Layer.extend({
             });
         }
         targetNode._objectDisabled.push(targetNode._objectTouching);
-        
+
         return true;
     },
 
@@ -197,7 +222,7 @@ var ForestLayer = cc.Layer.extend({
             this._starLabel.setString(1 + " star");
         if (this._touchCounting == 4 || this._touchCounting == 5)
             this._starLabel.setString(2 + " stars");
-        if (this._touchCounting == 6) 
+        if (this._touchCounting == 6)
             this._starLabel.setString(3 + " stars");
     }
 
