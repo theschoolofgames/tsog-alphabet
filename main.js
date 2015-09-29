@@ -110,8 +110,12 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
     //load resources
+    if (jsb.fileUtils.isFileExist("src/WhoAmI.js"));
+        require("src/WhoAmI.js");
+
     cc.LoaderScene.preload(g_resources, function () {
         // KVDatabase.setupInstance(CocosKVImpl);
+        
         if (whoAmI && whoAmI === "tony")
             cc.director.runScene(new RoomScene());
         else
