@@ -3,7 +3,7 @@ var RoomLayer = cc.Layer.extend({
     _objects: [],
     _shadeObjects: [],
     _correctedObject: [],
-    _objectDisabled: [],
+    _objectDisableds: [],
     _warningLabel: null,
 
     ctor: function() {
@@ -120,6 +120,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     _isTouchingObject: function(touchedPos) {
+        //disable multiTouch
+        if (this._objectTouching)
+            return false;
         // nếu vị trí bấm vào nằm trong object thì gán object đó vào _objectTouching để sử dụng
         var distance = 0;
         var objBoundingBox = null;
@@ -142,15 +145,15 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-        // disable multitouching
-        if (targetNode._objectTouching)
-            return false;
+
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
-        for (var i = 0; i < targetNode._objectDisabled.length; i++) {
-            if (targetNode._objectTouching === targetNode._objectDisabled[i])
+        for (var i = 0; i < targetNode._objectDisableds.length; i++) {
+            if (targetNode._objectTouching === targetNode._objectDisableds[i]){
+                targetNode._objectTouching = null;
                 return false
+            }
         }
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
@@ -187,7 +190,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
 
         // win condition
-        if (targetNode._objectDisabled.length == 6)
+        if (targetNode._objectDisableds.length == 6)
             targetNode.completedScene()
 
         return true;
@@ -212,7 +215,7 @@ var RoomLayer = cc.Layer.extend({
         this._objects = [];
         this._shadeObjects = [];
         this._correctedObject = [];
-        this._objectDisabled = [];
+        this._objectDisableds = [];
     },
 
     highLightObjectCorrectPos: function(index) {
@@ -226,6 +229,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     handleObjectCorrectPos: function(index) {
+        cc.log("enter handle object position");
         if (!this._objectTouching)
             return;
         var objectPos = this._objectTouching.getPosition();
@@ -234,8 +238,10 @@ var RoomLayer = cc.Layer.extend({
 
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos)
-            this._objectDisabled.push(this._objectTouching);
+            this._objectDisableds.push(this._objectTouching);
+            cc.log("in checking distance");
         }
+        cc.log("end of handle object position");
     },
 
     addCountDownClock: function() {
@@ -248,10 +254,9 @@ var RoomLayer = cc.Layer.extend({
 
     getObjectPosWithTouchedPos: function(touchedPos) {
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
-        cc.log("objectAnchorPoint" + JSON.stringify(objectAnchorPoint));
         var objectSize = this._objectTouching.getContentSize();
         // var anchorPointXRatio = (objectAnchorPoint.x <= 0.5) ? -1 : 1;
-        // var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? 1 : 1;
+        // var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? -1 : 1;
 
         var objectPosDistance = cc.p(objectSize.width*(0.5 - objectAnchorPoint.x),
                                     objectSize.height*(0.5 - objectAnchorPoint.y));

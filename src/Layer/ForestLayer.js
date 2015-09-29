@@ -41,10 +41,8 @@ var ForestLayer = cc.Layer.extend({
 		this.addChild(background);
 
         var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
-        cc.log(JSON.stringify(forestBgData));
         for ( var i = 0; i < forestBgData.length; i++) {
             var element = forestBgData[i];
-            cc.log(JSON.stringify(element));
             var backgroundElt = new cc.Sprite(element.imageName);
             backgroundElt.x = element.x;
             backgroundElt.y = element.y;
