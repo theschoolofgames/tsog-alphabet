@@ -16,6 +16,7 @@
         "src/Layer/ForestLayer.js",
         "src/Layer/RoomLayer.js",
         "src/Constants.js",
+        "src/Data.js",
         "src/Utils.js",
         "src/Layer/Clock.js"
     ]

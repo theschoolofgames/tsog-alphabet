@@ -4,6 +4,7 @@ var ForestLayer = cc.Layer.extend({
     _objectDisabled: [],
 
     _touchCounting: 0,
+    _dsInstance: null,
     _background: null,
     _warningLabel: null,
     _warningLabel : null,
@@ -14,6 +15,8 @@ var ForestLayer = cc.Layer.extend({
 
 	ctor: function() {
 		this._super();
+
+        this._dsInstance = DataStore.getInstance();
 
         this.resetObjectArrays();
 		this.createBackground();
@@ -37,8 +40,11 @@ var ForestLayer = cc.Layer.extend({
 
 		this.addChild(background);
 
-        for ( var i = 0; i < FOREST_BACKGROUND_DATA.length; i++) {
-            var element = FOREST_BACKGROUND_DATA[i];
+        var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
+        cc.log(JSON.stringify(forestBgData));
+        for ( var i = 0; i < forestBgData.length; i++) {
+            var element = forestBgData[i];
+            cc.log(JSON.stringify(element));
             var backgroundElt = new cc.Sprite(element.imageName);
             backgroundElt.x = element.x;
             backgroundElt.y = element.y;
@@ -64,9 +70,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
 	createAnimals: function() {
- 		var dsInstance = DataStore.getInstance();
- 		var randomedAnimalArray = dsInstance.getRandomObjects(FOREST_ID, NUMBER_ITEMS);
- 		var randomedPositionArray = dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
+ 		var randomedAnimalArray = this._dsInstance.getRandomObjects(FOREST_ID, NUMBER_ITEMS);
+ 		var randomedPositionArray = this._dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
 
  		for (i = 0; i < NUMBER_ITEMS; i++)
  			this.createAnimal(randomedPositionArray[i], randomedAnimalArray[i], i);
