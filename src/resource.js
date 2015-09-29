@@ -1,6 +1,6 @@
 var res = {
    forest_jpg : "res/forest.jpg",
-   room_jpg: "res/room.jpg",
+   room_jpg: "Bedroom-screen.jpg",
    GrayButton_png: "res/gray-button.png",
    Red_PlaceHolder_jpg: "res/red-place-holder.jpg",
    Button_Refresh_png: "res/refresh-button.png",
