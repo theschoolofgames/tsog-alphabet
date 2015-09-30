@@ -20,7 +20,7 @@ var ForestLayer = cc.Layer.extend({
 
         this.resetObjectArrays();
 		this.createBackground();
-		// this.createAnimals();
+		this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
         this.addCountDownClock();

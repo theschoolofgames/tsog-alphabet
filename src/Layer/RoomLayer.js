@@ -229,7 +229,6 @@ var RoomLayer = cc.Layer.extend({
     },
 
     handleObjectCorrectPos: function(index) {
-        cc.log("enter handle object position");
         if (!this._objectTouching)
             return;
         var objectPos = this._objectTouching.getPosition();
@@ -237,11 +236,10 @@ var RoomLayer = cc.Layer.extend({
         var distance = cc.pDistance(objectPos, shadePos);
 
         if (distance < 100) {
-            this._objectTouching.setPosition(shadePos)
+            this._objectTouching.setPosition(shadePos);
+            this._objectTouching.setLocalZOrder(0);
             this._objectDisableds.push(this._objectTouching);
-            cc.log("in checking distance");
         }
-        cc.log("end of handle object position");
     },
 
     addCountDownClock: function() {
