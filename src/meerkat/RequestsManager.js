@@ -4,6 +4,29 @@ var RequestsManager = cc.Class.extend({
     ctor: function () {
         cc.assert(RequestsManager._instance == null, "can be instantiated once only");
     },
+
+    postGameProgress: function(userId, gameId, score, star, timeTaken, callback) {
+      var url = BACKEND_ADDRESS + "api/gameProgress";
+      var self = this;
+
+      var data = {
+        user_id: userId,
+        game_id: gameId,
+        level: score,
+        star: star,
+        time_taken: timeTaken
+      };
+
+      // cc.log(JSON.stringify(data));
+
+      RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
+        if (succeed) {
+          var data = JSON.parse(responseText);
+          callback && callback(true, data);
+        } else
+          callback && callback(false, null);
+      });
+    },
 });
 
 RequestsManager._instance = null;
