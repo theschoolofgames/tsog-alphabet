@@ -5,6 +5,127 @@ var BEDROOM_ID = 0;
 var FOREST_ID = 1;
 var BEDROOM_SHADE_ID = 2;
 var FOREST_BACKGROUND_ID = 3;
+var FOREST_BACKGROUND_ITEMS_POSITION = [
+    {
+        x: cc.winSize.width / 2 + 100,
+        y: cc.winSize.height - 100,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#cloud-1.png",
+        z: 1
+    },
+    {
+        x: cc.winSize.width / 2 - 100,
+        y: cc.winSize.height - 70,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#cloud-3.png",
+        z: 1
+    },
+    {
+        x: 0,
+        y: cc.winSize.height - 120,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#cloud-4.png",
+        z:1
+    },
+    {
+        x: cc.winSize.width,
+        y: cc.winSize.height/2 - 110,
+        anchorX: 1,
+        anchorY: 0.5,
+        imageName: "#river.png",
+        z: 1
+    },
+    {
+        x: 0,
+        y: cc.winSize.height / 2 + 80,
+        anchorX: 0,
+        anchorY: 0.5,
+        imageName: "#water-fall.png",
+        z: 1 },
+    {
+        x: 0,
+        y: 143,
+        anchorX: 0,
+        anchorY: 0.5,
+        imageName: "#ground.png",
+        z: 4
+    },
+    {
+        x: cc.winSize.width / 2,
+        y: cc.winSize.height / 2 - 100,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "BG.jpg",
+        z: 0
+    },
+    {
+        x: 485,
+        y: cc.winSize.height/2 - 50,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#tree-shadow.png",
+        z: 5
+    },
+    {
+        x: 485,
+        y: cc.winSize.height/2 - 50,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#tree-1.png",
+        z: 5
+    },
+    {
+        x: 299,
+        y: cc.winSize.height/2 + 50,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#tree-2.png",
+        z: 3
+    },
+    {
+        x: 407,
+        y: cc.winSize.height/2 + 60,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#tree-3.png",
+        z: 2
+    },
+    {
+        x: cc.winSize.width,
+        y: cc.winSize.height/2 + 20,
+        anchorX: 1,
+        anchorY: 0.5,
+        imageName: "#tree-4.png",
+        z: 5
+    },
+    {
+        x: cc.winSize.width,
+        y: cc.winSize.height/2,
+        anchorX: 1,
+        anchorY: 0.5,
+        imageName: "#tree-5.png",
+        z: 2
+    },
+    {
+        x: 0,
+        y: 76,
+        anchorX: 0,
+        anchorY: 0.5,
+        imageName: "#bush-1.png",
+        z: 6
+    },
+    {
+        x: cc.winSize.width/2 + 300,
+        y: 104,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#bush-2.png",
+        z: 6
+    }
+];
 
 var DataStore = cc.Class.extend({
     positionSets: [],
@@ -40,7 +161,7 @@ var DataStore = cc.Class.extend({
     _addObject: function(setId, imageName) {
         var objArray = this.objectSets[setId];
         var imagePath = imageName + ".png";
-        if (!imageName)
+        if (imageName == undefined)
             imagePath = "";
 
         var obj = {imagePath: imagePath};
@@ -51,11 +172,12 @@ var DataStore = cc.Class.extend({
         this.positionSets[BEDROOM_ID] = [];
         this.objectSets[BEDROOM_ID] = [];
         //add object
-        this._addObject(BEDROOM_ID, "pen");
-        this._addObject(BEDROOM_ID, "cup");
-        this._addObject(BEDROOM_ID, "doll");
-        this._addObject(BEDROOM_ID, "toy");
-        this._addObject(BEDROOM_ID, "ball");
+        this._addObject(BEDROOM_ID, "colored-pencils");
+        this._addObject(BEDROOM_ID, "book");
+        this._addObject(BEDROOM_ID, "book");
+        this._addObject(BEDROOM_ID, "chair");
+        this._addObject(BEDROOM_ID, "banana");
+        this._addObject(BEDROOM_ID, "banana");
         // add position
         this._addPosition(BEDROOM_ID, 100, 100, 0, 1);
         this._addPosition(BEDROOM_ID, 200, 100, 1, 0.5);
@@ -73,11 +195,12 @@ var DataStore = cc.Class.extend({
         this.positionSets[FOREST_ID] = [];
         this.objectSets[FOREST_ID] = [];
         // add object
-        this._addObject(FOREST_ID, "cat");
-        this._addObject(FOREST_ID, "dog");
         this._addObject(FOREST_ID, "bird");
-        this._addObject(FOREST_ID, "elephant");
-        this._addObject(FOREST_ID, "tiger");
+        this._addObject(FOREST_ID, "bear");
+        this._addObject(FOREST_ID, "bear");
+        this._addObject(FOREST_ID, "cat");
+        this._addObject(FOREST_ID, "cat");
+        this._addObject(FOREST_ID, "cat");
         // add position
         this._addPosition(FOREST_ID, 100, 100, 0.5, 0);
         this._addPosition(FOREST_ID, 200, 100, 0.5, 0);
@@ -96,11 +219,12 @@ var DataStore = cc.Class.extend({
         this.positionSets[BEDROOM_SHADE_ID] = [];
         this.objectSets[BEDROOM_SHADE_ID] = [];
         //add object
-        this._addObject(BEDROOM_SHADE_ID, "pen-shade");
-        this._addObject(BEDROOM_SHADE_ID, "cup-shade");
-        this._addObject(BEDROOM_SHADE_ID, "doll-shade");
-        this._addObject(BEDROOM_SHADE_ID, "toy-shade");
-        this._addObject(BEDROOM_SHADE_ID, "ball-shade");
+        this._addObject(BEDROOM_SHADE_ID, "colored-pencils");
+        this._addObject(BEDROOM_SHADE_ID, "book");
+        this._addObject(BEDROOM_SHADE_ID, "book");
+        this._addObject(BEDROOM_SHADE_ID, "chair");
+        this._addObject(BEDROOM_SHADE_ID, "banana");
+        this._addObject(BEDROOM_SHADE_ID, "banana");
         // add position
         this._addPosition(BEDROOM_SHADE_ID, 150, 150, 0, 1);
         this._addPosition(BEDROOM_SHADE_ID, 250, 150, 1, 0.5);
@@ -119,21 +243,17 @@ var DataStore = cc.Class.extend({
         this.positionSets[FOREST_BACKGROUND_ID] = [];
         this.objectSets[FOREST_BACKGROUND_ID] = [];
         //add position
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width / 2 + 100, cc.winSize.height - 100, 0.5, 0.5, "#cloud-1.png", 1);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width / 2 - 100, cc.winSize.height - 70, 0.5, 0.5, "#cloud-3.png", 1);
-        this._addPosition(FOREST_BACKGROUND_ID, 0, cc.winSize.height - 120, 0.5, 0.5, "#cloud-4.png", 1);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width, cc.winSize.height/2 - 110, 1, 0.5, "#river.png", 1);
-        this._addPosition(FOREST_BACKGROUND_ID, 0, cc.winSize.height / 2 + 80, 0, 0.5, "#water-fall.png", 1);
-        this._addPosition(FOREST_BACKGROUND_ID, 0, 143, 0, 0.5, "#ground.png", 4);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width / 2, cc.winSize.height / 2 - 100, 0.5, 0.5, "BG.jpg", 0);
-        this._addPosition(FOREST_BACKGROUND_ID, 485, cc.winSize.height/2 - 50, 0.5, 0.5, "#tree-shadow.png", 5);
-        this._addPosition(FOREST_BACKGROUND_ID, 485, cc.winSize.height/2 - 50, 0.5, 0.5, "#tree-1.png", 5);
-        this._addPosition(FOREST_BACKGROUND_ID, 299, cc.winSize.height/2 + 50, 0.5, 0.5, "#tree-2.png", 3);
-        this._addPosition(FOREST_BACKGROUND_ID, 407, cc.winSize.height/2 + 60, 0.5, 0.5, "#tree-3.png", 2);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width, cc.winSize.height/2 + 20, 1, 0.5, "#tree-4.png", 5);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width, cc.winSize.height/2, 1, 0.5, "#tree-5.png", 2);
-        this._addPosition(FOREST_BACKGROUND_ID, 0, 76, 0, 0.5, "#bush-1.png", 6);
-        this._addPosition(FOREST_BACKGROUND_ID, cc.winSize.width/2 + 300, 104, 0.5, 0.5, "#bush-2.png", 6);
+        for ( var i = 0; i < FOREST_BACKGROUND_ITEMS_POSITION.length; i++) {
+            var itemsPos = FOREST_BACKGROUND_ITEMS_POSITION[i];
+            this._addPosition(FOREST_BACKGROUND_ID,
+                itemsPos.x,
+                itemsPos.y,
+                itemsPos.anchorX,
+                itemsPos.anchorY,
+                itemsPos.imageName,
+                itemsPos.z);
+        }
+
     },
 
     getPosition: function(setId, index) {

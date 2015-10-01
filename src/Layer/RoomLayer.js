@@ -11,6 +11,8 @@ var RoomLayer = cc.Layer.extend({
         this._super();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
 
         this.resetObjectArrays();
         this.createBackground();
@@ -70,13 +72,14 @@ var RoomLayer = cc.Layer.extend({
         var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
 
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            this.createObjectShade(randomedShadePositionArray[i], randomedShadeObjectArray[i]);
-            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i], randomedShadePositionArray[i]);
+            cc.log("object array: " + JSON.stringify(randomedShadeObjectArray[i]));
+            this.createObjectShade(randomedShadePositionArray[i], randomedShadeObjectArray[i].imagePath);
+            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i].imagePath, randomedShadePositionArray[i]);
         }
     },
 
-    createObjectButton: function(objPosition, imgPath, shadePos) {
-        var object = new cc.Sprite(res.GrayButton_png);
+    createObjectButton: function(objPosition, imagePath, shadePos) {
+        var object = new cc.Sprite("#" + imagePath);
 
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
@@ -91,7 +94,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createObjectShade: function(shadePosition, imagePath) {
-        var shadeObject = new cc.Sprite(res.Red_PlaceHolder_jpg);
+        var shadeObject = new cc.Sprite("#" + imagePath);
         shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(shadePosition.anchorX, shadePosition.anchorY);
 

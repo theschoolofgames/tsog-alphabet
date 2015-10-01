@@ -9,6 +9,10 @@ var res = {
    // plist file
    Forest_plist: "forest.plist",
    Forest_png: "forest.png",
+   Animals_plist: "animals.plist",
+   Animals_png: "animals.png",
+   Things_plist: "things.plist",
+   Things_png: "things.png",
    BG_jpg: "BG.jpg"
 };
 
