@@ -115,6 +115,7 @@ cc.game.onStart = function(){
 
     cc.LoaderScene.preload(g_resources, function () {
         // KVDatabase.setupInstance(CocosKVImpl);
+        RequestsManager.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
@@ -124,6 +125,11 @@ cc.game.onStart = function(){
             cc.director.runScene(new RoomScene());
         else
             cc.director.runScene(new ForestScene());
+
+        // cc.eventManager.addCustomListener("main_app_called", function (event) {
+        //     cc.log(JSON.stringify(event.getUserData()));
+        // });
+
     }, this);
 };
 cc.game.run();

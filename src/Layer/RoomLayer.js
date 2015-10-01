@@ -5,14 +5,15 @@ var RoomLayer = cc.Layer.extend({
     _correctedObject: [],
     _objectDisableds: [],
     _warningLabel: null,
+    _countDownClock: null,
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
         this._super();
 
-        cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
+        // cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+        // cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
+        // cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
 
         this.resetObjectArrays();
         this.createBackground();
@@ -201,6 +202,7 @@ var RoomLayer = cc.Layer.extend({
 
     completedScene: function() {
         this.createWarnLabel("Scene Completed!");
+        RequestsManager.getInstance().postGameProgress(USER_ID, GAME_ID, 3, this._countDownClock.getElapseTime());
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
                 });
@@ -247,10 +249,10 @@ var RoomLayer = cc.Layer.extend({
 
     addCountDownClock: function() {
         var self = this;
-        var countDownClock = new Clock(300, function(){self.completedScene()});
-        countDownClock.x = cc.winSize.width / 2 - 10;
-        countDownClock.y = cc.winSize.height - 20;
-        this.addChild(countDownClock);
+        this._countDownClock = new Clock(300, function(){self.completedScene()});
+        this._countDownClock.x = cc.winSize.width / 2 - 10;
+        this._countDownClock.y = cc.winSize.height - 20;
+        this.addChild(this._countDownClock);
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {

@@ -5,27 +5,32 @@ var RequestsManager = cc.Class.extend({
         cc.assert(RequestsManager._instance == null, "can be instantiated once only");
     },
 
-    postGameProgress: function(userId, gameId, score, star, timeTaken, callback) {
-      var url = BACKEND_ADDRESS + "api/gameProgress";
-      var self = this;
+    getGame: function(bundle) {
+        var url = BACKEND_ADDRESS + "api/game";  
+    },
 
-      var data = {
-        user_id: userId,
-        game_id: gameId,
-        level: score,
-        star: star,
-        time_taken: timeTaken
-      };
+    postGameProgress: function(userId, gameId, star, timeTaken, callback) {
+        var url = BACKEND_ADDRESS + "api/gameProgress";
+        var self = this;
 
-      // cc.log(JSON.stringify(data));
+        var data = {
+            user_id: userId,
+            game_id: gameId,
+            data: {
+                star: star,
+                time_taken: timeTaken
+            }
+        };
 
-      RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
-        if (succeed) {
-          var data = JSON.parse(responseText);
-          callback && callback(true, data);
-        } else
-          callback && callback(false, null);
-      });
+        // cc.log(JSON.stringify(data));
+
+        RequestHelper.post(url, JSON.stringify(data), function(succeed, responseText) {
+            if (succeed) {
+                var data = JSON.parse(responseText);
+                callback && callback(true, data);
+            } else
+                callback && callback(false, null);
+        });
     },
 });
 

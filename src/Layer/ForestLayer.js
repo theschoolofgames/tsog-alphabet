@@ -13,6 +13,8 @@ var ForestLayer = cc.Layer.extend({
     _starLabel: null,
     _totalSeconds: 0,
 
+    _star: 0,
+
 	ctor: function() {
 		this._super();
 
@@ -188,6 +190,8 @@ var ForestLayer = cc.Layer.extend({
         if (this._warningLabel)
             this._warningLabel.removeFromParent();
 
+        RequestsManager.getInstance().postGameProgress(USER_ID, GAME_ID, this._star, this._countDownClock.getElapseTime());
+
         this.createWarnLabel("Scene Completed!", 32);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());
@@ -203,12 +207,12 @@ var ForestLayer = cc.Layer.extend({
 
     addCountDownClock: function() {
         var self = this;
-        var countDownClock = new Clock(300, function(){
+        this._countDownClock = new Clock(300, function(){
             self.completedScene();
         });
-        countDownClock.x = cc.winSize.width / 2 - 10;
-        countDownClock.y = cc.winSize.height - 20;
-        this.addChild(countDownClock, 99);
+        this._countDownClock.x = cc.winSize.width / 2 - 10;
+        this._countDownClock.y = cc.winSize.height - 20;
+        this.addChild(this._countDownClock, 99);
     },
 
     createStarsLabel: function() {
@@ -226,11 +230,13 @@ var ForestLayer = cc.Layer.extend({
             return;
 
         if (this._touchCounting == 3)
-            this._starLabel.setString(1 + " star");
+            this._star = 1;
         if (this._touchCounting == 4 || this._touchCounting == 5)
-            this._starLabel.setString(2 + " stars");
+            this._star = 2;
         if (this._touchCounting == 6)
-            this._starLabel.setString(3 + " stars");
+            this._star = 3;
+
+        this._starLabel.setString(this._star + " star" + (this._star > 1 ? 's' : ''));
     }
 
 });

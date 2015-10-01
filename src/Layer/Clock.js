@@ -1,6 +1,7 @@
 var Clock = cc.Node.extend({
 	_totalSeconds: 0,
 	_countDownClock: null,
+    _elapseSections: 0,
 	callback: null,
 
 	ctor: function(totalTimes, callback) {
@@ -26,6 +27,7 @@ var Clock = cc.Node.extend({
 
     countDownClockAction: function() {
         this._totalSeconds -= 1;
+        this._elapseSections += 1;
         var currentTime = this.getCurrentTime();
         this._countDownClock.setString(currentTime);
 
@@ -45,5 +47,9 @@ var Clock = cc.Node.extend({
             currentTime = minutes + ":" + seconds;
 
         return currentTime;
+    },
+
+    getElapseTime: function() {
+        return this._elapseSections;
     }
 })
