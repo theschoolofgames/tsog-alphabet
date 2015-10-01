@@ -34,10 +34,10 @@ var ForestLayer = cc.Layer.extend({
 	},
 
 	createBackground: function() {
-		var background = new cc.LayerColor(cc.color("#c3eef5"));
-        background.width = cc.winSize.width;
-        background.height = cc.winSize.height;
-
+		var background = new cc.Sprite(res.BG_jpg);
+        background.x = cc.winSize.width / 2;
+        background.y = cc.winSize.height / 2;
+        background.setLocalZOrder(0);
 		this.addChild(background);
 
         var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
@@ -47,7 +47,7 @@ var ForestLayer = cc.Layer.extend({
             backgroundElt.x = element.x;
             backgroundElt.y = element.y;
             backgroundElt.setAnchorPoint(element.anchorX, element.anchorY);
-            background.addChild(backgroundElt, element.z);
+            this.addChild(backgroundElt, element.z);
             if (i < 3)
                 this.runCloudsAction(backgroundElt);
         }
@@ -68,11 +68,13 @@ var ForestLayer = cc.Layer.extend({
     },
 
 	createAnimals: function() {
- 		var randomedAnimalArray = this._dsInstance.getRandomObjects(FOREST_ID, NUMBER_ITEMS);
- 		var randomedPositionArray = this._dsInstance.getRandomPositions(FOREST_ID, NUMBER_ITEMS);
+ 		var randomedAnimalArray = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+ 		var positionArray = this._dsInstance.getPositions(FOREST_ID, NUMBER_ITEMS);
 
- 		for (i = 0; i < NUMBER_ITEMS; i++)
- 			this.createAnimal(randomedPositionArray[i], randomedAnimalArray[i], i);
+ 		for ( var i = 0; i < NUMBER_ITEMS; i++) {
+            cc.log("animals: ---" + randomedAnimalArray[i]);
+ 			this.createAnimal(positionArray[i], randomedAnimalArray[i].imagePath, i);
+        }
 
     },
 
@@ -107,7 +109,7 @@ var ForestLayer = cc.Layer.extend({
 
         targetNode.createWarnLabel("animallll", 32, targetNode._objectTouching);
 
-        if (targetNode._touchCounting == 6){
+        if (targetNode._touchCounting == NUMBER_ITEMS){
             targetNode.runObjectAction(targetNode._warningLabel, CHANGE_SCENE_TIME, function(){
                 targetNode.completedScene()
             });
@@ -117,13 +119,15 @@ var ForestLayer = cc.Layer.extend({
         return true;
     },
 
-    createAnimal : function(Position, imagePath, i) {
-    	var animal =  new cc.Sprite(res.GrayButton_png,"", "");
+    createAnimal : function(position, imagePath, i) {
+        cc.log("createAnimal--- " + imagePath);
+    	var animal =  new cc.Sprite("#" + imagePath);
     	animal.scale = 0;
-    	animal.setAnchorPoint(Position.anchorX, Position.anchorY);
+    	animal.setAnchorPoint(position.anchorX, position.anchorY);
 
-    	animal.x = Position.x;
-    	animal.y =  Position.y;
+    	animal.x = position.x;
+    	animal.y = position.y;
+        animal.setLocalZOrder(position.z);
     	animal.runAction(
             cc.sequence(
                 cc.delayTime(i*0.1),
@@ -175,7 +179,7 @@ var ForestLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width / 2;
             warnLabel.y = cc.winSize.height - 100;
         }
-        this.addChild(warnLabel);
+        this.addChild(warnLabel,99);
 
         this._warningLabel = warnLabel;
     },
@@ -204,7 +208,7 @@ var ForestLayer = cc.Layer.extend({
         });
         countDownClock.x = cc.winSize.width / 2 - 10;
         countDownClock.y = cc.winSize.height - 20;
-        this.addChild(countDownClock);
+        this.addChild(countDownClock, 99);
     },
 
     createStarsLabel: function() {
@@ -212,7 +216,7 @@ var ForestLayer = cc.Layer.extend({
         starLabel.x = cc.winSize.width/2 - 30;
         starLabel.y = cc.winSize.height - 50;
         starLabel.setColor(cc.color.RED);
-        this.addChild(starLabel);
+        this.addChild(starLabel, 99);
 
         this._starLabel = starLabel;
     },

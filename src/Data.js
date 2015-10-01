@@ -54,14 +54,6 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         z: 4
     },
     {
-        x: cc.winSize.width / 2,
-        y: cc.winSize.height / 2 - 100,
-        anchorX: 0.5,
-        anchorY: 0.5,
-        imageName: "BG.jpg",
-        z: 0
-    },
-    {
         x: 485,
         y: cc.winSize.height/2 - 50,
         anchorX: 0.5,
@@ -172,72 +164,67 @@ var DataStore = cc.Class.extend({
         this.positionSets[BEDROOM_ID] = [];
         this.objectSets[BEDROOM_ID] = [];
         //add object
+        this._addObject(BEDROOM_ID, "book");
         this._addObject(BEDROOM_ID, "colored-pencils");
-        this._addObject(BEDROOM_ID, "book");
-        this._addObject(BEDROOM_ID, "book");
         this._addObject(BEDROOM_ID, "chair");
         this._addObject(BEDROOM_ID, "banana");
-        this._addObject(BEDROOM_ID, "banana");
         // add position
-        this._addPosition(BEDROOM_ID, 100, 100, 0, 1);
-        this._addPosition(BEDROOM_ID, 200, 100, 1, 0.5);
-        this._addPosition(BEDROOM_ID, 300, 100, 0, 0.5);
-        this._addPosition(BEDROOM_ID, 600, 100, 1, 1);
-        this._addPosition(BEDROOM_ID, 500, 100, 0.5, 0);
-        this._addPosition(BEDROOM_ID, 900, 300, 0, 0.5);
-        this._addPosition(BEDROOM_ID, 700, 400, 0.5, 1);
-        this._addPosition(BEDROOM_ID, 300, 300, 1, 0.5);
-        this._addPosition(BEDROOM_ID, 400, 400, 0.5, 1);
-        this._addPosition(BEDROOM_ID, 800, 300, 0.5, 0.5);
-        this._addPosition(BEDROOM_ID, 350, 150, 1, 0);
-        this._addPosition(BEDROOM_ID, 550, 250, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 100, 100, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 600, 300, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 300, 250, 0.5, 0.5);
+        this._addPosition(BEDROOM_ID, 600, 100, 0.5, 0.5);
+        // this._addPosition(BEDROOM_ID, 500, 100, 0.5, 0);
+        // this._addPosition(BEDROOM_ID, 900, 300, 0, 0.5);
+        // this._addPosition(BEDROOM_ID, 700, 400, 0.5, 1);
+        // this._addPosition(BEDROOM_ID, 300, 300, 1, 0.5);
+        // this._addPosition(BEDROOM_ID, 400, 400, 0.5, 1);
+        // this._addPosition(BEDROOM_ID, 800, 300, 0.5, 0.5);
+        // this._addPosition(BEDROOM_ID, 350, 150, 1, 0);
+        // this._addPosition(BEDROOM_ID, 550, 250, 0.5, 0.5);
         // ------------------------------
         this.positionSets[FOREST_ID] = [];
         this.objectSets[FOREST_ID] = [];
         // add object
         this._addObject(FOREST_ID, "bird");
         this._addObject(FOREST_ID, "bear");
-        this._addObject(FOREST_ID, "bear");
-        this._addObject(FOREST_ID, "cat");
-        this._addObject(FOREST_ID, "cat");
         this._addObject(FOREST_ID, "cat");
         // add position
-        this._addPosition(FOREST_ID, 100, 100, 0.5, 0);
-        this._addPosition(FOREST_ID, 200, 100, 0.5, 0);
-        this._addPosition(FOREST_ID, 300, 200, 0.5, 0);
-        this._addPosition(FOREST_ID, 400, 300, 0.5, 0);
-        this._addPosition(FOREST_ID, 500, 400, 0.5, 0);
-        this._addPosition(FOREST_ID, 100, 300, 0.5, 0.5);
-        this._addPosition(FOREST_ID, 200, 400, 0.5, 1);
-        this._addPosition(FOREST_ID, 300, 500, 0.5, 0.5);
-        this._addPosition(FOREST_ID, 700, 400, 0.5, 1);
-        this._addPosition(FOREST_ID, 500, 500, 0.5, 0.5);
-        this._addPosition(FOREST_ID, 850, 150, 0.5, 0);
-        this._addPosition(FOREST_ID, 450, 250, 0.5, 0.5);
+        this._addPosition(FOREST_ID, cc.winSize.width - 300, cc.winSize.height/2 + 100, 0.5, 0);
+        this._addPosition(FOREST_ID, cc.winSize.width - 400, 20, 0.5, 0, "", 5);
+        this._addPosition(FOREST_ID, cc.winSize.width/2 - 100, 100, 0.5, 0, "", 4);
+        // this._addPosition(FOREST_ID, 400, 300, 0.5, 0);
+        // this._addPosition(FOREST_ID, 500, 400, 0.5, 0);
+        // this._addPosition(FOREST_ID, 100, 300, 0.5, 0.5);
+        // this._addPosition(FOREST_ID, 200, 400, 0.5, 1);
+        // this._addPosition(FOREST_ID, 300, 500, 0.5, 0.5);
+        // this._addPosition(FOREST_ID, 700, 400, 0.5, 1);
+        // this._addPosition(FOREST_ID, 500, 500, 0.5, 0.5);
+        // this._addPosition(FOREST_ID, 850, 150, 0.5, 0);
+        // this._addPosition(FOREST_ID, 450, 250, 0.5, 0.5);
         // ------------------------------
 
         this.positionSets[BEDROOM_SHADE_ID] = [];
         this.objectSets[BEDROOM_SHADE_ID] = [];
         //add object
+        this._addObject(BEDROOM_SHADE_ID, "book");
         this._addObject(BEDROOM_SHADE_ID, "colored-pencils");
-        this._addObject(BEDROOM_SHADE_ID, "book");
-        this._addObject(BEDROOM_SHADE_ID, "book");
+        // this._addObject(BEDROOM_SHADE_ID, "book");
         this._addObject(BEDROOM_SHADE_ID, "chair");
         this._addObject(BEDROOM_SHADE_ID, "banana");
-        this._addObject(BEDROOM_SHADE_ID, "banana");
+        // this._addObject(BEDROOM_SHADE_ID, "banana");
         // add position
-        this._addPosition(BEDROOM_SHADE_ID, 150, 150, 0, 1);
-        this._addPosition(BEDROOM_SHADE_ID, 250, 150, 1, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 350, 150, 0, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 650, 150, 1, 1);
-        this._addPosition(BEDROOM_SHADE_ID, 550, 150, 0.5, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 950, 350, 0, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 750, 450, 0.5, 1);
-        this._addPosition(BEDROOM_SHADE_ID, 350, 350, 1, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 450, 450, 0.5, 1);
-        this._addPosition(BEDROOM_SHADE_ID, 850, 350, 0.5, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 400, 200, 1, 0);
-        this._addPosition(BEDROOM_SHADE_ID, 600, 300, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 825, 310, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 1070, 254, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 936, 158, 0.5, 0.5);
+        this._addPosition(BEDROOM_SHADE_ID, 253, 282, 0.5, 0.5);
+        // this._addPosition(BEDROOM_SHADE_ID, 550, 150, 0.5, 0);
+        // this._addPosition(BEDROOM_SHADE_ID, 950, 350, 0, 0.5);
+        // this._addPosition(BEDROOM_SHADE_ID, 750, 450, 0.5, 1);
+        // this._addPosition(BEDROOM_SHADE_ID, 350, 350, 1, 0.5);
+        // this._addPosition(BEDROOM_SHADE_ID, 450, 450, 0.5, 1);
+        // this._addPosition(BEDROOM_SHADE_ID, 850, 350, 0.5, 0.5);
+        // this._addPosition(BEDROOM_SHADE_ID, 400, 200, 1, 0);
+        // this._addPosition(BEDROOM_SHADE_ID, 600, 300, 0.5, 0.5);
 
         // -------------------------------
         this.positionSets[FOREST_BACKGROUND_ID] = [];

@@ -33,7 +33,6 @@ var RoomLayer = cc.Layer.extend({
         var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = cc.winSize.height - refreshButton.height / 2;
-
         this.addChild(refreshButton);
 
         refreshButton.addClickEventListener(function() {
@@ -65,14 +64,15 @@ var RoomLayer = cc.Layer.extend({
     createObject: function() {
         var dsInstance = DataStore.getInstance();
         // get randomed arrays with BEDROOM_ID
-        var randomedObjectArray = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
-        var randomedPositionArray = dsInstance.getRandomPositions(BEDROOM_ID, NUMBER_ITEMS);
+        var randomedObjectArray = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
+        var randomedPositionArray = dsInstance.getPositions(BEDROOM_ID, NUMBER_ITEMS);
         // get randomed arrays with BEDROOM_SHADE
-        var randomedShadeObjectArray = dsInstance.getRandomObjects(BEDROOM_SHADE_ID, NUMBER_ITEMS);
-        var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
+        var randomedShadeObjectArray = dsInstance.getObjects(BEDROOM_SHADE_ID, NUMBER_ITEMS);
+        var randomedShadePositionArray = dsInstance.getPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
+        // var randomedShadeObjectArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
+        // var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
 
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            cc.log("object array: " + JSON.stringify(randomedShadeObjectArray[i]));
             this.createObjectShade(randomedShadePositionArray[i], randomedShadeObjectArray[i].imagePath);
             this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i].imagePath, randomedShadePositionArray[i]);
         }
@@ -193,7 +193,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
 
         // win condition
-        if (targetNode._objectDisableds.length == 6)
+        if (targetNode._objectDisableds.length == NUMBER_ITEMS)
             targetNode.completedScene()
 
         return true;

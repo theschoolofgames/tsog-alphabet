@@ -7,46 +7,46 @@
             <key>banana.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1364,1161},{968,598}}</string>
+                <string>{{467,101},{126,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{968,598}}</string>
+                <string>{{0,0},{126,78}}</string>
                 <key>sourceSize</key>
-                <string>{968,598}</string>
+                <string>{126,78}</string>
             </dict>
             <key>book.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1360,2102}}</string>
+                <string>{{547,101},{109,168}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1360,2102}}</string>
+                <string>{{0,0},{109,168}}</string>
                 <key>sourceSize</key>
-                <string>{1360,2102}</string>
+                <string>{109,168}</string>
             </dict>
             <key>chair.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1364,2},{610,1157}}</string>
+                <string>{{2,2},{246,463}}</string>
                 <key>offset</key>
-                <string>{-3,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{610,1157}}</string>
+                <string>{{0,0},{246,463}}</string>
                 <key>sourceSize</key>
-                <string>{616,1157}</string>
+                <string>{246,463}</string>
             </dict>
             <key>colored-pencils.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2106},{338,97}}</string>
+                <string>{{467,2},{338,97}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>things.png</string>
             <key>size</key>
-            <string>{1976,2205}</string>
+            <string>{807,250}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:df99102251158c5521b6f12ec01f123d:415b598f3e2d74a5e908b844c54c1772:e80ac72a09d45da118a5b948418171f5$</string>
+            <string>$TexturePacker:SmartUpdate:07e448c40d4c06683aab1d6aa27d62d3:5981dc2094c2145d8cec6b5d02a9be5c:e80ac72a09d45da118a5b948418171f5$</string>
             <key>textureFileName</key>
             <string>things.png</string>
         </dict>

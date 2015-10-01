@@ -7,41 +7,41 @@
             <key>bear.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{422,544}}</string>
+                <string>{{2,2},{127,163}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{422,544}}</string>
+                <string>{{0,0},{127,163}}</string>
                 <key>sourceSize</key>
-                <string>{422,544}</string>
+                <string>{127,163}</string>
             </dict>
             <key>bird.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,847},{294,248}}</string>
+                <string>{{70,167},{59,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{294,248}}</string>
+                <string>{{0,0},{59,50}}</string>
                 <key>sourceSize</key>
-                <string>{294,248}</string>
+                <string>{59,50}</string>
             </dict>
             <key>cat.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,548},{331,297}}</string>
+                <string>{{2,167},{66,59}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{331,297}}</string>
+                <string>{{0,0},{66,59}}</string>
                 <key>sourceSize</key>
-                <string>{331,297}</string>
+                <string>{66,59}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>animals.png</string>
             <key>size</key>
-            <string>{426,1097}</string>
+            <string>{131,228}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:000b37055211803452591a24fca8d5e0:889b1258967784e9ab77d9f075762294:2792684dce71bc477b7867d41c9c55eb$</string>
+            <string>$TexturePacker:SmartUpdate:ff0397d10a00916b12843e859f622513:1da6e9223dcc1a06d5617280c3268dff:2792684dce71bc477b7867d41c9c55eb$</string>
             <key>textureFileName</key>
             <string>animals.png</string>
         </dict>
