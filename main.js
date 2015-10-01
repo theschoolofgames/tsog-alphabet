@@ -115,6 +115,10 @@ cc.game.onStart = function(){
 
     cc.LoaderScene.preload(g_resources, function () {
         // KVDatabase.setupInstance(CocosKVImpl);
+
+        cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
         
         if (whoAmI && whoAmI === "tony")
             cc.director.runScene(new RoomScene());
