@@ -2,7 +2,7 @@ var ForestLayer = cc.Layer.extend({
     _disabledButtons: [],
     _objects: [],
     _objectDisabled: [],
-
+    _animalPos: null,
     _touchCounting: 0,
     _dsInstance: null,
     _background: null,
@@ -12,7 +12,7 @@ var ForestLayer = cc.Layer.extend({
     _countDownClock: null,
     _starLabel: null,
     _totalSeconds: 0,
-
+    _animalRandomPos: null,
     _star: 0,
 
 	ctor: function() {
@@ -120,15 +120,21 @@ var ForestLayer = cc.Layer.extend({
 
         return true;
     },
+    getRamdomPositionMoveto : function(radius) {
+        var animalPos = null;
+        animalPos = cc.p(this._animalPos.x - Math.random() * radius + 10, this._animalPos.y - Math.random() * radius + 10);
+        return animalPos;
+    },
 
     createAnimal : function(position, imagePath, i) {
         cc.log("createAnimal--- " + imagePath);
     	var animal =  new cc.Sprite("#" + imagePath);
     	animal.scale = 0;
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
-
+        var area = 0;
     	animal.x = position.x;
     	animal.y = position.y;
+        this._animalPos = cc.p(animal.x, animal.y)
         animal.setLocalZOrder(position.z);
     	animal.runAction(
             cc.sequence(
@@ -137,6 +143,54 @@ var ForestLayer = cc.Layer.extend({
             ));
     	this.addChild(animal);
     	this._objects.push(animal);
+        this.runAnimalAction(animal,area);
+        
+    },
+    runAnimalAction : function(animal , area) {
+        if (area == FlY_ID) 
+            this.runFlyAnimalAction(animal);
+        if (area == LIE_ID)
+            this.runLieAnimalAction(animal);
+        if (area == STAND_ID)
+            this.runStandAnimalAction(animal);
+        if (area == WATER_ID)
+    },
+
+    runFlyAnimalAction: function(animal) {
+        animal.runAction(
+                cc.repeatForever(
+                    cc.sequence(
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
+                        cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
+                    )
+                )
+        )   
+    },
+
+    runLieAnimalAction: function(animal) {
+        animal.runAction(
+                cc.repeatForever(
+                    cc.sequence(
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
+                        cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
+                    )
+                )
+        )   
+    },
+    runStandAnimalAction : function(animal) {
+        animal.runAction(
+            cc.repeatForever(
+                cc.sequence(
+                    cc.rotateBy(MOVE_DELAY_TIME, 10),
+                    cc.rotateBy(MOVE_DELAY_TIME * 2, -20),
+                    cc.rotateBy(MOVE_DELAY_TIME, 10)
+                    )
+                )
+            )
     },
 
     resetObjectArrays: function() {
