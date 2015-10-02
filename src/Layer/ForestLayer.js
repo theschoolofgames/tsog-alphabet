@@ -73,7 +73,7 @@ var ForestLayer = cc.Layer.extend({
  		var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
  		for ( var i = 0; i < NUMBER_ITEMS; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type);
- 			this.createAnimal(animalPositionArray[i], animals[i].imagePath, i);
+ 			this.createAnimal(animalPositionArray[i], animals[i], i);
         }
     },
 
@@ -123,12 +123,12 @@ var ForestLayer = cc.Layer.extend({
         return animalPos;
     },
 
-    createAnimal : function(position, imagePath, i) {
+    createAnimal : function(position, animalObject, i) {
         // cc.log("createAnimal--- " + imagePath);
-    	var animal =  new cc.Sprite("#" + imagePath);
+    	var animal =  new cc.Sprite("#" + animalObject.imagePath);
     	animal.scale = 0;
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
-        var area = 0;
+        var itemId = animalObject.type;
     	animal.x = position.x;
     	animal.y = position.y;
         this._animalPos = cc.p(animal.x, animal.y)
@@ -140,17 +140,18 @@ var ForestLayer = cc.Layer.extend({
             ));
     	this.addChild(animal);
     	this._objects.push(animal);
-        this.runAnimalAction(animal,area);
+        this.runAnimalAction(animal, itemId);
 
     },
-    runAnimalAction : function(animal , area) {
-        if (area == FlY_ID)
+    runAnimalAction : function(animal , itemId) {
+        cc.log("itemId: " + itemId);
+        if (itemId === FLY_ITEM)
             this.runFlyAnimalAction(animal);
-        if (area == LIE_ID)
+        if (itemId === LIE_ITEM)
             this.runLieAnimalAction(animal);
-        if (area == STAND_ID)
+        if (itemId === STAND_ITEM)
             this.runStandAnimalAction(animal);
-        if (area == WATER_ID)
+        if (itemId === WATER_ITEM){}
     },
 
     runFlyAnimalAction: function(animal) {
