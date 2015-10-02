@@ -1,10 +1,187 @@
 ROOM_OBJECT_POSITIONS = [];
 FOREST_OBJECT_POSITIONS = [];
 FOREST_BACKGROUND_POSITIONS = [];
+
 var BEDROOM_ID = 0;
 var FOREST_ID = 1;
 var BEDROOM_SHADE_ID = 2;
 var FOREST_BACKGROUND_ID = 3;
+
+var BEDROOM_ITEMS = [
+    {
+        imageName: "colored-pencils",
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 1070,
+        correctY: 254,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "book",
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 825,
+        correctY: 310,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "chair",
+        type: HEAVY_WEIGHT_ITEM,
+        correctX: 936,
+        correctY: 158,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "banana",
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 253,
+        correctY: 282,
+        anchorX: 0.5,
+        anchorY: 0.5
+    }
+];
+
+var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
+    {
+        x: 100,
+        y: 200,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 150,
+        y: 250,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 200,
+        y: 100,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 300,
+        y: 200,
+        anchorX: 0.5,
+        anchorY: 0.5
+    }
+];
+
+var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
+    {
+        x: 400,
+        y: 300,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 150,
+        y: 450,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 300,
+        y: 100,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 300,
+        y: 500,
+        anchorX: 0.5,
+        anchorY: 0.5
+    }
+];
+
+var BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+
+var FOREST_ITEMS = [
+    {
+        imageName: "bird",
+        type: FLY_ITEM
+    },
+    {
+        imageName: "bear",
+        type: STAND_ITEM
+    },
+    {
+        imageName: "cat",
+        type: LIE_ITEM
+    }
+];
+var FOREST_FLY_POSITION = [
+    {
+        x: 800,
+        y: 500,
+        z: 0,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 600,
+        y: 400,
+        z: 0,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 200,
+        y: 550,
+        z: 0,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    }
+];
+var FOREST_GROUND_POSITION = [
+    {
+        x: 200,
+        y: 200,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 300,
+        y: 250,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 650,
+        y: 150,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    }
+];
+var FOREST_WATER_POSITION = [
+    {
+        x: 700,
+        y: 450,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 750,
+        y: 420,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 800,
+        y: 460,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    }
+];
+
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: cc.winSize.width / 2 + 100,
@@ -119,6 +296,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     }
 ];
 
+
 var DataStore = cc.Class.extend({
     positionSets: [],
     objectSets: [],
@@ -150,83 +328,46 @@ var DataStore = cc.Class.extend({
         posArray.push(obj);
     },
 
-    _addObject: function(setId, imageName) {
+    _addObject: function(setId, item) {
         var objArray = this.objectSets[setId];
-        var imagePath = imageName + ".png";
-        if (imageName == undefined)
+        var imagePath = item.imageName + ".png";
+        var correctPos = cc.p(item.correctX, item.correctY)
+        var anchorPoint = cc.p(item.anchorX, item.anchorY);
+        var type = item.type;
+        if (imagePath == undefined)
             imagePath = "";
+        if (type == undefined)
+            type = 0;
+        if (correctPos == undefined)
+            correctPos = cc.p(0,0);
+        if (anchorPoint == undefined)
+            anchorPoint = cc.p(0.5,0.5);
 
-        var obj = {imagePath: imagePath};
+        var obj = {
+            imagePath: imagePath,
+            correctPos: correctPos,
+            anchorPoint: anchorPoint,
+            type: type
+        };
         objArray.push(obj);
     },
 
     _fillDataStore: function() {
+        // ------------------------------ BED ROOM
         this.positionSets[BEDROOM_ID] = [];
         this.objectSets[BEDROOM_ID] = [];
-        //add object
-        this._addObject(BEDROOM_ID, "book");
-        this._addObject(BEDROOM_ID, "colored-pencils");
-        this._addObject(BEDROOM_ID, "chair");
-        this._addObject(BEDROOM_ID, "banana");
-        // add position
-        this._addPosition(BEDROOM_ID, 100, 100, 0.5, 0.5);
-        this._addPosition(BEDROOM_ID, 600, 300, 0.5, 0.5);
-        this._addPosition(BEDROOM_ID, 300, 250, 0.5, 0.5);
-        this._addPosition(BEDROOM_ID, 600, 100, 0.5, 0.5);
-        // this._addPosition(BEDROOM_ID, 500, 100, 0.5, 0);
-        // this._addPosition(BEDROOM_ID, 900, 300, 0, 0.5);
-        // this._addPosition(BEDROOM_ID, 700, 400, 0.5, 1);
-        // this._addPosition(BEDROOM_ID, 300, 300, 1, 0.5);
-        // this._addPosition(BEDROOM_ID, 400, 400, 0.5, 1);
-        // this._addPosition(BEDROOM_ID, 800, 300, 0.5, 0.5);
-        // this._addPosition(BEDROOM_ID, 350, 150, 1, 0);
-        // this._addPosition(BEDROOM_ID, 550, 250, 0.5, 0.5);
-        // ------------------------------
+
+        for ( var i = 0; i < BEDROOM_ITEMS.length; i++) {
+            this._addObject(BEDROOM_ID, BEDROOM_ITEMS[i])
+        }
+        // ------------------------------ FOREST
         this.positionSets[FOREST_ID] = [];
         this.objectSets[FOREST_ID] = [];
-        // add object
-        this._addObject(FOREST_ID, "bird");
-        this._addObject(FOREST_ID, "bear");
-        this._addObject(FOREST_ID, "cat");
-        // add position
-        this._addPosition(FOREST_ID, cc.winSize.width - 300, cc.winSize.height/2 + 100, 0.5, 0);
-        this._addPosition(FOREST_ID, cc.winSize.width - 400, 20, 0.5, 0, "", 5);
-        this._addPosition(FOREST_ID, cc.winSize.width/2 - 100, 100, 0.5, 0, "", 4);
-        // this._addPosition(FOREST_ID, 400, 300, 0.5, 0);
-        // this._addPosition(FOREST_ID, 500, 400, 0.5, 0);
-        // this._addPosition(FOREST_ID, 100, 300, 0.5, 0.5);
-        // this._addPosition(FOREST_ID, 200, 400, 0.5, 1);
-        // this._addPosition(FOREST_ID, 300, 500, 0.5, 0.5);
-        // this._addPosition(FOREST_ID, 700, 400, 0.5, 1);
-        // this._addPosition(FOREST_ID, 500, 500, 0.5, 0.5);
-        // this._addPosition(FOREST_ID, 850, 150, 0.5, 0);
-        // this._addPosition(FOREST_ID, 450, 250, 0.5, 0.5);
-        // ------------------------------
 
-        this.positionSets[BEDROOM_SHADE_ID] = [];
-        this.objectSets[BEDROOM_SHADE_ID] = [];
-        //add object
-        this._addObject(BEDROOM_SHADE_ID, "book");
-        this._addObject(BEDROOM_SHADE_ID, "colored-pencils");
-        // this._addObject(BEDROOM_SHADE_ID, "book");
-        this._addObject(BEDROOM_SHADE_ID, "chair");
-        this._addObject(BEDROOM_SHADE_ID, "banana");
-        // this._addObject(BEDROOM_SHADE_ID, "banana");
-        // add position
-        this._addPosition(BEDROOM_SHADE_ID, 825, 310, 0.5, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 1070, 254, 0.5, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 936, 158, 0.5, 0.5);
-        this._addPosition(BEDROOM_SHADE_ID, 253, 282, 0.5, 0.5);
-        // this._addPosition(BEDROOM_SHADE_ID, 550, 150, 0.5, 0);
-        // this._addPosition(BEDROOM_SHADE_ID, 950, 350, 0, 0.5);
-        // this._addPosition(BEDROOM_SHADE_ID, 750, 450, 0.5, 1);
-        // this._addPosition(BEDROOM_SHADE_ID, 350, 350, 1, 0.5);
-        // this._addPosition(BEDROOM_SHADE_ID, 450, 450, 0.5, 1);
-        // this._addPosition(BEDROOM_SHADE_ID, 850, 350, 0.5, 0.5);
-        // this._addPosition(BEDROOM_SHADE_ID, 400, 200, 1, 0);
-        // this._addPosition(BEDROOM_SHADE_ID, 600, 300, 0.5, 0.5);
-
-        // -------------------------------
+        for ( var i = 0; i < FOREST_ITEMS.length; i++) {
+            this._addObject(FOREST_ID, FOREST_ITEMS[i]);
+        }
+        // ------------------------------ FOREST BACKGROUND
         this.positionSets[FOREST_BACKGROUND_ID] = [];
         this.objectSets[FOREST_BACKGROUND_ID] = [];
         //add position
@@ -240,15 +381,6 @@ var DataStore = cc.Class.extend({
                 itemsPos.imageName,
                 itemsPos.z);
         }
-
-    },
-
-    getPosition: function(setId, index) {
-        return this.positionSets[setId][index];
-    },
-
-    getObject: function(setId, index) {
-        return this.objectSets[setId][index];
     },
 
     getPositions: function(setId) {

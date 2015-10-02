@@ -70,14 +70,11 @@ var ForestLayer = cc.Layer.extend({
     },
 
 	createAnimals: function() {
- 		var randomedAnimalArray = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
- 		var positionArray = this._dsInstance.getPositions(FOREST_ID, NUMBER_ITEMS);
-
+ 		var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
  		for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            cc.log("animals: ---" + randomedAnimalArray[i]);
- 			this.createAnimal(positionArray[i], randomedAnimalArray[i].imagePath, i);
+            var animalPositionArray = this.getAnimalPositionType(animals[i].type);
+ 			this.createAnimal(animalPositionArray[i], animals[i].imagePath, i);
         }
-
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -127,7 +124,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimal : function(position, imagePath, i) {
-        cc.log("createAnimal--- " + imagePath);
+        // cc.log("createAnimal--- " + imagePath);
     	var animal =  new cc.Sprite("#" + imagePath);
     	animal.scale = 0;
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
@@ -144,10 +141,10 @@ var ForestLayer = cc.Layer.extend({
     	this.addChild(animal);
     	this._objects.push(animal);
         this.runAnimalAction(animal,area);
-        
+
     },
     runAnimalAction : function(animal , area) {
-        if (area == FlY_ID) 
+        if (area == FlY_ID)
             this.runFlyAnimalAction(animal);
         if (area == LIE_ID)
             this.runLieAnimalAction(animal);
@@ -166,7 +163,7 @@ var ForestLayer = cc.Layer.extend({
                         cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
                     )
                 )
-        )   
+        )
     },
 
     runLieAnimalAction: function(animal) {
@@ -179,7 +176,7 @@ var ForestLayer = cc.Layer.extend({
                         cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
                     )
                 )
-        )   
+        )
     },
     runStandAnimalAction : function(animal) {
         animal.runAction(
@@ -291,6 +288,27 @@ var ForestLayer = cc.Layer.extend({
             this._star = 3;
 
         this._starLabel.setString(this._star + " star" + (this._star > 1 ? 's' : ''));
+    },
+
+    addShuffledAnimalPosArray: function() {
+        var flyPositionArray = shuffle(FOREST_FLY_POSITION);
+        var groundPositionArray = shuffle(FOREST_GROUND_POSITION);
+        var waterPositionArray = shuffle(FOREST_WATER_POSITION);
+
+        return {flyPositionArray: flyPositionArray, groundPositionArray: groundPositionArray, waterPositionArray: waterPositionArray};
+    },
+
+    getAnimalPositionType: function(type) {
+        var shuffledArrays = this.addShuffledAnimalPosArray();
+        var animalPositionArray = null;
+        if (type === FLY_ITEM)
+            animalPositionArray = shuffledArrays.flyPositionArray
+        if (type === LIE_ITEM || type === STAND_ITEM)
+            animalPositionArray = shuffledArrays.groundPositionArray
+        if (type === WATER_ITEM)
+            animalPositionArray = shuffledArrays.waterPositionArray
+
+        return animalPositionArray
     }
 
 });

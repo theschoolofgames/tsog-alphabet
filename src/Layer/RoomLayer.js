@@ -64,22 +64,21 @@ var RoomLayer = cc.Layer.extend({
 
     createObject: function() {
         var dsInstance = DataStore.getInstance();
-        // get randomed arrays with BEDROOM_ID
-        var randomedObjectArray = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
-        var randomedPositionArray = dsInstance.getPositions(BEDROOM_ID, NUMBER_ITEMS);
-        // get randomed arrays with BEDROOM_SHADE
-        var randomedShadeObjectArray = dsInstance.getObjects(BEDROOM_SHADE_ID, NUMBER_ITEMS);
-        var randomedShadePositionArray = dsInstance.getPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
-        // var randomedShadeObjectArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
-        // var randomedShadePositionArray = dsInstance.getRandomPositions(BEDROOM_SHADE_ID, NUMBER_ITEMS);
 
+        var bedroomObjects = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
+        var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
+        var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            this.createObjectShade(randomedShadePositionArray[i], randomedShadeObjectArray[i].imagePath);
-            this.createObjectButton(randomedPositionArray[i], randomedObjectArray[i].imagePath, randomedShadePositionArray[i]);
+            if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
+                this.createObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath);
+            else
+                this.createObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath);
+
+            this.createObjectShade(bedroomObjects[i], bedroomObjects[i].imagePath);
         }
     },
 
-    createObjectButton: function(objPosition, imagePath, shadePos) {
+    createObjectButton: function(objPosition, imagePath) {
         var object = new cc.Sprite("#" + imagePath);
 
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -87,23 +86,22 @@ var RoomLayer = cc.Layer.extend({
         object.x = objPosition.x;
         object.y = objPosition.y;
 
-        this.addChild(object, 1);
+        this.addChild(object, 2);
 
         /*  _objectPositions là mảng gồm position của object và placeHolder tương ứng
             */
         this._objects.push(object);
     },
 
-    createObjectShade: function(shadePosition, imagePath) {
+    createObjectShade: function(object, imagePath) {
         var shadeObject = new cc.Sprite("#" + imagePath);
         shadeObject.setScale(1.5);
-        shadeObject.setAnchorPoint(shadePosition.anchorX, shadePosition.anchorY);
-
-        shadeObject.x = shadePosition.x;
-        shadeObject.y = shadePosition.y;
+        shadeObject.setAnchorPoint(object.anchorPoint);
+        cc.log("createObjectShade" + JSON.stringify(object));
+        shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
 
-        this.addChild(shadeObject, 0);
+        this.addChild(shadeObject, 1);
         this._shadeObjects.push(shadeObject);
     },
 
