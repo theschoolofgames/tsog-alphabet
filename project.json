@@ -14,6 +14,7 @@
         "src/resource.js",
         "src/Layer/ForestLayer.js",
         "src/Layer/RoomLayer.js",
+        "src/Layer/MainScreenLayer.js",
         "src/Constants.js",
         "src/Data.js",
         "src/Utils.js",

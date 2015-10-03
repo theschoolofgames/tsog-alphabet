@@ -242,7 +242,7 @@ var ForestLayer = cc.Layer.extend({
         if (this._warningLabel)
             this._warningLabel.removeFromParent();
 
-        RequestsManager.getInstance().postGameProgress(USER_ID, GAME_ID, this._star, this._countDownClock.getElapseTime());
+        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, this._countDownClock.getElapseTime());
 
         this.createWarnLabel("Scene Completed!", 32);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {

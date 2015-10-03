@@ -145,6 +145,8 @@ static AppDelegate s_sharedApplication;
                                           otherButtonTitles:nil];
   [alertView show];
   
+  cocos2d::UserDefault::getInstance()->setStringForKey("user_id", [[NSString stringWithFormat:@"%@", dataArray[2]] UTF8String]);
+  
 //  std::string userId = [[NSString stringWithFormat:@"%@", dataArray[2]] UTF8String];
 //  cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("main_app_called", (void*)&userId);
 

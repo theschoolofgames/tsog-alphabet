@@ -200,7 +200,7 @@ var RoomLayer = cc.Layer.extend({
 
     completedScene: function() {
         this.createWarnLabel("Scene Completed!");
-        RequestsManager.getInstance().postGameProgress(USER_ID, GAME_ID, 3, this._countDownClock.getElapseTime());
+        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, this._countDownClock.getElapseTime());
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
                 });

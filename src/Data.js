@@ -393,7 +393,7 @@ var DataStore = cc.Class.extend({
 
     getRandomItems: function(array, setId, numItems) {
         var items = array[setId];
-        var shuffledItems = shuffle(items);
+        var shuffledItems = Utils.shuffle(items);
         var randomedItems = [];
         for ( i = 0; i < numItems; i++)
             randomedItems.push(shuffledItems[i]);

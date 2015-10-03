@@ -25,4 +25,8 @@
     NSLog(@"Receiver not found");
 }
 
++ (NSString *) getUserId {
+  return [[NSUserDefaults standardUserDefaults] stringForKey:@"user_id"];
+}
+
 @end
