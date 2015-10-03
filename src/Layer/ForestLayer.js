@@ -122,7 +122,7 @@ var ForestLayer = cc.Layer.extend({
                 targetNode.completedScene()
             });
         }
-        
+
         targetNode._objectDisabled.push(targetNode._objectTouching);
 
         return true;
@@ -135,26 +135,22 @@ var ForestLayer = cc.Layer.extend({
 
     createAnimal : function(position, animalObject, i) {
         // cc.log("createAnimal--- " + imagePath);
-    	var animal =  new cc.Sprite(animalObject.imagePath);
-    	animal.scale = 0;
+    	var animal =  new cc.Sprite("#" + animalObject.imagePath);
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
-        var itemId = animalObject.type;
-    	animal.x = position.x;
-    	animal.y = position.y;
-        this._animalPos = animal.getPosition();
+        animal.x = position.x;
+        animal.y = position.y;
         animal.setLocalZOrder(position.z);
-    	animal.runAction(
-            cc.sequence(
-                cc.delayTime(i*0.1),
-                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
-            ));
-    	this.addChild(animal);
-    	this._objects.push(animal);
+
+        this.addChild(animal);
+
+        this._animalPos = animal.getPosition();
+        this.animateAnimalIn(animal, animalObject.type, i);
+        this._objects.push(animal);
+        var itemId = animalObject.type;
         this.runAnimalAction(animal, itemId);
 
     },
     runAnimalAction : function(animal , itemId) {
-        cc.log("itemId: " + itemId);
         if (itemId === FLY_ITEM)
             this.runFlyAnimalAction(animal);
         if (itemId === LIE_ITEM)
@@ -335,14 +331,33 @@ var ForestLayer = cc.Layer.extend({
         return this._animalAction;
     },
 
+    animateAnimalIn: function(animal, type, deltaTime) {
+        animal.scale = 0;
+        action = cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.9))
+        this.addSmokeEffect();
+
+        animal.runAction(
+            cc.sequence(
+                cc.fadeTo(0.2, 0),
+                cc.fadeTo(0.3, 255),
+                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+            )
+        );
+    },
+
+    addSmokeEffect: function() {
+
+    },
+
     showHintObjectUp: function() {
         var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
+        cc.log("deltaTime: " + deltaTime);
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 cc.log("i: "+ i);
                 this._objects[i].runAction(this.runHintAction())
-                    cc.log("hint");
+                cc.log("hint");
             };
             // if (this._objects.length == 0)
             //     return false
