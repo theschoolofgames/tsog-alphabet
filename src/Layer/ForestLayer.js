@@ -14,6 +14,8 @@ var ForestLayer = cc.Layer.extend({
     _totalSeconds: 0,
     _animalRandomPos: null,
     _star: 0,
+    _objectsAvailable: null,
+    _lastClickTime : 0,
 
 	ctor: function() {
 		this._super();
@@ -76,6 +78,7 @@ var ForestLayer = cc.Layer.extend({
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
  			this.createAnimal(animalPositionArray[i], animals[i], i);
         }
+        this._objectsAvailable = this._objects;
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -87,6 +90,7 @@ var ForestLayer = cc.Layer.extend({
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
                 this._objectTouching = this._objects[i];
+                this._objectsAvailable.splice(i,1);
                 return true;
             }
         }
@@ -103,6 +107,7 @@ var ForestLayer = cc.Layer.extend({
                 return false
         }
         targetNode._touchCounting += 1;
+        targetNode._lastClickTime = targetNode._countDownClock.getRemainingTime();
         targetNode.computeStars();
         if (targetNode._warningLabel)
             targetNode._warningLabel.removeFromParent();
@@ -114,6 +119,7 @@ var ForestLayer = cc.Layer.extend({
                 targetNode.completedScene()
             });
         }
+        
         targetNode._objectDisabled.push(targetNode._objectTouching);
 
         return true;
@@ -180,6 +186,7 @@ var ForestLayer = cc.Layer.extend({
                 )
         )
     },
+
     runStandAnimalAction : function(animal) {
         animal.runAction(
             cc.repeatForever(
@@ -310,8 +317,16 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.waterPositionArray
 
         return animalPositionArray
-    }
+    },
 
+    showHintObjectUp: function() {
+        if(this._countDownClock.getRemainingTime - this._lastClickTime == 8) {
+            var i = Math.random() * (this._objects.length - 1);
+            this._objects.runAction(
+                cc.scaleTo(0.8,1.2)
+            )
+        }
+    }
 });
 var ForestScene = cc.Scene.extend({
 	ctor: function() {

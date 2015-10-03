@@ -51,5 +51,9 @@ var Clock = cc.Node.extend({
 
     getElapseTime: function() {
         return this._elapseSeconds;
+    },
+
+    getRemainingTime: function() {
+        return this._totalSeconds;
     }
 })
