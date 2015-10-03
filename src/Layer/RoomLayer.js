@@ -66,8 +66,8 @@ var RoomLayer = cc.Layer.extend({
         var dsInstance = DataStore.getInstance();
 
         var bedroomObjects = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
-        var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
-        var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+        var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
+        var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
                 this.createObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath);

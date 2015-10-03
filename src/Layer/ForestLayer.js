@@ -293,9 +293,9 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addShuffledAnimalPosArray: function() {
-        var flyPositionArray = shuffle(FOREST_FLY_POSITION);
-        var groundPositionArray = shuffle(FOREST_GROUND_POSITION);
-        var waterPositionArray = shuffle(FOREST_WATER_POSITION);
+        var flyPositionArray = Utils.shuffle(FOREST_FLY_POSITION);
+        var groundPositionArray = Utils.shuffle(FOREST_GROUND_POSITION);
+        var waterPositionArray = Utils.shuffle(FOREST_WATER_POSITION);
 
         return {flyPositionArray: flyPositionArray, groundPositionArray: groundPositionArray, waterPositionArray: waterPositionArray};
     },
