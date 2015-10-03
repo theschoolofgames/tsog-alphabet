@@ -9,7 +9,7 @@ var FOREST_BACKGROUND_ID = 3;
 
 var BEDROOM_ITEMS = [
     {
-        imageName: "colored-pencils",
+        imageName: res.Pencils_png,
         type: LIGHT_WEIGHT_ITEM,
         correctX: 1070,
         correctY: 254,
@@ -17,7 +17,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: "book",
+        imageName: res.Book_png,
         type: LIGHT_WEIGHT_ITEM,
         correctX: 825,
         correctY: 310,
@@ -25,7 +25,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: "chair",
+        imageName: res.Chair_png,
         type: HEAVY_WEIGHT_ITEM,
         correctX: 936,
         correctY: 158,
@@ -33,7 +33,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: "banana",
+        imageName: res.Banana_png,
         type: LIGHT_WEIGHT_ITEM,
         correctX: 253,
         correctY: 282,
@@ -100,15 +100,15 @@ var BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_H
 
 var FOREST_ITEMS = [
     {
-        imageName: "bird",
+        imageName: res.Bird_png,
         type: FLY_ITEM
     },
     {
-        imageName: "bear",
+        imageName: res.Bear_png,
         type: STAND_ITEM
     },
     {
-        imageName: "cat",
+        imageName: res.Cat_png,
         type: LIE_ITEM
     }
 ];
@@ -330,7 +330,7 @@ var DataStore = cc.Class.extend({
 
     _addObject: function(setId, item) {
         var objArray = this.objectSets[setId];
-        var imagePath = item.imageName + ".png";
+        var imagePath = item.imageName;
         var correctPos = cc.p(item.correctX, item.correctY)
         var anchorPoint = cc.p(item.anchorX, item.anchorY);
         var type = item.type;

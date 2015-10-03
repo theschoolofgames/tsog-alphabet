@@ -9,11 +9,18 @@ var res = {
    // plist file
    Forest_plist: "forest.plist",
    Forest_png: "forest.png",
-   Animals_plist: "animals.plist",
-   Animals_png: "animals.png",
-   Things_plist: "things.plist",
-   Things_png: "things.png",
    BG_jpg: "BG.jpg",
+
+   // Animals
+   Bear_png: "animals/bear.png",
+   Bird_png: "animals/bird.png",
+   Cat_png: "animals/cat.png",
+
+   // Things
+   Banana_png: "things/banana.png",
+   Book_png: "things/book.png",
+   Chair_png: "things/chair.png",
+   Pencils_png: "things/colored-pencils.png",
 
    // Shader
    SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",

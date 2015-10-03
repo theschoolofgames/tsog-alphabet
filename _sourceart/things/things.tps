@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.9.2</string>
+        <string>3.9.4</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-alphabet/tsog-alphabet/_sourceart/things/things.tps</string>
+        <string>/Volumes/Source/_Dev/tsog-alphabet/_sourceart/things/things.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -45,7 +45,7 @@
             </struct>
         </array>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>premultiplyAlpha</key>
         <false/>
         <key>shapeDebug</key>

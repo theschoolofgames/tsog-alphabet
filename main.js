@@ -118,8 +118,6 @@ cc.game.onStart = function(){
         RequestsManager.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
-        cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
         
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());

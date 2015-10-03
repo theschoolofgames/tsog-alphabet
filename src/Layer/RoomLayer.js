@@ -79,8 +79,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createObjectButton: function(objPosition, imagePath) {
-        var object = new cc.Sprite("#" + imagePath);
-
+        var object = new cc.Sprite(imagePath);
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
         object.x = objPosition.x;
@@ -94,7 +93,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createObjectShade: function(object, imagePath) {
-        var shadeObject = new cc.Sprite("#" + imagePath);
+        var shadeObject = new cc.Sprite(imagePath);
         shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
         cc.log("createObjectShade" + JSON.stringify(object));
@@ -166,7 +165,7 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
         targetNode.highLightObjectCorrectPos(index);
-        targetNode.createWarnLabel("Object is moving!", targetNode._objectTouching);
+        // targetNode.createWarnLabel("Object is moving!", targetNode._objectTouching);
 
         return true;
     },
@@ -178,7 +177,7 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-        targetNode._warningLabel.setPosition(objectPosition);
+        // targetNode._warningLabel.setPosition(objectPosition);
 
         return true;
     },
@@ -192,7 +191,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
 
         targetNode.handleObjectCorrectPos(index);
-        targetNode._warningLabel.removeFromParent();
+        // targetNode._warningLabel.removeFromParent();
         targetNode._objectTouching = null;
 
         // win condition

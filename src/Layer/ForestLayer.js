@@ -135,7 +135,7 @@ var ForestLayer = cc.Layer.extend({
 
     createAnimal : function(position, animalObject, i) {
         // cc.log("createAnimal--- " + imagePath);
-    	var animal =  new cc.Sprite("#" + animalObject.imagePath);
+    	var animal =  new cc.Sprite(animalObject.imagePath);
     	animal.scale = 0;
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
         var itemId = animalObject.type;
