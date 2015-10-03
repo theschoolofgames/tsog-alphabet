@@ -135,7 +135,7 @@ var ForestLayer = cc.Layer.extend({
 
     createAnimal : function(position, animalObject, i) {
         // cc.log("createAnimal--- " + imagePath);
-    	var animal =  new cc.Sprite("#" + animalObject.imagePath);
+    	var animal =  new cc.Sprite(animalObject.imagePath);
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
         animal.y = position.y;
@@ -337,10 +337,10 @@ var ForestLayer = cc.Layer.extend({
         this.addSmokeEffect();
 
         animal.runAction(
-            cc.sequence(
-                cc.fadeTo(0.2, 0),
-                cc.fadeTo(0.3, 255),
-                cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.6))
+            cc.spawn(
+                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6)),
+                cc.fadeTo(0.1, 0),
+                cc.fadeTo(0.2, 255)
             )
         );
     },
@@ -351,16 +351,11 @@ var ForestLayer = cc.Layer.extend({
 
     showHintObjectUp: function() {
         var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
-        cc.log("deltaTime: " + deltaTime);
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
-                var i = Math.floor(Math.random() * (this._objects.length - 1));
-                cc.log("i: "+ i);
+                var i = Math.floor(Math.random() * (this._objects.length - 1));s
                 this._objects[i].runAction(this.runHintAction())
-                cc.log("hint");
             };
-            // if (this._objects.length == 0)
-            //     return false
         }
     },
 
