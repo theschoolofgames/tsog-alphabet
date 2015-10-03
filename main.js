@@ -121,10 +121,10 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
         
-        if (whoAmI && whoAmI === "tony")
-            cc.director.runScene(new RoomScene());
-        else
-            cc.director.runScene(new MainScreenScene());
+        // if (whoAmI && whoAmI === "tony")
+        //     cc.director.runScene(new RoomScene());
+        // else
+        cc.director.runScene(new MainScreenScene());
 
         // cc.eventManager.addCustomListener("main_app_called", function (event) {
         //     cc.log(JSON.stringify(event.getUserData()));

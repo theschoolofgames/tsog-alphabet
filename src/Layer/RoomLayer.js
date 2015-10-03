@@ -160,6 +160,8 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
+        targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
+
         //set shadeObject to visible
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
@@ -186,6 +188,8 @@ var RoomLayer = cc.Layer.extend({
         //set shadeObject visible to false
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
+
+        targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
 
         targetNode.handleObjectCorrectPos(index);
         targetNode._warningLabel.removeFromParent();

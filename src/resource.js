@@ -13,7 +13,11 @@ var res = {
    Animals_png: "animals.png",
    Things_plist: "things.plist",
    Things_png: "things.png",
-   BG_jpg: "BG.jpg"
+   BG_jpg: "BG.jpg",
+
+   // Shader
+   SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",
+   SpriteDistort_vsh: "res/shader/SpriteDistort.vsh"
 };
 
 var g_resources = [];

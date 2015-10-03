@@ -7,11 +7,11 @@
             <key>banana.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{467,101},{126,78}}</string>
+                <string>{{361,101},{126,78}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{126,78}}</string>
                 <key>sourceSize</key>
@@ -20,11 +20,11 @@
             <key>book.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{547,101},{109,168}}</string>
+                <string>{{250,101},{109,168}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{109,168}}</string>
                 <key>sourceSize</key>
@@ -37,7 +37,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{246,463}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>colored-pencils.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{467,2},{338,97}}</string>
+                <string>{{250,2},{338,97}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>things.png</string>
             <key>size</key>
-            <string>{807,250}</string>
+            <string>{590,467}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:07e448c40d4c06683aab1d6aa27d62d3:5981dc2094c2145d8cec6b5d02a9be5c:e80ac72a09d45da118a5b948418171f5$</string>
+            <string>$TexturePacker:SmartUpdate:217ca93b9436267b3d1e49bd9f0c363e:5981dc2094c2145d8cec6b5d02a9be5c:e80ac72a09d45da118a5b948418171f5$</string>
             <key>textureFileName</key>
             <string>things.png</string>
         </dict>
