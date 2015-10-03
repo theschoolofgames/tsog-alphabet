@@ -71,8 +71,9 @@ var ForestLayer = cc.Layer.extend({
 
 	createAnimals: function() {
  		var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+        var shuffledArrays = this.addShuffledAnimalPosArray();
  		for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            var animalPositionArray = this.getAnimalPositionType(animals[i].type);
+            var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
  			this.createAnimal(animalPositionArray[i], animals[i], i);
         }
     },
@@ -131,7 +132,7 @@ var ForestLayer = cc.Layer.extend({
         var itemId = animalObject.type;
     	animal.x = position.x;
     	animal.y = position.y;
-        this._animalPos = cc.p(animal.x, animal.y)
+        this._animalPos = animal.getPosition();
         animal.setLocalZOrder(position.z);
     	animal.runAction(
             cc.sequence(
@@ -299,8 +300,7 @@ var ForestLayer = cc.Layer.extend({
         return {flyPositionArray: flyPositionArray, groundPositionArray: groundPositionArray, waterPositionArray: waterPositionArray};
     },
 
-    getAnimalPositionType: function(type) {
-        var shuffledArrays = this.addShuffledAnimalPosArray();
+    getAnimalPositionType: function(type , shuffledArrays) {
         var animalPositionArray = null;
         if (type === FLY_ITEM)
             animalPositionArray = shuffledArrays.flyPositionArray

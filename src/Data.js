@@ -141,21 +141,21 @@ var FOREST_GROUND_POSITION = [
         y: 200,
         z: 5,
         anchorX: 0.5,
-        anchorY: 0.5,
+        anchorY: 0,
     },
     {
-        x: 300,
-        y: 250,
+        x: 500,
+        y: 150,
         z: 5,
         anchorX: 0.5,
-        anchorY: 0.5,
+        anchorY: 0,
     },
     {
         x: 650,
         y: 150,
         z: 5,
         anchorX: 0.5,
-        anchorY: 0.5,
+        anchorY: 0,
     }
 ];
 var FOREST_WATER_POSITION = [
