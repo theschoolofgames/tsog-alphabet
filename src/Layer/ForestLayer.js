@@ -177,10 +177,8 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(10)),
-                        cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
+                        cc.scaleTo(MOVE_DELAY_TIME, 0.98),
+                        cc.scaleTo(MOVE_DELAY_TIME, 1.02)
                     )
                 )
         )
@@ -190,9 +188,9 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
             cc.repeatForever(
                 cc.sequence(
-                    cc.rotateBy(MOVE_DELAY_TIME, 10),
-                    cc.rotateBy(MOVE_DELAY_TIME * 2, -20),
-                    cc.rotateBy(MOVE_DELAY_TIME, 10)
+                    cc.rotateBy(MOVE_DELAY_TIME, 3),
+                    cc.rotateBy(MOVE_DELAY_TIME * 2, -6),
+                    cc.rotateBy(MOVE_DELAY_TIME, 3)
                     )
                 )
             )
