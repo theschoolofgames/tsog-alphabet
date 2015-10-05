@@ -330,7 +330,7 @@ var ForestLayer = cc.Layer.extend({
 
     animateAnimalIn: function(animal, type, deltaTime) {
         animal.scale = 0;
-        this.addSmokeEffect();
+        this.addSmokeEffect(animal);
 
         animal.runAction(
             cc.sequence(
@@ -341,15 +341,32 @@ var ForestLayer = cc.Layer.extend({
             )
         );
         var self = this;
-        this.runObjectAction(this, 0, 
+        this.runObjectAction(this, 0,
             function(){
                 self._lastClickTime = self._countDownClock.getRemainingTime()
             }
         )
     },
 
-    addSmokeEffect: function() {
+    addSmokeEffect: function(animal) {
+        var animFrames1 = [];
+        for (var i = 0; i < 8; i++) {
+            var str = "res/effect-smoke/" + (i+1) + ".png";
+            cc.log("str: " + str);
+            var frame = cc.spriteFrameCache.getSpriteFrame(str);
+            animFrames1.push(frame);
+        }
 
+        var node = new cc.Sprite("res/effect-smoke/1.png");
+        node.x = cc.winSize.width/2;
+        node.y = cc.winSize.height/2;
+        this.addChild(node, 10);
+        var animation1 = new cc.Animation(animFrames1, 0.1);
+        node.runAction(
+            cc.repeatForever(
+                cc.animate(animation1)
+            )
+        );
     },
 
     showHintObjectUp: function() {
