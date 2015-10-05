@@ -96,7 +96,6 @@ var RoomLayer = cc.Layer.extend({
         var shadeObject = new cc.Sprite(imagePath);
         shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
-        cc.log("createObjectShade" + JSON.stringify(object));
         shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
 

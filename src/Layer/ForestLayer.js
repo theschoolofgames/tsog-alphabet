@@ -175,8 +175,8 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                        cc.scaleTo(MOVE_DELAY_TIME, 0.98),
-                        cc.scaleTo(MOVE_DELAY_TIME, 1.02)
+                        cc.scaleTo(1, 0.98),
+                        cc.scaleTo(1, 1.02)
                     )
                 )
         )
@@ -330,14 +330,14 @@ var ForestLayer = cc.Layer.extend({
 
     animateAnimalIn: function(animal, type, deltaTime) {
         animal.scale = 0;
-        action = cc.scaleTo(0.5, 1).easing(cc.easeElasticOut(0.9))
         this.addSmokeEffect();
 
         animal.runAction(
-            cc.spawn(
-                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6)),
-                cc.fadeTo(0.1, 0),
-                cc.fadeTo(0.2, 255)
+            cc.sequence(
+                cc.delayTime(deltaTime * 0.5),
+                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6))
+                // cc.fadeTo(0.1, 0),
+                // cc.fadeTo(0.2, 255)
             )
         );
         var self = this;

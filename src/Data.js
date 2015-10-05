@@ -44,53 +44,97 @@ var BEDROOM_ITEMS = [
 
 var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
     {
-        x: 100,
-        y: 200,
+        x: 400,
+        y: 278,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 150,
-        y: 250,
+        x: 450,
+        y: 278,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 400,
+        y: 290,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 380,
+        y: 290,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 450,
+        y: 290,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 666,
+        y: 300,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+    {
+        x: 1080,
+        y: 245,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+
+
+];
+
+var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
+    {
+        x: 75,
+        y: 70,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+    {
+        x: 90,
+        y: 70,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+    {
+        x: 300,
+        y: 100,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         x: 200,
-        y: 100,
+        y: 80,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+    {
+        x: 500,
+        y: 70,
+        anchorX: 0.5,
+        anchorY: 0
+    },
+    {
+        x: 715,
+        y: 102,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 300,
-        y: 200,
-        anchorX: 0.5,
-        anchorY: 0.5
-    }
-];
-
-var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
-    {
-        x: 400,
-        y: 300,
+        x: 776,
+        y: 171,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 150,
-        y: 450,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 300,
-        y: 100,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 300,
-        y: 500,
+        x: 118,
+        y: 156,
         anchorX: 0.5,
         anchorY: 0.5
     }
