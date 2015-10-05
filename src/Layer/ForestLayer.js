@@ -15,7 +15,6 @@ var ForestLayer = cc.Layer.extend({
     _animalRandomPos: null,
     _star: 0,
     _lastClickTime : 0,
-    _animalAction: null,
 
 	ctor: function() {
 		this._super();
@@ -79,7 +78,6 @@ var ForestLayer = cc.Layer.extend({
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
  			this.createAnimal(animalPositionArray[i], animals[i], i);
         }
-        this._objects;
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -321,12 +319,13 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runHintAction: function() {
-        this._animalAction =  cc.repeatForever(cc.sequence(
-                                            cc.scaleTo(0.5, 1.2),
-                                            cc.scaleTo(0.2, 0.8),
-                                            cc.scaleTo(0.4, 1)
+        var animalAction =  cc.repeatForever(cc.sequence(
+                                            cc.scaleTo(0.8, 1.1),
+                                            cc.scaleTo(0.8, 0.9),
+                                            cc.scaleTo(0.8, 1)
                                         ))
-        return this._animalAction;
+        animalAction.tag = 1;
+        return animalAction;
     },
 
     animateAnimalIn: function(animal, type, deltaTime) {
@@ -341,6 +340,12 @@ var ForestLayer = cc.Layer.extend({
                 cc.fadeTo(0.2, 255)
             )
         );
+        var self = this;
+        this.runObjectAction(this, 0, 
+            function(){
+                self._lastClickTime = self._countDownClock.getRemainingTime()
+            }
+        )
     },
 
     addSmokeEffect: function() {
@@ -351,7 +356,8 @@ var ForestLayer = cc.Layer.extend({
         var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
-                var i = Math.floor(Math.random() * (this._objects.length - 1));s
+                var i = Math.floor(Math.random() * (this._objects.length - 1));
+                cc.log(i);
                 this._objects[i].runAction(this.runHintAction())
             };
         }
@@ -359,7 +365,7 @@ var ForestLayer = cc.Layer.extend({
 
     removeAnimalAction: function() {
         for ( var i = 0; i < this._objects.length; i++) {
-            this._objects[i].stopAction(this._animalAction);
+            this._objects[i].stopActionByTag(1);
         }
     },
 });
