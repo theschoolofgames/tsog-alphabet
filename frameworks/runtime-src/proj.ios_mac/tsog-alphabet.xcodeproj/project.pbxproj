@@ -7,20 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		011F7C3C1BBF7E3D00047B00 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3A1BBF7E3D00047B00 /* IOSNDKHelper.mm */; settings = {ASSET_TAGS = (); }; };
-		011F7C551BBF7E5400047B00 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3E1BBF7E5400047B00 /* dump.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C561BBF7E5400047B00 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3F1BBF7E5400047B00 /* error.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C571BBF7E5400047B00 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C401BBF7E5400047B00 /* hashtable.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C581BBF7E5400047B00 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C451BBF7E5400047B00 /* load.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C591BBF7E5400047B00 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C461BBF7E5400047B00 /* memory.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5A1BBF7E5400047B00 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C471BBF7E5400047B00 /* pack_unpack.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5B1BBF7E5400047B00 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C481BBF7E5400047B00 /* strbuffer.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5C1BBF7E5400047B00 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4A1BBF7E5400047B00 /* strconv.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5D1BBF7E5400047B00 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4B1BBF7E5400047B00 /* utf.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5E1BBF7E5400047B00 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4D1BBF7E5400047B00 /* value.c */; settings = {ASSET_TAGS = (); }; };
-		011F7C5F1BBF7E5400047B00 /* CallFuncNV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4F1BBF7E5400047B00 /* CallFuncNV.cpp */; settings = {ASSET_TAGS = (); }; };
-		011F7C601BBF7E5400047B00 /* NDKCallbackNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C511BBF7E5400047B00 /* NDKCallbackNode.cpp */; settings = {ASSET_TAGS = (); }; };
-		011F7C611BBF7E5400047B00 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C531BBF7E5400047B00 /* NDKHelper.cpp */; settings = {ASSET_TAGS = (); }; };
+		011F7C3C1BBF7E3D00047B00 /* IOSNDKHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3A1BBF7E3D00047B00 /* IOSNDKHelper.mm */; };
+		011F7C551BBF7E5400047B00 /* dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3E1BBF7E5400047B00 /* dump.c */; };
+		011F7C561BBF7E5400047B00 /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C3F1BBF7E5400047B00 /* error.c */; };
+		011F7C571BBF7E5400047B00 /* hashtable.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C401BBF7E5400047B00 /* hashtable.c */; };
+		011F7C581BBF7E5400047B00 /* load.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C451BBF7E5400047B00 /* load.c */; };
+		011F7C591BBF7E5400047B00 /* memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C461BBF7E5400047B00 /* memory.c */; };
+		011F7C5A1BBF7E5400047B00 /* pack_unpack.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C471BBF7E5400047B00 /* pack_unpack.c */; };
+		011F7C5B1BBF7E5400047B00 /* strbuffer.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C481BBF7E5400047B00 /* strbuffer.c */; };
+		011F7C5C1BBF7E5400047B00 /* strconv.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4A1BBF7E5400047B00 /* strconv.c */; };
+		011F7C5D1BBF7E5400047B00 /* utf.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4B1BBF7E5400047B00 /* utf.c */; };
+		011F7C5E1BBF7E5400047B00 /* value.c in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4D1BBF7E5400047B00 /* value.c */; };
+		011F7C5F1BBF7E5400047B00 /* CallFuncNV.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C4F1BBF7E5400047B00 /* CallFuncNV.cpp */; };
+		011F7C601BBF7E5400047B00 /* NDKCallbackNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C511BBF7E5400047B00 /* NDKCallbackNode.cpp */; };
+		011F7C611BBF7E5400047B00 /* NDKHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 011F7C531BBF7E5400047B00 /* NDKHelper.cpp */; };
 		018661941B9FE5F60002036C /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661931B9FE5F60002036C /* H102Wrapper.m */; };
 		0186619F1B9FE6160002036C /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661971B9FE6160002036C /* Countly.m */; };
 		018661A01B9FE6160002036C /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 018661981B9FE6160002036C /* Countly.xcdatamodeld */; };
