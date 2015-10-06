@@ -10,6 +10,7 @@ var ForestLayer = cc.Layer.extend({
     _objectTouching: null,
     _countDownClock: null,
     _starLabel: null,
+    _effectLayer: null,
     _totalSeconds: 0,
     _touchCounting: 0,
     _star: 0,
@@ -345,15 +346,13 @@ var ForestLayer = cc.Layer.extend({
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
-                new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             };
         }
     },
 
     removeAnimalAction: function() {
-        for ( var i = 0; i < this._objects.length; i++) {
-            this._objects[i].stopActionByTag(1);
-        }
+        this._effectLayer.stopRepeatAction();
     },
 });
 var ForestScene = cc.Scene.extend({

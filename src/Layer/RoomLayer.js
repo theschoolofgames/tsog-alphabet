@@ -6,6 +6,7 @@ var RoomLayer = cc.Layer.extend({
     _objectDisableds: [],
     _warningLabel: null,
     _countDownClock: null,
+    _effectLayer: null,
     _lastClickTime: 0,
 
     ctor: function() {
@@ -162,6 +163,7 @@ var RoomLayer = cc.Layer.extend({
         }
         targetNode._objectTouching.stopAllActions();
         targetNode.removeObjectAction();
+
         targetNode._lastClickTime = targetNode._countDownClock.getRemainingTime();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
@@ -172,7 +174,6 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
         targetNode.highLightObjectCorrectPos(index);
-        // targetNode.createWarnLabel("Object is moving!", targetNode._objectTouching);
 
         return true;
     },
@@ -184,7 +185,6 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-        // targetNode._warningLabel.setPosition(objectPosition);
 
         return true;
     },
@@ -301,17 +301,14 @@ var RoomLayer = cc.Layer.extend({
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
-                new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             };
         }
     },
 
     removeObjectAction: function() {
-        for ( var i = 0; i < this._objects.length; i++) {
-            this._objects[i].stopActionByTag(1);
-        }
-    },
-
+        this._effectLayer.stopRepeatAction();
+    }
 });
 
 var RoomScene = cc.Scene.extend({

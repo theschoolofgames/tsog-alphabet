@@ -3,6 +3,7 @@ var EffectLayer = cc.Layer.extend({
     _object: null,
     _effectName: null,
     _effectNode: null,
+    _effectNodeAction: null,
     _effectDelay: 0,
     _effectFrames: 0,
     _loop: false,
@@ -53,15 +54,19 @@ var EffectLayer = cc.Layer.extend({
                         self._object.removeChild(self._effectNode);
                     })
                 )
-            )
+            );
         else {
             var effectNodeAction = cc.repeatForever(
                                         cc.sequence(
                                             cc.animate(effectAnimation)
                                         )
-                                    )
-            this._effectNode.runAction(effectNodeAction)
-            effectNodeAction.tag = 1;
+                                    );
+            this._effectNode.runAction(effectNodeAction);
+            this._effectNodeAction = effectNodeAction;
         }
+    },
+
+    stopRepeatAction: function() {
+        this._effectNode.removeFromParent();
     }
 });
