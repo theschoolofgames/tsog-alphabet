@@ -6,10 +6,11 @@ var res = {
    Button_Refresh_png: "res/refresh-button.png",
    Back_Button_png: "res/back.png",
    Back_Button_Pressed_png: "res/back-pressed.png",
+   BG_jpg: "BG.jpg",
+
    // plist file
    Forest_plist: "forest.plist",
    Forest_png: "forest.png",
-   BG_jpg: "BG.jpg",
 
    // Animals
    Bear_png: "animals/bear.png",
@@ -21,6 +22,10 @@ var res = {
    Book_png: "things/book.png",
    Chair_png: "things/chair.png",
    Pencils_png: "things/colored-pencils.png",
+
+   // Hud
+   Hud_plist: "hud.plist",
+   Hud_png: "hud.png",
 
    // Shader
    SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",

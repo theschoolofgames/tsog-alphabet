@@ -120,11 +120,12 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
 
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());
         // else
-        cc.director.runScene(new MainScreenScene());
+        cc.director.runScene(new RoomScene());
 
         // cc.eventManager.addCustomListener("main_app_called", function (event) {
         //     cc.log(JSON.stringify(event.getUserData()));

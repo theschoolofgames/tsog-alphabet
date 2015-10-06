@@ -29,12 +29,18 @@ var ForestLayer = cc.Layer.extend({
         this.addCountDownClock();
         this.createStarsLabel();
         this.runHintObjectUp();
+        this.addHud();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
+    },
+
+    addHud: function() {
+        var hudLayer = new HudLayer(this);
+        this.addChild(hudLayer);
     },
 
     createBackground: function() {
@@ -213,7 +219,7 @@ var ForestLayer = cc.Layer.extend({
 
     addBackButton: function() {
         var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
-        backButton.x = backButton.width;
+        backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = cc.winSize.height - backButton.height / 2;
 
         this.addChild(backButton);
