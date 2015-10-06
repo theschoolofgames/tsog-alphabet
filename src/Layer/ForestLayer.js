@@ -17,33 +17,33 @@ var ForestLayer = cc.Layer.extend({
     _star: 0,
     _lastClickTime : 0,
 
-	ctor: function() {
-		this._super();
+    ctor: function() {
+        this._super();
 
         this._dsInstance = DataStore.getInstance();
 
         this.resetObjectArrays();
-		this.createBackground();
-		this.createAnimals();
+        this.createBackground();
+        this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
         this.addCountDownClock();
         this.createStarsLabel();
         this.runHintObjectUp();
 
-		cc.eventManager.addListener({
+        cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
-	},
+    },
 
-	createBackground: function() {
-		var background = new cc.Sprite(res.BG_jpg);
+    createBackground: function() {
+        var background = new cc.Sprite(res.BG_jpg);
         background.x = cc.winSize.width / 2;
         background.y = cc.winSize.height / 2;
         background.setLocalZOrder(0);
-		this.addChild(background);
+        this.addChild(background);
 
         var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
         for ( var i = 0; i < forestBgData.length; i++) {
@@ -56,7 +56,7 @@ var ForestLayer = cc.Layer.extend({
             if (i < 3)
                 this.runCloudsAction(backgroundElt);
         }
-	},
+    },
 
     runCloudsAction: function(element) {
         var randomedRunningTime = 0;
@@ -72,12 +72,12 @@ var ForestLayer = cc.Layer.extend({
         )
     },
 
-	createAnimals: function() {
- 		var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+    createAnimals: function() {
+        var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
         var shuffledArrays = this.addShuffledAnimalPosArray();
- 		for ( var i = 0; i < NUMBER_ITEMS; i++) {
+        for ( var i = 0; i < NUMBER_ITEMS; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
- 			this.createAnimal(animalPositionArray[i], animals[i], i);
+            this.createAnimal(animalPositionArray[i], animals[i], i);
         }
     },
 
@@ -133,8 +133,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimal : function(position, animalObject, i) {
-    	var animal =  new cc.Sprite(animalObject.imagePath);
-    	animal.setAnchorPoint(position.anchorX, position.anchorY);
+        var animal =  new cc.Sprite(animalObject.imagePath);
+        animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
         animal.y = position.y;
         animal.setLocalZOrder(position.z);
@@ -252,10 +252,10 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runObjectAction: function(object, delayTime, func) {
-    	object.runAction(cc.sequence(
-    		cc.delayTime(delayTime),
-    		cc.callFunc(func)
-		));
+        object.runAction(cc.sequence(
+            cc.delayTime(delayTime),
+            cc.callFunc(func)
+        ));
     },
 
     addCountDownClock: function() {
@@ -314,6 +314,26 @@ var ForestLayer = cc.Layer.extend({
 
     runHintObjectUp: function() {
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
+    },
+
+    runHintAction: function() {
+        var animalAction =  cc.repeatForever(cc.sequence(
+                                            cc.scaleTo(0.8, 1.1),
+                                            cc.scaleTo(0.8, 0.9),
+                                            cc.scaleTo(0.8, 1)
+                                        ))
+        animalAction.tag = 1;
+        return animalAction;
+    },
+    showHintObjectUp: function() {
+        var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
+        if(deltaTime == TIME_HINT) {
+            if (this._objects.length > 0) {
+                var i = Math.floor(Math.random() * (this._objects.length - 1));
+                cc.log(i);
+                this._objects[i].runAction(this.runHintAction())
+            };
+        }
     },
 
     animateAnimalIn: function(animal, delay) {
@@ -394,10 +414,10 @@ var ForestLayer = cc.Layer.extend({
     },
 });
 var ForestScene = cc.Scene.extend({
-	ctor: function() {
-		this._super();
+    ctor: function() {
+        this._super();
 
-		var forestLayer = new ForestLayer();
-		this.addChild(forestLayer);
-	}
+        var forestLayer = new ForestLayer();
+        this.addChild(forestLayer);
+    }
 });

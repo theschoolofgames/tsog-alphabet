@@ -6,6 +6,7 @@ var RoomLayer = cc.Layer.extend({
     _objectDisableds: [],
     _warningLabel: null,
     _countDownClock: null,
+    _lastClickTime: 0,
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
@@ -20,7 +21,8 @@ var RoomLayer = cc.Layer.extend({
         this.createObject();
         this.addRefreshButton();
         this.addBackButton();
-        this.addCountDownClock(),
+        this.addCountDownClock();
+        this.runHintObjectUp();
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -80,6 +82,7 @@ var RoomLayer = cc.Layer.extend({
 
     createObjectButton: function(objPosition, imagePath) {
         var object = new cc.Sprite(imagePath);
+        self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
         object.x = objPosition.x;
@@ -90,7 +93,14 @@ var RoomLayer = cc.Layer.extend({
         /*  _objectPositions là mảng gồm position của object và placeHolder tương ứng
             */
         this._objects.push(object);
+
+        this.runObjectAction(this, 0, 
+            function(){
+                self._lastClickTime = self._countDownClock.getRemainingTime()
+            }
+        )
     },
+    
 
     createObjectShade: function(object, imagePath) {
         var shadeObject = new cc.Sprite(imagePath);
@@ -155,6 +165,9 @@ var RoomLayer = cc.Layer.extend({
                 return false
             }
         }
+        targetNode._objectTouching.stopAllActions();
+        targetNode.removeObjectAction();
+        targetNode._lastClickTime = targetNode._countDownClock.getRemainingTime();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
@@ -288,6 +301,37 @@ var RoomLayer = cc.Layer.extend({
                 self._lastClickTime = self._countDownClock.getRemainingTime()
             }
         )
+    },
+
+    runHintObjectUp: function() {
+        this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
+    },
+    
+
+    runHintAction: function() {
+        var animalAction =  cc.repeatForever(cc.sequence(
+                                            cc.scaleTo(0.8, 1.1),
+                                            cc.scaleTo(0.8, 0.9),
+                                            cc.scaleTo(0.8, 1)
+                                        ))
+        animalAction.tag = 1;
+        return animalAction;
+    },
+    showHintObjectUp: function() {
+        var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
+        if(deltaTime == TIME_HINT) {
+            if (this._objects.length > 0) {
+                var i = Math.floor(Math.random() * (this._objects.length - 1));
+                cc.log(i);
+                this._objects[i].runAction(this.runHintAction())
+            };
+        }
+    },
+
+    removeObjectAction: function() {
+        for ( var i = 0; i < this._objects.length; i++) {
+            this._objects[i].stopActionByTag(1);
+        }
     },
 
 });
