@@ -69,15 +69,15 @@ var RoomLayer = cc.Layer.extend({
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
-                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath);
+                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath, i);
             else
-                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath);
+                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath, i);
 
             this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imagePath);
         }
     },
 
-    addObjectButton: function(objPosition, imagePath) {
+    addObjectButton: function(objPosition, imagePath, index) {
         var object = new cc.Sprite(imagePath);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -87,8 +87,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.addChild(object, 2);
 
-        /*  _objectPositions là mảng gồm position của object và placeHolder tương ứng
-            */
+        this.animateObjectIn(object, index)
         this._objects.push(object);
 
         this.runObjectAction(this, 0,
@@ -269,7 +268,7 @@ var RoomLayer = cc.Layer.extend({
         var objectSize = this._objectTouching.getContentSize();
 
         var objectPosDistance = cc.p(objectSize.width*(1 - objectAnchorPoint.x),
-                                    objectSize.height*(0.5 - objectAnchorPoint.y));
+                                    objectSize.height/2*(0.5 - objectAnchorPoint.y));
 
         var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
 
