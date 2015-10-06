@@ -336,7 +336,7 @@ var ForestLayer = cc.Layer.extend({
         }
     },
 
-    animateAnimalIn: function(animal, delay) {
+    animateAnimalIn: function(animal, type, delay) {
         animal.scale = 0;
         var self = this;
         animal.runAction(

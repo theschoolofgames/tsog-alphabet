@@ -311,8 +311,7 @@ var RoomLayer = cc.Layer.extend({
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
-                cc.log(i);
-                this._objects[i].runAction(this.runHintAction())
+                new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             };
         }
     },
