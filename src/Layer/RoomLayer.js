@@ -296,16 +296,6 @@ var RoomLayer = cc.Layer.extend({
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
     },
 
-
-    runHintAction: function() {
-        var animalAction =  cc.repeatForever(cc.sequence(
-                                            cc.scaleTo(0.8, 1.1),
-                                            cc.scaleTo(0.8, 0.9),
-                                            cc.scaleTo(0.8, 1)
-                                        ))
-        animalAction.tag = 1;
-        return animalAction;
-    },
     showHintObjectUp: function() {
         var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
         if(deltaTime == TIME_HINT) {
