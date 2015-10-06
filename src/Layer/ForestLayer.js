@@ -3,7 +3,6 @@ var ForestLayer = cc.Layer.extend({
     _objects: [],
     _objectDisabled: [],
     _animalPos: null,
-    _touchCounting: 0,
     _dsInstance: null,
     _background: null,
     _warningLabel: null,
@@ -11,8 +10,10 @@ var ForestLayer = cc.Layer.extend({
     _objectTouching: null,
     _countDownClock: null,
     _starLabel: null,
-    _totalSeconds: 0,
     _animalRandomPos: null,
+    _animalType: 0,
+    _totalSeconds: 0,
+    _touchCounting: 0,
     _star: 0,
     _lastClickTime : 0,
 
@@ -132,7 +133,6 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimal : function(position, animalObject, i) {
-        // cc.log("createAnimal--- " + imagePath);
     	var animal =  new cc.Sprite(animalObject.imagePath);
     	animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
@@ -140,15 +140,13 @@ var ForestLayer = cc.Layer.extend({
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
-
+        this._animalType =  animalObject.type;
         this._animalPos = animal.getPosition();
-        this.animateAnimalIn(animal, animalObject.type, i);
+        this.animateAnimalIn(animal, i);
         this._objects.push(animal);
-        var itemId = animalObject.type;
-        this.runAnimalAction(animal, itemId);
-
     },
     runAnimalAction : function(animal , itemId) {
+        cc.log("itemId: " + itemId);
         if (itemId === FLY_ITEM)
             this.runFlyAnimalAction(animal);
         if (itemId === LIE_ITEM)
@@ -318,29 +316,24 @@ var ForestLayer = cc.Layer.extend({
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
     },
 
-    runHintAction: function() {
-        var animalAction =  cc.repeatForever(cc.sequence(
-                                            cc.scaleTo(0.8, 1.1),
-                                            cc.scaleTo(0.8, 0.9),
-                                            cc.scaleTo(0.8, 1)
-                                        ))
-        animalAction.tag = 1;
-        return animalAction;
-    },
-
-    animateAnimalIn: function(animal, type, deltaTime) {
+    animateAnimalIn: function(animal, delay) {
         animal.scale = 0;
-        this.addSmokeEffect(animal);
-
+        var type = animal.type;
+        var self = this;
         animal.runAction(
             cc.sequence(
-                cc.delayTime(deltaTime * 0.5),
-                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6))
-                // cc.fadeTo(0.1, 0),
-                // cc.fadeTo(0.2, 255)
+                cc.delayTime(delay * 0.5 + 0.5),
+                cc.callFunc(function() {
+                    self.addObjectEffect(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                }),
+                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(1)),
+                cc.callFunc(function() {
+                    self.runAnimalAction(animal, this._animalType);
+                })
             )
         );
-        var self = this;
+
+
         this.runObjectAction(this, 0,
             function(){
                 self._lastClickTime = self._countDownClock.getRemainingTime()
@@ -348,25 +341,40 @@ var ForestLayer = cc.Layer.extend({
         )
     },
 
-    addSmokeEffect: function(animal) {
+    addObjectEffect: function(object, effectName, effectDelay, effectFrames, isRepeat) {
         var animFrames1 = [];
-        for (var i = 0; i < 8; i++) {
-            var str = "res/effect-smoke/" + (i+1) + ".png";
-            cc.log("str: " + str);
+        for (var i = 1; i < effectFrames; i++) {
+            var str = effectName + "-" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
             animFrames1.push(frame);
         }
+        cc.log("hint up!");
+        var effectNode = new cc.Sprite("#" + effectName + "-1.png");
+        effectNode.x = object.width/2;
+        effectNode.y = object.height/2;
+        object.addChild(effectNode, 10);
+        var animation1 = new cc.Animation(animFrames1, effectDelay);
 
-        var node = new cc.Sprite("res/effect-smoke/1.png");
-        node.x = cc.winSize.width/2;
-        node.y = cc.winSize.height/2;
-        this.addChild(node, 10);
-        var animation1 = new cc.Animation(animFrames1, 0.1);
-        node.runAction(
-            cc.repeatForever(
-                cc.animate(animation1)
+        var self = this;
+        if (!isRepeat)
+            effectNode.runAction(
+                cc.sequence(
+                    cc.animate(animation1),
+                    cc.delayTime(0),
+                    cc.callFunc(function() {
+                        object.removeChild(effectNode);
+                    })
+                )
             )
-        );
+        else {
+            var effectNodeAction = cc.repeatForever(
+                                        cc.sequence(
+                                            cc.animate(animation1)
+                                        )
+                                    )
+            effectNode.runAction(effectNodeAction)
+            effectNodeAction.tag = 1;
+        }
     },
 
     showHintObjectUp: function() {
@@ -374,8 +382,7 @@ var ForestLayer = cc.Layer.extend({
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
-                cc.log(i);
-                this._objects[i].runAction(this.runHintAction())
+                this.addObjectEffect(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             };
         }
     },

@@ -27,14 +27,10 @@ var res = {
    SpriteDistort_vsh: "res/shader/SpriteDistort.vsh",
 
    // Effect
-   Smoke_effect_1: "res/effect-smoke/1.png",
-   Smoke_effect_2: "res/effect-smoke/2.png",
-   Smoke_effect_3: "res/effect-smoke/3.png",
-   Smoke_effect_4: "res/effect-smoke/4.png",
-   Smoke_effect_5: "res/effect-smoke/5.png",
-   Smoke_effect_6: "res/effect-smoke/6.png",
-   Smoke_effect_7: "res/effect-smoke/7.png",
-   Smoke_effect_8: "res/effect-smoke/8.png",
+   Smoke_effect_plist: "effect-smoke.plist",
+   Smoke_effect_png: "effect-smoke.png",
+   Sparkle_effect_png: "sparkle-effect.png",
+   Sparkle_effect_plist: "sparkle-effect.plist"
 
    // Smoke_sound: "res/smoke-sound.mp3"
 };

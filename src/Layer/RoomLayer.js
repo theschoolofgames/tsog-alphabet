@@ -258,16 +258,37 @@ var RoomLayer = cc.Layer.extend({
     getObjectPosWithTouchedPos: function(touchedPos) {
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
         var objectSize = this._objectTouching.getContentSize();
-        // var anchorPointXRatio = (objectAnchorPoint.x <= 0.5) ? -1 : 1;
-        // var anchorPointYRatio = (objectAnchorPoint.y <= 0.5) ? -1 : 1;
 
-        var objectPosDistance = cc.p(objectSize.width*(0.5 - objectAnchorPoint.x),
-                                    objectSize.height*(0.5 - objectAnchorPoint.y));
+        var objectPosDistance = cc.p(objectSize.width*(1 - objectAnchorPoint.x),
+                                    objectSize.height*(1 - objectAnchorPoint.y));
 
-        var objectPosition = cc.pSub(touchedPos, objectPosDistance);
+        var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
 
         return objectPosition;
-    }
+    },
+
+    animateObjectIn: function(object, delay) {
+        object.scale = 0;
+        var type = object.type;
+        var self = this;
+        object.runAction(
+            cc.sequence(
+                cc.delayTime(delay * 0.5),
+                // cc.callFunc(function() {
+                //     self.addSmokeEffect(object);
+                // }),
+                // cc.delayTime(0),
+                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6))
+            )
+        );
+        this.runAnimalAction(object, type);
+
+        this.runObjectAction(this, 0,
+            function(){
+                self._lastClickTime = self._countDownClock.getRemainingTime()
+            }
+        )
+    },
 
 });
 

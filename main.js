@@ -118,7 +118,9 @@ cc.game.onStart = function(){
         RequestsManager.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
-        
+        cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
+        cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
+
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());
         // else
