@@ -40,6 +40,8 @@ var ForestLayer = cc.Layer.extend({
 
     addHud: function() {
         var hudLayer = new HudLayer(this);
+        hudLayer.x = 0;
+        hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer);
     },
 

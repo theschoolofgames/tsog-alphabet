@@ -3,6 +3,7 @@ var HudLayer = cc.Layer.extend({
     _settingBtn: null,
     _progressBar: null,
     _goalImg: null,
+    _clockImg: null,
 
     ctor: function(containerLayer) {
         this._super();
@@ -12,13 +13,16 @@ var HudLayer = cc.Layer.extend({
         this.addGameProgressBar();
         this.addGoalImage();
         this.addClockImage();
+
+        this.width = this._clockImg.x + this._clockImg.width/2;
+        this.height = this._settingBtn.height;
     },
 
     addSettingButton: function() {
         var settingBtn = new ccui.Button();
         settingBtn.loadTextures("btn_pause.png", "btn_pause-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         settingBtn.x = settingBtn.width - 10;
-        settingBtn.y = cc.winSize.height - settingBtn.height/2 - 10;
+        settingBtn.y = settingBtn.height/2 - 10;
         this.addChild(settingBtn);
 
         var self = this;
@@ -68,7 +72,7 @@ var HudLayer = cc.Layer.extend({
         clockImg.x = 0;
         clockImg.y = clockImg.height/2 - 5;
         clockBg.addChild(clockImg);
-
+        this._clockImg = clockBg;
         this.addLabel(clockBg, "3:69");
     },
 
@@ -86,6 +90,6 @@ var HudLayer = cc.Layer.extend({
         star.x = posX;
         star.y = object.height/2 + 5;
         object.addChild(star);
-    }
+    },
 
 });
