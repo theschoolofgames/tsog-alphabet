@@ -14,7 +14,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.resetObjectArrays();
         this.createBackground();
-        this.createObject();
+        this.addObjects();
         this.addRefreshButton();
         this.addBackButton();
         this.addCountDownClock();
@@ -61,7 +61,7 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(background);
     },
 
-    createObject: function() {
+    addObjects: function() {
         var dsInstance = DataStore.getInstance();
 
         var bedroomObjects = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
@@ -69,15 +69,15 @@ var RoomLayer = cc.Layer.extend({
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
-                this.createObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath);
+                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath);
             else
-                this.createObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath);
+                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath);
 
-            this.createObjectShade(bedroomObjects[i], bedroomObjects[i].imagePath);
+            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imagePath);
         }
     },
 
-    createObjectButton: function(objPosition, imagePath) {
+    addObjectButton: function(objPosition, imagePath) {
         var object = new cc.Sprite(imagePath);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -98,8 +98,7 @@ var RoomLayer = cc.Layer.extend({
         )
     },
 
-
-    createObjectShade: function(object, imagePath) {
+    addObjectShade: function(object, imagePath) {
         var shadeObject = new cc.Sprite(imagePath);
         shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
@@ -279,19 +278,13 @@ var RoomLayer = cc.Layer.extend({
 
     animateObjectIn: function(object, delay) {
         object.scale = 0;
-        var type = object.type;
         var self = this;
         object.runAction(
             cc.sequence(
                 cc.delayTime(delay * 0.5),
-                // cc.callFunc(function() {
-                //     self.addSmokeEffect(object);
-                // }),
-                // cc.delayTime(0),
                 cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6))
             )
         );
-        this.runAnimalAction(object, type);
 
         this.runObjectAction(this, 0,
             function(){

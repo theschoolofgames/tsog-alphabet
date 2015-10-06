@@ -19,6 +19,7 @@
         "src/Data.js",
         "src/Utils.js",
         "src/Layer/Clock.js",
-        "src/meerkat/RequestsManager.js"
+        "src/meerkat/RequestsManager.js",
+        "src/Layer/Effect.js"
     ]
 }

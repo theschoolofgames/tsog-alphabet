@@ -343,7 +343,7 @@ var ForestLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * 0.5 + 0.5),
                 cc.callFunc(function() {
-                    self.addObjectEffect(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                    new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(1)),
                 cc.callFunc(function() {
@@ -360,48 +360,12 @@ var ForestLayer = cc.Layer.extend({
         )
     },
 
-    addObjectEffect: function(object, effectName, effectDelay, effectFrames, isRepeat) {
-        var animFrames1 = [];
-        for (var i = 1; i < effectFrames; i++) {
-            var str = effectName + "-" + i + ".png";
-            var frame = cc.spriteFrameCache.getSpriteFrame(str);
-            animFrames1.push(frame);
-        }
-        cc.log("hint up!");
-        var effectNode = new cc.Sprite("#" + effectName + "-1.png");
-        effectNode.x = object.width/2;
-        effectNode.y = object.height/2;
-        object.addChild(effectNode, 10);
-        var animation1 = new cc.Animation(animFrames1, effectDelay);
-
-        var self = this;
-        if (!isRepeat)
-            effectNode.runAction(
-                cc.sequence(
-                    cc.animate(animation1),
-                    cc.delayTime(0),
-                    cc.callFunc(function() {
-                        object.removeChild(effectNode);
-                    })
-                )
-            )
-        else {
-            var effectNodeAction = cc.repeatForever(
-                                        cc.sequence(
-                                            cc.animate(animation1)
-                                        )
-                                    )
-            effectNode.runAction(effectNodeAction)
-            effectNodeAction.tag = 1;
-        }
-    },
-
     showHintObjectUp: function() {
         var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
-                this.addObjectEffect(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             };
         }
     },
