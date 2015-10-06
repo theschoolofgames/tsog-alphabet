@@ -10,8 +10,6 @@ var ForestLayer = cc.Layer.extend({
     _objectTouching: null,
     _countDownClock: null,
     _starLabel: null,
-    _animalRandomPos: null,
-    _animalType: 0,
     _totalSeconds: 0,
     _touchCounting: 0,
     _star: 0,
@@ -126,9 +124,11 @@ var ForestLayer = cc.Layer.extend({
 
         return true;
     },
-    getRamdomPositionMoveto : function(radius) {
+    getRamdomPositionMoveto : function(radius, animalOriginPos) {
         var animalPos = null;
-        animalPos = cc.p(this._animalPos.x - Math.random() * radius + 10, this._animalPos.y - Math.random() * radius + 10);
+        animalPos = cc.p(animalOriginPos.x - Math.random() * radius + 10,
+                        animalOriginPos.y - Math.random() * radius + 10);
+        cc.log(JSON.stringify(animalPos))
         return animalPos;
     },
 
@@ -140,9 +140,8 @@ var ForestLayer = cc.Layer.extend({
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
-        this._animalType =  animalObject.type;
         this._animalPos = animal.getPosition();
-        this.animateAnimalIn(animal, i);
+        this.animateAnimalIn(animal, animalObject.type, i);
         this._objects.push(animal);
     },
     runAnimalAction : function(animal , itemId) {
@@ -157,13 +156,14 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runFlyAnimalAction: function(animal) {
+        var animalPos = animal.getPosition();
         animal.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20)),
-                        cc.moveTo(MOVE_DELAY_TIME, this._animalPos)
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, animalPos)
                     )
                 )
         )
@@ -338,7 +338,6 @@ var ForestLayer = cc.Layer.extend({
 
     animateAnimalIn: function(animal, delay) {
         animal.scale = 0;
-        var type = animal.type;
         var self = this;
         animal.runAction(
             cc.sequence(
@@ -348,7 +347,7 @@ var ForestLayer = cc.Layer.extend({
                 }),
                 cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(1)),
                 cc.callFunc(function() {
-                    self.runAnimalAction(animal, this._animalType);
+                    self.runAnimalAction(animal, type);
                 })
             )
         );

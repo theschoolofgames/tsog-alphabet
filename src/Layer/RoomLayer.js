@@ -12,10 +12,6 @@ var RoomLayer = cc.Layer.extend({
         cc.log("Dev: " + whoAmI);
         this._super();
 
-        // cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
-        // cc.spriteFrameCache.addSpriteFrames(res.Animals_plist);
-        // cc.spriteFrameCache.addSpriteFrames(res.Things_plist);
-
         this.resetObjectArrays();
         this.createBackground();
         this.createObject();
@@ -23,6 +19,7 @@ var RoomLayer = cc.Layer.extend({
         this.addBackButton();
         this.addCountDownClock();
         this.runHintObjectUp();
+
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -94,13 +91,13 @@ var RoomLayer = cc.Layer.extend({
             */
         this._objects.push(object);
 
-        this.runObjectAction(this, 0, 
+        this.runObjectAction(this, 0,
             function(){
                 self._lastClickTime = self._countDownClock.getRemainingTime()
             }
         )
     },
-    
+
 
     createObjectShade: function(object, imagePath) {
         var shadeObject = new cc.Sprite(imagePath);
@@ -273,7 +270,7 @@ var RoomLayer = cc.Layer.extend({
         var objectSize = this._objectTouching.getContentSize();
 
         var objectPosDistance = cc.p(objectSize.width*(1 - objectAnchorPoint.x),
-                                    objectSize.height*(1 - objectAnchorPoint.y));
+                                    objectSize.height*(0.5 - objectAnchorPoint.y));
 
         var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
 
@@ -306,7 +303,7 @@ var RoomLayer = cc.Layer.extend({
     runHintObjectUp: function() {
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
     },
-    
+
 
     runHintAction: function() {
         var animalAction =  cc.repeatForever(cc.sequence(
