@@ -28,22 +28,15 @@ package org.cocos2dx.javascript;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
-
-import org.json.JSONObject;
+import org.cocos2dx.lib.Cocos2dxJavascriptJavaBridge;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.SharedPreferences;
 import android.content.Context;
 
-import com.easyndk.classes.AndroidNDKHelper;
-
-import android.util.Base64;
 import android.util.Log;
-
-import  java.io.UnsupportedEncodingException;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -56,8 +49,6 @@ public class AppActivity extends Cocos2dxActivity {
         app = this;
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
-
-        AndroidNDKHelper.SetNDKReceiver(this);
 
         // Intent
         Intent intent = getIntent();
@@ -76,24 +67,12 @@ public class AppActivity extends Cocos2dxActivity {
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
-            byte[] data = Base64.decode(sharedText, Base64.DEFAULT);
-            try {
-                String text = new String(data, "UTF-8");
-                String[] dataArray = text.split(":");
-                String message = String.format("Username: %s\nSchoolName: %s", dataArray[0], dataArray[1]);
-
-                app.showMessage("TSOG", message);   
-
-                SharedPreferences sharedPref = app.getPreferences(Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString("user_id", dataArray[2]); 
-                editor.commit();
-            } catch (UnsupportedEncodingException e) {}
+            Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s')", sharedText));
         }
     }
 
-    // Easy NDK
-    public void showMessage(String title, String message) {
+    // Reflection
+    public static void showMessage(String title, String message) {
         final String aTitle = title, aMessage = message;
         app.runOnUiThread(new Runnable() {
             @Override
@@ -112,28 +91,20 @@ public class AppActivity extends Cocos2dxActivity {
         });
     }
 
-    public void showMessage(JSONObject prms) {
-        showMessage(prms.optString("title"), prms.optString("message"));
-    }
-
-    // Reflection
     public static boolean openScheme(String bundleId, String data) {
         PackageManager manager = app.getPackageManager();
 
         Intent i = manager.getLaunchIntentForPackage(bundleId);
         if (i == null) {
-            app.showMessage("Error", "Target game not found");
+            AppActivity.showMessage("Error", "Target game not found");
             return false;
             //throw new PackageManager.NameNotFoundException();
         }
-        i.putExtra("data", data);
+        i.setAction(Intent.ACTION_SEND);
+        i.putExtra(Intent.EXTRA_TEXT, data);
+        i.setType("text/plain");
         i.addCategory(Intent.CATEGORY_LAUNCHER);
         app.startActivity(i);
         return true;    
-    }
-
-    public static String getUserId() {
-        SharedPreferences sharedPref = app.getPreferences(Context.MODE_PRIVATE);
-        return sharedPref.getString("user_id", null);
     }
 }

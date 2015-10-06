@@ -25,8 +25,14 @@
     NSLog(@"Receiver not found");
 }
 
-+ (NSString *) getUserId {
-  return [[NSUserDefaults standardUserDefaults] stringForKey:@"user_id"];
++ (void)showMessage:(NSString *)title withMessage:(NSString *)message {
+  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
+                                                      message:message
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+  
+  [alertView show];
 }
 
 @end

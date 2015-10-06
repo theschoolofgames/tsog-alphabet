@@ -31,7 +31,7 @@
 #import "RootViewController.h"
 #import "platform/ios/CCEAGLView-ios.h"
 
-#import "IOSNDKHelper.h"
+#import "ScriptingCore.h"
 
 @implementation AppController
 
@@ -85,8 +85,6 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
   
-    [IOSNDKHelper setNDKReceiver:self];
-  
     return YES;
 }
 
@@ -136,24 +134,7 @@ static AppDelegate s_sharedApplication;
   NSRange range = [receivedData rangeOfString:@"://"];
   receivedData = [receivedData substringFromIndex:range.location+3];
   
-  NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:receivedData options:0];
-  NSString *decodedString = [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
-  
-  NSArray* dataArray = [decodedString componentsSeparatedByString:@":"];
-  NSString* message = [NSString stringWithFormat:@"UserName: %@\nSchoolName: %@",
-                       dataArray[0], dataArray[1]];
-  
-  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"TSOG"
-                                                    message:message
-                                                   delegate:nil
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:nil];
-  [alertView show];
-  
-  cocos2d::UserDefault::getInstance()->setStringForKey("user_id", [[NSString stringWithFormat:@"%@", dataArray[2]] UTF8String]);
-  
-//  std::string userId = [[NSString stringWithFormat:@"%@", dataArray[2]] UTF8String];
-//  cocos2d::Director::getInstance()->getEventDispatcher()->dispatchCustomEvent("main_app_called", (void*)&userId);
+  ScriptingCore::getInstance()->evalString([[NSString stringWithFormat:@"Utils.receiveData('%@')", receivedData] UTF8String], nullptr);
 
   return YES;
 }
@@ -173,23 +154,6 @@ static AppDelegate s_sharedApplication;
 - (void)dealloc {
     [super dealloc];
 }
-
-#pragma Native OC methods
-- (void)showMessage:(NSString *)title message:(NSString *)message  {
-  UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
-                                                      message:message
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-  
-  [alertView show];
-}
-
-- (void)showMessage:(NSObject *)prms {
-  NSDictionary* dict = (NSDictionary*)prms;
-  [self showMessage:[dict valueForKey:@"title"] message:[dict valueForKey:@"message"]];
-}
-
 
 @end
 

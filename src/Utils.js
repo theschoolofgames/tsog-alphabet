@@ -6,11 +6,7 @@ Utils.shuffle = function(o){
 }
 
 Utils.getUserId = function() {
-    if (cc.sys.os == cc.sys.OS_IOS)
-        return jsb.reflection.callStaticMethod("H102Wrapper", 
-                                               "getUserId");
-    if (cc.sys.os == cc.sys.OS_ANDROID)
-        return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getUserId", "()Ljava/lang/String;");
+    return KVDatabase.getInstance().getString(STRING_USER_ID, "");
 }
 
 Utils.moveToMainApp = function() {
@@ -26,4 +22,14 @@ Utils.moveToMainApp = function() {
                                         "com.hub102.tsog",
                                         "");
     }
+}
+
+Utils.receiveData = function(data) {
+    var decodedData = Base64.decode(data);
+    var dataArray = decodedData.split(':');
+
+    var message = cc.formatStr("UserName: %s\nSchoolName: %s", dataArray[0], dataArray[1]);
+    showNativeMessage("TSOG", message);
+
+    KVDatabase.getInstance().set(STRING_USER_ID, dataArray[2]);
 }

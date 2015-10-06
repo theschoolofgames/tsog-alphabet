@@ -114,7 +114,7 @@ cc.game.onStart = function(){
         require("src/WhoAmI.js");
 
     cc.LoaderScene.preload(g_resources, function () {
-        // KVDatabase.setupInstance(CocosKVImpl);
+        KVDatabase.setupInstance(CocosKVImpl);
         RequestsManager.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
