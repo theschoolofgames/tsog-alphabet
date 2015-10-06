@@ -129,7 +129,7 @@ var RoomLayer = cc.Layer.extend({
         //disable multiTouch
         if (this._objectTouching)
             return false;
-        // nếu vị trí bấm vào nằm trong object thì gán object đó vào _objectTouching để sử dụng
+
         var distance = 0;
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
@@ -280,8 +280,11 @@ var RoomLayer = cc.Layer.extend({
         var self = this;
         object.runAction(
             cc.sequence(
-                cc.delayTime(delay * 0.5),
-                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(0.6))
+                cc.delayTime(delay * 0.4),
+                cc.callFunc(function() {
+                    new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                }),
+                cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9))
             )
         );
 

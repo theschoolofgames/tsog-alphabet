@@ -322,11 +322,11 @@ var ForestLayer = cc.Layer.extend({
         var self = this;
         animal.runAction(
             cc.sequence(
-                cc.delayTime(delay * 0.5 + 0.5),
+                cc.delayTime(delay * 0.4),
                 cc.callFunc(function() {
                     new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
-                cc.scaleTo(0.3, 1).easing(cc.easeElasticOut(1)),
+                cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9)),
                 cc.callFunc(function() {
                     self.runAnimalAction(animal, type);
                 })

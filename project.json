@@ -23,6 +23,6 @@
         "src/Utils.js",
         "src/Layer/Clock.js",
         "src/meerkat/RequestsManager.js",
-        "src/Layer/Effect.js"
+        "src/Layer/EffectLayer.js"
     ]
 }
