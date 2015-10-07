@@ -26,3 +26,7 @@ var SPARKLE_EFFECT_FRAMES = 19;
 var HUD_BAR_DISTANCE = 60;
 
 var STRING_USER_ID = "self_user_id";
+var STRING_USER_NAME = "self_user_name";
+var STRING_SCHOOL_NAME = "self_school_name";
+
+var STRING_EVENT_MAIN_APP_CALLED = "event_main_app_called";

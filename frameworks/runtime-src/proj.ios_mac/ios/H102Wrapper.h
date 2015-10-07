@@ -16,7 +16,7 @@
 
 + (void)openScheme:(NSString *)bundleId withData:(NSString *)data;
 
-+ (void)showMessage:(NSString *)title withMessage:(NSString *)message;
++ (void)showMessage:(NSString *)title message:(NSString *)message;
 @end
 
 

@@ -5,16 +5,36 @@ var MainScreenLayer = cc.LayerColor.extend({
 
         var logo = new cc.Sprite("logo.png");
         logo.x = cc.winSize.width/2;
-        logo.y = cc.winSize.height/2;
+        logo.y = cc.winSize.height/2 + 50;
         this.addChild(logo);
 
-        var lb = new cc.LabelTTF("TOUCH TO CONTINUE", "Arial", 36);
-        lb.x = cc.winSize.width/2;
-        lb.y = cc.winSize.height/2 - 200;
-        lb.color = cc.color(0, 0, 0, 255);
-        this.addChild(lb);
+        var lbContinue = new cc.LabelTTF("TOUCH TO CONTINUE", "Arial", 36);
+        lbContinue.x = cc.winSize.width/2;
+        lbContinue.y = cc.winSize.height/2 - 250;
+        lbContinue.color = cc.color(0, 0, 0, 255);
+        this.addChild(lbContinue);
 
-        lb.runAction(cc.repeatForever(cc.sequence(
+        var lbWelcome = new cc.LabelTTF("Please login from TSOG main app", "Arial", 28);
+        lbWelcome.x = cc.winSize.width/2;
+        lbWelcome.y = cc.winSize.height/2 - 150;
+        lbWelcome.color = cc.color(0, 0, 0, 255);
+        lbWelcome.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        this.addChild(lbWelcome);
+
+        var userId = Utils.getUserId();
+        if (userId) {
+            var userName = Utils.getUserName();
+            var schoolName = Utils.getSchoolName();
+
+            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", userName, schoolName);
+        }
+
+        cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {  
+            var data = event.getUserData();
+            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);   
+        });
+
+        lbContinue.runAction(cc.repeatForever(cc.sequence(
             cc.fadeOut(0.75),
             cc.fadeIn(0.75))));
 

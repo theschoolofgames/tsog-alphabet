@@ -9,6 +9,14 @@ Utils.getUserId = function() {
     return KVDatabase.getInstance().getString(STRING_USER_ID, "");
 }
 
+Utils.getUserName = function() {
+    return KVDatabase.getInstance().getString(STRING_USER_NAME, "");
+}
+
+Utils.getSchoolName = function() {
+    return KVDatabase.getInstance().getString(STRING_SCHOOL_NAME, "");
+}
+
 Utils.moveToMainApp = function() {
     if (cc.sys.os == cc.sys.OS_IOS)
         jsb.reflection.callStaticMethod("H102Wrapper", 
@@ -29,7 +37,16 @@ Utils.receiveData = function(data) {
     var dataArray = decodedData.split(':');
 
     var message = cc.formatStr("UserName: %s\nSchoolName: %s", dataArray[0], dataArray[1]);
-    showNativeMessage("TSOG", message);
+    // showNativeMessage("TSOG", message);
 
+    KVDatabase.getInstance().set(STRING_USER_NAME, dataArray[0]);
+    KVDatabase.getInstance().set(STRING_SCHOOL_NAME, dataArray[1]);
     KVDatabase.getInstance().set(STRING_USER_ID, dataArray[2]);
+
+    var receivedData = {
+        user_name: dataArray[0],
+        school_name: dataArray[1],
+        user_id: dataArray[2]
+    }
+    cc.eventManager.dispatchCustomEvent(STRING_EVENT_MAIN_APP_CALLED, receivedData);
 }
