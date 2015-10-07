@@ -110,7 +110,7 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectShade: function(object, imagePath) {
         var shadeObject = new cc.Sprite(imagePath);
-        shadeObject.setScale(1.5);
+        // shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
@@ -243,12 +243,13 @@ var RoomLayer = cc.Layer.extend({
 
     highLightObjectCorrectPos: function(index) {
         var shadeObject = this._shadeObjects[index];
-        shadeObject.runAction(
-            cc.repeatForever(
-                    cc.sequence(
-                        cc.scaleTo(0.8, 0.8),
-                        cc.scaleTo(0.8, 1.2)
-            )));
+        shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+        // shadeObject.runAction(
+        //     cc.repeatForever(
+        //             cc.sequence(
+        //                 cc.scaleTo(0.8, 0.8),
+        //                 cc.scaleTo(0.8, 1.2)
+        //     )));
     },
 
     handleObjectCorrectPos: function(index) {
