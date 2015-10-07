@@ -123,8 +123,10 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
 
         // Add Shader to cache
-        var shaderSpriteDistort = cc.GLProgram.createWithFilenames(res.SpriteDistort_vsh, res.SpriteDistort_fsh);
+        var shaderSpriteDistort = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
         cc.shaderCache.addProgram(shaderSpriteDistort, "SpriteDistort");
+        var shaderSolidColor = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
+        cc.shaderCache.addProgram(shaderSolidColor, "SolidColor");
 
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());

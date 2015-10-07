@@ -29,7 +29,8 @@ var res = {
 
    // Shader
    SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",
-   SpriteDistort_vsh: "res/shader/SpriteDistort.vsh",
+   SolidColor_fsh: "res/shader/SolidColor.fsh",
+   PositionTextureColor_noMVP_vsh: "res/shader/PositionTextureColor_noMVP.vsh",
 
    // Effect
    Smoke_effect_plist: "effect-smoke.plist",
