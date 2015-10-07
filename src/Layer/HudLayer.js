@@ -4,8 +4,11 @@ var HudLayer = cc.Layer.extend({
     _clockImg: null,
     _settingBtn: null,
     _goalImg: null,
-    _progressBar: null,
+    _progressBarBg: null,
     _progressLabel: null,
+    _gameProgressBar: null,
+    _progressPercentage: 0,
+    _starEarned: 0,
 
     ctor: function(layer) {
         this._super();
@@ -18,6 +21,8 @@ var HudLayer = cc.Layer.extend({
 
         this.width = this._clockImg.x + this._clockImg.width/2;
         this.height = this._settingBtn.height;
+
+        this.scheduleUpdate();
     },
 
     addSettingButton: function() {
@@ -41,12 +46,21 @@ var HudLayer = cc.Layer.extend({
         progressBarBg.y = this._settingBtn.y;
         this.addChild(progressBarBg);
 
-        this._progressBar = progressBarBg;
-        var gameProgressBar = new cc.ProgressTimer(progressBarBg);
+        this._progressBarBg = progressBarBg;
 
-        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3, progressBarBg.height/2 + 5);
-        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3*2, progressBarBg.height/2 + 5);
-        this.addStar(progressBarBg, "dark", progressBarBg.width - 30, progressBarBg.height/2 + 5);
+        this._progressBar = progressBarBg;
+        var gameProgressBar = new cc.ProgressTimer(new cc.Sprite("#colorbar.png"));
+        gameProgressBar.x = progressBarBg.width/2 ;
+        gameProgressBar.y = progressBarBg.height/2 + 2;
+        gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
+        gameProgressBar.midPoint = cc.p(0, 1);
+        gameProgressBar.barChangeRate = cc.p(1, 0);
+        gameProgressBar.percentage = 1;
+        progressBarBg.addChild(gameProgressBar);
+
+        this._gameProgressBar = gameProgressBar;
+
+        this.addStar("dark", DARK_STAR_NUMBERS);
     },
 
     addGoalImage: function() {
@@ -89,11 +103,13 @@ var HudLayer = cc.Layer.extend({
         this._progressLabel = label;
     },
 
-    addStar: function(object, type, posX, posY) {
-        var star = new cc.Sprite("#star-" + type +".png");
-        star.x = posX;
-        star.y = posY;
-        object.addChild(star);
+    addStar: function(type, number) {
+        for ( var i = 0; i < number; i++) {
+            var star = new cc.Sprite("#star-" + type +".png");
+            star.x = (this._progressBarBg.width - 30)/3 * (i+1);
+            star.y = this._progressBarBg.height/2 + 5;
+            this._progressBarBg.addChild(star);
+        }
     },
 
     addCountDownClock: function() {
@@ -102,7 +118,7 @@ var HudLayer = cc.Layer.extend({
             self._layer.completedScene();
         });
         clock.x = this._clockImg.width / 2 + 10;
-        clock.y = this._clockImg.height/2;
+        clock.y = this._clockImg.height / 2;
         this._clockImg.addChild(clock, 99);
 
         this._clock = clock;
@@ -114,6 +130,27 @@ var HudLayer = cc.Layer.extend({
 
     setProgressLabelStr: function(text) {
         this._progressLabel.setString(text + "/" + NUMBER_ITEMS);
+    },
+
+    setProgressBarPercentage: function(percent){
+        this._progressPercentage = percent*100;
+    },
+
+    setStarEarned: function(starEarned) {
+        this._starEarned = starEarned;
+    },
+
+    getStarEarned: function() {
+        return this._starEarned;
+    },
+
+    update: function(dt){
+        var currentPercentage = this._gameProgressBar.getPercentage();
+        if ((this._progressPercentage > 0) && (this._progressPercentage > currentPercentage)) {
+            currentPercentage += PROGRESSBAR_CHANGE_RATE*dt;
+        }
+        this._gameProgressBar.percentage = currentPercentage;
     }
+
 
 });

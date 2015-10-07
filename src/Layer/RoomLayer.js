@@ -128,8 +128,28 @@ var RoomLayer = cc.Layer.extend({
         this._shadeObjects.push(shadeObject);
     },
 
+    animateObjectIn: function(object, delay) {
+        object.scale = 0;
+        var self = this;
+        object.runAction(
+            cc.sequence(
+                cc.delayTime(delay * 0.4),
+                cc.callFunc(function() {
+                    new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                }),
+                cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9))
+            )
+        );
+
+        this.runObjectAction(this, 0,
+            function(){
+                self._lastClickTime = self._hudLayer.getRemainingTime();
+            }
+        )
+    },
+
     createWarnLabel: function(text, object) {
-        var warnLabel = new cc.LabelTTF(text, "Arial", 32);
+        var warnLabel = new cc.LabelTTF(text, "Arial", 24);
         warnLabel.setColor(cc.color.RED);
         if (object) {
             warnLabel.x = object.x;
@@ -174,11 +194,9 @@ var RoomLayer = cc.Layer.extend({
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
-        for (var i = 0; i < targetNode._objectDisableds.length; i++) {
-            if (targetNode._objectTouching === targetNode._objectDisableds[i]){
-                targetNode._objectTouching = null;
-                return false
-            }
+        if (targetNode.isObjectDisabled(targetNode._objectTouching)) {
+            targetNode._objectTouching = null;
+            return false;
         }
         targetNode._objectTouching.stopAllActions();
         targetNode.removeObjectAction();
@@ -217,7 +235,6 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
 
         targetNode.handleObjectCorrectPos(index);
-        targetNode._objectTouching = null;
 
         // win condition
         if (targetNode._objectDisableds.length == NUMBER_ITEMS)
@@ -227,7 +244,10 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        this.createWarnLabel("Scene Completed!");
+        var starEarned = this._hudLayer.getStarEarned();
+        var str = (starEarned > 1) ? " stars" : " star";
+        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
+        this.createWarnLabel(lbText);
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
@@ -246,13 +266,6 @@ var RoomLayer = cc.Layer.extend({
         var shadeObject = this._shadeObjects[index];
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
         this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
-
-        // shadeObject.runAction(
-        //     cc.repeatForever(
-        //             cc.sequence(
-        //                 cc.scaleTo(0.8, 0.8),
-        //                 cc.scaleTo(0.8, 1.2)
-        //     )));
     },
 
     handleObjectCorrectPos: function(index) {
@@ -266,8 +279,9 @@ var RoomLayer = cc.Layer.extend({
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(0);
             this._objectDisableds.push(this._objectTouching);
-            this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
             this.removeObjectAction();
+            this.updateProgressBar();
+            this._objectTouching = null;
         }
     },
 
@@ -285,57 +299,79 @@ var RoomLayer = cc.Layer.extend({
         return objectPosition;
     },
 
-    animateObjectIn: function(object, delay) {
-        object.scale = 0;
-        var self = this;
-        object.runAction(
-            cc.sequence(
-                cc.delayTime(delay * 0.4),
-                cc.callFunc(function() {
-                    new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
-                }),
-                cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9))
-            )
-        );
-
-        this.runObjectAction(this, 0,
-            function(){
-                self._lastClickTime = self._hudLayer.getRemainingTime();
+    isObjectDisabled: function(objectTouching) {
+        for (var i = 0; i < this._objectDisableds.length; i++) {
+            if (objectTouching === this._objectDisableds[i]){
+                return true;
             }
-        )
+        }
+    },
+
+    updateProgressBar: function() {
+        var percent = this._objectDisableds.length / NUMBER_ITEMS;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
+
+        var starEarned = 0;
+        var objectCorrected = this._objectDisableds.length;
+
+        if (objectCorrected >= STAR_GOAL_1 && objectCorrected < STAR_GOAL_2)
+            starEarned = 1;
+        if (objectCorrected >= STAR_GOAL_2 && objectCorrected < STAR_GOAL_3)
+            starEarned = 2;
+        if (objectCorrected >= STAR_GOAL_3)
+            starEarned = 3;
+
+        cc.log("starEarned: " + starEarned);
+        this._hudLayer.setStarEarned(starEarned);
+
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
     },
 
     runHintObjectUp: function() {
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._hudLayer.getRemainingTime());
     },
 
-    showHintObjectUp: function() {
-        if (this._objectTouching)
-            return;
-        var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
-        if(deltaTime == TIME_HINT) {
-            if (this._objects.length > 0) {
-                // var i = Math.floor(Math.random() * (this._objects.length - 1));
-                // this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
-                this.runSparklesEffect();
-            };
-        }
-    },
-
     runSparklesEffect: function() {
         for ( var i = 0; i < this._objects.length; i++) {
+            if (this.isObjectDisabled(this._objects[i]))
+                continue;
+
             var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
     },
 
     removeObjectAction: function() {
-        for ( var i = 0; i < this._effectLayers.length; i++) {
-            this._effectLayers[i].stopRepeatAction();
-            this._effectLayers.splice(i, 1);
+        for (var i = 0; i < this._objects.length; i++) {
+            this._objects[i].removeAllChildren();
         }
+        this._effectLayers = [];
     },
 
+    showHintObjectUp: function() {
+        if (this._objectTouching)
+            return;
+        var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
+        if (deltaTime == TIME_HINT) {
+            if (this._objects.length > 0) {
+                var i = Math.floor(Math.random() * (this._objects.length - 1));
+                if (this.isObjectDisabled(this._objects[i]))
+                    return;
+
+                this._objects[i].runAction(
+                                    cc.repeatForever(
+                                            cc.sequence(
+                                                cc.scaleTo(1, 0.95),
+                                                cc.scaleTo(1, 1.05)
+                                            )
+                                    )
+                );
+            }
+            this.runSparklesEffect();
+        }
+    },
 });
 
 var RoomScene = cc.Scene.extend({

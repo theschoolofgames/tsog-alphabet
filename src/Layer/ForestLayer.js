@@ -240,7 +240,10 @@ var ForestLayer = cc.Layer.extend({
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
 
-        this.createWarnLabel("Scene Completed!", 32);
+        var starEarned = this._hudLayer.getStarEarned();
+        var str = (starEarned > 1) ? " stars" : " star";
+        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
+        this.createWarnLabel(lbText, 24);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());
                 });
@@ -328,10 +331,17 @@ var ForestLayer = cc.Layer.extend({
         var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
-                // var i = Math.floor(Math.random() * (this._objects.length - 1));
-                // this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
-                this.runSparklesEffect();
-            };
+                var i = Math.floor(Math.random() * (this._objects.length - 1));
+                this._objects[i].runAction(
+                                    cc.repeatForever(
+                                            cc.sequence(
+                                                cc.scaleTo(1, 0.95),
+                                                cc.scaleTo(1, 1.05)
+                                            )
+                                    )
+                );
+            }
+            this.runSparklesEffect();
         }
     },
 
@@ -343,16 +353,17 @@ var ForestLayer = cc.Layer.extend({
     },
 
     removeAnimalAction: function() {
-        for (var i = 0; i < this._effectLayers.length; i++) {
-            this._effectLayers[i].stopRepeatAction();
-            this._effectLayers.splice(i, 1);
+        for (var i = 0; i < this._objects.length; i++) {
+            this._objects[i].removeAllChildren();
         }
+        this._effectLayers = [];
     },
 
     processGameLogic: function() {
         this._touchCounting += 1;
-        this._hudLayer.setProgressLabelStr(this._touchCounting);
+        this.updateProgressBar();
         this._objectTouching.stopAllActions();
+        this._objectTouching.removeAllChildren();
         this.removeAnimalAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.computeStars();
@@ -368,7 +379,28 @@ var ForestLayer = cc.Layer.extend({
         }
 
         this._objectDisabled.push(this._objectTouching);
-    }
+    },
+
+    updateProgressBar: function() {
+        var percent = this._touchCounting / NUMBER_ITEMS;
+        this._hudLayer.setProgressBarPercentage(percent);
+        this._hudLayer.setProgressLabelStr(this._touchCounting);
+
+        var starEarned = 0;
+        var objectCorrected = this._touchCounting;
+
+        if (objectCorrected >= STAR_GOAL_1 && objectCorrected < STAR_GOAL_2)
+            starEarned = 1;
+        if (objectCorrected >= STAR_GOAL_2 && objectCorrected < STAR_GOAL_3)
+            starEarned = 2;
+        if (objectCorrected >= STAR_GOAL_3)
+            starEarned = 3;
+
+        this._hudLayer.setStarEarned(starEarned);
+
+        if (starEarned > 0)
+            this._hudLayer.addStar("light", starEarned);
+    },
 });
 var ForestScene = cc.Scene.extend({
     ctor: function() {

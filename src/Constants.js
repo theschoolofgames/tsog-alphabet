@@ -21,6 +21,10 @@ var STAND_ITEM = 1;
 var LIE_ITEM = 2;
 var WATER_ITEM = 3;
 
+var STAR_GOAL_1 = 1;
+var STAR_GOAL_2 = 2;
+var STAR_GOAL_3 = 3;
+
 var SMOKE_EFFECT_DELAY = 0.1;
 var SMOKE_EFFECT_FRAMES = 8;
 
@@ -28,6 +32,8 @@ var SPARKLE_EFFECT_DELAY = 0.05;
 var SPARKLE_EFFECT_FRAMES = 19;
 
 var HUD_BAR_DISTANCE = 60;
+var PROGRESSBAR_CHANGE_RATE = 20;
+var DARK_STAR_NUMBERS = 3;
 
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
