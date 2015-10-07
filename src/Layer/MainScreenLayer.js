@@ -1,5 +1,7 @@
 var MainScreenLayer = cc.LayerColor.extend({
 
+    _eventMainAppCall: null,
+
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
 
@@ -29,11 +31,6 @@ var MainScreenLayer = cc.LayerColor.extend({
             lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", userName, schoolName);
         }
 
-        cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {  
-            var data = event.getUserData();
-            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);   
-        });
-
         lbContinue.runAction(cc.repeatForever(cc.sequence(
             cc.fadeOut(0.75),
             cc.fadeIn(0.75))));
@@ -52,6 +49,20 @@ var MainScreenLayer = cc.LayerColor.extend({
         }, this);
 
         this.downloadAssets();
+    },
+
+    onEnter: function() {
+        this._super();
+        this._eventMainAppCall = cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {  
+            var data = event.getUserData();
+            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);   
+        });
+    },
+
+    onExit: function() {
+        cc.eventManager.removeListener(this._eventMainAppCall);
+        this._eventMainAppCall = null;
+        this._super();
     },
 
     downloadAssets: function() {
