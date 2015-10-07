@@ -114,12 +114,6 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
         anchorY: 0.5
     },
     {
-        x: 666,
-        y: 300,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
         x: 1080,
         y: 255,
         anchorX: 0.5,
@@ -220,21 +214,21 @@ var FOREST_FLY_POSITION = [
     {
         x: 800,
         y: 500,
-        z: 0,
+        z: 1,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 600,
         y: 400,
-        z: 0,
+        z: 1,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 200,
         y: 550,
-        z: 0,
+        z: 1,
         anchorX: 0.5,
         anchorY: 0.5,
     }
@@ -293,7 +287,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-1.png",
-        z: 1
+        z: 0
     },
     {
         x: cc.winSize.width / 2 - 100,
@@ -301,7 +295,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-3.png",
-        z: 1
+        z: 0
     },
     {
         x: 0,
@@ -309,7 +303,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-4.png",
-        z:1
+        z: 0
     },
     {
         x: cc.winSize.width,

@@ -15,6 +15,7 @@ var RoomLayer = cc.Layer.extend({
         cc.log("Dev: " + whoAmI);
         this._super();
 
+        this.resetAllArrays();
         this.createBackground();
         this.addObjects();
         this.addRefreshButton();
@@ -29,6 +30,14 @@ var RoomLayer = cc.Layer.extend({
                 onTouchMoved: this.onTouchMoved,
                 onTouchEnded: this.onTouchEnded
         }, this);
+    },
+
+    resetAllArrays: function() {
+        this._objects = [];
+        this._shadeObjects = [];
+        this._correctedObject = [];
+        this._objectDisableds = [];
+        this._effectLayers = [];
     },
 
     addHud: function() {

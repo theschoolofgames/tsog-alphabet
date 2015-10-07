@@ -1,5 +1,5 @@
 var ForestLayer = cc.Layer.extend({
-    _disabledButtons: [],
+    _effectLayers: [],
     _objects: [],
     _objectDisabled: [],
     _hudLayer: null,
@@ -10,7 +10,6 @@ var ForestLayer = cc.Layer.extend({
     _warningLabel : null,
     _objectTouching: null,
     _countDownClock: null,
-    _effectLayer: null,
     _totalSeconds: 0,
     _touchCounting: 0,
     _star: 0,
@@ -50,7 +49,7 @@ var ForestLayer = cc.Layer.extend({
         var background = new cc.Sprite(res.BG_jpg);
         background.x = cc.winSize.width / 2;
         background.y = cc.winSize.height / 2;
-        background.setLocalZOrder(0);
+        background.setLocalZOrder(-1);
         this.addChild(background);
 
         var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
@@ -189,6 +188,7 @@ var ForestLayer = cc.Layer.extend({
     resetObjectArrays: function() {
         this._objects = [];
         this._objectDisabled = [];
+        this._effectLayers = [];
         this._touchCounting = 0;
     },
 
@@ -328,16 +328,25 @@ var ForestLayer = cc.Layer.extend({
         var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
-                var i = Math.floor(Math.random() * (this._objects.length - 1));
-                this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                // var i = Math.floor(Math.random() * (this._objects.length - 1));
+                // this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                this.runSparklesEffect();
             };
         }
     },
 
+    runSparklesEffect: function() {
+        for ( var i = 0; i < this._objects.length; i++) {
+            var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+            this._effectLayers.push(effect)
+        }
+    },
+
     removeAnimalAction: function() {
-        if (this._effectLayer)
-            this._effectLayer.stopRepeatAction();
-        this._effectLayer = null;
+        for (var i = 0; i < this._effectLayers.length; i++) {
+            this._effectLayers[i].stopRepeatAction();
+            this._effectLayers.splice(i, 1);
+        }
     },
 
     processGameLogic: function() {
