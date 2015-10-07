@@ -25,7 +25,7 @@
     NSLog(@"Receiver not found");
 }
 
-+ (void)showMessage:(NSString *)title withMessage:(NSString *)message {
++ (void)showMessage:(NSString *)title message:(NSString *)message {
   UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title
                                                       message:message
                                                      delegate:nil
