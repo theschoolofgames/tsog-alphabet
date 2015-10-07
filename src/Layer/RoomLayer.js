@@ -9,6 +9,7 @@ var RoomLayer = cc.Layer.extend({
     _countDownClock: null,
     _effectLayer: null,
     _lastClickTime: 0,
+    _effectLayerShade: null,
 
     ctor: function() {
         cc.log("Dev: " + whoAmI);
@@ -183,7 +184,6 @@ var RoomLayer = cc.Layer.extend({
         //set shadeObject to visible
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
-        targetNode._effectLayer = new EffectLayer(targetNode._shadeObjects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         targetNode.highLightObjectCorrectPos(index);
 
         return true;
@@ -205,7 +205,7 @@ var RoomLayer = cc.Layer.extend({
         //set shadeObject visible to false
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
-
+        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
 
         targetNode.handleObjectCorrectPos(index);
@@ -245,6 +245,8 @@ var RoomLayer = cc.Layer.extend({
     highLightObjectCorrectPos: function(index) {
         var shadeObject = this._shadeObjects[index];
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+        this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+
         // shadeObject.runAction(
         //     cc.repeatForever(
         //             cc.sequence(
@@ -316,6 +318,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     showHintObjectUp: function() {
+        if (this._objectTouching)
+            return;
         var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
