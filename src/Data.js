@@ -77,13 +77,13 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
         x: 666,
         y: 300,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
     {
         x: 1080,
         y: 245,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
 
 
@@ -92,15 +92,15 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
 var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
     {
         x: 75,
-        y: 70,
+        y: 170,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
     {
         x: 90,
-        y: 70,
+        y: 170,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
     {
         x: 300,
@@ -110,15 +110,15 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
     },
     {
         x: 200,
-        y: 80,
+        y: 120,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
     {
         x: 500,
-        y: 70,
+        y: 120,
         anchorX: 0.5,
-        anchorY: 0
+        anchorY: 0.5
     },
     {
         x: 715,

@@ -360,7 +360,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     removeAnimalAction: function() {
-        this._effectLayer.stopRepeatAction();
+        if (this._effectLayer)
+            this._effectLayer.stopRepeatAction();
     },
 });
 var ForestScene = cc.Scene.extend({

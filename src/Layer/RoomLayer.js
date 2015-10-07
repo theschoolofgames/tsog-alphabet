@@ -318,7 +318,9 @@ var RoomLayer = cc.Layer.extend({
     },
 
     removeObjectAction: function() {
-        this._effectLayer.stopRepeatAction();
+        if (this._effectLayer)
+            this._effectLayer.stopRepeatAction();
+        this._effectLayer = null;
     }
 });
 

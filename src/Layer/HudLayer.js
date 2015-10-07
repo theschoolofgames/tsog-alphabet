@@ -28,7 +28,7 @@ var HudLayer = cc.Layer.extend({
         var self = this;
         settingBtn.addClickEventListener(function() {
             cc.log("clicking setting")
-            new SettingDialog();
+            cc.director.getRunningScene().addChild(new SettingDialog());
         })
         this._settingBtn = settingBtn;
     },

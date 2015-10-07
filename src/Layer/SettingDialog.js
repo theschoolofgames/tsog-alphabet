@@ -6,10 +6,17 @@ var SettingDialog = cc.Layer.extend({
 
         this._addMask();
 
+        cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: this.onTouchBegan,
+                onTouchMoved: this.onTouchMoved,
+                onTouchEnded: this.onTouchEnded
+        }, this);
     },
 
     _addMask: function() {
-        var mask = new cc.LayerColor(255, 255, 255 , 100);
+        var mask = new cc.LayerColor(cc.color(0, 0, 0 , 100));
         mask.width = cc.winSize.width;
         mask.height = cc.winSize.height;
         this.addChild(mask);
@@ -45,4 +52,11 @@ var SettingDialog = cc.Layer.extend({
         resumeBtn.y = 0;
         this._dialogBg.addChild(resumeBtn);
     },
+
+    onTouchBegan: function(touch, event) {
+        var targetNode = event.getCurrentTarget();
+
+        targetNode.removeFromParent();
+        return true;
+    }
 })

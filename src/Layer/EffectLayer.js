@@ -55,6 +55,7 @@ var EffectLayer = cc.Layer.extend({
                     cc.delayTime(0),
                     cc.callFunc(function() {
                         self._object.removeChild(self._effectNode);
+                        self._effectNode = null;
                     })
                 )
             );
@@ -70,6 +71,7 @@ var EffectLayer = cc.Layer.extend({
     },
 
     stopRepeatAction: function() {
-        this._effectNode.removeFromParent();
+        if (this._effectNode)
+            this._effectNode.removeFromParent();
     }
 });
