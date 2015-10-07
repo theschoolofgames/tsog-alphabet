@@ -125,7 +125,7 @@ cc.game.onStart = function(){
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());
         // else
-        cc.director.runScene(new RoomScene());
+        cc.director.runScene(new MainScreenScene());
 
         // cc.eventManager.addCustomListener("main_app_called", function (event) {
         //     cc.log(JSON.stringify(event.getUserData()));
