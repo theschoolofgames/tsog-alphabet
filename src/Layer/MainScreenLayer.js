@@ -30,10 +30,6 @@ var MainScreenLayer = cc.LayerColor.extend({
                     return true;
                 }
         }, this);
-
-        // Add Shader to cache
-        var shaderSpriteDistort = cc.GLProgram.createWithFilenames(res.SpriteDistort_vsh, res.SpriteDistort_fsh);
-        cc.shaderCache.addProgram(shaderSpriteDistort, "SpriteDistort");
     },
 });
 

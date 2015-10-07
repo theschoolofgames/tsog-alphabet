@@ -122,14 +122,14 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
 
+        // Add Shader to cache
+        var shaderSpriteDistort = cc.GLProgram.createWithFilenames(res.SpriteDistort_vsh, res.SpriteDistort_fsh);
+        cc.shaderCache.addProgram(shaderSpriteDistort, "SpriteDistort");
+
         // if (whoAmI && whoAmI === "tony")
         //     cc.director.runScene(new RoomScene());
         // else
         cc.director.runScene(new MainScreenScene());
-
-        // cc.eventManager.addCustomListener("main_app_called", function (event) {
-        //     cc.log(JSON.stringify(event.getUserData()));
-        // });
 
     }, this);
 };
