@@ -2,6 +2,7 @@ var ForestLayer = cc.Layer.extend({
     _disabledButtons: [],
     _objects: [],
     _objectDisabled: [],
+    _hudLayer: null,
     _animalPos: null,
     _dsInstance: null,
     _background: null,
@@ -9,7 +10,6 @@ var ForestLayer = cc.Layer.extend({
     _warningLabel : null,
     _objectTouching: null,
     _countDownClock: null,
-    _starLabel: null,
     _effectLayer: null,
     _totalSeconds: 0,
     _touchCounting: 0,
@@ -26,10 +26,9 @@ var ForestLayer = cc.Layer.extend({
         this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
-        this.addCountDownClock();
-        this.createStarsLabel();
-        this.runHintObjectUp();
+        // this.createStarsLabel();
         this.addHud();
+        this.runHintObjectUp();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -39,10 +38,12 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addHud: function() {
-        var hudLayer = new HudLayer(this);
+        var hudLayer = new HudLayer();
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer);
+        this.addChild(hudLayer, 99);
+
+        this._hudLayer = hudLayer;
     },
 
     createBackground: function() {
@@ -89,7 +90,6 @@ var ForestLayer = cc.Layer.extend({
     },
 
     _isTouchingObject: function(touchedPos) {
-        // nếu vị trí bấm vào nằm trong object thì gán object đó vào _objectTouching để sử dụng
         var distance = 0;
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
@@ -113,23 +113,8 @@ var ForestLayer = cc.Layer.extend({
             if (targetNode._objectTouching === targetNode._objectDisabled[i])
                 return false
         }
-        targetNode._touchCounting += 1;
-        targetNode._objectTouching.stopAllActions();
-        targetNode.removeAnimalAction();
-        targetNode._lastClickTime = targetNode._countDownClock.getRemainingTime();
-        targetNode.computeStars();
-        if (targetNode._warningLabel)
-            targetNode._warningLabel.removeFromParent();
 
-        targetNode.createWarnLabel("animallll", 32, targetNode._objectTouching);
-
-        if (targetNode._touchCounting == NUMBER_ITEMS){
-            targetNode.runObjectAction(targetNode._warningLabel, CHANGE_SCENE_TIME, function(){
-                targetNode.completedScene()
-            });
-        }
-
-        targetNode._objectDisabled.push(targetNode._objectTouching);
+        targetNode.processGameLogic();
 
         return true;
     },
@@ -252,7 +237,8 @@ var ForestLayer = cc.Layer.extend({
         if (this._warningLabel)
             this._warningLabel.removeFromParent();
 
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, this._countDownClock.getElapseTime());
+        var elapseTime = this._hudLayer._clock.getElapseTime();
+        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
 
         this.createWarnLabel("Scene Completed!", 32);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
@@ -265,16 +251,6 @@ var ForestLayer = cc.Layer.extend({
             cc.delayTime(delayTime),
             cc.callFunc(func)
         ));
-    },
-
-    addCountDownClock: function() {
-        var self = this;
-        this._countDownClock = new Clock(300, function(){
-            self.completedScene();
-        });
-        this._countDownClock.x = cc.winSize.width / 2 - 10;
-        this._countDownClock.y = cc.winSize.height - 20;
-        this.addChild(this._countDownClock, 99);
     },
 
     createStarsLabel: function() {
@@ -322,7 +298,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runHintObjectUp: function() {
-        this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
+        this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._hudLayer.getRemainingTime());
     },
 
     animateAnimalIn: function(animal, type, delay) {
@@ -341,16 +317,15 @@ var ForestLayer = cc.Layer.extend({
             )
         );
 
-
         this.runObjectAction(this, 0,
             function(){
-                self._lastClickTime = self._countDownClock.getRemainingTime()
+                self._lastClickTime = self._hudLayer.getRemainingTime()
             }
         )
     },
 
     showHintObjectUp: function() {
-        var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
+        var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
@@ -362,7 +337,29 @@ var ForestLayer = cc.Layer.extend({
     removeAnimalAction: function() {
         if (this._effectLayer)
             this._effectLayer.stopRepeatAction();
+        this._effectLayer = null;
     },
+
+    processGameLogic: function() {
+        this._touchCounting += 1;
+        this._hudLayer.setProgressLabelStr(this._touchCounting);
+        this._objectTouching.stopAllActions();
+        this.removeAnimalAction();
+        this._lastClickTime = this._hudLayer.getRemainingTime();
+        this.computeStars();
+
+        if (this._warningLabel)
+            this._warningLabel.removeFromParent();
+
+        if (this._touchCounting == NUMBER_ITEMS){
+            var self = this;
+            this.runObjectAction(this, CHANGE_SCENE_TIME, function(){
+                self.completedScene()
+            });
+        }
+
+        this._objectDisabled.push(this._objectTouching);
+    }
 });
 var ForestScene = cc.Scene.extend({
     ctor: function() {

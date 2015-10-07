@@ -1,14 +1,16 @@
 var HudLayer = cc.Layer.extend({
     _layer: null,
-    _settingBtn: null,
-    _progressBar: null,
-    _goalImg: null,
+    _clock: null,
     _clockImg: null,
+    _settingBtn: null,
+    _goalImg: null,
+    _progressBar: null,
+    _progressLabel: null,
 
-    ctor: function(containerLayer) {
+    ctor: function() {
         this._super();
 
-        this._layer = containerLayer;
+        this._layer = cc.director.getRunningScene();
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
@@ -42,9 +44,9 @@ var HudLayer = cc.Layer.extend({
         this._progressBar = progressBarBg;
         var gameProgressBar = new cc.ProgressTimer(progressBarBg);
 
-        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3);
-        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3*2);
-        this.addStar(progressBarBg, "dark", progressBarBg.width - 30);
+        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3, progressBarBg.height/2 + 5);
+        this.addStar(progressBarBg, "dark", (progressBarBg.width - 30)/3*2, progressBarBg.height/2 + 5);
+        this.addStar(progressBarBg, "dark", progressBarBg.width - 30, progressBarBg.height/2 + 5);
     },
 
     addGoalImage: function() {
@@ -59,7 +61,7 @@ var HudLayer = cc.Layer.extend({
         goalBg.addChild(cupImage);
 
         this._goalImg = goalBg;
-        this.addLabel(goalBg, "3/12");
+        this.addProgressLabel(goalBg, "0/12");
     },
 
     addClockImage: function() {
@@ -73,23 +75,45 @@ var HudLayer = cc.Layer.extend({
         clockImg.y = clockImg.height/2 - 5;
         clockBg.addChild(clockImg);
         this._clockImg = clockBg;
-        this.addLabel(clockBg, "3:69");
+        this.addCountDownClock();
     },
 
-    addLabel: function(object, text) {
+    addProgressLabel: function(object, text) {
         cc.log("text: " + text);
         var label = new cc.LabelTTF(text, "Arial", 32);
-        // label.color = cc.color.RED;
+        label.color = cc.color("#ffd902");
         label.x = object.width/2 + 10;
         label.y = object.height/2;
         object.addChild(label);
+
+        this._progressLabel = label;
     },
 
-    addStar: function(object, type, posX) {
+    addStar: function(object, type, posX, posY) {
         var star = new cc.Sprite("#star-" + type +".png");
         star.x = posX;
-        star.y = object.height/2 + 5;
+        star.y = posY;
         object.addChild(star);
     },
+
+    addCountDownClock: function() {
+        var self = this;
+        var clock = new Clock(TIME_INIT, function(){
+            self._layer.completedScene();
+        });
+        clock.x = this._clockImg.width / 2 + 10;
+        clock.y = this._clockImg.height/2;
+        this._clockImg.addChild(clock, 99);
+
+        this._clock = clock;
+    },
+
+    getRemainingTime: function() {
+        return this._clock.getRemainingTime();
+    },
+
+    setProgressLabelStr: function(text) {
+        this._progressLabel.setString(text + "/12");
+    }
 
 });

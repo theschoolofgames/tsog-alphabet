@@ -81,7 +81,7 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
     },
     {
         x: 1080,
-        y: 245,
+        y: 255,
         anchorX: 0.5,
         anchorY: 0.5
     },

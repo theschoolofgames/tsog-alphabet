@@ -1,4 +1,5 @@
 var RoomLayer = cc.Layer.extend({
+    _hudLayer: null,
     _objectTouching: null,
     _objects: [],
     _shadeObjects: [],
@@ -18,9 +19,8 @@ var RoomLayer = cc.Layer.extend({
         this.addObjects();
         this.addRefreshButton();
         this.addBackButton();
-        this.addCountDownClock();
-        this.runHintObjectUp();
         this.addHud();
+        this.runHintObjectUp();
 
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -32,10 +32,12 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addHud: function() {
-        var hudLayer = new HudLayer(this);
+        var hudLayer = new HudLayer();
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer);
+
+        this._hudLayer = hudLayer;
     },
 
     addRefreshButton: function() {
@@ -101,7 +103,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.runObjectAction(this, 0,
             function(){
-                self._lastClickTime = self._countDownClock.getRemainingTime()
+                self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
     },
@@ -172,7 +174,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.stopAllActions();
         targetNode.removeObjectAction();
 
-        targetNode._lastClickTime = targetNode._countDownClock.getRemainingTime();
+        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
@@ -206,7 +208,6 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
 
         targetNode.handleObjectCorrectPos(index);
-        // targetNode._warningLabel.removeFromParent();
         targetNode._objectTouching = null;
 
         // win condition
@@ -218,7 +219,8 @@ var RoomLayer = cc.Layer.extend({
 
     completedScene: function() {
         this.createWarnLabel("Scene Completed!");
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, this._countDownClock.getElapseTime());
+        var elapseTime = this._hudLayer._clock.getElapseTime();
+        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
                 });
@@ -260,6 +262,8 @@ var RoomLayer = cc.Layer.extend({
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(0);
             this._objectDisableds.push(this._objectTouching);
+            this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
+            this.removeObjectAction();
         }
     },
 
@@ -275,10 +279,12 @@ var RoomLayer = cc.Layer.extend({
         var objectAnchorPoint = this._objectTouching.getAnchorPoint();
         var objectSize = this._objectTouching.getContentSize();
 
-        var objectPosDistance = cc.p(objectSize.width*(1 - objectAnchorPoint.x),
-                                    objectSize.height/2*(0.5 - objectAnchorPoint.y));
+        var delta = (objectAnchorPoint.y < 0.5) ? 0.5 : 1;
 
-        var objectPosition = cc.pAdd(touchedPos, objectPosDistance);
+        var objectPosDistance = cc.p(objectSize.width*(1 - objectAnchorPoint.x),
+                                    -objectSize.height/2* delta);
+
+        var objectPosition = cc.pSub(touchedPos, objectPosDistance);
 
         return objectPosition;
     },
@@ -298,17 +304,17 @@ var RoomLayer = cc.Layer.extend({
 
         this.runObjectAction(this, 0,
             function(){
-                self._lastClickTime = self._countDownClock.getRemainingTime()
+                self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
     },
 
     runHintObjectUp: function() {
-        this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._countDownClock.getRemainingTime());
+        this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._hudLayer.getRemainingTime());
     },
 
     showHintObjectUp: function() {
-        var deltaTime = this._lastClickTime - this._countDownClock.getRemainingTime();
+        var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
@@ -321,7 +327,8 @@ var RoomLayer = cc.Layer.extend({
         if (this._effectLayer)
             this._effectLayer.stopRepeatAction();
         this._effectLayer = null;
-    }
+    },
+
 });
 
 var RoomScene = cc.Scene.extend({

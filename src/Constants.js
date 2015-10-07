@@ -5,13 +5,17 @@ var GAME_ID = "5604beb2ded84d7c8083389a";
 
 var MOVE_DELAY_TIME = 1;
 
-var TIME_HINT = 5;
 var NUMBER_ITEMS = 3;
+
+var TIME_HINT = 5;
 var CLOCK_INTERVAL = 1;
+var TIME_INIT = 300;
+
 var CHANGE_SCENE_TIME = 2;
 
 var HEAVY_WEIGHT_ITEM = 1;
 var LIGHT_WEIGHT_ITEM = 0;
+
 var FLY_ITEM = 0;
 var STAND_ITEM = 1;
 var LIE_ITEM = 2;

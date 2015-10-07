@@ -19,7 +19,7 @@ var Clock = cc.Node.extend({
 
     createCountDownClockLabel: function() {
         var countDownClockLabel = cc.LabelTTF(this.getCurrentTime(), "Arial", 32);
-        countDownClockLabel.color = cc.color.RED;
+        countDownClockLabel.color = cc.color("#ffd902");
 
         this._countDownClock = countDownClockLabel;
         this.addChild(countDownClockLabel);
