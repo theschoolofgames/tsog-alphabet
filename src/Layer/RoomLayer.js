@@ -190,11 +190,12 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-
+        cc.log(targetNode._objectDisableds.length);
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
         if (targetNode.isObjectDisabled(targetNode._objectTouching)) {
+            cc.log("bbbbbbb")
             targetNode._objectTouching = null;
             return false;
         }
