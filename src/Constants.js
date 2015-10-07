@@ -35,6 +35,17 @@ var HUD_BAR_DISTANCE = 60;
 var PROGRESSBAR_CHANGE_RATE = 20;
 var DARK_STAR_NUMBERS = 3;
 
+var ANIMAL_SOUNDS_LENGTH = [
+    {name: "BEAR", length: 1},
+    {name: "BEE", length: 1},
+    {name: "BIRD", length: 1},
+    {name: "BUG", length: 1},
+    {name: "CAT", length: 1},
+    {name: "COW", length: 1},
+    {name: "HORSE", length: 1},
+    {name: "TIGER", length: 1}
+];
+
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";

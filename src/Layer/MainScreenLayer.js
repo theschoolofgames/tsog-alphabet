@@ -1,6 +1,7 @@
 var MainScreenLayer = cc.LayerColor.extend({
 
     _eventMainAppCall: null,
+    _lbWelcome: null,
 
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
@@ -22,7 +23,7 @@ var MainScreenLayer = cc.LayerColor.extend({
         lbWelcome.color = cc.color(0, 0, 0, 255);
         lbWelcome.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         this.addChild(lbWelcome);
-
+        this._lbWelcome = lbWelcome;
         var userId = Utils.getUserId();
         if (userId) {
             var userName = Utils.getUserName();
@@ -53,9 +54,9 @@ var MainScreenLayer = cc.LayerColor.extend({
 
     onEnter: function() {
         this._super();
-        this._eventMainAppCall = cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {  
+        this._eventMainAppCall = cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {
             var data = event.getUserData();
-            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);   
+            this._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);
         });
     },
 

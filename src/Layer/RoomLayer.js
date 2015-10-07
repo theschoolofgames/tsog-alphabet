@@ -89,16 +89,17 @@ var RoomLayer = cc.Layer.extend({
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
-                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imagePath, i);
+                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i);
             else
-                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imagePath, i);
+                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i);
 
-            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imagePath);
+            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName);
         }
     },
 
-    addObjectButton: function(objPosition, imagePath, index) {
-        var object = new cc.Sprite(imagePath);
+    addObjectButton: function(objPosition, imageName, index) {
+        cc.log("imageName: " + imageName);
+        var object = new cc.Sprite(imageName);
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
@@ -107,7 +108,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.addChild(object, 2);
 
-        this.animateObjectIn(object, index)
+        this.animateObjectIn(object, index);
         this._objects.push(object);
 
         this.runObjectAction(this, 0,
@@ -117,8 +118,8 @@ var RoomLayer = cc.Layer.extend({
         )
     },
 
-    addObjectShade: function(object, imagePath) {
-        var shadeObject = new cc.Sprite(imagePath);
+    addObjectShade: function(object, imageName) {
+        var shadeObject = new cc.Sprite(imageName);
         // shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
@@ -190,12 +191,11 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-        cc.log(targetNode._objectDisableds.length);
+
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
         if (targetNode.isObjectDisabled(targetNode._objectTouching)) {
-            cc.log("bbbbbbb")
             targetNode._objectTouching = null;
             return false;
         }
@@ -282,8 +282,8 @@ var RoomLayer = cc.Layer.extend({
             this._objectDisableds.push(this._objectTouching);
             this.removeObjectAction();
             this.updateProgressBar();
-            this._objectTouching = null;
         }
+        this._objectTouching = null;
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {

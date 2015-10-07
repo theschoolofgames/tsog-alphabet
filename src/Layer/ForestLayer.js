@@ -2,8 +2,11 @@ var ForestLayer = cc.Layer.extend({
     _effectLayers: [],
     _objects: [],
     _objectDisabled: [],
+    _animalNames: [],
+    _blockLayer: null,
     _hudLayer: null,
     _animalPos: null,
+    _animalName: null,
     _dsInstance: null,
     _background: null,
     _warningLabel: null,
@@ -14,6 +17,7 @@ var ForestLayer = cc.Layer.extend({
     _touchCounting: 0,
     _star: 0,
     _lastClickTime : 0,
+    _blockAllObjects: false,
 
     ctor: function() {
         this._super();
@@ -105,6 +109,9 @@ var ForestLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
+
+        if (targetNode._blockAllObjects)
+            return false;
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
@@ -121,24 +128,35 @@ var ForestLayer = cc.Layer.extend({
         var animalPos = null;
         animalPos = cc.p(animalOriginPos.x - Math.random() * radius + 10,
                         animalOriginPos.y - Math.random() * radius + 10);
-        cc.log(JSON.stringify(animalPos))
         return animalPos;
     },
 
     createAnimal : function(position, animalObject, i) {
-        var animal =  new cc.Sprite(animalObject.imagePath);
+        var animal =  new cc.Sprite("animals/" + animalObject.imageName + ".png");
         animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;
         animal.y = position.y;
+        animal.tag = i;
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
         this._animalPos = animal.getPosition();
+
+        this._animalNames.push({name: animalObject.imageName, tag: animal.tag});
+
         this.animateAnimalIn(animal, animalObject.type, i);
         this._objects.push(animal);
     },
+
+    getAnimalSoundLengthByName: function(imageName) {
+        var strName = imageName.toUpperCase();
+        for ( var i = 0; i < ANIMAL_SOUNDS_LENGTH.length; i++) {
+            if (strName === ANIMAL_SOUNDS_LENGTH[i].name)
+                return ANIMAL_SOUNDS_LENGTH[i].length;
+        }
+    },
+
     runAnimalAction : function(animal , itemId) {
-        cc.log("itemId: " + itemId);
         if (itemId === FLY_ITEM)
             this.runFlyAnimalAction(animal);
         if (itemId === LIE_ITEM)
@@ -189,6 +207,7 @@ var ForestLayer = cc.Layer.extend({
         this._objects = [];
         this._objectDisabled = [];
         this._effectLayers = [];
+        this._animalNames = [];
         this._touchCounting = 0;
     },
 
@@ -217,7 +236,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, size, object) {
-
+        cc.log("createWarnLabel");
         var warnLabel = new cc.LabelTTF(text, "Arial", size);
         warnLabel.setColor(cc.color.RED);
         if (object) {
@@ -228,7 +247,7 @@ var ForestLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width / 2;
             warnLabel.y = cc.winSize.height - 100;
         }
-        this.addChild(warnLabel,99);
+        this.addChild(warnLabel,9999);
 
         this._warningLabel = warnLabel;
     },
@@ -266,20 +285,6 @@ var ForestLayer = cc.Layer.extend({
         this._starLabel = starLabel;
     },
 
-    computeStars: function() {
-        if (!this._starLabel)
-            return;
-
-        if (this._touchCounting == 3)
-            this._star = 1;
-        if (this._touchCounting == 4 || this._touchCounting == 5)
-            this._star = 2;
-        if (this._touchCounting == 6)
-            this._star = 3;
-
-        this._starLabel.setString(this._star + " star" + (this._star > 1 ? 's' : ''));
-    },
-
     addShuffledAnimalPosArray: function() {
         var flyPositionArray = Utils.shuffle(FOREST_FLY_POSITION);
         var groundPositionArray = Utils.shuffle(FOREST_GROUND_POSITION);
@@ -298,6 +303,13 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.waterPositionArray
 
         return animalPositionArray
+    },
+
+    getAnimalName: function() {
+        for (var i = 0; i < this._animalNames.length; i++) {
+            if (this._objectTouching.tag === this._animalNames[i].tag)
+                return this._animalNames[i].name;
+        }
     },
 
     runHintObjectUp: function() {
@@ -360,16 +372,15 @@ var ForestLayer = cc.Layer.extend({
     },
 
     processGameLogic: function() {
+        this._removeWarnLabel();
+
         this._touchCounting += 1;
         this.updateProgressBar();
         this._objectTouching.stopAllActions();
         this._objectTouching.removeAllChildren();
         this.removeAnimalAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
-        this.computeStars();
-
-        if (this._warningLabel)
-            this._warningLabel.removeFromParent();
+        this.playAnimalSound();
 
         if (this._touchCounting == NUMBER_ITEMS){
             var self = this;
@@ -377,8 +388,36 @@ var ForestLayer = cc.Layer.extend({
                 self.completedScene()
             });
         }
-
         this._objectDisabled.push(this._objectTouching);
+        this._objectTouching = null;
+    },
+
+    playAnimalSound: function(){
+        var self = this;
+        var animalName = this.getAnimalName();
+        var animal = this._objectTouching;
+        var str = animalName[0].toUpperCase() + " - " + animalName;
+        var soundLength = this.getAnimalSoundLengthByName(animalName);
+
+        animal.runAction(cc.sequence(
+                cc.callFunc(function() {
+                    self.createWarnLabel(str, 32);
+                    self._blockAllObjects = true;
+                }),
+                cc.scaleTo(1, 0.95),
+                cc.scaleTo(1, 1.05),
+                cc.delayTime(soundLength),
+                cc.callFunc(function() {
+                    self._blockAllObjects = false;
+                    self._removeWarnLabel();
+                })
+            ))
+    },
+
+    _removeWarnLabel: function() {
+        if (this._warningLabel)
+            this._warningLabel.removeFromParent();
+        this._warningLabel = null;
     },
 
     updateProgressBar: function() {

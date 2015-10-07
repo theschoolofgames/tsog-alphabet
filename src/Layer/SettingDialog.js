@@ -7,8 +7,8 @@ var SettingDialog = cc.Layer.extend({
     ctor: function() {
         this._super();
 
-        this._userName = Utils.getUserName;
-        this._schoolName = Utils.getSchoolName;
+        this._userName = Utils.getUserName();
+        this._schoolName = Utils.getSchoolName();
 
         this._addMask();
         this._addDialogBg();
@@ -26,7 +26,7 @@ var SettingDialog = cc.Layer.extend({
     },
 
     _addMask: function() {
-        var mask = new cc.LayerColor(cc.color(0, 0, 0 , 100));
+        var mask = new cc.LayerColor(cc.color(0, 0, 0 , 200));
         mask.width = cc.winSize.width;
         mask.height = cc.winSize.height;
         this.addChild(mask);
@@ -40,6 +40,8 @@ var SettingDialog = cc.Layer.extend({
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
+
+        this._addSchoolNameLabel();
     },
 
     _addAccountNameHolder: function() {
@@ -48,7 +50,8 @@ var SettingDialog = cc.Layer.extend({
         nameHolder.y = this._dialogBg.height/2 - nameHolder.height * 2;
         this._dialogBg.addChild(nameHolder);
 
-        var userName = new cc.LabelTTF(this._userName, "Arial", 16);
+        var userName = new cc.LabelTTF(this._userName, "Arial", 24);
+        userName.color = cc.color.WHITE;
         userName.x = nameHolder.width/2;
         userName.y = nameHolder.height/2;
         nameHolder.addChild(userName);
@@ -57,8 +60,8 @@ var SettingDialog = cc.Layer.extend({
     _addLogoutButton: function() {
         var logoutBtn = new ccui.Button();
         logoutBtn.loadTextures("btn_exit.png", "btn_exit-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        logoutBtn.x = this._dialogBg.width/2 - logoutBtn.width/2 + 10;
-        logoutBtn.y = 0;
+        logoutBtn.x = this._dialogBg.width/2 - logoutBtn.width/2 - 10;
+        logoutBtn.y = 20;
         this._dialogBg.addChild(logoutBtn);
 
         logoutBtn.addClickEventListener(function() {
@@ -70,7 +73,7 @@ var SettingDialog = cc.Layer.extend({
         var resumeBtn = new ccui.Button();
         resumeBtn.loadTextures("btn_play.png", "btn_play-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
         resumeBtn.x = this._dialogBg.width/2 + resumeBtn.width/2 + 10;
-        resumeBtn.y = 0;
+        resumeBtn.y = 20;
         this._dialogBg.addChild(resumeBtn);
 
         var self = this;
@@ -80,10 +83,12 @@ var SettingDialog = cc.Layer.extend({
     },
 
     _addSchoolNameLabel: function() {
-        var schoolName = new cc.LabelTTF(this._schoolName, "Arial", 24);
-        schoolName.fontSize = 24;
+        var schoolName = new cc.LabelTTF(this._schoolName, "Arial", 32);
+        schoolName.boundingWidth = this._dialogBg.width - 50;
+        schoolName.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        schoolName.color = cc.color("#fdc60a");
         schoolName.x = this._dialogBg.width/2;
-        schoolName.y = this._dialogBg.height/2 + schoolName.height/2;
+        schoolName.y = this._dialogBg.height/2;
         this._dialogBg.addChild(schoolName);
     },
 

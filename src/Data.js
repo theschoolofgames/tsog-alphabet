@@ -178,35 +178,35 @@ var BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_H
 
 var FOREST_ITEMS = [
     {
-        imageName: res.Bird_png,
+        imageName: "bird",
         type: FLY_ITEM
     },
     {
-        imageName: res.Bee_png,
+        imageName: "bee",
         type: LIE_ITEM
     },
     {
-        imageName: res.Bear_png,
+        imageName: "bear",
         type: STAND_ITEM
     },
     {
-        imageName: res.Bug_png,
+        imageName: "bug",
         type: LIE_ITEM
     },
     {
-        imageName: res.Cat_png,
+        imageName: "cat",
         type: LIE_ITEM
     },
     {
-        imageName: res.Cow_png,
+        imageName: "cow",
         type: STAND_ITEM
     },
     {
-        imageName: res.Horse_png,
+        imageName: "horse",
         type: STAND_ITEM
     },
     {
-        imageName: res.Tiger_png,
+        imageName: "tiger",
         type: STAND_ITEM
     }
 ];
@@ -428,12 +428,12 @@ var DataStore = cc.Class.extend({
 
     _addObject: function(setId, item) {
         var objArray = this.objectSets[setId];
-        var imagePath = item.imageName;
+        var imageName = item.imageName;
         var correctPos = cc.p(item.correctX, item.correctY)
         var anchorPoint = cc.p(item.anchorX, item.anchorY);
         var type = item.type;
-        if (imagePath == undefined)
-            imagePath = "";
+        if (imageName == undefined)
+            imageName = "";
         if (type == undefined)
             type = 0;
         if (correctPos == undefined)
@@ -442,7 +442,7 @@ var DataStore = cc.Class.extend({
             anchorPoint = cc.p(0.5,0.5);
 
         var obj = {
-            imagePath: imagePath,
+            imageName: imageName,
             correctPos: correctPos,
             anchorPoint: anchorPoint,
             type: type
