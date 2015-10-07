@@ -61,7 +61,7 @@ var HudLayer = cc.Layer.extend({
         goalBg.addChild(cupImage);
 
         this._goalImg = goalBg;
-        this.addProgressLabel(goalBg, "0/12");
+        this.addProgressLabel(goalBg, "0/" + NUMBER_ITEMS);
     },
 
     addClockImage: function() {
@@ -113,7 +113,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     setProgressLabelStr: function(text) {
-        this._progressLabel.setString(text + "/12");
+        this._progressLabel.setString(text + "/" + NUMBER_ITEMS);
     }
 
 });

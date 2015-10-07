@@ -9,10 +9,18 @@ var FOREST_BACKGROUND_ID = 3;
 
 var BEDROOM_ITEMS = [
     {
-        imageName: res.Pencils_png,
+        imageName: res.Apple_png,
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 1070,
-        correctY: 254,
+        correctX: 1076,
+        correctY: 284,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: res.Banana_png,
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 253,
+        correctY: 282,
         anchorX: 0.5,
         anchorY: 0.5
     },
@@ -33,10 +41,42 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Banana_png,
+        imageName: res.Pencils_png,
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 253,
-        correctY: 282,
+        correctX: 1070,
+        correctY: 254,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: res.Egg_png,
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 824,
+        correctY: 437,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: res.Potato_png,
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 1104,
+        correctY: 275,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: res.Towel_png,
+        type: LIGHT_WEIGHT_ITEM,
+        correctX: 837,
+        correctY: 374,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: res.Umbrella_png,
+        type: HEAVY_WEIGHT_ITEM,
+        correctX: 969,
+        correctY: 273,
         anchorX: 0.5,
         anchorY: 0.5
     }
@@ -148,12 +188,32 @@ var FOREST_ITEMS = [
         type: FLY_ITEM
     },
     {
+        imageName: res.Bee_png,
+        type: LIE_ITEM
+    },
+    {
         imageName: res.Bear_png,
         type: STAND_ITEM
     },
     {
+        imageName: res.Bug_png,
+        type: LIE_ITEM
+    },
+    {
         imageName: res.Cat_png,
         type: LIE_ITEM
+    },
+    {
+        imageName: res.Cow_png,
+        type: STAND_ITEM
+    },
+    {
+        imageName: res.Horse_png,
+        type: STAND_ITEM
+    },
+    {
+        imageName: res.Tiger_png,
+        type: STAND_ITEM
     }
 ];
 var FOREST_FLY_POSITION = [
@@ -432,7 +492,7 @@ var DataStore = cc.Class.extend({
     },
 
     getObjects: function(setId) {
-        return this.objectSets[setId];
+        return this.getRandomObjects(setId, NUMBER_ITEMS);
     },
 
     getRandomItems: function(array, setId, numItems) {

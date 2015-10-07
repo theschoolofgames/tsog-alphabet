@@ -14,14 +14,24 @@ var res = {
 
    // Animals
    Bear_png: "animals/bear.png",
+   Bee_png: "animals/bee.png",
    Bird_png: "animals/bird.png",
+   Bug_png: "animals/bug.png",
    Cat_png: "animals/cat.png",
+   Cow_png: "animals/cow.png",
+   Horse_png: "animals/horse.png",
+   Tiger_png: "animals/tiger.png",
 
    // Things
+   Apple_png: "things/apple.png",
    Banana_png: "things/banana.png",
    Book_png: "things/book.png",
    Chair_png: "things/chair.png",
    Pencils_png: "things/colored-pencils.png",
+   Egg_png: "things/egg.png",
+   Potato_png: "things/potato.png",
+   Towel_png: "things/towel.png",
+   Umbrella_png: "things/umbrella.png",
 
    // Hud
    Hud_plist: "hud.plist",
