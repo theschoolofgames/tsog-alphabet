@@ -5,9 +5,9 @@ var RoomLayer = cc.Layer.extend({
     _shadeObjects: [],
     _correctedObject: [],
     _objectDisableds: [],
+    _effectLayers: [],
     _warningLabel: null,
     _countDownClock: null,
-    _effectLayer: null,
     _lastClickTime: 0,
     _effectLayerShade: null,
 
@@ -15,7 +15,6 @@ var RoomLayer = cc.Layer.extend({
         cc.log("Dev: " + whoAmI);
         this._super();
 
-        this.resetObjectArrays();
         this.createBackground();
         this.addObjects();
         this.addRefreshButton();
@@ -33,7 +32,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addHud: function() {
-        var hudLayer = new HudLayer();
+        var hudLayer = new HudLayer(this);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer);
@@ -234,14 +233,6 @@ var RoomLayer = cc.Layer.extend({
         ));
     },
 
-    resetObjectArrays: function() {
-        this._objectPositions = [];
-        this._objects = [];
-        this._shadeObjects = [];
-        this._correctedObject = [];
-        this._objectDisableds = [];
-    },
-
     highLightObjectCorrectPos: function(index) {
         var shadeObject = this._shadeObjects[index];
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
@@ -269,14 +260,6 @@ var RoomLayer = cc.Layer.extend({
             this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
             this.removeObjectAction();
         }
-    },
-
-    addCountDownClock: function() {
-        var self = this;
-        this._countDownClock = new Clock(300, function(){self.completedScene()});
-        this._countDownClock.x = cc.winSize.width / 2 - 10;
-        this._countDownClock.y = cc.winSize.height - 20;
-        this.addChild(this._countDownClock);
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {
@@ -323,16 +306,25 @@ var RoomLayer = cc.Layer.extend({
         var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
-                var i = Math.floor(Math.random() * (this._objects.length - 1));
-                this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                // var i = Math.floor(Math.random() * (this._objects.length - 1));
+                // this._effectLayer = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+                this.runSparklesEffect();
             };
         }
     },
 
+    runSparklesEffect: function() {
+        for ( var i = 0; i < this._objects.length; i++) {
+            var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+            this._effectLayers.push(effect)
+        }
+    },
+
     removeObjectAction: function() {
-        if (this._effectLayer)
-            this._effectLayer.stopRepeatAction();
-        this._effectLayer = null;
+        for ( var i = 0; i < this._effectLayers.length; i++) {
+            this._effectLayers[i].stopRepeatAction();
+            this._effectLayers.splice(i, 1);
+        }
     },
 
 });

@@ -33,7 +33,7 @@ var EffectLayer = cc.Layer.extend({
     _addEffectNode: function() {
         var effectNode = new cc.Sprite("#" + this._effectName + "-1.png");
         effectNode.x = this._object.width/2;
-        effectNode.y = 0;
+        effectNode.y = effectNode.height/2 - 10;
         if (this._loop)
             effectNode.y = this._object.height/2;
 

@@ -7,10 +7,10 @@ var HudLayer = cc.Layer.extend({
     _progressBar: null,
     _progressLabel: null,
 
-    ctor: function() {
+    ctor: function(layer) {
         this._super();
 
-        this._layer = cc.director.getRunningScene();
+        this._layer = layer;
         this.addSettingButton();
         this.addGameProgressBar();
         this.addGoalImage();
