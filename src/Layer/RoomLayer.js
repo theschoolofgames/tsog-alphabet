@@ -183,6 +183,7 @@ var RoomLayer = cc.Layer.extend({
         //set shadeObject to visible
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = true;
+        targetNode._effectLayer = new EffectLayer(targetNode._shadeObjects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         targetNode.highLightObjectCorrectPos(index);
 
         return true;
