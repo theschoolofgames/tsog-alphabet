@@ -71,26 +71,26 @@ var ANIMAL_SOUNDS_LENGTH = [
 ];
 
 var OBJECT_SOUNDS_LENGTH = [
-	{name: "apple", length: 1},
-	{name: "banana", length: 1},
-	{name: "book", length: 1},
-	{name: "chair", length: 1},
-	{name: "desk", length: 1},
-	{name: "duster", length: 1},
-	{name: "egg", length: 1},
-	{name: "grape", length: 1},
-	{name: "hat", length: 1},
-	{name: "jar", length: 1},
-	{name: "joker", length: 1},
-	{name: "key", length: 1},
-	{name: "kite", length: 1},
-	{name: "lamp", length: 1},
-	{name: "map", length: 1},
-	{name: "orange", length: 1},
-	{name: "potato", length: 1},
-	{name: "umbrella", length: 1},
-	{name: "vest", length: 1},
-	{name: "watch", length: 1}
+	{name: "APPLE", length: 1},
+	{name: "BANANA", length: 1},
+	{name: "BOOK", length: 1},
+	{name: "CHAIR", length: 1},
+	{name: "DESK", length: 1},
+	{name: "DUSTER", length: 1},
+	{name: "EGG", length: 1},
+	{name: "GRAPE", length: 1},
+	{name: "HAT", length: 1},
+	{name: "JAR", length: 1},
+	{name: "JOKER", length: 1},
+	{name: "KEY", length: 1},
+	{name: "KITE", length: 1},
+	{name: "LAMP", length: 1},
+	{name: "MAP", length: 1},
+	{name: "ORANGE", length: 1},
+	{name: "POTATO", length: 1},
+	{name: "UMBRELLA", length: 1},
+	{name: "VEST", length: 1},
+	{name: "WATCH", length: 1}
 ];
 
 var STRING_USER_ID = "self_user_id";

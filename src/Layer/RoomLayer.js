@@ -102,7 +102,7 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectButton: function(objPosition, imageName, index) {
         cc.log("imageName: " + imageName);
-        var object = new cc.Sprite(imageName);
+        var object = new cc.Sprite("things/" + imageName + ".png");
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
 
@@ -124,7 +124,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addObjectShade: function(object, imageName) {
-        var shadeObject = new cc.Sprite(imageName);
+        var shadeObject = new cc.Sprite("things/" + imageName + ".png");
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
@@ -186,11 +186,13 @@ var RoomLayer = cc.Layer.extend({
         }
     },
 
-    getSoundLengthByName: function(imageName) {
+    getSoundConfigByName: function(imageName) {
+        cc.log("imageName: " + imageName);
         var strName = imageName.toUpperCase();
+        cc.log("strName: " + strName);
         for ( var i = 0; i < OBJECT_SOUNDS_LENGTH.length; i++) {
             if (strName === OBJECT_SOUNDS_LENGTH[i].name)
-                return OBJECT_SOUNDS_LENGTH[i].length;
+                return OBJECT_SOUNDS_LENGTH[i];
         }
     },
 
@@ -211,19 +213,9 @@ var RoomLayer = cc.Layer.extend({
             targetNode._objectTouching = null;
             return false;
         }
-        targetNode._objectTouching.stopAllActions();
-        targetNode.removeObjectAction();
-        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
-
+        targetNode.processGameLogic();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
-
-        targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
-
-        //set shadeObject to visible
-        var index = targetNode.getObjectIndex(targetNode._objectTouching);
-        targetNode._shadeObjects[index].visible = true;
-        targetNode.highLightObjectCorrectPos(index);
 
         return true;
     },
@@ -254,6 +246,21 @@ var RoomLayer = cc.Layer.extend({
             targetNode.completedScene()
 
         return true;
+    },
+
+    processGameLogic: function() {
+        this._objectTouching.stopAllActions();
+        this.removeObjectAction();
+        this._lastClickTime = this._hudLayer.getRemainingTime();
+        this.playObjectSound(true);
+
+        this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
+
+        //set shadeObject to visible
+        var index = this.getObjectIndex(this._objectTouching);
+        this._shadeObjects[index].visible = true;
+        this.highLightObjectCorrectPos(index);
+
     },
 
     completedScene: function() {
@@ -287,12 +294,13 @@ var RoomLayer = cc.Layer.extend({
         var objectPos = this._objectTouching.getPosition();
         var shadePos = this._shadeObjects[index].getPosition();
         var distance = cc.pDistance(objectPos, shadePos);
-
+        cc.audioEngine.stopAllEffects();
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(0);
             this._objectDisableds.push(this._objectTouching);
             this.removeObjectAction();
+            this.playObjectSound(false);
             this.updateProgressBar();
         }
         this._objectTouching = null;
@@ -333,30 +341,44 @@ var RoomLayer = cc.Layer.extend({
         var objectName = this.getObjectName();
         var object = this._objectTouching;
 
-        var soundLength = this.getSoundLengthByName(objectName);
+        var soundConfig = this.getSoundConfigByName(objectName);
+        cc.log(soundConfig)
         var soundNumb = isDragging ? 1 : 3;
         // Show cutscene
-        var oldZOrder = animal.getLocalZOrder();
-        var mask = new cc.LayerColor(cc.color(0, 0, 0, 128));
-        this.addChild(mask, oldZOrder+1);
-        animal.setLocalZOrder(oldZOrder+2);
+        if (!isDragging) {
+            var oldZOrder = object.getLocalZOrder();
+            var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
+            this.addChild(mask, 100);
+            object.setLocalZOrder(101);
 
-        new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+            var blockFlag = true;
+            cc.eventManager.addListener({
+                event: cc.EventListener.TOUCH_ONE_BY_ONE,
+                swallowTouches: true,
+                onTouchBegan: function(touch, event) { return true; },
+                onTouchEnded: function(touch, event) {
+                    if (blockFlag)
+                        return;
+
+                    self._blockAllObjects = false;
+                    // self._removeWarnLabel();
+
+                    mask.removeFromParent();
+                    object.setLocalZOrder(oldZOrder);
+                }
+            }, mask);
+        }
+        // cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
+        cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"]);
 
         object.runAction(cc.sequence(
             cc.callFunc(function() {
-                cc.audioEngine.playEffect("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3");
                 self._blockAllObjects = true;
+                self.animateObjectIn(object, 0.5);
             }),
-            cc.scaleTo(1, 0.95),
-            cc.scaleTo(1, 1.05),
-            cc.delayTime(soundLength),
+            cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
-                self._blockAllObjects = false;
-                self._removeWarnLabel();
-
-                mask.removeFromParent();
-                object.setLocalZOrder(oldZOrder);
+                blockFlag = false;
             })
         ));
     },

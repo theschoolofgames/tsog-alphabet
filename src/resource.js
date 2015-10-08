@@ -58,7 +58,7 @@ var res = {
    COW_mp3: "sounds/animals/cow.mp3",
    HORSE_mp3: "sounds/animals/horse.mp3",
    INSECT_mp3: "sounds/animals/insect.mp3",
-   TIGER_mp3: "sounds/animals/tiger.mp3"
+   TIGER_mp3: "sounds/animals/tiger.mp3",
 
    APPLE_1_mp3: "res/sounds/things/apple-1.mp3",
    APPLE_3_mp3: "res/sounds/things/apple-3.mp3",

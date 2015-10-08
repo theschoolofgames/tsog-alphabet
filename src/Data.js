@@ -9,7 +9,7 @@ var FOREST_BACKGROUND_ID = 3;
 
 var BEDROOM_ITEMS = [
     {
-        imageName: res.Apple_png,
+        imageName: "apple",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 1076,
         correctY: 284,
@@ -17,7 +17,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Banana_png,
+        imageName: "banana",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 253,
         correctY: 282,
@@ -25,7 +25,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Book_png,
+        imageName: "book",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 825,
         correctY: 310,
@@ -33,7 +33,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Chair_png,
+        imageName: "chair",
         type: HEAVY_WEIGHT_ITEM,
         correctX: 936,
         correctY: 158,
@@ -41,7 +41,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Pencils_png,
+        imageName: "colored-pencils",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 1070,
         correctY: 254,
@@ -49,7 +49,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Egg_png,
+        imageName: "egg",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 824,
         correctY: 437,
@@ -57,7 +57,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Potato_png,
+        imageName: "potato",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 1104,
         correctY: 275,
@@ -65,7 +65,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Towel_png,
+        imageName: "towel",
         type: LIGHT_WEIGHT_ITEM,
         correctX: 837,
         correctY: 374,
@@ -73,7 +73,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: res.Umbrella_png,
+        imageName: "umbrella",
         type: HEAVY_WEIGHT_ITEM,
         correctX: 969,
         correctY: 273,
