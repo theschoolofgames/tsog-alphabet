@@ -90,6 +90,7 @@ var ForestLayer = cc.Layer.extend({
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
         }
+        this.runSparklesEffect();
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -248,7 +249,7 @@ var ForestLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width / 2;
             warnLabel.y = cc.winSize.height - 100;
         }
-        this.addChild(warnLabel,9999);
+        this.addChild(warnLabel, 9999);
 
         this._warningLabel = warnLabel;
     },
@@ -354,7 +355,6 @@ var ForestLayer = cc.Layer.extend({
                                     )
                 );
             }
-            this.runSparklesEffect();
         }
     },
 
