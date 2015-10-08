@@ -205,7 +205,7 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-
+            targetNode = self;
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
@@ -213,7 +213,19 @@ var RoomLayer = cc.Layer.extend({
             targetNode._objectTouching = null;
             return false;
         }
+
         targetNode.processGameLogic();
+
+        targetNode._objectTouching.stopAllActions();
+        targetNode.removeObjectAction();
+        self._objectTouching.setScale(0.7);
+        targetNode._objectTouching.runAction(cc.sequence(
+            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1)),
+            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05))
+            ));
+        // cc.log("scale")
+        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
+
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
@@ -227,6 +239,7 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
+        targetNode._objectTouching.setScale(1.05);
 
         return true;
     },
@@ -238,9 +251,12 @@ var RoomLayer = cc.Layer.extend({
         targetNode._shadeObjects[index].visible = false;
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
+        targetNode._objectTouching.runAction(cc.sequence(
+            cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7)),
+            cc.EaseBounceInOut(cc.scaleTo(0.2, 1))
+            ));
         targetNode.handleObjectCorrectPos(index);
         targetNode.runSparklesEffect();
-
         // win condition
         if (targetNode._objectDisableds.length == NUMBER_ITEMS)
             targetNode.completedScene()
