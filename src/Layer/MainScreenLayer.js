@@ -17,19 +17,19 @@ var MainScreenLayer = cc.LayerColor.extend({
         lbContinue.color = cc.color(0, 0, 0, 255);
         this.addChild(lbContinue);
 
-        var lbWelcome = new cc.LabelTTF("Please login from TSOG main app", "Arial", 28);
-        lbWelcome.x = cc.winSize.width/2;
-        lbWelcome.y = cc.winSize.height/2 - 150;
-        lbWelcome.color = cc.color(0, 0, 0, 255);
-        lbWelcome.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        this.addChild(lbWelcome);
-        this._lbWelcome = lbWelcome;
+        this._lbWelcome = new cc.LabelTTF("Please login from TSOG main app", "Arial", 28);
+        this._lbWelcome.x = cc.winSize.width/2;
+        this._lbWelcome.y = cc.winSize.height/2 - 150;
+        this._lbWelcome.color = cc.color(0, 0, 0, 255);
+        this._lbWelcome.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        this.addChild(this._lbWelcome);
+        
         var userId = Utils.getUserId();
         if (userId) {
             var userName = Utils.getUserName();
             var schoolName = Utils.getSchoolName();
 
-            lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", userName, schoolName);
+            this._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", userName, schoolName);
         }
 
         lbContinue.runAction(cc.repeatForever(cc.sequence(
@@ -54,9 +54,11 @@ var MainScreenLayer = cc.LayerColor.extend({
 
     onEnter: function() {
         this._super();
+        var self = this;
         this._eventMainAppCall = cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {
             var data = event.getUserData();
-            this._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);
+            // if (self._lbWelcome)
+                self._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);
         });
     },
 
