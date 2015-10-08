@@ -11,72 +11,72 @@ var BEDROOM_ITEMS = [
     {
         imageName: "apple",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 1076,
-        correctY: 284,
+        x: 1076,
+        y: 284,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "banana",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 253,
-        correctY: 282,
+        x: 253,
+        y: 282,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "book",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 825,
-        correctY: 310,
+        x: 825,
+        y: 310,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "chair",
         type: HEAVY_WEIGHT_ITEM,
-        correctX: 936,
-        correctY: 158,
+        x: 936,
+        y: 158,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "colored-pencils",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 1070,
-        correctY: 254,
+        x: 1070,
+        y: 254,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "egg",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 824,
-        correctY: 437,
+        x: 824,
+        y: 437,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "potato",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 1104,
-        correctY: 275,
+        x: 1104,
+        y: 275,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "towel",
         type: LIGHT_WEIGHT_ITEM,
-        correctX: 837,
-        correctY: 374,
+        x: 837,
+        y: 374,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         imageName: "umbrella",
         type: HEAVY_WEIGHT_ITEM,
-        correctX: 969,
-        correctY: 273,
+        x: 969,
+        y: 273,
         anchorX: 0.5,
         anchorY: 0.5
     }
@@ -445,7 +445,7 @@ var DataStore = cc.Class.extend({
     _addObject: function(setId, item) {
         var objArray = this.objectSets[setId];
         var imageName = item.imageName;
-        var correctPos = cc.p(item.correctX, item.correctY)
+        var correctPos = cc.p(item.x, item.y)
         var anchorPoint = cc.p(item.anchorX, item.anchorY);
         var type = item.type;
         if (imageName == undefined)
@@ -531,6 +531,18 @@ DataStore.getInstance = function () {
 };
 
 DataStore.setupInstance = function () {
-  DataStore._instance = new DataStore();
-  return DataStore._instance;
+    preProcessData(BEDROOM_ITEMS);
+    preProcessData(BEDROOM_LIGHTWEIGHT_ITEMS_POSITION);
+    preProcessData(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+
+    DataStore._instance = new DataStore();
+
+    return DataStore._instance;
 };
+
+function preProcessData(data) {
+    for (var i = 0; i < data.length; i++) {
+        data[i].x = data[i].x / 1136 * cc.winSize.width;
+        data[i].y = data[i].y / 640 * (cc.winSize.width / 16 * 9);
+    }
+} 

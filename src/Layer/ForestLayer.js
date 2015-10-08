@@ -52,8 +52,10 @@ var ForestLayer = cc.Layer.extend({
 
     createBackground: function() {
         var background = new cc.Sprite(res.BG_jpg);
-        background.x = cc.winSize.width / 2;
+        background.x = cc.winSize.width;
         background.y = cc.winSize.height / 2;
+        background.anchorX = 1;
+        background.scale = cc.winSize.height / background.height;
         background.setLocalZOrder(-1);
         this.addChild(background);
 

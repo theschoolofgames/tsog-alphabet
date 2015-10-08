@@ -12,6 +12,8 @@ var RoomLayer = cc.Layer.extend({
     _lastClickTime: 0,
     _effectLayerShade: null,
 
+    _allScale: 1,
+
     ctor: function() {
         cc.log("Dev: " + whoAmI);
         this._super();
@@ -76,11 +78,39 @@ var RoomLayer = cc.Layer.extend({
 
     createBackground: function() {
         var background = new cc.Sprite(res.room_jpg);
-        var scale = cc.winSize.width / background.width;
-        background.setScale(scale);
+        this._allScale = cc.winSize.width / background.width;
+
+        background.setScale(this._allScale);
         background.x = cc.winSize.width / 2;
-        background.y = cc.winSize.height / 2;
+        background.y = 0;
+        background.anchorY = 0;
         this.addChild(background);
+
+        var roof = new cc.Sprite(res.room_roof_png);
+        roof.scale = this._allScale;
+        roof.x = cc.winSize.width/2;
+        roof.y = cc.winSize.height;
+        roof.anchorY = 1;
+        this.addChild(roof);
+
+        var roomRibbon = new cc.Sprite(res.room_ribbon_png);
+        roomRibbon.x = 0
+        roomRibbon.y = cc.winSize.height - 135;
+        roomRibbon.anchorX = 0;
+        roomRibbon.scale = this._allScale;
+        this.addChild(roomRibbon);
+
+        var roomClock = new cc.Sprite(res.room_clock_png);
+        roomClock.x = 350 * this._allScale;
+        roomClock.y = cc.winSize.height - 195 / this._allScale;
+        roomClock.scale = this._allScale;
+        this.addChild(roomClock);
+
+        var roomWindow = new cc.Sprite(res.room_window_png);
+        roomWindow.x = 620 * this._allScale;
+        roomWindow.y = cc.winSize.height - 230 / this._allScale;
+        roomWindow.scale = this._allScale;
+        this.addChild(roomWindow);
     },
 
     addObjects: function() {
@@ -109,6 +139,7 @@ var RoomLayer = cc.Layer.extend({
         object.x = objPosition.x;
         object.y = objPosition.y;
         object.tag = index;
+        object.scale = this._allScale;
         this.addChild(object, 2);
 
         this._objectNames.push({name: imageName, tag: object.tag});
@@ -128,6 +159,9 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
+        shadeObject.scale = this._allScale;
+
+        cc.log("Shade " + imageName + ": " + JSON.stringify(shadeObject.getPosition()));
 
         this.addChild(shadeObject, 1);
         this._shadeObjects.push(shadeObject);
@@ -142,7 +176,7 @@ var RoomLayer = cc.Layer.extend({
                 cc.callFunc(function() {
                     new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
-                cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9))
+                cc.scaleTo(0.7, 1 * this._allScale).easing(cc.easeElasticOut(0.9))
             )
         );
 
@@ -234,6 +268,8 @@ var RoomLayer = cc.Layer.extend({
     onTouchMoved: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
+
+        // cc.log(JSON.stringify(touchedPos));
 
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
@@ -455,11 +491,11 @@ var RoomLayer = cc.Layer.extend({
 
                 this._objects[i].runAction(                               
                                         cc.sequence(
-                                            cc.scaleTo(0.3, 0.8),
-                                            cc.scaleTo(0.3, 1.2),
-                                            cc.scaleTo(0.3, 0.8),
-                                            cc.scaleTo(0.3, 1.2),
-                                            cc.scaleTo(0.3, 1)
+                                            cc.scaleTo(0.3, 0.8 * this._allScale),
+                                            cc.scaleTo(0.3, 1.2 * this._allScale),
+                                            cc.scaleTo(0.3, 0.8 * this._allScale),
+                                            cc.scaleTo(0.3, 1.2 * this._allScale),
+                                            cc.scaleTo(0.3, 1 * this._allScale)
 
                                         )                 
                 );
