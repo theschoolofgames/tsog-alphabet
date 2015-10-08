@@ -315,21 +315,21 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 0,
-        y: cc.winSize.height / 2 + 80,
+        y: cc.winSize.height / 2 - 120,
         anchorX: 0,
-        anchorY: 0.5,
+        anchorY: 0,
         imageName: "#water-fall.png",
         z: 1 },
     {
         x: 0,
-        y: 133,
+        y: 0,
         anchorX: 0,
-        anchorY: 0.5,
+        anchorY: 0,
         imageName: "#ground.png",
         z: 4
     },
     {
-        x: 485,
+        x: cc.winSize.width/2 - 80,
         y: cc.winSize.height/2 - 50,
         anchorX: 0.5,
         anchorY: 0.5,
@@ -337,7 +337,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         z: 5
     },
     {
-        x: 485,
+        x: cc.winSize.width/2 - 80,
         y: cc.winSize.height/2 - 50,
         anchorX: 0.5,
         anchorY: 0.5,
