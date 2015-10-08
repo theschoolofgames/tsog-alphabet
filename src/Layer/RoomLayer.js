@@ -56,7 +56,7 @@ var RoomLayer = cc.Layer.extend({
     addRefreshButton: function() {
         var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
         refreshButton.x = cc.winSize.width - refreshButton.width;
-        refreshButton.y = cc.winSize.height - refreshButton.height / 2;
+        refreshButton.y = refreshButton.height / 2;
         this.addChild(refreshButton);
 
         refreshButton.addClickEventListener(function() {
@@ -67,7 +67,7 @@ var RoomLayer = cc.Layer.extend({
     addBackButton: function() {
         var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
         backButton.x = cc.winSize.width - backButton.width*3;
-        backButton.y = cc.winSize.height - backButton.height / 2;
+        backButton.y = backButton.height / 2;
 
         this.addChild(backButton);
 
@@ -161,7 +161,7 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.visible = false;
         shadeObject.scale = this._allScale;
 
-        cc.log("Shade " + imageName + ": " + JSON.stringify(shadeObject.getPosition()));
+        // cc.log("Shade " + imageName + ": " + JSON.stringify(shadeObject.getPosition()));
 
         this.addChild(shadeObject, 1);
         this._shadeObjects.push(shadeObject);
