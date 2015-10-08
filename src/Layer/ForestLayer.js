@@ -347,12 +347,13 @@ var ForestLayer = cc.Layer.extend({
             if (this._objects.length > 0) {
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 this._objects[i].runAction(
-                                    cc.repeatForever(
-                                            cc.sequence(
-                                                cc.scaleTo(1, 0.95),
-                                                cc.scaleTo(1, 1.05)
-                                            )
-                                    )
+                                        cc.sequence(
+                                            cc.scaleTo(0.3, 0.8),
+                                            cc.scaleTo(0.3, 1.2),
+                                            cc.scaleTo(0.3, 0.8),
+                                            cc.scaleTo(0.3, 1.2),
+                                            cc.scaleTo(0.3, 1)
+                                        )
                 );
             }
         }

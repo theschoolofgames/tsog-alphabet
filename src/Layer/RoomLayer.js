@@ -436,13 +436,13 @@ var RoomLayer = cc.Layer.extend({
                 if (this.isObjectDisabled(this._objects[i]))
                     return;
 
-                this._objects[i].runAction(
-                                    cc.repeatForever(
-                                            cc.sequence(
-                                                cc.scaleTo(1, 0.95),
-                                                cc.scaleTo(1, 1.05)
-                                            )
-                                    )
+                this._objects[i].runAction(                               
+                                        cc.sequence(
+                                            cc.scaleTo(0.5, 0.8),
+                                            cc.scaleTo(0.5, 1.2),
+                                            cc.scaleTo(0.5, 1)
+
+                                        )                 
                 );
             }
             // this.runSparklesEffect();
