@@ -47,6 +47,7 @@ var ForestLayer = cc.Layer.extend({
         this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
+        this._lastClickTime = this._hudLayer.getRemainingTime();
     },
 
     createBackground: function() {
@@ -336,12 +337,13 @@ var ForestLayer = cc.Layer.extend({
 
         this.runObjectAction(this, 0,
             function(){
-                self._lastClickTime = self._hudLayer.getRemainingTime()
+                // self._lastClickTime = self._hudLayer.getRemainingTime()
             }
         )
     },
 
     showHintObjectUp: function() {
+        var self = this;
         var deltaTime = this._lastClickTime - this._hudLayer.getRemainingTime();
         if(deltaTime == TIME_HINT) {
             if (this._objects.length > 0) {
@@ -352,7 +354,10 @@ var ForestLayer = cc.Layer.extend({
                                             cc.scaleTo(0.3, 1.2),
                                             cc.scaleTo(0.3, 0.8),
                                             cc.scaleTo(0.3, 1.2),
-                                            cc.scaleTo(0.3, 1)
+                                            cc.scaleTo(0.3, 1),
+                                            cc.callFunc(function() {
+                                                self._lastClickTime = self._hudLayer.getRemainingTime();
+                                            })
                                         )
                 );
             }
@@ -420,6 +425,7 @@ var ForestLayer = cc.Layer.extend({
                 self._removeWarnLabel();
 
                 mask.removeFromParent();
+                animal.stopAllActions();
                 animal.setLocalZOrder(oldZOrder);
             }
         }, mask);

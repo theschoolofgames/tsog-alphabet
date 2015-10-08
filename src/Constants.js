@@ -7,7 +7,7 @@ var MOVE_DELAY_TIME = 1;
 
 var NUMBER_ITEMS = 3;
 
-var TIME_HINT = 5;
+var TIME_HINT = 3;
 var CLOCK_INTERVAL = 1;
 var TIME_INIT = 300;
 
