@@ -237,20 +237,20 @@ var FOREST_GROUND_POSITION = [
     {
         x: 200,
         y: 200,
-        z: 5,
+        z: 6,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
         x: 500,
-        y: 150,
+        y: 120,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
         x: 650,
-        y: 150,
+        y: 100,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
@@ -322,7 +322,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         z: 1 },
     {
         x: 0,
-        y: 143,
+        y: 133,
         anchorX: 0,
         anchorY: 0.5,
         imageName: "#ground.png",
@@ -390,6 +390,22 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#bush-2.png",
+        z: 6
+    },
+    {
+        x: 485,
+        y: cc.winSize.height/2 - 200,
+        anchorX: 0.5,
+        anchorY: 0.5,
+        imageName: "#small-bush-1.png",
+        z: 6
+    },
+    {
+        x: 0,
+        y: cc.winSize.height / 2 - 80,
+        anchorX: 0,
+        anchorY: 0.5,
+        imageName: "#small-bush-2.png",
         z: 6
     }
 ];
