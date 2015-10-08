@@ -213,11 +213,10 @@ var RoomLayer = cc.Layer.extend({
             targetNode._objectTouching = null;
             return false;
         }
+        cc.audioEngine.playEffect(res.PICKUP_mp3);
 
         targetNode.processGameLogic();
 
-        targetNode._objectTouching.stopAllActions();
-        targetNode.removeObjectAction();
         self._objectTouching.setScale(0.7);
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1)),
@@ -257,6 +256,8 @@ var RoomLayer = cc.Layer.extend({
             ));
         targetNode.handleObjectCorrectPos(index);
         targetNode.runSparklesEffect();
+        cc.audioEngine.playEffect(res.DROP_mp3);
+
         // win condition
         if (targetNode._objectDisableds.length == NUMBER_ITEMS)
             targetNode.completedScene()

@@ -50,6 +50,10 @@ var res = {
 
    // Smoke_sound: "res/smoke-sound.mp3"
 
+   // Sound effect
+   DROP_mp3: "sounds/drop.mp3",
+   PICKUP_mp3: "sounds/pickup.mp3",
+
    // Sound
    BEAR_mp3: "sounds/animals/bear.mp3",
    BEE_mp3: "sounds/animals/bee.mp3",
