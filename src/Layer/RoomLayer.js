@@ -95,6 +95,7 @@ var RoomLayer = cc.Layer.extend({
 
             this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName);
         }
+        this.runSparklesEffect();
     },
 
     addObjectButton: function(objPosition, imageName, index) {
@@ -120,7 +121,6 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectShade: function(object, imageName) {
         var shadeObject = new cc.Sprite(imageName);
-        // shadeObject.setScale(1.5);
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
         shadeObject.visible = false;
@@ -201,8 +201,8 @@ var RoomLayer = cc.Layer.extend({
         }
         targetNode._objectTouching.stopAllActions();
         targetNode.removeObjectAction();
-
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
+
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
@@ -234,8 +234,8 @@ var RoomLayer = cc.Layer.extend({
         targetNode._shadeObjects[index].visible = false;
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
-
         targetNode.handleObjectCorrectPos(index);
+        targetNode.runSparklesEffect();
 
         // win condition
         if (targetNode._objectDisableds.length == NUMBER_ITEMS)
@@ -370,7 +370,7 @@ var RoomLayer = cc.Layer.extend({
                                     )
                 );
             }
-            this.runSparklesEffect();
+            // this.runSparklesEffect();
         }
     },
 });
