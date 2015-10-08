@@ -71,6 +71,29 @@ var ANIMAL_SOUNDS_LENGTH = [
     }
 ];
 
+var OBJECT_SOUNDS_LENGTH = [
+	{name: "apple", length: 1},
+	{name: "banana", length: 1},
+	{name: "book", length: 1},
+	{name: "chair", length: 1},
+	{name: "desk", length: 1},
+	{name: "duster", length: 1},
+	{name: "egg", length: 1},
+	{name: "grape", length: 1},
+	{name: "hat", length: 1},
+	{name: "jar", length: 1},
+	{name: "joker", length: 1},
+	{name: "key", length: 1},
+	{name: "kite", length: 1},
+	{name: "lamp", length: 1},
+	{name: "map", length: 1},
+	{name: "orange", length: 1},
+	{name: "potato", length: 1},
+	{name: "umbrella", length: 1},
+	{name: "vest", length: 1},
+	{name: "watch", length: 1}
+];
+
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";

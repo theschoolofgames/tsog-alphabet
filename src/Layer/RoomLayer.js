@@ -2,6 +2,7 @@ var RoomLayer = cc.Layer.extend({
     _hudLayer: null,
     _objectTouching: null,
     _objects: [],
+    _objectNames: [],
     _shadeObjects: [],
     _correctedObject: [],
     _objectDisableds: [],
@@ -34,6 +35,7 @@ var RoomLayer = cc.Layer.extend({
 
     resetAllArrays: function() {
         this._objects = [];
+        this._objectNames = [];
         this._shadeObjects = [];
         this._correctedObject = [];
         this._objectDisableds = [];
@@ -106,8 +108,10 @@ var RoomLayer = cc.Layer.extend({
 
         object.x = objPosition.x;
         object.y = objPosition.y;
-
+        object.tag = index;
         this.addChild(object, 2);
+
+        this._objectNames.push({name: imageName, tag: object.tag});
 
         this.animateObjectIn(object, index);
         this._objects.push(object);
@@ -179,6 +183,14 @@ var RoomLayer = cc.Layer.extend({
                 this._objectTouching = this._objects[i];
                 return true;
             }
+        }
+    },
+
+    getSoundLengthByName: function(imageName) {
+        var strName = imageName.toUpperCase();
+        for ( var i = 0; i < OBJECT_SOUNDS_LENGTH.length; i++) {
+            if (strName === OBJECT_SOUNDS_LENGTH[i].name)
+                return OBJECT_SOUNDS_LENGTH[i].length;
         }
     },
 
@@ -300,12 +312,53 @@ var RoomLayer = cc.Layer.extend({
         return objectPosition;
     },
 
+    getObjectName: function() {
+        for (var i = 0; i < this._objectNames.length; i++) {
+            if (this._objectTouching.tag === this._objectNames[i].tag)
+                return this._objectNames[i].name;
+        }
+    },
+
     isObjectDisabled: function(objectTouching) {
         for (var i = 0; i < this._objectDisableds.length; i++) {
             if (objectTouching === this._objectDisableds[i]){
                 return true;
             }
         }
+    },
+
+    playObjectSound: function(isDragging){
+        var self = this;
+
+        var objectName = this.getObjectName();
+        var object = this._objectTouching;
+
+        var soundLength = this.getSoundLengthByName(objectName);
+        var soundNumb = isDragging ? 1 : 3;
+        // Show cutscene
+        var oldZOrder = animal.getLocalZOrder();
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 128));
+        this.addChild(mask, oldZOrder+1);
+        animal.setLocalZOrder(oldZOrder+2);
+
+        new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+
+        object.runAction(cc.sequence(
+            cc.callFunc(function() {
+                cc.audioEngine.playEffect("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3");
+                self._blockAllObjects = true;
+            }),
+            cc.scaleTo(1, 0.95),
+            cc.scaleTo(1, 1.05),
+            cc.delayTime(soundLength),
+            cc.callFunc(function() {
+                self._blockAllObjects = false;
+                self._removeWarnLabel();
+
+                mask.removeFromParent();
+                object.setLocalZOrder(oldZOrder);
+            })
+        ));
     },
 
     updateProgressBar: function() {
