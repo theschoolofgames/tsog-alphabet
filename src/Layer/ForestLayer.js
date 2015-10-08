@@ -148,11 +148,11 @@ var ForestLayer = cc.Layer.extend({
         this._objects.push(animal);
     },
 
-    getAnimalSoundLengthByName: function(imageName) {
+    getAnimalSoundConfigByName: function(imageName) {
         var strName = imageName.toUpperCase();
         for ( var i = 0; i < ANIMAL_SOUNDS_LENGTH.length; i++) {
             if (strName === ANIMAL_SOUNDS_LENGTH[i].name)
-                return ANIMAL_SOUNDS_LENGTH[i].length;
+                return ANIMAL_SOUNDS_LENGTH[i];
         }
     },
 
@@ -397,15 +397,17 @@ var ForestLayer = cc.Layer.extend({
         var animalName = this.getAnimalName();
         var animal = this._objectTouching;
         var str = animalName[0].toUpperCase() + " - " + animalName;
-        var soundLength = this.getAnimalSoundLengthByName(animalName);
+        var soundConfig = this.getAnimalSoundConfigByName(animalName);
 
         // Show cutscene
         var oldZOrder = animal.getLocalZOrder();
-        var mask = new cc.LayerColor(cc.color(0, 0, 0, 128));
-        this.addChild(mask, oldZOrder+1);
-        animal.setLocalZOrder(oldZOrder+2);
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
+        this.addChild(mask, 1000);
+        animal.setLocalZOrder(1001);
 
         new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+
+        cc.audioEngine.playEffect(res[animalName.toUpperCase() + "_mp3"]);
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -414,7 +416,7 @@ var ForestLayer = cc.Layer.extend({
             }),
             cc.scaleTo(1, 0.95),
             cc.scaleTo(1, 1.05),
-            cc.delayTime(soundLength),
+            cc.delayTime(soundConfig.length),
             cc.callFunc(function() {
                 self._blockAllObjects = false;
                 self._removeWarnLabel();

@@ -46,9 +46,19 @@ var res = {
    Smoke_effect_plist: "effect-smoke.plist",
    Smoke_effect_png: "effect-smoke.png",
    Sparkle_effect_png: "sparkle-effect.png",
-   Sparkle_effect_plist: "sparkle-effect.plist"
+   Sparkle_effect_plist: "sparkle-effect.plist",
 
    // Smoke_sound: "res/smoke-sound.mp3"
+
+   // Sound
+   BEAR_mp3: "sounds/animals/bear.mp3",
+   BEE_mp3: "sounds/animals/bee.mp3",
+   BIRD_mp3: "sounds/animals/bird.mp3",
+   CAT_mp3: "sounds/animals/cat.mp3",
+   COW_mp3: "sounds/animals/cow.mp3",
+   HORSE_mp3: "sounds/animals/horse.mp3",
+   INSECT_mp3: "sounds/animals/insect.mp3",
+   TIGER_mp3: "sounds/animals/tiger.mp3"
 };
 
 var g_resources = [];

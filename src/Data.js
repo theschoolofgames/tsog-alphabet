@@ -190,16 +190,16 @@ var FOREST_ITEMS = [
         type: STAND_ITEM
     },
     {
-        imageName: "bug",
-        type: LIE_ITEM
-    },
-    {
         imageName: "cat",
         type: LIE_ITEM
     },
     {
         imageName: "cow",
         type: STAND_ITEM
+    },
+    {
+        imageName: "insect",
+        type: LIE_ITEM
     },
     {
         imageName: "horse",
