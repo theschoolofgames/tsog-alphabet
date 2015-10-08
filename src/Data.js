@@ -282,16 +282,16 @@ var FOREST_WATER_POSITION = [
 
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
-        x: cc.winSize.width / 2 + 100,
-        y: cc.winSize.height - 100,
+        x: 668,
+        y: 540,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-1.png",
         z: 0
     },
     {
-        x: cc.winSize.width / 2 - 100,
-        y: cc.winSize.height - 70,
+        x: 468,
+        y: 570,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-3.png",
@@ -299,15 +299,15 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 0,
-        y: cc.winSize.height - 120,
+        y: 520,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#cloud-4.png",
         z: 0
     },
     {
-        x: cc.winSize.width,
-        y: cc.winSize.height/2 - 110,
+        x: 1136,
+        y: 210,
         anchorX: 1,
         anchorY: 0.5,
         imageName: "#river.png",
@@ -315,7 +315,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 0,
-        y: cc.winSize.height / 2 - 120,
+        y: 200,
         anchorX: 0,
         anchorY: 0,
         imageName: "#water-fall.png",
@@ -329,16 +329,16 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         z: 4
     },
     {
-        x: cc.winSize.width/2 - 80,
-        y: cc.winSize.height/2 - 50,
+        x: 488,
+        y: 270,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#tree-shadow.png",
         z: 5
     },
     {
-        x: cc.winSize.width/2 - 80,
-        y: cc.winSize.height/2 - 50,
+        x: 488,
+        y: 270,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#tree-1.png",
@@ -346,7 +346,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 299,
-        y: cc.winSize.height/2 + 50,
+        y: 370,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#tree-2.png",
@@ -354,23 +354,23 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 407,
-        y: cc.winSize.height/2 + 60,
+        y: 380,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#tree-3.png",
         z: 2
     },
     {
-        x: cc.winSize.width,
-        y: cc.winSize.height/2 + 20,
+        x: 1136,
+        y: 340,
         anchorX: 1,
         anchorY: 0.5,
         imageName: "#tree-4.png",
         z: 5
     },
     {
-        x: cc.winSize.width,
-        y: cc.winSize.height/2,
+        x: 1136,
+        y: 320,
         anchorX: 1,
         anchorY: 0.5,
         imageName: "#tree-5.png",
@@ -385,7 +385,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         z: 6
     },
     {
-        x: cc.winSize.width/2 + 300,
+        x: 868,
         y: 104,
         anchorX: 0.5,
         anchorY: 0.5,
@@ -394,7 +394,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 485,
-        y: cc.winSize.height/2 - 200,
+        y: 120,
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#small-bush-1.png",
@@ -402,7 +402,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
     },
     {
         x: 0,
-        y: cc.winSize.height / 2 - 80,
+        y: 240,
         anchorX: 0,
         anchorY: 0.5,
         imageName: "#small-bush-2.png",
@@ -534,6 +534,12 @@ DataStore.setupInstance = function () {
     preProcessData(BEDROOM_ITEMS);
     preProcessData(BEDROOM_LIGHTWEIGHT_ITEMS_POSITION);
     preProcessData(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+
+    preProcessData(FOREST_FLY_POSITION);
+    preProcessData(FOREST_GROUND_POSITION);
+    preProcessData(FOREST_WATER_POSITION);
+
+    preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
 
     DataStore._instance = new DataStore();
 

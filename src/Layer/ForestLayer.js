@@ -19,6 +19,8 @@ var ForestLayer = cc.Layer.extend({
     _lastClickTime : 0,
     _blockAllObjects: false,
 
+    _allScale: 1,
+
     ctor: function() {
         this._super();
 
@@ -52,10 +54,12 @@ var ForestLayer = cc.Layer.extend({
 
     createBackground: function() {
         var background = new cc.Sprite(res.BG_jpg);
+        this._allScale = cc.winSize.width / background.width;
+
         background.x = cc.winSize.width;
         background.y = cc.winSize.height / 2;
         background.anchorX = 1;
-        background.scale = cc.winSize.height / background.height;
+        background.scale = this._allScale;
         background.setLocalZOrder(-1);
         this.addChild(background);
 
@@ -66,6 +70,7 @@ var ForestLayer = cc.Layer.extend({
             backgroundElt.x = element.x;
             backgroundElt.y = element.y;
             backgroundElt.setAnchorPoint(element.anchorX, element.anchorY);
+            backgroundElt.scale = this._allScale;
             this.addChild(backgroundElt, element.z);
             if (i < 3)
                 this.runCloudsAction(backgroundElt);
@@ -222,7 +227,7 @@ var ForestLayer = cc.Layer.extend({
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = refreshButton.height / 2;
 
-        this.addChild(refreshButton);
+        this.addChild(refreshButton, 100);
 
         refreshButton.addClickEventListener(function() {
             cc.director.replaceScene(new ForestScene());
@@ -234,7 +239,7 @@ var ForestLayer = cc.Layer.extend({
         backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = backButton.height / 2;
 
-        this.addChild(backButton);
+        this.addChild(backButton, 100);
 
         backButton.addClickEventListener(function() {
             cc.director.replaceScene(new RoomScene());
