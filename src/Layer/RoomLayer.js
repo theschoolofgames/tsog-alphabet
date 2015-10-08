@@ -438,9 +438,11 @@ var RoomLayer = cc.Layer.extend({
 
                 this._objects[i].runAction(                               
                                         cc.sequence(
-                                            cc.scaleTo(0.5, 0.8),
-                                            cc.scaleTo(0.5, 1.2),
-                                            cc.scaleTo(0.5, 1)
+                                            cc.scaleTo(0.3, 0.8),
+                                            cc.scaleTo(0.3, 1.2),
+                                            cc.scaleTo(0.3, 0.8),
+                                            cc.scaleTo(0.3, 1.2),
+                                            cc.scaleTo(0.3, 1)
 
                                         )                 
                 );
