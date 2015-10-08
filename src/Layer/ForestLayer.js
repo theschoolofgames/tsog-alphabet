@@ -399,19 +399,30 @@ var ForestLayer = cc.Layer.extend({
         var str = animalName[0].toUpperCase() + " - " + animalName;
         var soundLength = this.getAnimalSoundLengthByName(animalName);
 
+        // Show cutscene
+        var oldZOrder = animal.getLocalZOrder();
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 128));
+        this.addChild(mask, oldZOrder+1);
+        animal.setLocalZOrder(oldZOrder+2);
+
+        new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+
         animal.runAction(cc.sequence(
-                cc.callFunc(function() {
-                    self.createWarnLabel(str, 32);
-                    self._blockAllObjects = true;
-                }),
-                cc.scaleTo(1, 0.95),
-                cc.scaleTo(1, 1.05),
-                cc.delayTime(soundLength),
-                cc.callFunc(function() {
-                    self._blockAllObjects = false;
-                    self._removeWarnLabel();
-                })
-            ))
+            cc.callFunc(function() {
+                self.createWarnLabel(str, 32);
+                self._blockAllObjects = true;
+            }),
+            cc.scaleTo(1, 0.95),
+            cc.scaleTo(1, 1.05),
+            cc.delayTime(soundLength),
+            cc.callFunc(function() {
+                self._blockAllObjects = false;
+                self._removeWarnLabel();
+
+                mask.removeFromParent();
+                animal.setLocalZOrder(oldZOrder);
+            })
+        ));
     },
 
     _removeWarnLabel: function() {
