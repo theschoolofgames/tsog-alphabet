@@ -75,6 +75,7 @@ var OBJECT_SOUNDS_LENGTH = [
 	{name: "BANANA", length: 3},
 	{name: "BOOK", length: 3},
 	{name: "CHAIR", length: 3},
+	{name: "PENCILS", length: 3},
 	{name: "DESK", length: 3},
 	{name: "DUSTER", length: 3},
 	{name: "EGG", length: 3},
@@ -88,6 +89,7 @@ var OBJECT_SOUNDS_LENGTH = [
 	{name: "MAP", length: 3},
 	{name: "ORANGE", length: 3},
 	{name: "POTATO", length: 3},
+	{name: "TOWEL", length: 3},
 	{name: "UMBRELLA", length: 3},
 	{name: "VEST", length: 3},
 	{name: "WATCH", length: 3}

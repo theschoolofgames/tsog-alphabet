@@ -1,5 +1,6 @@
 var RoomLayer = cc.Layer.extend({
     _hudLayer: null,
+    _maskLayer: null,
     _objectTouching: null,
     _objects: [],
     _objectNames: [],
@@ -48,7 +49,7 @@ var RoomLayer = cc.Layer.extend({
         var hudLayer = new HudLayer(this);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
-        this.addChild(hudLayer);
+        this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
     },
@@ -187,6 +188,12 @@ var RoomLayer = cc.Layer.extend({
         )
     },
 
+    checkWonGame: function() {
+        // win condition
+        if (this._objectDisableds.length == NUMBER_ITEMS)
+            this.completedScene()
+    },
+
     createWarnLabel: function(text, object) {
         var warnLabel = new cc.LabelTTF(text, "Arial", 24);
         warnLabel.setColor(cc.color.RED);
@@ -201,6 +208,20 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(warnLabel);
 
         this._warningLabel = warnLabel;
+    },
+
+    completedScene: function() {
+        cc.log("completedScene")
+
+        var starEarned = this._hudLayer.getStarEarned();
+        var str = (starEarned > 1) ? " stars" : " star";
+        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
+        this.createWarnLabel(lbText);
+        var elapseTime = this._hudLayer._clock.getElapseTime();
+        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
+        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
+                    cc.director.replaceScene(new ForestScene());
+                });
     },
 
     _isTouchingObject: function(touchedPos) {
@@ -221,12 +242,13 @@ var RoomLayer = cc.Layer.extend({
     },
 
     getSoundConfigByName: function(imageName) {
-        cc.log("imageName: " + imageName);
+        // cc.log("imageName: " + imageName);
         var strName = imageName.toUpperCase();
-        cc.log("strName: " + strName);
+        // cc.log("strName: " + strName);
         for ( var i = 0; i < OBJECT_SOUNDS_LENGTH.length; i++) {
-            if (strName === OBJECT_SOUNDS_LENGTH[i].name)
+            if (strName === OBJECT_SOUNDS_LENGTH[i].name) {
                 return OBJECT_SOUNDS_LENGTH[i];
+            }
         }
     },
 
@@ -294,10 +316,6 @@ var RoomLayer = cc.Layer.extend({
         targetNode.runSparklesEffect();
         cc.audioEngine.playEffect(res.DROP_mp3);
 
-        // win condition
-        if (targetNode._objectDisableds.length == NUMBER_ITEMS)
-            targetNode.completedScene()
-
         return true;
     },
 
@@ -314,18 +332,6 @@ var RoomLayer = cc.Layer.extend({
         this._shadeObjects[index].visible = true;
         this.highLightObjectCorrectPos(index);
 
-    },
-
-    completedScene: function() {
-        var starEarned = this._hudLayer.getStarEarned();
-        var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
-        this.createWarnLabel(lbText);
-        var elapseTime = this._hudLayer._clock.getElapseTime();
-        RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
-        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                    cc.director.replaceScene(new ForestScene());
-                });
     },
 
     runObjectAction: function(object, delayTime, func) {
@@ -395,13 +401,15 @@ var RoomLayer = cc.Layer.extend({
         var object = this._objectTouching;
 
         var soundConfig = this.getSoundConfigByName(objectName);
-        cc.log(soundConfig)
+        cc.log("soundConfig: " + soundConfig.length);
         var soundNumb = isDragging ? 1 : 3;
         // Show cutscene
         if (!isDragging) {
             var oldZOrder = object.getLocalZOrder();
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
             this.addChild(mask, 100);
+            this._maskLayer = mask;
+
             object.setLocalZOrder(101);
 
             var blockFlag = true;
@@ -414,14 +422,15 @@ var RoomLayer = cc.Layer.extend({
                         return;
 
                     self._blockAllObjects = false;
-                    // self._removeWarnLabel();
 
                     mask.removeFromParent();
+                    self._mask = null;
+                    self.checkWonGame();
                     object.setLocalZOrder(oldZOrder);
                 }
             }, mask);
         }
-        // cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
+        cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
         cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"]);
 
         object.runAction(cc.sequence(
@@ -495,8 +504,10 @@ var RoomLayer = cc.Layer.extend({
                                             cc.scaleTo(0.3, 1.2 * this._allScale),
                                             cc.scaleTo(0.3, 0.8 * this._allScale),
                                             cc.scaleTo(0.3, 1.2 * this._allScale),
-                                            cc.scaleTo(0.3, 1 * this._allScale)
-
+                                            cc.scaleTo(0.3, 1 * this._allScale),
+                                            cc.callFunc(function() {
+                                                self._lastClickTime = self._hudLayer.getRemainingTime();
+                                            })
                                         )                 
                 );
             }

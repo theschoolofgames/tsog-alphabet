@@ -125,7 +125,8 @@ var ForestLayer = cc.Layer.extend({
         }
 
         targetNode.processGameLogic();
-
+        targetNode.runSparklesEffect();
+        
         return true;
     },
     getRamdomPositionMoveto : function(radius, animalOriginPos) {
@@ -255,6 +256,11 @@ var ForestLayer = cc.Layer.extend({
         this.addChild(warnLabel, 9999);
 
         this._warningLabel = warnLabel;
+    },
+
+    checkWonGame: function() {
+        if (this._touchCounting == NUMBER_ITEMS)
+            this.completedScene();
     },
 
     completedScene: function() {
@@ -391,12 +397,6 @@ var ForestLayer = cc.Layer.extend({
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
 
-        if (this._touchCounting == NUMBER_ITEMS){
-            var self = this;
-            this.runObjectAction(this, CHANGE_SCENE_TIME, function(){
-                self.completedScene()
-            });
-        }
         this._objectDisabled.push(this._objectTouching);
         this._objectTouching = null;
     },
@@ -429,6 +429,7 @@ var ForestLayer = cc.Layer.extend({
                 mask.removeFromParent();
                 animal.stopAllActions();
                 animal.setLocalZOrder(oldZOrder);
+                self.checkWonGame();
             }
         }, mask);
 

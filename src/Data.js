@@ -41,7 +41,7 @@ var BEDROOM_ITEMS = [
         anchorY: 0.5
     },
     {
-        imageName: "colored-pencils",
+        imageName: "pencils",
         type: LIGHT_WEIGHT_ITEM,
         x: 1070,
         y: 254,
