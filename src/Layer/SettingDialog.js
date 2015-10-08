@@ -65,7 +65,8 @@ var SettingDialog = cc.Layer.extend({
         this._dialogBg.addChild(logoutBtn);
 
         logoutBtn.addClickEventListener(function() {
-            cc.log("logout");
+            KVDatabase.getInstance().remove(STRING_USER_ID);
+            cc.director.replaceScene(new MainScreenScene());
         })
     },
 

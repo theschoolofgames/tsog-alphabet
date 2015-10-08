@@ -29,8 +29,8 @@ var ForestLayer = cc.Layer.extend({
         this.resetObjectArrays();
         this.createBackground();
         this.createAnimals();
-        this.addBackButton();
-        this.addRefreshButton();
+        // this.addBackButton();
+        // this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
@@ -59,7 +59,7 @@ var ForestLayer = cc.Layer.extend({
         background.x = cc.winSize.width;
         background.y = cc.winSize.height / 2;
         background.anchorX = 1;
-        background.scale = this._allScale;
+        // background.scale = this._allScale;
         background.setLocalZOrder(-1);
         this.addChild(background);
 
@@ -247,7 +247,6 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, size, object) {
-        cc.log("createWarnLabel");
         var warnLabel = new cc.LabelTTF(text, "Arial", size);
         warnLabel.setColor(cc.color.RED);
         if (object) {

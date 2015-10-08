@@ -16,14 +16,14 @@ var RoomLayer = cc.Layer.extend({
     _allScale: 1,
 
     ctor: function() {
-        cc.log("Dev: " + whoAmI);
+        // cc.log("Dev: " + whoAmI);
         this._super();
 
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
 
@@ -132,7 +132,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addObjectButton: function(objPosition, imageName, index) {
-        cc.log("imageName: " + imageName);
+        // cc.log("imageName: " + imageName);
         var object = new cc.Sprite("things/" + imageName + ".png");
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -211,7 +211,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        cc.log("completedScene")
+        // cc.log("completedScene")
 
         var starEarned = this._hudLayer.getStarEarned();
         var str = (starEarned > 1) ? " stars" : " star";
@@ -401,7 +401,7 @@ var RoomLayer = cc.Layer.extend({
         var object = this._objectTouching;
 
         var soundConfig = this.getSoundConfigByName(objectName);
-        cc.log("soundConfig: " + soundConfig.length);
+        // cc.log("soundConfig: " + soundConfig.length);
         var soundNumb = isDragging ? 1 : 3;
         // Show cutscene
         if (!isDragging) {
@@ -430,7 +430,7 @@ var RoomLayer = cc.Layer.extend({
                 }
             }, mask);
         }
-        cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
+        // cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
         cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"]);
 
         object.runAction(cc.sequence(
@@ -460,7 +460,7 @@ var RoomLayer = cc.Layer.extend({
         if (objectCorrected >= STAR_GOAL_3)
             starEarned = 3;
 
-        cc.log("starEarned: " + starEarned);
+        // cc.log("starEarned: " + starEarned);
         this._hudLayer.setStarEarned(starEarned);
 
         if (starEarned > 0)
