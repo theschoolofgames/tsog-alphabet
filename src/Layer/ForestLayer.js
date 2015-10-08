@@ -137,6 +137,7 @@ var ForestLayer = cc.Layer.extend({
         animal.x = position.x;
         animal.y = position.y;
         animal.tag = i;
+        animal.userData = animalObject;
         animal.setLocalZOrder(position.z);
 
         this.addChild(animal);
@@ -402,10 +403,25 @@ var ForestLayer = cc.Layer.extend({
         // Show cutscene
         var oldZOrder = animal.getLocalZOrder();
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
-        this.addChild(mask, 1000);
-        animal.setLocalZOrder(1001);
+        this.addChild(mask, 100);
+        animal.setLocalZOrder(101);
 
-        new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+        var blockFlag = true;
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; },
+            onTouchEnded: function(touch, event) {
+                if (blockFlag)
+                    return;
+
+                self._blockAllObjects = false;
+                self._removeWarnLabel();
+
+                mask.removeFromParent();
+                animal.setLocalZOrder(oldZOrder);
+            }
+        }, mask);
 
         cc.audioEngine.playEffect(res[animalName.toUpperCase() + "_mp3"]);
 
@@ -413,16 +429,13 @@ var ForestLayer = cc.Layer.extend({
             cc.callFunc(function() {
                 self.createWarnLabel(str, 32);
                 self._blockAllObjects = true;
+                self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
-            cc.scaleTo(1, 0.95),
-            cc.scaleTo(1, 1.05),
-            cc.delayTime(soundConfig.length),
+            // cc.scaleTo(1, 0.95),
+            // cc.scaleTo(1, 1.05),
+            cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
-                self._blockAllObjects = false;
-                self._removeWarnLabel();
-
-                mask.removeFromParent();
-                animal.setLocalZOrder(oldZOrder);
+                blockFlag = false;
             })
         ));
     },
