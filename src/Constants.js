@@ -37,6 +37,10 @@ var DARK_STAR_NUMBERS = 3;
 
 var ANIMAL_SOUNDS_LENGTH = [
     {
+        name: "ANT",
+        length: 3
+    },
+    {
         name: "BEAR",
         length: 3
     },
@@ -49,10 +53,6 @@ var ANIMAL_SOUNDS_LENGTH = [
         length: 3
     },
     {
-        name: "INSECT", 
-        length: 3
-    },
-    {
         name: "CAT", 
         length: 3
     },
@@ -61,7 +61,19 @@ var ANIMAL_SOUNDS_LENGTH = [
         length: 3
     },
     {
+        name : "DUCK",
+        length: 3
+    },
+    {
+        name: "FISH",
+        length: 3
+    },
+    {
         name: "HORSE", 
+        length: 3
+    },
+    {
+        name: "INSECT", 
         length: 3
     },
     {

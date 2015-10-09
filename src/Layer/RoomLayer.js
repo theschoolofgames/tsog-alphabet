@@ -12,7 +12,7 @@ var RoomLayer = cc.Layer.extend({
     _countDownClock: null,
     _lastClickTime: 0,
     _effectLayerShade: null,
-
+    _effectSmoke:null,
     _allScale: 1,
 
     ctor: function() {
@@ -147,7 +147,6 @@ var RoomLayer = cc.Layer.extend({
 
         this.animateObjectIn(object, index);
         this._objects.push(object);
-
         this.runObjectAction(this, 0,
             function(){
                 self._lastClickTime = self._hudLayer.getRemainingTime();
@@ -261,7 +260,6 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-            targetNode = self;
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
@@ -270,17 +268,16 @@ var RoomLayer = cc.Layer.extend({
             return false;
         }
         cc.audioEngine.playEffect(res.PICKUP_mp3);
-
         targetNode.processGameLogic();
 
-        self._objectTouching.setScale(0.7);
+        targetNode._objectTouching.setScale(0.7);
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1)),
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05))
             ));
         // cc.log("scale")
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
-
+        // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
 
@@ -296,7 +293,7 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-        targetNode._objectTouching.setScale(1.05);
+        // targetNode._objectTouching.setScale(1.05);
 
         return true;
     },
@@ -436,7 +433,7 @@ var RoomLayer = cc.Layer.extend({
         object.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._blockAllObjects = true;
-                self.animateObjectIn(object, 0.5);
+                // self.animateObjectIn(object, 0.5);
             }),
             cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
