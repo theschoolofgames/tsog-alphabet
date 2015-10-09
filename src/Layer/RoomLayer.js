@@ -211,7 +211,7 @@ var RoomLayer = cc.Layer.extend({
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 100;
+            warnLabel.y = cc.winSize.height - 110;
         }
         this.addChild(warnLabel);
 
@@ -223,7 +223,7 @@ var RoomLayer = cc.Layer.extend({
 
         var starEarned = this._hudLayer.getStarEarned();
         var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
+        var lbText = "Scene Completed!";
         this.createWarnLabel(lbText);
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);

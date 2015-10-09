@@ -115,12 +115,33 @@ var ForestLayer = cc.Layer.extend({
         }
     },
 
+    _isTouchingDisabledObject: function(touchedPos) {
+        //check if touched on a disabled animal --> play its sound but not process anything
+        var distance = 0;
+        var objBoundingBox = null;
+        for ( var i = 0; i < this._objectDisabled.length; i++) {
+
+            objBoundingBox = this._objectDisabled[i].getBoundingBox();
+            var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
+            if (isRectContainsPoint) {
+                // cc.log("isRectContainsPoint")
+                this._objectTouching = this._objectDisabled[i];
+                this.playAnimalSound();
+                return true;
+            }
+        }
+    },
+
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
 
         if (targetNode._blockAllObjects)
             return false;
+
+        if (targetNode._isTouchingDisabledObject(touchedPos))
+            return false;
+
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
@@ -136,6 +157,7 @@ var ForestLayer = cc.Layer.extend({
     _isObjectDisabled: function() {
         for (var i = 0; i < this._objectDisabled.length; i++) {
             if (this._objectTouching === this._objectDisabled[i]) {
+                cc.log("_isObjectDisabled")
                 this.playAnimalSound();
                 return true;
             }
@@ -269,7 +291,7 @@ var ForestLayer = cc.Layer.extend({
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 100;
+            warnLabel.y = cc.winSize.height - 110;
         }
         this.addChild(warnLabel, 9999);
 
@@ -290,7 +312,7 @@ var ForestLayer = cc.Layer.extend({
 
         var starEarned = this._hudLayer.getStarEarned();
         var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "Scene Completed!" + "\n" + "You have Earned " + starEarned + str;
+        var lbText = "Scene Completed!";
         this.createWarnLabel(lbText, 24);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());
@@ -397,7 +419,7 @@ var ForestLayer = cc.Layer.extend({
         }
     },
 
-    removeAnimalAction: function() {
+    removeAnimalEffect: function() {
         for (var i = 0; i < this._objects.length; i++) {
             this._objects[i].removeAllChildren();
         }
@@ -409,9 +431,9 @@ var ForestLayer = cc.Layer.extend({
 
         this._touchCounting += 1;
         this.updateProgressBar();
-        this._objectTouching.stopAllActions();
+        // this._objectTouching.stopAllActions();
         this._objectTouching.removeAllChildren();
-        this.removeAnimalAction();
+        this.removeAnimalEffect();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playAnimalSound();
 
@@ -445,7 +467,7 @@ var ForestLayer = cc.Layer.extend({
                 self._removeWarnLabel();
 
                 mask.removeFromParent();
-                animal.stopAllActions();
+                // animal.stopAllActions();
                 animal.setLocalZOrder(oldZOrder);
                 self.checkWonGame();
             }
