@@ -194,8 +194,17 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, object) {
-        var warnLabel = new cc.LabelTTF(text, "Arial", 24);
-        warnLabel.setColor(cc.color.RED);
+        // var randSchoolIdx = Math.floor(Math.random() * schoolData.length);
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        font = FONT_COLOR[randSchoolIdx];
+
+        text = text.toUpperCase();
+        var warnLabel = new cc.LabelBMFont(text, font);
+        warnLabel.setScale(0.5);
+
+
+        // var warnLabel = new cc.LabelTTF(text, "Arial", 24);
+        // warnLabel.setColor(cc.color.RED);
         if (object) {
             warnLabel.x = object.x;
             warnLabel.y = object.y + object.height + 10;
@@ -311,12 +320,15 @@ var RoomLayer = cc.Layer.extend({
             ));
         targetNode.handleObjectCorrectPos(index);
         targetNode.runSparklesEffect();
+        targetNode._removeWarnLabel();
         cc.audioEngine.playEffect(res.DROP_mp3);
 
         return true;
     },
 
     processGameLogic: function() {
+        this._removeWarnLabel();
+
         this._objectTouching.stopAllActions();
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
@@ -396,12 +408,13 @@ var RoomLayer = cc.Layer.extend({
 
         var objectName = this.getObjectName();
         var object = this._objectTouching;
-
+        var str = objectName[0].toUpperCase();
         var soundConfig = this.getSoundConfigByName(objectName);
         // cc.log("soundConfig: " + soundConfig.length);
-        var soundNumb = isDragging ? 1 : 3;
+        var soundNumb = isDragging ? 1 : 2;
         // Show cutscene
         if (!isDragging) {
+            str = objectName;
             var oldZOrder = object.getLocalZOrder();
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
             this.addChild(mask, 100);
@@ -419,21 +432,23 @@ var RoomLayer = cc.Layer.extend({
                         return;
 
                     self._blockAllObjects = false;
+                    self._removeWarnLabel();
 
                     mask.removeFromParent();
                     self._mask = null;
+
                     self.checkWonGame();
                     object.setLocalZOrder(oldZOrder);
                 }
             }, mask);
         }
-        // cc.log(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"])
+
         cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"]);
 
         object.runAction(cc.sequence(
             cc.callFunc(function() {
                 self._blockAllObjects = true;
-                // self.animateObjectIn(object, 0.5);
+                self.createWarnLabel(str);
             }),
             cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
@@ -476,6 +491,12 @@ var RoomLayer = cc.Layer.extend({
             var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
+    },
+
+    _removeWarnLabel: function() {
+        if (this._warningLabel)
+            this._warningLabel.removeFromParent();
+        this._warningLabel = null;
     },
 
     removeObjectAction: function() {

@@ -83,28 +83,36 @@ var ANIMAL_SOUNDS_LENGTH = [
 ];
 
 var OBJECT_SOUNDS_LENGTH = [
-	{name: "APPLE", length: 3},
-	{name: "BANANA", length: 3},
-	{name: "BOOK", length: 3},
-	{name: "CHAIR", length: 3},
-	{name: "PENCILS", length: 3},
-	{name: "DESK", length: 3},
-	{name: "DUSTER", length: 3},
-	{name: "EGG", length: 3},
-	{name: "GRAPE", length: 3},
-	{name: "HAT", length: 3},
-	{name: "JAR", length: 3},
-	{name: "JOKER", length: 3},
-	{name: "KEY", length: 3},
-	{name: "KITE", length: 3},
-	{name: "LAMP", length: 3},
-	{name: "MAP", length: 3},
-	{name: "ORANGE", length: 3},
-	{name: "POTATO", length: 3},
-	{name: "TOWEL", length: 3},
-	{name: "UMBRELLA", length: 3},
-	{name: "VEST", length: 3},
-	{name: "WATCH", length: 3}
+	{name: "APPLE", length: 2},
+	{name: "BANANA", length: 2},
+	{name: "BOOK", length: 2},
+	{name: "CHAIR", length: 2},
+	{name: "PENCILS", length: 2},
+	{name: "DESK", length: 2},
+	{name: "DUSTER", length: 2},
+	{name: "EGG", length: 2},
+	{name: "GRAPE", length: 2},
+	{name: "HAT", length: 2},
+	{name: "JAR", length: 2},
+	{name: "JOKER", length: 2},
+	{name: "KEY", length: 2},
+	{name: "KITE", length: 2},
+	{name: "LAMP", length: 2},
+	{name: "MAP", length: 2},
+	{name: "ORANGE", length: 2},
+	{name: "POTATO", length: 2},
+	{name: "TOWEL", length: 2},
+	{name: "UMBRELLA", length: 2},
+	{name: "VEST", length: 2},
+	{name: "WATCH", length: 2}
+];
+
+// bitmap font
+var FONT_COLOR = [
+    res.RedFont_fnt,
+    res.YellowFont_fnt,
+    res.PurpleFont_fnt,
+    res.GreenFont_fnt
 ];
 
 var STRING_USER_ID = "self_user_id";

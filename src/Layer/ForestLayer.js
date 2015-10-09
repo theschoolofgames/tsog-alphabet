@@ -124,16 +124,24 @@ var ForestLayer = cc.Layer.extend({
         if (!targetNode._isTouchingObject(touchedPos))
             return false;
         // return if the objectTouching is disabled
-        for (var i = 0; i < targetNode._objectDisabled.length; i++) {
-            if (targetNode._objectTouching === targetNode._objectDisabled[i])
-                return false
-        }
+        if (targetNode._isObjectDisabled())
+            return false;
 
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
         
         return true;
     },
+
+    _isObjectDisabled: function() {
+        for (var i = 0; i < this._objectDisabled.length; i++) {
+            if (this._objectTouching === this._objectDisabled[i]) {
+                this.playAnimalSound();
+                return true;
+            }
+        }
+    },
+
     getRamdomPositionMoveto : function(radius, animalOriginPos) {
         var animalPos = null;
         animalPos = cc.p(animalOriginPos.x - Math.random() * radius + 10,
@@ -247,8 +255,14 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createWarnLabel: function(text, size, object) {
-        var warnLabel = new cc.LabelTTF(text, "Arial", size);
-        warnLabel.setColor(cc.color.RED);
+        var randSchoolIdx = Math.floor(Math.random() * 4);
+        font = FONT_COLOR[randSchoolIdx];
+
+        text = text.toUpperCase();
+        var warnLabel = new cc.LabelBMFont(text, font);
+        warnLabel.setScale(0.5);
+        // var warnLabel = new cc.LabelTTF(text, "Arial", size);
+        // warnLabel.setColor(cc.color.RED);
         if (object) {
             warnLabel.x = object.x;
             warnLabel.y = object.y;
@@ -409,7 +423,7 @@ var ForestLayer = cc.Layer.extend({
         var self = this;
         var animalName = this.getAnimalName();
         var animal = this._objectTouching;
-        var str = animalName[0].toUpperCase() + " - " + animalName;
+        var str = animalName;
         var soundConfig = this.getAnimalSoundConfigByName(animalName);
 
         // Show cutscene
