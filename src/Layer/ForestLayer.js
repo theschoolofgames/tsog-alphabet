@@ -479,7 +479,7 @@ var ForestLayer = cc.Layer.extend({
             cc.callFunc(function() {
                 self.createWarnLabel(str, 32);
                 self._blockAllObjects = true;
-                self.animateAnimalIn(animal, animal.userData.type, 0);
+                // self.animateAnimalIn(animal, animal.userData.type, 0);
             }),
             // cc.scaleTo(1, 0.95),
             // cc.scaleTo(1, 1.05),
