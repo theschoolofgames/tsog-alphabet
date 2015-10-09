@@ -193,19 +193,48 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5
     },
-
+    {
+        x: 1060,
+        y: 255,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 1050,
+        y: 255,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
 
 ];
 
 var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
     {
-        x: 75,
+        x: 80,
+        y: 180,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 200,
+        y: 175,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 120,
         y: 170,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 90,
+        x: 400,
+        y: 160,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 720,
         y: 170,
         anchorX: 0.5,
         anchorY: 0.5
@@ -235,8 +264,26 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
         anchorY: 0.5
     },
     {
+        x: 755,
+        y: 102,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
         x: 776,
         y: 171,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 158,
+        y: 156,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 138,
+        y: 156,
         anchorX: 0.5,
         anchorY: 0.5
     },
@@ -317,26 +364,124 @@ var FOREST_FLY_POSITION = [
         z: 1,
         anchorX: 0.5,
         anchorY: 0.5,
+    },
+    {
+        x: 850,
+        y: 500,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 650,
+        y: 400,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 250,
+        y: 550,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 900,
+        y: 500,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 400,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 300,
+        y: 550,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
     }
 ];
 var FOREST_GROUND_POSITION = [
     {
+        x: 100,
+        y: 100,
+        z: 6,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
         x: 200,
+        y: 220,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 350,
+        y: 200,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 430,
         y: 200,
         z: 6,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 500,
+        x: 550,
         y: 120,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 650,
+        x: 600,
         y: 100,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 220,
+        y: 50,
+        z: 6,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 300,
+        y: 70,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 500,
+        y: 100,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 680,
+        y: 50,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        x: 400,
+        y: 50,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
@@ -345,21 +490,105 @@ var FOREST_GROUND_POSITION = [
 var FOREST_WATER_POSITION = [
     {
         x: 700,
-        y: 450,
+        y: 160,
         z: 4,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 750,
-        y: 420,
+        y: 160,
         z: 4,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 800,
-        y: 460,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 750,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 800,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 750,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 800,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 750,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 800,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 750,
+        y: 160,
+        z: 4,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 800,
+        y: 160,
         z: 4,
         anchorX: 0.5,
         anchorY: 0.5,

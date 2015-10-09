@@ -96,6 +96,7 @@ var ForestLayer = cc.Layer.extend({
         var shuffledArrays = this.addShuffledAnimalPosArray();
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
+            cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
             this.createAnimal(animalPositionArray[i], animals[i], i);
         }
         this.runSparklesEffect();

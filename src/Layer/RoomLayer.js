@@ -524,7 +524,8 @@ var RoomLayer = cc.Layer.extend({
                                             cc.scaleTo(0.3, 1.2 * this._allScale),
                                             cc.scaleTo(0.3, 1 * this._allScale),
                                             cc.callFunc(function() {
-                                                self._lastClickTime = self._hudLayer.getRemainingTime();
+                                                if (self._hudLayer)
+                                                    self._lastClickTime = self._hudLayer.getRemainingTime();
                                             })
                                         )                 
                 );

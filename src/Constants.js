@@ -5,7 +5,7 @@ var GAME_ID = "5604beb2ded84d7c8083389a";
 
 var MOVE_DELAY_TIME = 1;
 
-var NUMBER_ITEMS = 3;
+var NUMBER_ITEMS = 11;
 
 var TIME_HINT = 3;
 var CLOCK_INTERVAL = 1;
