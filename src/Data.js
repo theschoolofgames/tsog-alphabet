@@ -8,6 +8,80 @@ var BEDROOM_SHADE_ID = 2;
 var FOREST_BACKGROUND_ID = 3;
 
 var BEDROOM_ITEMS = [
+    // {
+    //     imageName: "desk",
+    //     type: HEAVY_WEIGHT_ITEM,
+    //     x: 1600,
+    //     y: 654,
+    //     anchorX: 0.5,
+    //     anchorY: 0.5
+    // },
+    {
+        imageName: "duster",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 217.5,
+        y: 220,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+
+    {
+        imageName: "grape",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 267.25,
+        y: 278.75,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "hat",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 882.5,
+        y: 365,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+        {
+        imageName: "jar",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 916.25,
+        y: 286.25,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "lamp",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 1096.25,
+        y: 299.50,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "map",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 1092.25,
+        y: 238.75,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "orange",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 1040.25,
+        y: 269.5,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        imageName: "watch",
+        type: LIGHT_WEIGHT_ITEM,
+        x: 876.25,
+        y: 277.5,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+
     {
         imageName: "apple",
         type: LIGHT_WEIGHT_ITEM,
@@ -19,7 +93,7 @@ var BEDROOM_ITEMS = [
     {
         imageName: "banana",
         type: LIGHT_WEIGHT_ITEM,
-        x: 253,
+        x: 251,
         y: 282,
         anchorX: 0.5,
         anchorY: 0.5
@@ -177,6 +251,18 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
 var BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
 
 var FOREST_ITEMS = [
+    {
+        imageName: "duck",
+        type: STAND_ITEM
+    },
+    {
+        imageName: "ant",
+        type: STAND_ITEM
+    },
+    {
+        imageName: "fish",
+        type: WATER_ITEM
+    },
     {
         imageName: "bird",
         type: FLY_ITEM

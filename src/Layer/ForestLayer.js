@@ -29,8 +29,8 @@ var ForestLayer = cc.Layer.extend({
         this.resetObjectArrays();
         this.createBackground();
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
+        this.addBackButton();
+        this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
