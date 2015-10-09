@@ -85,6 +85,7 @@ cc.game.onStart = function(){
             searchPaths.push(largeResource.directory);
             cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
             cc.log("Use largeResource");
+            Utils.useHDAssets = true;
         } else {//if (frameSize.height >= mediumResource.size.height) {
             searchPaths.push(mediumResource.directory);
             cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);

@@ -48,13 +48,24 @@ var HudLayer = cc.Layer.extend({
         this._progressBarBg = progressBarBg;
 
         this._progressBar = progressBarBg;
-        var gameProgressBar = new cc.ProgressTimer(new cc.Sprite("#colorbar.png"));
+
+        var colorBar = new cc.Sprite("#colorbar.png");
+        // var colorBar = new cc.Sprite(res.Hud_progress_bar_png);
+        // var mask = cc.textureCache.getTextureForKey(res.Hud_progress_bar_alpha_png);
+        // if (!mask)
+        //     mask = cc.textureCache.addImage(res.Hud_progress_bar_alpha_png);
+        // var shaderScrolling = cc.GLProgram.createWithFilenames(res.PositionTextureColor_vsh, res.ScrollingTexture_fsh);
+        // var shaderScrollingState = cc.GLProgramState.getOrCreateWithGLProgram(shaderScrolling);
+        // shaderScrollingState.setUniformTexture("u_alphaTexture", mask);
+
+        var gameProgressBar = new cc.ProgressTimer(colorBar);
         gameProgressBar.x = progressBarBg.width/2 ;
         gameProgressBar.y = progressBarBg.height/2 + 2;
         gameProgressBar.type = cc.ProgressTimer.TYPE_BAR;
         gameProgressBar.midPoint = cc.p(0, 1);
         gameProgressBar.barChangeRate = cc.p(1, 0);
         gameProgressBar.percentage = 1;
+        // gameProgressBar.shaderProgram = shaderScrolling;
         progressBarBg.addChild(gameProgressBar);
 
         this._gameProgressBar = gameProgressBar;

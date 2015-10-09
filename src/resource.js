@@ -60,12 +60,16 @@ var res = {
    Umbrella_png: "things/umbrella.png",
 
    // Hud
-   Hud_plist: "hud.plist",
-   Hud_png: "hud.png",
+   Hud_plist: "hud/hud.plist",
+   Hud_png: "hud/hud.png",
+   Hud_progress_bar_png: "hud/progress-bar.jpg",
+   Hud_progress_bar_alpha_png: "hud/progress-bar-alpha.jpg",
 
    // Shader
    SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",
    SolidColor_fsh: "res/shader/SolidColor.fsh",
+   ScrollingTexture_fsh: "res/shader/ScrollingTexture.fsh",
+   PositionTextureColor_vsh: "res/shader/PositionTextureColor.vsh",
    PositionTextureColor_noMVP_vsh: "res/shader/PositionTextureColor_noMVP.vsh",
 
    // Effect

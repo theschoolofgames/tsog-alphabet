@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.9.2</string>
+        <string>3.9.4</string>
         <key>fileName</key>
-        <string>/Users/Tony/dev/project/tsog-alphabet/tsog-alphabet/_sourceart/HUD/HUD.tps</string>
+        <string>/Volumes/Source/_Dev/tsog-alphabet/_sourceart/HUD/HUD.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -55,7 +55,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../res/{v}/hud.png</filename>
+        <filename>../../res/{v}/hud/hud.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -164,7 +164,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>../../res/{v}/hud.plist</filename>
+                <filename>../../res/{v}/hud/hud.plist</filename>
             </struct>
             <key>java</key>
             <struct type="DataFile">

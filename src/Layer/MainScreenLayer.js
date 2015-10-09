@@ -6,6 +6,19 @@ var MainScreenLayer = cc.LayerColor.extend({
     ctor: function() {
         this._super(cc.color(255, 255, 255, 255));
 
+        // var progressBar = new cc.Sprite(res.Hud_progress_bar_png);
+        // progressBar.x = cc.winSize.width/2;
+        // progressBar.y = cc.winSize.height - 30;
+        // this.addChild(progressBar);
+
+        // var mask = cc.textureCache.getTextureForKey(res.Hud_progress_bar_alpha_png);
+        // if (!mask)
+        //     mask = cc.textureCache.addImage(res.Hud_progress_bar_alpha_png);
+        // var shaderScrolling = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.ScrollingTexture_fsh);
+        // var shaderScrollingState = cc.GLProgramState.getOrCreateWithGLProgram(shaderScrolling);
+        // shaderScrollingState.setUniformTexture("u_alphaTexture", mask);
+        // progressBar.shaderProgram = shaderScrolling;
+
         var logo = new cc.Sprite("logo.png");
         logo.x = cc.winSize.width/2;
         logo.y = cc.winSize.height/2 + 50;
@@ -69,7 +82,7 @@ var MainScreenLayer = cc.LayerColor.extend({
     },
 
     downloadAssets: function() {
-        var manifestPath = "project.manifest";
+        var manifestPath = Utils.useHDAssets ? "projectHD.manifest" : "projectSD.manifest";
         var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "/") + "assetsManager/");
         var manager = new jsb.AssetsManager(manifestPath, storagePath);
 
