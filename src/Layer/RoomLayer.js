@@ -26,7 +26,9 @@ var RoomLayer = cc.Layer.extend({
         this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
-
+        // this.playBackgroundMusic();
+        // this.runSoundCountDown();
+        
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -35,6 +37,14 @@ var RoomLayer = cc.Layer.extend({
                 onTouchEnded: this.onTouchEnded
         }, this);
     },
+
+    // playBackgroundMusic: function() {
+    //     if (cc.audioEngine.isMusicPlaying())
+    //         return
+    //     // play background music
+    //     cc.audioEngine.setMusicVolume(0.2);
+    //     cc.audioEngine.playMusic(res.BEDROOM_mp3, true);
+    // },
 
     resetAllArrays: function() {
         this._objects = [];
@@ -478,6 +488,15 @@ var RoomLayer = cc.Layer.extend({
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
     },
+
+    // runSoundCountDown: function() {
+    //     this.schedule(this.addSoundCountDown, CLOCK_INTERVAL)
+    // },
+
+    // addSoundCountDown: function() {
+    //     if (this._hudLayer.getRemainingTime() == 3)
+    //         cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
+    // },
 
     runHintObjectUp: function() {
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._hudLayer.getRemainingTime());
