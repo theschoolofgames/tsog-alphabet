@@ -85,6 +85,8 @@ var res = {
    // Sound effect
    DROP_mp3: "sounds/drop.mp3",
    PICKUP_mp3: "sounds/pickup.mp3",
+   
+
 
    // Animal Sound
    ANT_mp3: "sounds/animals/ant.mp3",
@@ -151,7 +153,16 @@ var res = {
    VEST_1_mp3: "res/sounds/things/vest-1.mp3",
    VEST_2_mp3: "res/sounds/things/vest-2.mp3",
    WATCH_1_mp3: "res/sounds/things/watch-1.mp3",
-   WATCH_2_mp3: "res/sounds/things/watch-2.mp3"
+   WATCH_2_mp3: "res/sounds/things/watch-2.mp3",
+
+   //countdown
+   COUNTDOWN_mp3 : "res/sounds/countdown.mp3",
+   
+   // BG sound 
+   BEDROOM_mp3: "res/sounds/bedroom.mp3",
+   FOREST_mp3: "res/sounds/forest.mp3",
+
+
 };
 
 var g_resources = [];
