@@ -28,6 +28,7 @@ var ForestLayer = cc.Layer.extend({
 
         this.resetObjectArrays();
         this.createBackground();
+        // this.showAllAnimals();
         this.createAnimals();
         this.addBackButton();
         this.addRefreshButton();
@@ -96,13 +97,15 @@ var ForestLayer = cc.Layer.extend({
         var shuffledArrays = this.addShuffledAnimalPosArray();
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
-            cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
+            // cc.log("i: " + i)
+            // cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
+            // cc.log("animals: " + JSON.stringify(animals[i]) + "\n");
             this.createAnimal(animalPositionArray[i], animals[i], i);
         }
         this.runSparklesEffect();
     },
 
-    _isTouchingObject: function(touchedPos) {
+    _isTouchingEnableObject: function(touchedPos) {
         var distance = 0;
         var objBoundingBox = null;
         for ( var i = 0; i < this._objects.length; i++) {
@@ -140,11 +143,14 @@ var ForestLayer = cc.Layer.extend({
         if (targetNode._blockAllObjects)
             return false;
 
-        if (targetNode._isTouchingDisabledObject(touchedPos))
+        if (!targetNode._isTouchingEnableObject(touchedPos)) {
+            targetNode._isTouchingDisabledObject(touchedPos)            
             return false;
+        }
 
-        if (!targetNode._isTouchingObject(touchedPos))
-            return false;
+        // if (targetNode._isTouchingDisabledObject(touchedPos))
+        //     return false;
+
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
@@ -158,7 +164,7 @@ var ForestLayer = cc.Layer.extend({
     _isObjectDisabled: function() {
         for (var i = 0; i < this._objectDisabled.length; i++) {
             if (this._objectTouching === this._objectDisabled[i]) {
-                cc.log("_isObjectDisabled")
+                // cc.log("_isObjectDisabled")
                 this.playAnimalSound();
                 return true;
             }
@@ -373,7 +379,7 @@ var ForestLayer = cc.Layer.extend({
         var self = this;
         animal.runAction(
             cc.sequence(
-                cc.delayTime(delay * 0.4),
+                cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
                     new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
@@ -384,11 +390,11 @@ var ForestLayer = cc.Layer.extend({
             )
         );
 
-        this.runObjectAction(this, 0,
-            function(){
-                // self._lastClickTime = self._hudLayer.getRemainingTime()
-            }
-        )
+        // this.runObjectAction(this, 0,
+        //     function(){
+        //         self._lastClickTime = self._hudLayer.getRemainingTime()
+        //     }
+        // )
     },
 
     showHintObjectUp: function() {
@@ -516,6 +522,20 @@ var ForestLayer = cc.Layer.extend({
 
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
+    },
+
+    showAllAnimals: function() {
+        var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+        var shuffledArrays = this.addShuffledAnimalPosArray();
+        var animalPositions = shuffledArrays.flyPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
+
+        for ( var i = 0; i < animalPositions.length; i++) {
+
+            // var animalPositionArray = this.getAnimalPositionType(animals[0].type, shuffledArrays);
+            // cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
+            this.createAnimal(animalPositions[i], animals[0], i);
+        }
+        // this.runSparklesEffect();        
     },
 });
 var ForestScene = cc.Scene.extend({

@@ -4,8 +4,9 @@ var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 var GAME_ID = "5604beb2ded84d7c8083389a";
 
 var MOVE_DELAY_TIME = 1;
+var ANIMATE_DELAY_TIME = 0;
 
-var NUMBER_ITEMS = 11;
+var NUMBER_ITEMS = 12;
 
 var TIME_HINT = 3;
 var CLOCK_INTERVAL = 1;
@@ -65,6 +66,10 @@ var ANIMAL_SOUNDS_LENGTH = [
         length: 3
     },
     {
+        name : "ELEPHANT",
+        length: 3
+    },
+    {
         name: "FISH",
         length: 3
     },
@@ -74,6 +79,10 @@ var ANIMAL_SOUNDS_LENGTH = [
     },
     {
         name: "INSECT", 
+        length: 3
+    },
+    {
+        name: "LION", 
         length: 3
     },
     {

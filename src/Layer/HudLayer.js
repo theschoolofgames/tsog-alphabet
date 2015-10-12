@@ -103,7 +103,7 @@ var HudLayer = cc.Layer.extend({
     },
 
     addProgressLabel: function(object, text) {
-        cc.log("text: " + text);
+        // cc.log("text: " + text);
         var label = new cc.LabelTTF(text, "Arial", 32);
         label.color = cc.color("#ffd902");
         label.x = object.width/2 + 10;

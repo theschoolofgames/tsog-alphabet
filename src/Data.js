@@ -81,7 +81,6 @@ var BEDROOM_ITEMS = [
         anchorX: 0.5,
         anchorY: 0.5
     },
-
     {
         imageName: "apple",
         type: LIGHT_WEIGHT_ITEM,
@@ -159,31 +158,31 @@ var BEDROOM_ITEMS = [
 var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
     {
         x: 400,
-        y: 278,
+        y: 285,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         x: 450,
-        y: 278,
+        y: 285,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 400,
-        y: 290,
+        x: 420,
+        y: 320,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         x: 380,
-        y: 290,
+        y: 320,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
         x: 450,
-        y: 290,
+        y: 320,
         anchorX: 0.5,
         anchorY: 0.5
     },
@@ -194,13 +193,13 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
         anchorY: 0.5
     },
     {
-        x: 1060,
+        x: 1080,
         y: 255,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 1050,
+        x: 1100,
         y: 255,
         anchorX: 0.5,
         anchorY: 0.5
@@ -210,8 +209,33 @@ var BEDROOM_LIGHTWEIGHT_ITEMS_POSITION = [
 
 var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
     {
-        x: 80,
+        x: 180,
         y: 180,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 118,
+        y: 156,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+     
+    {
+        x: 158,
+        y: 156,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 258,
+        y: 156,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
+        x: 200,
+        y: 120,
         anchorX: 0.5,
         anchorY: 0.5
     },
@@ -222,32 +246,14 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
         anchorY: 0.5
     },
     {
-        x: 120,
-        y: 170,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 400,
-        y: 160,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 720,
-        y: 170,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
         x: 300,
         y: 100,
         anchorX: 0.5,
         anchorY: 0.5
     },
     {
-        x: 200,
-        y: 120,
+        x: 400,
+        y: 160,
         anchorX: 0.5,
         anchorY: 0.5
     },
@@ -264,6 +270,12 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
         anchorY: 0.5
     },
     {
+        x: 720,
+        y: 170,
+        anchorX: 0.5,
+        anchorY: 0.5
+    },
+    {
         x: 755,
         y: 102,
         anchorX: 0.5,
@@ -274,24 +286,6 @@ var BEDROOM_HEAVYWEIGHT_ITEMS_POSITION = [
         y: 171,
         anchorX: 0.5,
         anchorY: 0.5
-    },
-    {
-        x: 158,
-        y: 156,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 138,
-        y: 156,
-        anchorX: 0.5,
-        anchorY: 0.5
-    },
-    {
-        x: 118,
-        y: 156,
-        anchorX: 0.5,
-        anchorY: 0.5
     }
 ];
 
@@ -299,16 +293,8 @@ var BEDROOM_ITEMS_POSITION = BEDROOM_LIGHTWEIGHT_ITEMS_POSITION.concat(BEDROOM_H
 
 var FOREST_ITEMS = [
     {
-        imageName: "duck",
-        type: STAND_ITEM
-    },
-    {
         imageName: "ant",
         type: STAND_ITEM
-    },
-    {
-        imageName: "fish",
-        type: WATER_ITEM
     },
     {
         imageName: "bird",
@@ -331,11 +317,27 @@ var FOREST_ITEMS = [
         type: STAND_ITEM
     },
     {
+        imageName: "duck",
+        type: STAND_ITEM
+    },
+    {
+        imageName: "elephant",
+        type: STAND_ITEM
+    },
+    {
+        imageName: "fish",
+        type: WATER_ITEM
+    },
+    {
+        imageName: "horse",
+        type: STAND_ITEM
+    },
+    {
         imageName: "insect",
         type: LIE_ITEM
     },
     {
-        imageName: "horse",
+        imageName: "lion",
         type: STAND_ITEM
     },
     {
@@ -359,15 +361,8 @@ var FOREST_FLY_POSITION = [
         anchorY: 0.5,
     },
     {
-        x: 200,
-        y: 550,
-        z: 1,
-        anchorX: 0.5,
-        anchorY: 0.5,
-    },
-    {
-        x: 850,
-        y: 500,
+        x: 600,
+        y: 400,
         z: 1,
         anchorX: 0.5,
         anchorY: 0.5,
@@ -380,7 +375,35 @@ var FOREST_FLY_POSITION = [
         anchorY: 0.5,
     },
     {
-        x: 250,
+        x: 650,
+        y: 400,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 700,
+        y: 400,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 300,
+        y: 550,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 300,
+        y: 550,
+        z: 1,
+        anchorX: 0.5,
+        anchorY: 0.5,
+    },
+    {
+        x: 300,
         y: 550,
         z: 1,
         anchorX: 0.5,
@@ -410,78 +433,97 @@ var FOREST_FLY_POSITION = [
 ];
 var FOREST_GROUND_POSITION = [
     {
-        x: 100,
-        y: 100,
+        // elephant + 
+        x: 112.5,
+        y: 105,
         z: 6,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 200,
-        y: 220,
+        // bee
+        x: 240,
+        y: 56,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 350,
-        y: 200,
+        // tiger
+        x: 156,
+        y: 240,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 430,
-        y: 200,
+        // cat
+        x: 431,
+        y: 130,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        // lion
+        x: 568,
+        y: 131,
+        z: 5,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        // ant
+        x: 586,
+        y: 30,
         z: 6,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 550,
-        y: 120,
+        // horse
+        x: 703,
+        y: 52,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 600,
+        // duck
+        x: 823,
         y: 100,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 220,
-        y: 50,
-        z: 6,
-        anchorX: 0.5,
-        anchorY: 0,
-    },
-    {
-        x: 300,
-        y: 70,
+        // bear
+        x: 992,
+        y: 77,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 500,
-        y: 100,
+        // cow
+        x: 70,
+        y: 62,
+        z: 7,
+        anchorX: 0.5,
+        anchorY: 0,
+    },
+    {
+        // 
+        x: 293,
+        y: 225,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
     },
     {
-        x: 680,
-        y: 50,
-        z: 5,
-        anchorX: 0.5,
-        anchorY: 0,
-    },
-    {
-        x: 400,
-        y: 50,
+        // 
+        x: 96,
+        y: 231,
         z: 5,
         anchorX: 0.5,
         anchorY: 0,
@@ -489,107 +531,86 @@ var FOREST_GROUND_POSITION = [
 ];
 var FOREST_WATER_POSITION = [
     {
-        x: 700,
-        y: 160,
-        z: 4,
+        x: 580,
+        y: 188,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
-        x: 750,
-        y: 160,
-        z: 4,
+        x: 580,
+        y: 188,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
-        x: 800,
-        y: 160,
-        z: 4,
-        anchorX: 0.5,
-        anchorY: 0.5,
-    },
-    {
-        x: 700,
-        y: 160,
-        z: 4,
-        anchorX: 0.5,
-        anchorY: 0.5,
-    },
-    {
-        x: 750,
-        y: 160,
-        z: 4,
-        anchorX: 0.5,
-        anchorY: 0.5,
-    },
-    {
-        x: 800,
-        y: 160,
-        z: 4,
+        x: 580,
+        y: 188,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 700,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 750,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 800,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 700,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 750,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 800,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 700,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 750,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     },
     {
         x: 800,
         y: 160,
-        z: 4,
+        z: 3,
         anchorX: 0.5,
         anchorY: 0.5,
     }
@@ -697,7 +718,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0,
         anchorY: 0.5,
         imageName: "#bush-1.png",
-        z: 6
+        z: 10
     },
     {
         x: 868,
@@ -705,7 +726,7 @@ var FOREST_BACKGROUND_ITEMS_POSITION = [
         anchorX: 0.5,
         anchorY: 0.5,
         imageName: "#bush-2.png",
-        z: 6
+        z: 10
     },
     {
         x: 485,
@@ -817,7 +838,7 @@ var DataStore = cc.Class.extend({
     },
 
     getObjects: function(setId) {
-        return this.getRandomObjects(setId, NUMBER_ITEMS);
+        return this.objectSets[setId];
     },
 
     getRandomItems: function(array, setId, numItems) {

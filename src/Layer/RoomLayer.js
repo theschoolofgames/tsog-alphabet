@@ -182,7 +182,7 @@ var RoomLayer = cc.Layer.extend({
         var self = this;
         object.runAction(
             cc.sequence(
-                cc.delayTime(delay * 0.4),
+                cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
                     new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),

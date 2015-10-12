@@ -28,16 +28,18 @@ var res = {
    Forest_png: "forest.png",
 
    // Animals
-   Duck_png: "animals/duck.png",
    Ant_png: "animals/ant.png",
    Fish_png: "animals/fish.png",
    Bear_png: "animals/bear.png",
    Bee_png: "animals/bee.png",
    Bird_png: "animals/bird.png",
-   Bug_png: "animals/bug.png",
    Cat_png: "animals/cat.png",
    Cow_png: "animals/cow.png",
+   Duck_png: "animals/duck.png",
+   Elephant_png: "animals/elephant.png",
    Horse_png: "animals/horse.png",
+   Insect_png: "animals/insect.png",
+   Lion_png: "animals/lion.png",
    Tiger_png: "animals/tiger.png",
 
    // Things
