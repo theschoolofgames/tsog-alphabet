@@ -242,21 +242,24 @@ var RoomLayer = cc.Layer.extend({
                 });
     },
 
-    _isTouchingObject: function(touchedPos) {
-        //disable multiTouch
-        if (this._objectTouching)
-            return false;
-
+    _findTouchedObject: function(touchedPos) {
         var distance = 0;
         var objBoundingBox = null;
+
         for ( var i = 0; i < this._objects.length; i++) {
+            if (this.isObjectDisabled(this._objects[i]))
+                continue;
+            
             objBoundingBox = this._objects[i].getBoundingBox();
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
-                this._objectTouching = this._objects[i];
-                return true;
+
+                cc.log("found touched object: %s", this._objectNames[i].name);
+                return this._objects[i];
             }
         }
+
+        return null;
     },
 
     getSoundConfigByName: function(imageName) {
@@ -279,13 +282,11 @@ var RoomLayer = cc.Layer.extend({
     onTouchBegan: function(touch, event) {
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
-        if (!targetNode._isTouchingObject(touchedPos))
+
+        targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
+        if (!targetNode._objectTouching)
             return false;
-        // return if the objectTouching is disabled
-        if (targetNode.isObjectDisabled(targetNode._objectTouching)) {
-            targetNode._objectTouching = null;
-            return false;
-        }
+
         cc.audioEngine.playEffect(res.PICKUP_mp3);
         targetNode.processGameLogic();
 
