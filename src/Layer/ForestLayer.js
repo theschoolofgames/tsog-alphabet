@@ -35,6 +35,7 @@ var ForestLayer = cc.Layer.extend({
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
+        this.runSoundCountDown();
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -522,6 +523,16 @@ var ForestLayer = cc.Layer.extend({
 
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
+    },
+
+    runSoundCountDown: function() {
+        this.schedule(this.addSoundCountDown, CLOCK_INTERVAL, this._hudLayer.getRemainingTime())
+    },
+
+    addSoundCountDown: function() {
+        if (this._hudLayer.getRemainingTime() == 295){
+            cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
+        }
     },
 
     showAllAnimals: function() {
