@@ -223,7 +223,7 @@ var RoomLayer = cc.Layer.extend({
             warnLabel.x = cc.winSize.width / 2;
             warnLabel.y = cc.winSize.height - 110;
         }
-        this.addChild(warnLabel);
+        this.addChild(warnLabel, 9999);
 
         this._warningLabel = warnLabel;
     },
