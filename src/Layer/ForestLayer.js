@@ -530,7 +530,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addSoundCountDown: function() {
-        if (this._hudLayer.getRemainingTime() == 295){
+        if (this._hudLayer.getRemainingTime() == 5){
             cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
         }
     },
