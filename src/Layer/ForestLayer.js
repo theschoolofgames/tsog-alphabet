@@ -30,8 +30,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        this.addBackButton();
-        this.addRefreshButton();
+        // this.addBackButton();
+        // this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
@@ -318,8 +318,8 @@ var ForestLayer = cc.Layer.extend({
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
 
         var starEarned = this._hudLayer.getStarEarned();
-        var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "Scene Completed!";
+        // var str = (starEarned > 1) ? " stars" : " star";
+        var lbText = "You Win";
         this.createWarnLabel(lbText, 24);
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());

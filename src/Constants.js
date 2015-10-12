@@ -4,7 +4,7 @@ var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 var GAME_ID = "5604beb2ded84d7c8083389a";
 
 var MOVE_DELAY_TIME = 1;
-var ANIMATE_DELAY_TIME = 0;
+var ANIMATE_DELAY_TIME = 0.2;
 
 var NUMBER_ITEMS = 12;
 

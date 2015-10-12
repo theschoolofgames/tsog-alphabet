@@ -22,12 +22,12 @@ var RoomLayer = cc.Layer.extend({
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
         // this.playBackgroundMusic();
-        // this.runSoundCountDown();
+        this.runSoundCountDown();
         
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
@@ -38,13 +38,13 @@ var RoomLayer = cc.Layer.extend({
         }, this);
     },
 
-    // playBackgroundMusic: function() {
-    //     if (cc.audioEngine.isMusicPlaying())
-    //         return
-    //     // play background music
-    //     cc.audioEngine.setMusicVolume(0.2);
-    //     cc.audioEngine.playMusic(res.BEDROOM_mp3, true);
-    // },
+    playBackgroundMusic: function() {
+        if (cc.audioEngine.isMusicPlaying())
+            return
+        // play background music
+        cc.audioEngine.setMusicVolume(0.2);
+        cc.audioEngine.playMusic(res.BEDROOM_mp3, true);
+    },
 
     resetAllArrays: function() {
         this._objects = [];
@@ -232,8 +232,8 @@ var RoomLayer = cc.Layer.extend({
         // cc.log("completedScene")
 
         var starEarned = this._hudLayer.getStarEarned();
-        var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "Scene Completed!";
+        // var str = (starEarned > 1) ? " stars" : " star";
+        var lbText = "You Win";
         this.createWarnLabel(lbText);
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
@@ -489,14 +489,15 @@ var RoomLayer = cc.Layer.extend({
             this._hudLayer.addStar("light", starEarned);
     },
 
-    // runSoundCountDown: function() {
-    //     this.schedule(this.addSoundCountDown, CLOCK_INTERVAL)
-    // },
+    runSoundCountDown: function() {
+        this.schedule(this.addSoundCountDown, CLOCK_INTERVAL, this._hudLayer.getRemainingTime())
+    },
 
-    // addSoundCountDown: function() {
-    //     if (this._hudLayer.getRemainingTime() == 3)
-    //         cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
-    // },
+    addSoundCountDown: function() {
+        if (this._hudLayer.getRemainingTime() == 5){
+            cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
+        }
+    },
 
     runHintObjectUp: function() {
         this.schedule(this.showHintObjectUp, CLOCK_INTERVAL, this._hudLayer.getRemainingTime());

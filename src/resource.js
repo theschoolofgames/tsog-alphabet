@@ -156,7 +156,7 @@ var res = {
    WATCH_2_mp3: "res/sounds/things/watch-2.mp3",
 
    //countdown
-   COUNTDOWN_mp3 : "res/sounds/countdown.mp3",
+   COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
    
    // BG sound 
    BEDROOM_mp3: "res/sounds/bedroom.mp3",
