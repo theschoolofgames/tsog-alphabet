@@ -31,7 +31,7 @@ var Clock = cc.Node.extend({
         var currentTime = this.getCurrentTime();
         this._countDownClock.setString(currentTime);
 
-        if (this.callback && this._totalSeconds == 1) {
+        if (this.callback && this._totalSeconds == 0) {
             this.unschedule(this.countDownClockAction);
         	this.callback();
         }
