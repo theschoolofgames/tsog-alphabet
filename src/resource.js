@@ -1,4 +1,9 @@
 var res = {
+   // Config
+   Forest_Config_JSON: "config/forest_config.json",
+   Game_Config_JSON: "config/game_config.json",
+   Room_Config_JSON: "config/room_config.json",
+
    //font
    RedFont_png: "red-font-export.png",
    YellowFont_png: "yellow-font-export.png",

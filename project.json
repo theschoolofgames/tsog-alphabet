@@ -19,7 +19,7 @@
         "src/database/KVDatabase.js",
         "src/Constants.js",
         "src/JSExtension.js",
-        "src/Data.js",
+        "src/Config.js",
         "src/Utils.js",
         "src/Layer/Clock.js",
         "src/meerkat/RequestsManager.js",

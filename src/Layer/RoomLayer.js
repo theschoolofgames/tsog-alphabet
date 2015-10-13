@@ -126,13 +126,13 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addObjects: function() {
-        var dsInstance = DataStore.getInstance();
+        var dsInstance = ConfigStore.getInstance();
 
         var bedroomObjects = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
         var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < NUMBER_ITEMS; i++) {
-            if (bedroomObjects[i].type === LIGHT_WEIGHT_ITEM)
+            if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i);
             else
                 this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i);

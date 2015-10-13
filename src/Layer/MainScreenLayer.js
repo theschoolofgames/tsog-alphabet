@@ -83,10 +83,9 @@ var MainScreenLayer = cc.LayerColor.extend({
 
     downloadAssets: function() {
         var manifestPath = Utils.useHDAssets ? "projectHD.manifest" : "projectSD.manifest";
-        var storagePath = ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "/") + "assetsManager/");
-        var manager = new jsb.AssetsManager(manifestPath, storagePath);
+        var manager = new jsb.AssetsManager(manifestPath, Utils.getAssetsManagerPath());
 
-        cc.log("Storage path for this test : " + storagePath);
+        cc.log("Storage path for this test : " + Utils.getAssetsManagerPath());
 
         manager.retain();
 

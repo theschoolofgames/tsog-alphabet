@@ -117,7 +117,7 @@ cc.game.onStart = function(){
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
         RequestsManager.setupInstance();
-        DataStore.setupInstance();
+        ConfigStore.setupInstance();
 
         cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);

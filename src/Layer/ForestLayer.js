@@ -24,7 +24,7 @@ var ForestLayer = cc.Layer.extend({
     ctor: function() {
         this._super();
 
-        this._dsInstance = DataStore.getInstance();
+        this._dsInstance = ConfigStore.getInstance();
 
         this.resetObjectArrays();
         this.createBackground();
@@ -206,13 +206,13 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runAnimalAction : function(animal , itemId) {
-        if (itemId === FLY_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.FLY_ITEM)
             this.runFlyAnimalAction(animal);
-        if (itemId === LIE_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.LIE_ITEM)
             this.runLieAnimalAction(animal);
-        if (itemId === STAND_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.STAND_ITEM)
             this.runStandAnimalAction(animal);
-        if (itemId === WATER_ITEM){}
+        if (itemId === FOREST_ITEM_TYPE.WATER_ITEM){}
     },
 
     runFlyAnimalAction: function(animal) {
@@ -354,11 +354,11 @@ var ForestLayer = cc.Layer.extend({
 
     getAnimalPositionType: function(type , shuffledArrays) {
         var animalPositionArray = null;
-        if (type === FLY_ITEM)
+        if (type === FOREST_ITEM_TYPE.FLY_ITEM)
             animalPositionArray = shuffledArrays.flyPositionArray
-        if (type === LIE_ITEM || type === STAND_ITEM)
+        if (type === FOREST_ITEM_TYPE.LIE_ITEM || type === FOREST_ITEM_TYPE.STAND_ITEM)
             animalPositionArray = shuffledArrays.groundPositionArray
-        if (type === WATER_ITEM)
+        if (type === FOREST_ITEM_TYPE.WATER_ITEM)
             animalPositionArray = shuffledArrays.waterPositionArray
 
         return animalPositionArray
