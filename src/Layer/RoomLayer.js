@@ -153,7 +153,8 @@ var RoomLayer = cc.Layer.extend({
         object.x = objPosition.x;
         object.y = objPosition.y;
         object.tag = index;
-        object.scale = this._allScale;
+        object.userData = { scaleFactor: 1.5 }
+        object.scale = this._allScale * object.userData.scaleFactor;
         this.addChild(object, 2);
 
         this._objectNames.push({name: imageName, tag: object.tag});
@@ -181,6 +182,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     animateObjectIn: function(object, delay) {
+        var oldScale = object.scale;
         object.scale = 0;
         var self = this;
         object.runAction(
@@ -189,7 +191,7 @@ var RoomLayer = cc.Layer.extend({
                 cc.callFunc(function() {
                     new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
-                cc.scaleTo(0.7, 1 * this._allScale).easing(cc.easeElasticOut(0.9))
+                cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
             )
         );
 
@@ -293,10 +295,11 @@ var RoomLayer = cc.Layer.extend({
         cc.audioEngine.playEffect(res.PICKUP_mp3);
         targetNode.processGameLogic();
 
-        targetNode._objectTouching.setScale(0.7);
+        var oldScale = targetNode._objectTouching.scale;
+        targetNode._objectTouching.setScale(0.7 * oldScale);
         targetNode._objectTouching.runAction(cc.sequence(
-            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1)),
-            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05))
+            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1 * oldScale)),
+            cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05 * oldScale))
             ));
         // cc.log("scale")
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
@@ -330,11 +333,12 @@ var RoomLayer = cc.Layer.extend({
 
         targetNode._objectTouching.setLocalZOrder(2);
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
-        targetNode._objectTouching.runAction(cc.sequence(
-            cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7)),
-            cc.EaseBounceInOut(cc.scaleTo(0.2, 1))
-            ));
         targetNode.handleObjectCorrectPos(index);
+        targetNode._objectTouching.runAction(cc.sequence(
+            cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7 * targetNode._objectTouching.userData.scaleFactor)),
+            cc.EaseBounceInOut(cc.scaleTo(0.2, 1* targetNode._objectTouching.userData.scaleFactor))
+            ));
+        targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
         targetNode._removeWarnLabel();
         cc.audioEngine.playEffect(res.DROP_mp3);
@@ -390,12 +394,12 @@ var RoomLayer = cc.Layer.extend({
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(0);
+            this._objectTouching.userData.scaleFactor = 1;
             this._objectDisableds.push(this._objectTouching);
             this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
         }
-        this._objectTouching = null;
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {
@@ -437,9 +441,9 @@ var RoomLayer = cc.Layer.extend({
         // cc.log("soundConfig: " + soundConfig.length);
         var soundNumb = isDragging ? 1 : 2;
         // Show cutscene
+        var oldZOrder = object.getLocalZOrder();
         if (!isDragging) {
             str = objectName;
-            var oldZOrder = object.getLocalZOrder();
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
             this.addChild(mask, 100);
             this._maskLayer = mask;
@@ -452,22 +456,24 @@ var RoomLayer = cc.Layer.extend({
                 swallowTouches: true,
                 onTouchBegan: function(touch, event) { return true; },
                 onTouchEnded: function(touch, event) {
-                    if (blockFlag)
-                        return;
+                    if (GAME_CONFIG.needTouchToHideCutScene) {
+                        if (blockFlag)
+                            return;
 
-                    self._blockAllObjects = false;
-                    self._removeWarnLabel();
+                        self._blockAllObjects = false;
+                        self._removeWarnLabel();
 
-                    mask.removeFromParent();
-                    self._mask = null;
+                        mask.removeFromParent();
+                        self._mask = null;
 
-                    self.checkWonGame();
-                    object.setLocalZOrder(oldZOrder);
+                        self.checkWonGame();
+                        object.setLocalZOrder(oldZOrder);
+                    }
                 }
             }, mask);
         }
 
-        this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], true);
+        this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], isDragging);
 
         object.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -476,7 +482,20 @@ var RoomLayer = cc.Layer.extend({
             }),
             cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
-                blockFlag = false;
+                if (GAME_CONFIG.needTouchToHideCutScene) {
+                    blockFlag = false;
+                } else {
+                    self._blockAllObjects = false;
+                    self._removeWarnLabel();
+
+                    if (self._maskLayer) {
+                        self._maskLayer.removeFromParent();
+                        self._maskLayer = null;
+                    }
+
+                    self.checkWonGame();
+                    object.setLocalZOrder(oldZOrder);
+                }
             })
         ));
     },
@@ -549,14 +568,14 @@ var RoomLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 if (this.isObjectDisabled(this._objects[i]))
                     return;
-
+                var oldScale = this._objects[i].scale;
                 this._objects[i].runAction(                               
                                         cc.sequence(
-                                            cc.scaleTo(0.1, 0.3 * this._allScale),
-                                            cc.scaleTo(0.3, 1.2 * this._allScale),
-                                            cc.scaleTo(0.1, 0.3 * this._allScale),
-                                            cc.scaleTo(0.3, 1.2 * this._allScale),
-                                            cc.scaleTo(0.1, 1 * this._allScale),
+                                            cc.scaleTo(0.1, 0.3 * oldScale),
+                                            cc.scaleTo(0.3, 1.2 * oldScale),
+                                            cc.scaleTo(0.1, 0.3 * oldScale),
+                                            cc.scaleTo(0.3, 1.2 * oldScale),
+                                            cc.scaleTo(0.1, 1 * oldScale),
                                             cc.callFunc(function() {
                                                 if (self._hudLayer)
                                                     self._lastClickTime = self._hudLayer.getRemainingTime();
