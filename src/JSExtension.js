@@ -9,3 +9,7 @@ function showNativeMessage(title, message) {
     if (cc.sys.os == cc.sys.OS_ANDROID)
         return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "showMessage", "(Ljava/lang/String;Ljava/lang/String;)V", title, message);
 }
+
+function printStackTrace() {
+    cc.log((new Error()).stack);
+}
