@@ -468,16 +468,18 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: function(touch, event) { return true; },
             onTouchEnded: function(touch, event) {
-                if (blockFlag)
-                    return;
+                if (GAME_CONFIG.needTouchToHideCutScene) {
+                    if (blockFlag)
+                        return;
 
-                self._blockAllObjects = false;
-                self._removeWarnLabel();
+                    self._blockAllObjects = false;
+                    self._removeWarnLabel();
 
-                mask.removeFromParent();
-                // animal.stopAllActions();
-                animal.setLocalZOrder(oldZOrder);
-                self.checkWonGame();
+                    mask.removeFromParent();
+                    // animal.stopAllActions();
+                    animal.setLocalZOrder(oldZOrder);
+                    self.checkWonGame();
+                }
             }
         }, mask);
 
@@ -493,7 +495,17 @@ var ForestLayer = cc.Layer.extend({
             // cc.scaleTo(1, 1.05),
             cc.delayTime(soundConfig.length + 0.5),
             cc.callFunc(function() {
-                blockFlag = false;
+                if (GAME_CONFIG.needTouchToHideCutScene) {
+                    blockFlag = false;
+                } else {
+                    self._blockAllObjects = false;
+                    self._removeWarnLabel();
+
+                    mask.removeFromParent();
+                    // animal.stopAllActions();
+                    animal.setLocalZOrder(oldZOrder);
+                    self.checkWonGame();
+                }
             })
         ));
     },
