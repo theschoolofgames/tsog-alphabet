@@ -26,9 +26,9 @@ var FOREST_ITEM_TYPE = {
     WATER_ITEM: "WATER_ITEM"
 }
 
-var STAR_GOAL_1 = 1;
-var STAR_GOAL_2 = 2;
-var STAR_GOAL_3 = 3;
+// var STAR_GOAL_1 = 1;
+// var STAR_GOAL_2 = 2;
+// var STAR_GOAL_3 = 3;
 
 var SMOKE_EFFECT_DELAY = 0.1;
 var SMOKE_EFFECT_FRAMES = 8;

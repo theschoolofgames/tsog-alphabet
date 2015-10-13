@@ -85,7 +85,8 @@ var HudLayer = cc.Layer.extend({
         goalBg.addChild(cupImage);
 
         this._goalImg = goalBg;
-        this.addProgressLabel(goalBg, "0/" + NUMBER_ITEMS);
+        var numItems = this._layer.getNumberOfObjects();
+        this.addProgressLabel(goalBg, "0/" + numItems);
     },
 
     addClockImage: function() {
@@ -140,7 +141,8 @@ var HudLayer = cc.Layer.extend({
     },
 
     setProgressLabelStr: function(text) {
-        this._progressLabel.setString(text + "/" + NUMBER_ITEMS);
+        var numItems = this._layer.getNumberOfObjects();
+        this._progressLabel.setString(text + "/" + numItems);
     },
 
     setProgressBarPercentage: function(percent){

@@ -22,6 +22,8 @@ var ForestLayer = cc.Layer.extend({
 
     _allScale: 1,
 
+    _numberItems: 3,
+
     ctor: function() {
         this._super();
 
@@ -95,10 +97,11 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimals: function() {
-        var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+        this._numberItems = this.getNumberOfObjects();
+        cc.log("this._numberItems: %d, ", this._numberItems)
+        var animals = this._dsInstance.getObjects(FOREST_ID, this._numberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-        var numberItems = this.getNumberOfObjects();
-        for ( var i = 0; i < numberItems; i++) {
+        for ( var i = 0; i < this._numberItems; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
             this.createAnimal(animalPositionArray[i], animals[i], i);
         }
@@ -134,12 +137,6 @@ var ForestLayer = cc.Layer.extend({
                 return true;
             }
         }
-    },
-
-    getNumberOfObjects: function() {
-        var numberItems = this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
-        cc.log("numberItems: %d", numberItems);
-        return numberItems;
     },
 
     onTouchBegan: function(touch, event) {
@@ -312,7 +309,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     checkWonGame: function() {
-        if (this._touchCounting == NUMBER_ITEMS)
+        if (this._touchCounting == this._numberItems)
             this.completedScene();
     },
 
@@ -526,24 +523,33 @@ var ForestLayer = cc.Layer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._touchCounting / NUMBER_ITEMS;
+        var percent = this._touchCounting / this._numberItems;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._touchCounting);
 
         var starEarned = 0;
         var objectCorrected = this._touchCounting;
-
-        if (objectCorrected >= STAR_GOAL_1 && objectCorrected < STAR_GOAL_2)
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
             starEarned = 1;
-        if (objectCorrected >= STAR_GOAL_2 && objectCorrected < STAR_GOAL_3)
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
             starEarned = 2;
-        if (objectCorrected >= STAR_GOAL_3)
+        if (objectCorrected >= starGoals.starGoal3)
             starEarned = 3;
 
         this._hudLayer.setStarEarned(starEarned);
 
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
+    },
+
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._numberItems/3);
+        var starGoal2 = Math.ceil(this._numberItems/3 * 2);
+        var starGoal3 = this._numberItems;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
     },
 
     runSoundCountDown: function() {
@@ -557,7 +563,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     showAllAnimals: function() {
-        var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
+        var animals = this._dsInstance.getObjects(FOREST_ID, this._numberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         var animalPositions = shuffledArrays.flyPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
 
@@ -575,7 +581,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     setNumberOfObjects: function(numberItems) {
-        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+        this._kvInstance.set("numberItems", numberItems);
     },
 
     setAmountGamePlayeds: function(numberGamePlayed) {
@@ -590,13 +596,18 @@ var ForestLayer = cc.Layer.extend({
 
     increaseObjectAmountBaseOnPlay: function() {
         var numberGamePlayed = this.getAmountGamePlayeds();
-        var numberItems = this.getNumberOfObjects();
-        var baseObjectAmounts = this._kvInstance.amountOfObjectBaseOnPlay.base;
-        var increaseObjectAmounts = this._kvInstance.amountOfObjectBaseOnPlay.increase;
-        if (numberItems > 1)
-            numberItems += (numberItems - baseObjectAmounts) * increaseObjectAmounts;
+        var baseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.base;
+        var increaseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.increase;
 
-        this.setNumberOfObjects(numberItems);
+        // cc.log("(numberGamePlayed % baseObjectAmounts) " + (numberGamePlayed % baseObjectAmounts));
+        if ((numberGamePlayed % baseObjectAmounts) == 0)
+            this._numberItems += increaseObjectAmounts;
+
+        // cc.log("numberItems: %d", this._numberItems);
+        // cc.log("numberGamePlayed: %d", numberGamePlayed);
+        // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
+        // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
+        this.setNumberOfObjects(this._numberItems);
     },
 });
 var ForestScene = cc.Scene.extend({

@@ -19,9 +19,14 @@ var RoomLayer = cc.Layer.extend({
 
     _effectAudioID: null,
 
+    _numberItems: 3,
+    _isLevelCompleted: false,
+
     ctor: function() {
         // cc.log("Dev: " + whoAmI);
         this._super();
+
+        this._isLevelCompleted = false;
 
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -131,18 +136,18 @@ var RoomLayer = cc.Layer.extend({
 
     addObjects: function() {
         var dsInstance = ConfigStore.getInstance();
+        this._numberItems = this.getNumberOfObjects();
 
-        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
+        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._numberItems);
         var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
-        var numberItems = this.getNumberOfObjects();
-        for ( var i = 0; i < numberItems; i++) {
+        for ( var i = 0; i < this._numberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i);
             else
                 this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i);
 
-            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName);
+            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName, i);
         }
         this.runSparklesEffect();
     },
@@ -171,13 +176,23 @@ var RoomLayer = cc.Layer.extend({
         )
     },
 
-    addObjectShade: function(object, imageName) {
+    addObjectShade: function(object, imageName, index) {
         var shadeObject = new cc.Sprite("things/" + imageName + ".png");
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
-        shadeObject.visible = false;
         shadeObject.scale = this._allScale;
 
+        if (this.hadObjectRequired())
+            shadeObject.visible = false;
+        else {
+            shadeObject.visible = true;
+            this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
+
+            shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+            shadeObject.setLocalZOrder(3);
+
+            this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);   
+        }
         // cc.log("Shade " + imageName + ": " + JSON.stringify(shadeObject.getPosition()));
 
         this.addChild(shadeObject, 1);
@@ -207,7 +222,7 @@ var RoomLayer = cc.Layer.extend({
 
     checkWonGame: function() {
         // win condition
-        if (this._objectDisableds.length == NUMBER_ITEMS)
+        if (this._objectDisableds.length == this._numberItems)
             this.completedScene()
     },
 
@@ -237,17 +252,20 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
-        // cc.log("completedScene")
+        if (this._isLevelCompleted)
+            return;
 
         var starEarned = this._hudLayer.getStarEarned();
-        // var str = (starEarned > 1) ? " stars" : " star";
+
         var lbText = "You Win";
         this.createWarnLabel(lbText);
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
-        this.increaseAmountGamePlayed();
+        this._isLevelCompleted = true;
+        if (this._isLevelCompleted)
+            this.increaseAmountGamePlayed();
 
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
@@ -270,12 +288,6 @@ var RoomLayer = cc.Layer.extend({
         }
 
         return null;
-    },
-
-    getNumberOfObjects: function() {
-        var numberItems = this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
-        cc.log("numberItems: %d", numberItems);
-        return numberItems;
     },
 
     getSoundConfigByName: function(imageName) {
@@ -350,6 +362,8 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.setLocalZOrder(2);
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
         targetNode.handleObjectCorrectPos(index);
+
+
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7 * targetNode._objectTouching.userData.scaleFactor)),
             cc.EaseBounceInOut(cc.scaleTo(0.2, 1* targetNode._objectTouching.userData.scaleFactor))
@@ -375,8 +389,11 @@ var RoomLayer = cc.Layer.extend({
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);
-        this._shadeObjects[index].visible = true;
+        if (!this.hadObjectRequired()) {
+            this.hideAllShadow();
+        }
         this.highLightObjectCorrectPos(index);
+        this._shadeObjects[index].visible = true;
 
     },
 
@@ -392,7 +409,7 @@ var RoomLayer = cc.Layer.extend({
         this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
 
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
-        shadeObject.setLocalZOrder(3);
+        shadeObject.setLocalZOrder(5);
 
         this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
     },
@@ -412,7 +429,10 @@ var RoomLayer = cc.Layer.extend({
             this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
+            this._shadeObjects[index].setLocalZOrder(-1);
         }
+        if (!this.hadObjectRequired())
+            this.showAllShadows();
     },
 
     getObjectPosWithTouchedPos: function(touchedPos) {
@@ -479,7 +499,6 @@ var RoomLayer = cc.Layer.extend({
                         mask.removeFromParent();
                         self._mask = null;
 
-                        self.checkWonGame();
                         object.setLocalZOrder(oldZOrder);
                     }
                 }
@@ -516,18 +535,18 @@ var RoomLayer = cc.Layer.extend({
     },
 
     updateProgressBar: function() {
-        var percent = this._objectDisableds.length / NUMBER_ITEMS;
+        var percent = this._objectDisableds.length / this._numberItems;
         this._hudLayer.setProgressBarPercentage(percent);
         this._hudLayer.setProgressLabelStr(this._objectDisableds.length);
 
         var starEarned = 0;
         var objectCorrected = this._objectDisableds.length;
-
-        if (objectCorrected >= STAR_GOAL_1 && objectCorrected < STAR_GOAL_2)
+        var starGoals = this.countingStars();
+        if (objectCorrected >= starGoals.starGoal1 && objectCorrected < starGoals.starGoal2)
             starEarned = 1;
-        if (objectCorrected >= STAR_GOAL_2 && objectCorrected < STAR_GOAL_3)
+        if (objectCorrected >= starGoals.starGoal2 && objectCorrected < starGoals.starGoal3)
             starEarned = 2;
-        if (objectCorrected >= STAR_GOAL_3)
+        if (objectCorrected >= starGoals.starGoal3)
             starEarned = 3;
 
         // cc.log("starEarned: " + starEarned);
@@ -535,6 +554,15 @@ var RoomLayer = cc.Layer.extend({
 
         if (starEarned > 0)
             this._hudLayer.addStar("light", starEarned);
+    },
+
+    countingStars: function() {
+        var starGoal1 = Math.ceil(this._numberItems/3);
+        var starGoal2 = Math.ceil(this._numberItems/3 * 2);
+        var starGoal3 = this._numberItems;
+        return {starGoal1: starGoal1,
+                starGoal2: starGoal2, 
+                starGoal3: starGoal3};
     },
 
     runSoundCountDown: function() {
@@ -603,10 +631,41 @@ var RoomLayer = cc.Layer.extend({
     },
 
     increaseAmountGamePlayed: function() {
-        var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed") || 0;
+        var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed", 0);
         numberGamePlayed += 1;
+        cc.log("numberGamePlayed : %d", numberGamePlayed)
+        this.setNumberOfObjects(numberGamePlayed);
+    },
+
+    getNumberOfObjects: function() {
+        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+    },
+
+    setNumberOfObjects: function(numberGamePlayed) {
         this._kvInstance.set("amountGamePlayed", numberGamePlayed);
-    }
+    },
+
+    hadObjectRequired: function() {
+        var requireObjectsToHideAllShadow = GAME_CONFIG.requireObjectsToHideAllShadow;
+        if (this._numberItems >= requireObjectsToHideAllShadow)
+            return true;
+        else
+            return false;
+    },
+
+    showAllShadows: function() {
+        if (this._shadeObjects.length > 0)
+            for ( var i = 0; i< this._shadeObjects.length; i++) {
+                this._shadeObjects[i].visible = true;
+            }
+    },
+
+    hideAllShadow: function() {
+        if (this._shadeObjects.length > 0)
+            for ( var i = 0; i< this._shadeObjects.length; i++) {
+                    this._shadeObjects[i].visible = false;
+            }
+    },
 });
 
 var RoomScene = cc.Scene.extend({

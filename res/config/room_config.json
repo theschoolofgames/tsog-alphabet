@@ -2,7 +2,7 @@
     "items": [
         {
             "imageName": "duster",
-            "type": "LIGHT_WEIGHT_ITEM",
+            "type": "HEAVY_WEIGHT_ITEM",
             "x": 217.5,
             "y": 220,
             "anchorX": 0.5,
