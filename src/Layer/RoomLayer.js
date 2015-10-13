@@ -32,8 +32,8 @@ var RoomLayer = cc.Layer.extend({
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
         // this.playBackgroundMusic();
