@@ -337,6 +337,11 @@ var RoomLayer = cc.Layer.extend({
 
     onTouchEnded: function (touch, event) {
         var targetNode = event.getCurrentTarget();
+
+        if (targetNode._effectAudioID)
+            cc.audioEngine.stopEffect(targetNode._effectAudioID);
+        targetNode._effectAudioID = null;
+
         //set shadeObject visible to false
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
@@ -353,9 +358,6 @@ var RoomLayer = cc.Layer.extend({
         targetNode.runSparklesEffect();
         targetNode._removeWarnLabel();
         cc.audioEngine.playEffect(res.DROP_mp3);
-
-        cc.audioEngine.stopEffect(targetNode._effectAudioID);
-        targetNode._effectAudioID = null;
 
         return true;
     },
@@ -484,6 +486,8 @@ var RoomLayer = cc.Layer.extend({
             }, mask);
         }
 
+        if (this._effectAudioID)
+            cc.audioEngine.stopEffect(this._effectAudioID);
         this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], isDragging);
 
         object.runAction(cc.sequence(
@@ -491,7 +495,7 @@ var RoomLayer = cc.Layer.extend({
                 self._blockAllObjects = true;
                 self.createWarnLabel(str);
             }),
-            cc.delayTime(soundConfig.length + 0.5),
+            cc.delayTime(Math.max(soundConfig.length, 3)),
             cc.callFunc(function() {
                 if (GAME_CONFIG.needTouchToHideCutScene) {
                     blockFlag = false;
