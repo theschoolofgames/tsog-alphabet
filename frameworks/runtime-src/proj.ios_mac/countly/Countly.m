@@ -1115,6 +1115,8 @@ NSString* const kCLYUserCustom = @"custom";
         [timer invalidate];
         timer = nil;
     }
+  
+  [super dealloc];
 }
 
 - (void)didEnterBackgroundCallBack:(NSNotification *)notification

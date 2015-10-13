@@ -15,6 +15,8 @@
 		018661A31B9FE6160002036C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0186619E1B9FE6160002036C /* LICENSE */; };
 		018661A51B9FE6480002036C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A41B9FE6480002036C /* CoreData.framework */; };
 		018661A71B9FE6540002036C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A61B9FE6540002036C /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DB61BCC18E300253473 /* AnalyticManager.cpp */; settings = {ASSET_TAGS = (); }; };
+		01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DC11BCCA43900253473 /* AnalyticManager.mm */; settings = {ASSET_TAGS = (); }; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -154,6 +156,9 @@
 		0186619E1B9FE6160002036C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		018661A41B9FE6480002036C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		018661A61B9FE6540002036C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		01F76DB61BCC18E300253473 /* AnalyticManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnalyticManager.cpp; sourceTree = "<group>"; };
+		01F76DC01BCCA40700253473 /* AnalyticManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticManager.h; sourceTree = "<group>"; };
+		01F76DC11BCCA43900253473 /* AnalyticManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnalyticManager.mm; sourceTree = "<group>"; };
 		1A1A081B18C9DF05005C6854 /* project.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = project.json; path = ../../../project.json; sourceTree = "<group>"; };
 		1A6BF21418C9DB5900FB0E1C /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = ../../../main.js; sourceTree = "<group>"; };
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -424,6 +429,9 @@
 			children = (
 				D4545215156E28EF00887EB5 /* AppDelegate.cpp */,
 				D4545216156E28EF00887EB5 /* AppDelegate.h */,
+				01F76DB61BCC18E300253473 /* AnalyticManager.cpp */,
+				01F76DC01BCCA40700253473 /* AnalyticManager.h */,
+				01F76DC11BCCA43900253473 /* AnalyticManager.mm */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -603,8 +611,10 @@
 			files = (
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
+				01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */,
 				018661A11B9FE6160002036C /* Countly_OpenUDID.m in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
 				0186619F1B9FE6160002036C /* Countly.m in Sources */,
 				018661A01B9FE6160002036C /* Countly.xcdatamodeld in Sources */,
