@@ -768,7 +768,7 @@ void ScriptingCore::restartVM()
 
 ScriptingCore::~ScriptingCore()
 {
-    cleanup();
+    cleanup();  
 }
 
 void ScriptingCore::cleanup()

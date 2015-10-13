@@ -3,6 +3,7 @@ var ForestLayer = cc.Layer.extend({
     _objects: [],
     _objectDisabled: [],
     _animalNames: [],
+    _kvInstance: null,
     _blockLayer: null,
     _hudLayer: null,
     _animalPos: null,
@@ -25,13 +26,13 @@ var ForestLayer = cc.Layer.extend({
         this._super();
 
         this._dsInstance = ConfigStore.getInstance();
-
+        this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
+        this.addBackButton();
+        this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
@@ -96,11 +97,9 @@ var ForestLayer = cc.Layer.extend({
     createAnimals: function() {
         var animals = this._dsInstance.getObjects(FOREST_ID, NUMBER_ITEMS);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-        for ( var i = 0; i < NUMBER_ITEMS; i++) {
+        var numberItems = this.getNumberOfObjects();
+        for ( var i = 0; i < numberItems; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
-            // cc.log("i: " + i)
-            // cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
-            // cc.log("animals: " + JSON.stringify(animals[i]) + "\n");
             this.createAnimal(animalPositionArray[i], animals[i], i);
         }
         this.runSparklesEffect();
@@ -135,6 +134,12 @@ var ForestLayer = cc.Layer.extend({
                 return true;
             }
         }
+    },
+
+    getNumberOfObjects: function() {
+        var numberItems = this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+        cc.log("numberItems: %d", numberItems);
+        return numberItems;
     },
 
     onTouchBegan: function(touch, event) {
@@ -322,6 +327,10 @@ var ForestLayer = cc.Layer.extend({
         // var str = (starEarned > 1) ? " stars" : " star";
         var lbText = "You Win";
         this.createWarnLabel(lbText, 24);
+
+        this.increaseAmountGamePlayeds();
+        this.increaseObjectAmountBaseOnPlay();
+
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new RoomScene());
                 });
@@ -553,12 +562,41 @@ var ForestLayer = cc.Layer.extend({
         var animalPositions = shuffledArrays.flyPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
 
         for ( var i = 0; i < animalPositions.length; i++) {
-
-            // var animalPositionArray = this.getAnimalPositionType(animals[0].type, shuffledArrays);
-            // cc.log("animalPositionArray: " + JSON.stringify(animalPositionArray[i]) + "\n");
             this.createAnimal(animalPositions[i], animals[0], i);
         }
-        // this.runSparklesEffect();        
+    },
+
+    getAmountGamePlayeds: function() {
+        return this._kvInstance.getInt("amountGamePlayed", 0);
+    },
+
+    getNumberOfObjects: function() {
+        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+    },
+
+    setNumberOfObjects: function(numberItems) {
+        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+    },
+
+    setAmountGamePlayeds: function(numberGamePlayed) {
+        this._kvInstance.set("amountGamePlayed", numberGamePlayed);
+    },
+
+    increaseAmountGamePlayeds: function() {
+        var numberGamePlayed = this.getAmountGamePlayeds();
+        numberGamePlayed += 1;
+        this.setAmountGamePlayeds(numberGamePlayed);
+    },
+
+    increaseObjectAmountBaseOnPlay: function() {
+        var numberGamePlayed = this.getAmountGamePlayeds();
+        var numberItems = this.getNumberOfObjects();
+        var baseObjectAmounts = this._kvInstance.amountOfObjectBaseOnPlay.base;
+        var increaseObjectAmounts = this._kvInstance.amountOfObjectBaseOnPlay.increase;
+        if (numberItems > 1)
+            numberItems += (numberItems - baseObjectAmounts) * increaseObjectAmounts;
+
+        this.setNumberOfObjects(numberItems);
     },
 });
 var ForestScene = cc.Scene.extend({

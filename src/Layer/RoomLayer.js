@@ -1,4 +1,5 @@
 var RoomLayer = cc.Layer.extend({
+    _kvInstance: null,
     _hudLayer: null,
     _maskLayer: null,
     _objectTouching: null,
@@ -22,6 +23,7 @@ var RoomLayer = cc.Layer.extend({
         // cc.log("Dev: " + whoAmI);
         this._super();
 
+        this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
@@ -130,10 +132,11 @@ var RoomLayer = cc.Layer.extend({
     addObjects: function() {
         var dsInstance = ConfigStore.getInstance();
 
-        var bedroomObjects = dsInstance.getObjects(BEDROOM_ID, NUMBER_ITEMS);
+        var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, NUMBER_ITEMS);
         var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
-        for ( var i = 0; i < NUMBER_ITEMS; i++) {
+        var numberItems = this.getNumberOfObjects();
+        for ( var i = 0; i < numberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i);
             else
@@ -240,8 +243,12 @@ var RoomLayer = cc.Layer.extend({
         // var str = (starEarned > 1) ? " stars" : " star";
         var lbText = "You Win";
         this.createWarnLabel(lbText);
+
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
+
+        this.increaseAmountGamePlayed();
+
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
                 });
@@ -258,13 +265,17 @@ var RoomLayer = cc.Layer.extend({
             objBoundingBox = this._objects[i].getBoundingBox();
             var isRectContainsPoint = cc.rectContainsPoint(objBoundingBox, touchedPos);
             if (isRectContainsPoint) {
-
-                cc.log("found touched object: %s", this._objectNames[i].name);
                 return this._objects[i];
             }
         }
 
         return null;
+    },
+
+    getNumberOfObjects: function() {
+        var numberItems = this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+        cc.log("numberItems: %d", numberItems);
+        return numberItems;
     },
 
     getSoundConfigByName: function(imageName) {
@@ -586,6 +597,12 @@ var RoomLayer = cc.Layer.extend({
             // this.runSparklesEffect();
         }
     },
+
+    increaseAmountGamePlayed: function() {
+        var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed") || 0;
+        numberGamePlayed += 1;
+        this._kvInstance.set("amountGamePlayed", numberGamePlayed);
+    }
 });
 
 var RoomScene = cc.Scene.extend({

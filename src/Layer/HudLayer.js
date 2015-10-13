@@ -124,7 +124,8 @@ var HudLayer = cc.Layer.extend({
 
     addCountDownClock: function() {
         var self = this;
-        var clock = new Clock(TIME_INIT, function(){
+        var clockInitTime = GAME_CONFIG.levelTime;
+        var clock = new Clock(clockInitTime, function(){
             self._layer.completedScene();
         });
         clock.x = this._clockImg.width / 2 + 10;
