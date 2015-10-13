@@ -16,6 +16,8 @@ var RoomLayer = cc.Layer.extend({
     _effectSmoke:null,
     _allScale: 1,
 
+    _effectAudioID: null,
+
     ctor: function() {
         // cc.log("Dev: " + whoAmI);
         this._super();
@@ -337,6 +339,9 @@ var RoomLayer = cc.Layer.extend({
         targetNode._removeWarnLabel();
         cc.audioEngine.playEffect(res.DROP_mp3);
 
+        cc.audioEngine.stopEffect(targetNode._effectAudioID);
+        targetNode._effectAudioID = null;
+
         return true;
     },
 
@@ -462,7 +467,7 @@ var RoomLayer = cc.Layer.extend({
             }, mask);
         }
 
-        cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"]);
+        this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], true);
 
         object.runAction(cc.sequence(
             cc.callFunc(function() {
