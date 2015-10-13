@@ -2,6 +2,7 @@ var RoomLayer = cc.Layer.extend({
     _hudLayer: null,
     _maskLayer: null,
     _objectTouching: null,
+    _currentObjectShadeZOrder: null,
     _objects: [],
     _objectNames: [],
     _shadeObjects: [],
@@ -210,7 +211,7 @@ var RoomLayer = cc.Layer.extend({
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(0.5);
+        warnLabel.setScale(1.25);
 
 
         // var warnLabel = new cc.LabelTTF(text, "Arial", 24);
@@ -321,9 +322,11 @@ var RoomLayer = cc.Layer.extend({
     onTouchEnded: function (touch, event) {
         var targetNode = event.getCurrentTarget();
         //set shadeObject visible to false
+        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
-        targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
+
+        targetNode._objectTouching.setLocalZOrder(2);
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7)),
@@ -340,6 +343,7 @@ var RoomLayer = cc.Layer.extend({
     processGameLogic: function() {
         this._removeWarnLabel();
 
+        this._objectTouching.setLocalZOrder(4);
         this._objectTouching.stopAllActions();
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
@@ -363,7 +367,11 @@ var RoomLayer = cc.Layer.extend({
 
     highLightObjectCorrectPos: function(index) {
         var shadeObject = this._shadeObjects[index];
+        this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
+
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+        shadeObject.setLocalZOrder(3);
+
         this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
     },
 
@@ -539,11 +547,11 @@ var RoomLayer = cc.Layer.extend({
 
                 this._objects[i].runAction(                               
                                         cc.sequence(
-                                            cc.scaleTo(0.3, 0.8 * this._allScale),
+                                            cc.scaleTo(0.1, 0.3 * this._allScale),
                                             cc.scaleTo(0.3, 1.2 * this._allScale),
-                                            cc.scaleTo(0.3, 0.8 * this._allScale),
+                                            cc.scaleTo(0.1, 0.3 * this._allScale),
                                             cc.scaleTo(0.3, 1.2 * this._allScale),
-                                            cc.scaleTo(0.3, 1 * this._allScale),
+                                            cc.scaleTo(0.1, 1 * this._allScale),
                                             cc.callFunc(function() {
                                                 if (self._hudLayer)
                                                     self._lastClickTime = self._hudLayer.getRemainingTime();

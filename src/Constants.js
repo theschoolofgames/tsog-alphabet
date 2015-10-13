@@ -8,7 +8,7 @@ var ANIMATE_DELAY_TIME = 0.2;
 
 var NUMBER_ITEMS = 12;
 
-var TIME_HINT = 3;
+var TIME_HINT = 1;
 var CLOCK_INTERVAL = 1;
 var TIME_INIT = 300;
 

@@ -290,7 +290,7 @@ var ForestLayer = cc.Layer.extend({
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(0.5);
+        warnLabel.setScale(1.25);
         // var warnLabel = new cc.LabelTTF(text, "Arial", size);
         // warnLabel.setColor(cc.color.RED);
         if (object) {
@@ -406,11 +406,11 @@ var ForestLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 this._objects[i].runAction(
                                         cc.sequence(
-                                            cc.scaleTo(0.3, 0.8),
-                                            cc.scaleTo(0.3, 1.2),
-                                            cc.scaleTo(0.3, 0.8),
-                                            cc.scaleTo(0.3, 1.2),
-                                            cc.scaleTo(0.3, 1),
+                                            cc.scaleTo(0.1, 0.3 * this._allScale),
+                                            cc.scaleTo(0.3, 1.2 * this._allScale),
+                                            cc.scaleTo(0.1, 0.3 * this._allScale),
+                                            cc.scaleTo(0.3, 1.2 * this._allScale),
+                                            cc.scaleTo(0.1, 1 * this._allScale),
                                             cc.callFunc(function() {
                                                 self._lastClickTime = self._hudLayer.getRemainingTime();
                                             })
