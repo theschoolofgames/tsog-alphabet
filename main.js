@@ -139,10 +139,10 @@ cc.game.onStart = function(){
         cc.audioEngine.setMusicVolume(0.1);
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
-            cc.spriteFrameCache.addSpriteFrames(res.Ball_plist);
-            cc.spriteFrameCache.addSpriteFrames(res.Board_plist);
-            cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
-            cc.spriteFrameCache.addSpriteFrames(res.Effect_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Forest_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Smoke_effect_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
         });
 
     }, this);
