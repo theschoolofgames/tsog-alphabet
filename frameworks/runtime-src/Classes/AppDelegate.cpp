@@ -167,6 +167,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     msg << (isWarning ? "JavaScript warning: " : "JavaScript error: ");
     if (report->filename)
     {
+      msg << message << " ";
       msg << report->filename;
       msg << " line " << report->lineno << ":" << report->column << "\n";
     }

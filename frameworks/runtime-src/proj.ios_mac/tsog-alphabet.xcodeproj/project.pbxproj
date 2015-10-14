@@ -8,11 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		018661941B9FE5F60002036C /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661931B9FE5F60002036C /* H102Wrapper.m */; };
-		0186619F1B9FE6160002036C /* Countly.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661971B9FE6160002036C /* Countly.m */; };
-		018661A01B9FE6160002036C /* Countly.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 018661981B9FE6160002036C /* Countly.xcdatamodeld */; };
-		018661A11B9FE6160002036C /* Countly_OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186619B1B9FE6160002036C /* Countly_OpenUDID.m */; };
-		018661A21B9FE6160002036C /* CountlyDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 0186619D1B9FE6160002036C /* CountlyDB.m */; };
-		018661A31B9FE6160002036C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0186619E1B9FE6160002036C /* LICENSE */; };
 		018661A51B9FE6480002036C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A41B9FE6480002036C /* CoreData.framework */; };
 		018661A71B9FE6540002036C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A61B9FE6540002036C /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DB61BCC18E300253473 /* AnalyticManager.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -146,14 +141,6 @@
 /* Begin PBXFileReference section */
 		018661921B9FE5F60002036C /* H102Wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = H102Wrapper.h; path = ios/H102Wrapper.h; sourceTree = "<group>"; };
 		018661931B9FE5F60002036C /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
-		018661961B9FE6160002036C /* Countly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly.h; sourceTree = "<group>"; };
-		018661971B9FE6160002036C /* Countly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly.m; sourceTree = "<group>"; };
-		018661991B9FE6160002036C /* Countly.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Countly.xcdatamodel; sourceTree = "<group>"; };
-		0186619A1B9FE6160002036C /* Countly_OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Countly_OpenUDID.h; sourceTree = "<group>"; };
-		0186619B1B9FE6160002036C /* Countly_OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Countly_OpenUDID.m; sourceTree = "<group>"; };
-		0186619C1B9FE6160002036C /* CountlyDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CountlyDB.h; sourceTree = "<group>"; };
-		0186619D1B9FE6160002036C /* CountlyDB.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CountlyDB.m; sourceTree = "<group>"; };
-		0186619E1B9FE6160002036C /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		018661A41B9FE6480002036C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		018661A61B9FE6540002036C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		01F76DB61BCC18E300253473 /* AnalyticManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnalyticManager.cpp; sourceTree = "<group>"; };
@@ -273,21 +260,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		018661951B9FE6150002036C /* countly */ = {
-			isa = PBXGroup;
-			children = (
-				018661961B9FE6160002036C /* Countly.h */,
-				018661971B9FE6160002036C /* Countly.m */,
-				018661981B9FE6160002036C /* Countly.xcdatamodeld */,
-				0186619A1B9FE6160002036C /* Countly_OpenUDID.h */,
-				0186619B1B9FE6160002036C /* Countly_OpenUDID.m */,
-				0186619C1B9FE6160002036C /* CountlyDB.h */,
-				0186619D1B9FE6160002036C /* CountlyDB.m */,
-				0186619E1B9FE6160002036C /* LICENSE */,
-			);
-			path = countly;
-			sourceTree = "<group>";
-		};
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -344,7 +316,6 @@
 			children = (
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
-				018661951B9FE6150002036C /* countly */,
 				BAF426FA19484B3E002B22EF /* script */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
@@ -584,7 +555,6 @@
 				509D4AC317EBB2AB00697056 /* Icon-114.png in Resources */,
 				509D4ABD17EBB2AB00697056 /* Default-568h@2x.png in Resources */,
 				509D4ABF17EBB2AB00697056 /* Default@2x.png in Resources */,
-				018661A31B9FE6160002036C /* LICENSE in Resources */,
 				509D4AC217EBB2AB00697056 /* Icon-76.png in Resources */,
 				5091731B17ECDF7A00D62437 /* Icon-40.png in Resources */,
 				5091731C17ECDF7A00D62437 /* Icon-50.png in Resources */,
@@ -612,14 +582,10 @@
 				509D4AC917EBB2AB00697056 /* RootViewController.mm in Sources */,
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */,
-				018661A11B9FE6160002036C /* Countly_OpenUDID.m in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
 				01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
-				0186619F1B9FE6160002036C /* Countly.m in Sources */,
-				018661A01B9FE6160002036C /* Countly.xcdatamodeld in Sources */,
 				018661941B9FE5F60002036C /* H102Wrapper.m in Sources */,
-				018661A21B9FE6160002036C /* CountlyDB.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,19 +800,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		018661981B9FE6160002036C /* Countly.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				018661991B9FE6160002036C /* Countly.xcdatamodel */,
-			);
-			currentVersion = 018661991B9FE6160002036C /* Countly.xcdatamodel */;
-			path = Countly.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = A92275341517C094001B78AA /* Project object */;
 }
