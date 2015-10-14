@@ -360,10 +360,10 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
         targetNode.handleObjectCorrectPos(index);
 
-
+        targetNode._objectTouching.stopAllActions();
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7 * targetNode._objectTouching.userData.scaleFactor)),
-            cc.EaseBounceInOut(cc.scaleTo(0.2, 1* targetNode._objectTouching.userData.scaleFactor))
+            cc.EaseBounceInOut(cc.scaleTo(0.2, 1 * targetNode._objectTouching.userData.scaleFactor))
             ));
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
@@ -511,7 +511,7 @@ var RoomLayer = cc.Layer.extend({
         {
             self._blockAllObjects = true;
             self.createWarnLabel(str);
-            object.runAction(cc.sequence(
+            self.runAction(cc.sequence(
                 cc.delayTime(Math.max(soundConfig.length, 3)),
                 cc.callFunc(function() {
                     if (GAME_CONFIG.needTouchToHideCutScene) {
@@ -610,7 +610,7 @@ var RoomLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 if (this.isObjectDisabled(this._objects[i]))
                     return;
-                var oldScale = this._objects[i].scale;
+                var oldScale = this._objects[i].userData.scaleFactor;
                 this._objects[i].runAction(                               
                                         cc.sequence(
                                             cc.scaleTo(0.1, 0.7 * oldScale),
