@@ -1,19 +1,27 @@
 var SettingDialog = cc.Layer.extend({
     _dialogBg: null,
     _mask: null,
-    _userName: "",
-    _schoolName: "",
+    _textFieldLabel: null,
+    _dialogBgLabel: null,
+    _callback: null,
+    _logoutBtnXRatio: -1,
 
-    ctor: function() {
+    ctor: function(text) {
         this._super();
-
-        this._userName = Utils.getUserName();
-        this._schoolName = Utils.getSchoolName();
 
         this._addMask();
         this._addDialogBg();
-        this._addAccountNameHolder();
-        this._addResumeButton();
+
+        this._dialogBgLabel = text;
+        this._logoutBtnXRatio = 0;
+        if (!text) {
+            this._logoutBtnXRatio = 1;
+            this._textFieldLabel = Utils.getUserName();
+            this._dialogBgLabel = Utils.getSchoolName();
+            this._addResumeButton();
+            this._addTextField();
+        }
+        this._addDialogBgLabel();
         this._addLogoutButton();
 
         cc.eventManager.addListener({
@@ -40,27 +48,25 @@ var SettingDialog = cc.Layer.extend({
         dialogBg.y = cc.winSize.height/2;
         this.addChild(dialogBg);
         this._dialogBg = dialogBg;
-
-        this._addSchoolNameLabel();
     },
 
-    _addAccountNameHolder: function() {
-        var nameHolder = new cc.Sprite("#name-holder.png");
-        nameHolder.x = this._dialogBg.width/2;
-        nameHolder.y = this._dialogBg.height/2 - nameHolder.height * 2;
-        this._dialogBg.addChild(nameHolder);
+    _addTextField: function() {
+        var textField = new cc.Sprite("#name-holder.png");
+        textField.x = this._dialogBg.width/2;
+        textField.y = this._dialogBg.height/2 - textField.height*1.5;
+        this._dialogBg.addChild(textField);
 
-        var userName = new cc.LabelTTF(this._userName, "Arial", 24);
-        userName.color = cc.color.WHITE;
-        userName.x = nameHolder.width/2;
-        userName.y = nameHolder.height/2;
-        nameHolder.addChild(userName);
+        var textFieldLabel = new cc.LabelTTF(this._textFieldLabel, "Arial", 24);
+        textFieldLabel.color = cc.color.WHITE;
+        textFieldLabel.x = textField.width/2;
+        textFieldLabel.y = textField.height/2;
+        textField.addChild(textFieldLabel);
     },
 
     _addLogoutButton: function() {
         var logoutBtn = new ccui.Button();
         logoutBtn.loadTextures("btn_exit.png", "btn_exit-pressed.png", "", ccui.Widget.PLIST_TEXTURE);
-        logoutBtn.x = this._dialogBg.width/2 - logoutBtn.width/2 - 10;
+        logoutBtn.x = this._dialogBg.width/2 - (logoutBtn.width/2 - 10) * this._logoutBtnXRatio;
         logoutBtn.y = 20;
         this._dialogBg.addChild(logoutBtn);
 
@@ -90,14 +96,20 @@ var SettingDialog = cc.Layer.extend({
         })
     },
 
-    _addSchoolNameLabel: function() {
-        var schoolName = new cc.LabelTTF(this._schoolName, "Arial", 32);
-        schoolName.boundingWidth = this._dialogBg.width - 50;
-        schoolName.textAlign = cc.TEXT_ALIGNMENT_CENTER;
-        schoolName.color = cc.color("#fdc60a");
-        schoolName.x = this._dialogBg.width/2;
-        schoolName.y = this._dialogBg.height/2;
-        this._dialogBg.addChild(schoolName);
+    _addDialogBgLabel: function() {
+        font = FONT_COLOR[1];
+
+        text = this._dialogBgLabel.toUpperCase();
+        // var dialogBgLabel = new cc.LabelTTF(this._dialogBgLabel, "Arial", 32);
+        var dialogBgLabel = new cc.LabelBMFont(text, 
+                                            font, 
+                                            this._dialogBg.width*1.5);
+        dialogBgLabel.scale = 0.5;
+        // dialogBgLabel.boundingWidth = this._dialogBg.width - 50;
+        dialogBgLabel.textAlign = cc.TEXT_ALIGNMENT_CENTER;
+        dialogBgLabel.x = this._dialogBg.width/2;
+        dialogBgLabel.y = this._dialogBg.height/2;
+        this._dialogBg.addChild(dialogBgLabel);
     },
 
     onTouchBegan: function(touch, event) {

@@ -23,13 +23,12 @@ var ForestLayer = cc.Layer.extend({
     _allScale: 1,
 
     _numberItems: 0,
-    _amountOfPlay: 0,
     _numberGamePlayed: 0,
 
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
 
-        this._numberItems = numberItems;
+        this._numberItems = numberItems || NUMBER_ITEMS;
         this._numberGamePlayed = numberGamePlayed;
 
         this._dsInstance = ConfigStore.getInstance();
@@ -38,8 +37,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        this.addBackButton();
-        this.addRefreshButton();
+        // this.addBackButton();
+        // this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runHintObjectUp();
@@ -219,7 +218,14 @@ var ForestLayer = cc.Layer.extend({
             this.runLieAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.STAND_ITEM)
             this.runStandAnimalAction(animal);
-        if (itemId === FOREST_ITEM_TYPE.WATER_ITEM){}
+        if (itemId === FOREST_ITEM_TYPE.WATER_ITEM)
+            this.runStandAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.FROG_ITEM)
+            this.runStandAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.MONKEY_ITEM)
+            this.runStandAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.OWL_ITEM)
+            this.runLieAnimalAction(animal);
     },
 
     runFlyAnimalAction: function(animal) {
@@ -273,9 +279,9 @@ var ForestLayer = cc.Layer.extend({
         refreshButton.y = refreshButton.height / 2;
 
         this.addChild(refreshButton, 100);
-
+        var self = this;
         refreshButton.addClickEventListener(function() {
-            cc.director.replaceScene(new ForestScene());
+            cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
         });
     },
 
@@ -286,8 +292,9 @@ var ForestLayer = cc.Layer.extend({
 
         this.addChild(backButton, 100);
 
+        var self= this;
         backButton.addClickEventListener(function() {
-            cc.director.replaceScene(new RoomScene());
+            cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
         });
     },
 
@@ -333,10 +340,15 @@ var ForestLayer = cc.Layer.extend({
         this.increaseAmountGamePlayeds();
         this.increaseObjectAmountBaseOnPlay();
 
-        var self = this;
-        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                    cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
-                });
+        if (this.isGamePlayedMatchAmountOfPlay())
+            this.showTryAnOtherGameDialog();
+        else {
+            var self = this;
+            this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
+                        cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
+                    });
+        }   
+
     },
 
     runObjectAction: function(object, delayTime, func) {
@@ -360,8 +372,17 @@ var ForestLayer = cc.Layer.extend({
         var flyPositionArray = Utils.shuffle(FOREST_FLY_POSITION);
         var groundPositionArray = Utils.shuffle(FOREST_GROUND_POSITION);
         var waterPositionArray = Utils.shuffle(FOREST_WATER_POSITION);
+        var monkeyPositionArray = Utils.shuffle(FOREST_MONKEY_POSITION);
+        var owlPositionArray = Utils.shuffle(FOREST_OWL_POSITION);
+        var frogPositionArray = Utils.shuffle(FOREST_FROG_POSITION);
 
-        return {flyPositionArray: flyPositionArray, groundPositionArray: groundPositionArray, waterPositionArray: waterPositionArray};
+        return {flyPositionArray: flyPositionArray, 
+            groundPositionArray: groundPositionArray, 
+            waterPositionArray: waterPositionArray,
+            monkeyPositionArray: monkeyPositionArray,
+            owlPositionArray: owlPositionArray,
+            frogPositionArray: frogPositionArray
+        };
     },
 
     getAnimalPositionType: function(type , shuffledArrays) {
@@ -372,6 +393,12 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.groundPositionArray
         if (type === FOREST_ITEM_TYPE.WATER_ITEM)
             animalPositionArray = shuffledArrays.waterPositionArray
+        if (type === FOREST_ITEM_TYPE.MONKEY_ITEM)
+            animalPositionArray = shuffledArrays.monkeyPositionArray
+        if (type === FOREST_ITEM_TYPE.OWL_ITEM)
+            animalPositionArray = shuffledArrays.owlPositionArray
+        if (type === FOREST_ITEM_TYPE.FROG_ITEM)
+            animalPositionArray = shuffledArrays.frogPositionArray
 
         return animalPositionArray
     },
@@ -412,11 +439,11 @@ var ForestLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 this._objects[i].runAction(
                                         cc.sequence(
-                                            cc.scaleTo(0.1, 0.7 * this._allScale),
-                                            cc.scaleTo(0.3, 1.05 * this._allScale),
-                                            cc.scaleTo(0.1, 0.7 * this._allScale),
-                                            cc.scaleTo(0.3, 1.05 * this._allScale),
-                                            cc.scaleTo(0.1, 1 * this._allScale),
+                                            cc.scaleTo(0.2, 0.7 * this._allScale),
+                                            cc.scaleTo(0.2, 1.05 * this._allScale),
+                                            cc.scaleTo(0.2, 0.7 * this._allScale),
+                                            cc.scaleTo(0.2, 1.05 * this._allScale),
+                                            cc.scaleTo(0.2, 1 * this._allScale),
                                             cc.callFunc(function() {
                                                 self._lastClickTime = self._hudLayer.getRemainingTime();
                                             })
@@ -609,6 +636,17 @@ var ForestLayer = cc.Layer.extend({
         // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
         // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
         // this.setNumberOfObjects(this._numberItems);
+    },
+
+    showTryAnOtherGameDialog: function() {
+        var text = "AWESOME, LET'S TRY ANOTHER GAME";
+        this.stopAllActions();
+        this.addChild(new SettingDialog(text), 999);
+    },
+
+    isGamePlayedMatchAmountOfPlay: function() {
+        if (GAME_CONFIG.amountOfPlay == Math.floor(this._numberGamePlayed / 2))
+            return true;
     },
 });
 var ForestScene = cc.Scene.extend({

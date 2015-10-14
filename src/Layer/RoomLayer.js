@@ -21,7 +21,6 @@ var RoomLayer = cc.Layer.extend({
 
     _isLevelCompleted: false,
     _numberItems: 0,
-    _amountOfPlay: 0,
     _numberGamePlayed: 0,
 
     ctor: function(numberItems, numberGamePlayed) {
@@ -36,8 +35,8 @@ var RoomLayer = cc.Layer.extend({
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
         
@@ -76,8 +75,9 @@ var RoomLayer = cc.Layer.extend({
         refreshButton.y = refreshButton.height / 2;
         this.addChild(refreshButton);
 
+        var self = this;
         refreshButton.addClickEventListener(function() {
-            cc.director.replaceScene(new RoomScene());
+            cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
         });
     },
 
@@ -88,8 +88,9 @@ var RoomLayer = cc.Layer.extend({
 
         this.addChild(backButton);
 
+        var self = this;
         backButton.addClickEventListener(function() {
-            cc.director.replaceScene(new ForestScene());
+            cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
         });
     },
 
