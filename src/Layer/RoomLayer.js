@@ -329,12 +329,9 @@ var RoomLayer = cc.Layer.extend({
         var targetNode = event.getCurrentTarget();
         var touchedPos = touch.getLocation();
 
-        // cc.log(JSON.stringify(touchedPos));
-
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-        // targetNode._objectTouching.setScale(1.05);
 
         return true;
     },
@@ -362,7 +359,7 @@ var RoomLayer = cc.Layer.extend({
             ));
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
-        targetNode._removeWarnLabel();
+
         cc.audioEngine.playEffect(res.DROP_mp3);
 
         return true;
@@ -371,7 +368,7 @@ var RoomLayer = cc.Layer.extend({
     processGameLogic: function() {
         this._removeWarnLabel();
 
-        this._objectTouching.setLocalZOrder(4);
+        this._objectTouching.setLocalZOrder(6);
         this._objectTouching.stopAllActions();
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
@@ -415,7 +412,7 @@ var RoomLayer = cc.Layer.extend({
         cc.audioEngine.stopAllEffects();
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos);
-            this._objectTouching.setLocalZOrder(0);
+            this._objectTouching.setLocalZOrder(1);
             this._objectTouching.userData.scaleFactor = 1;
             this._objectDisableds.push(this._objectTouching);
             this.removeObjectAction();
@@ -467,6 +464,7 @@ var RoomLayer = cc.Layer.extend({
         var soundNumb = isDragging ? 1 : 2;
         // Show cutscene
         var oldZOrder = object.getLocalZOrder();
+        cc.log("oldZOrder: " + oldZOrder);
         if (!isDragging) {
             str = objectName;
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));
@@ -501,30 +499,30 @@ var RoomLayer = cc.Layer.extend({
             cc.audioEngine.stopEffect(this._effectAudioID);
         this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], isDragging);
 
-        object.runAction(cc.sequence(
-            cc.callFunc(function() {
-                self._blockAllObjects = true;
-                self.createWarnLabel(str);
-            }),
-            cc.delayTime(Math.max(soundConfig.length, 3)),
-            cc.callFunc(function() {
-                if (GAME_CONFIG.needTouchToHideCutScene) {
-                    blockFlag = false;
-                } else {
-                    self._blockAllObjects = false;
-                    if (!isDragging) {
+        if (!isDragging)
+        {
+            self._blockAllObjects = true;
+            self.createWarnLabel(str);
+            object.runAction(cc.sequence(
+                cc.delayTime(Math.max(soundConfig.length, 3)),
+                cc.callFunc(function() {
+                    if (GAME_CONFIG.needTouchToHideCutScene) {
+                        blockFlag = false;
+                    } else {
+                        self._blockAllObjects = false;
                         self._removeWarnLabel();
-                        self.checkWonGame();
+
                         if (self._maskLayer) {
                             self._maskLayer.removeFromParent();
                             self._maskLayer = null;
                         }
 
+                        self.checkWonGame();
                         object.setLocalZOrder(oldZOrder);
                     }
-                }
-            })
-        ));
+                })
+            ));
+        }
     },
 
     updateProgressBar: function() {
@@ -563,7 +561,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addSoundCountDown: function() {
-        if (this._hudLayer.getRemainingTime() == 5){
+        if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
             cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
         }
     },
@@ -607,10 +605,10 @@ var RoomLayer = cc.Layer.extend({
                 var oldScale = this._objects[i].scale;
                 this._objects[i].runAction(                               
                                         cc.sequence(
-                                            cc.scaleTo(0.1, 0.3 * oldScale),
-                                            cc.scaleTo(0.3, 1.2 * oldScale),
-                                            cc.scaleTo(0.1, 0.3 * oldScale),
-                                            cc.scaleTo(0.3, 1.2 * oldScale),
+                                            cc.scaleTo(0.1, 0.7 * oldScale),
+                                            cc.scaleTo(0.3, 1.05 * oldScale),
+                                            cc.scaleTo(0.1, 0.7 * oldScale),
+                                            cc.scaleTo(0.3, 1.05 * oldScale),
                                             cc.scaleTo(0.1, 1 * oldScale),
                                             cc.callFunc(function() {
                                                 if (self._hudLayer)
@@ -650,6 +648,7 @@ var RoomLayer = cc.Layer.extend({
         if (this._shadeObjects.length > 0)
             for ( var i = 0; i< this._shadeObjects.length; i++) {
                 this._shadeObjects[i].visible = true;
+                this._shadeObjects[i].setLocalZOrder(1);
             }
     },
 
