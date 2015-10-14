@@ -5,6 +5,18 @@
             "type": "STAND_ITEM"
         },
         {
+            "imageName": "monkey",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "owl",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "frog",
+            "type": "STAND_ITEM"
+        },
+        {
             "imageName": "bird",
             "type": "FLY_ITEM"
         },

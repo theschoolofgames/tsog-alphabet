@@ -47,6 +47,18 @@ var ANIMAL_SOUNDS_LENGTH = [
         length: 3
     },
     {
+        name: "OWL",
+        length: 3
+    },
+    {
+        name: "FROG",
+        length: 3
+    },
+    {
+        name: "MONKEY",
+        length: 3
+    },
+    {
         name: "BEAR",
         length: 3
     },

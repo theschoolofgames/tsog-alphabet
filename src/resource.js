@@ -45,6 +45,9 @@ var res = {
    Horse_png: "animals/horse.png",
    Insect_png: "animals/insect.png",
    Lion_png: "animals/lion.png",
+   Monkey_png: "animals/monkey.png",
+   Frog_png: "animals/frog.png",
+   Owl_ong:"animals/owl.png",
    Tiger_png: "animals/tiger.png",
 
    // Things
