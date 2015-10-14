@@ -135,7 +135,7 @@ cc.game.onStart = function(){
         // else
         cc.director.runScene(new MainScreenScene());
 
-        cc.audioEngine.playMusic(res.BACKGROUND_mp3);
+        cc.audioEngine.playMusic(res.BACKGROUND_mp3, true);
         cc.audioEngine.setMusicVolume(0.1);
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {

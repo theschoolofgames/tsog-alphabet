@@ -168,7 +168,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     if (report->filename)
     {
       msg << report->filename;
-      msg << " line " << report->lineno << "\n";
+      msg << " line " << report->lineno << ":" << report->column << "\n";
     }
     
     JS::RootedValue excn(cx);
@@ -186,8 +186,6 @@ bool AppDelegate::applicationDidFinishLaunching()
       if (JS_EvaluateScript(cx, excnObj, dumpStack, ARRAY_SIZE(dumpStack)-1, "(eval)", 1, &rval))
       {
         std::string stackTrace;
-        
-//        if (ScriptInterface::FromJSVal(cx, rval, stackTrace))
         jsval_to_std_string(cx, rval, &stackTrace);
           msg << "\n" << stackTrace;
         
@@ -200,15 +198,31 @@ bool AppDelegate::applicationDidFinishLaunching()
       }
     }
     
-    CCLOG("%s", msg.str().c_str());
+    std::string mess = msg.str();
     
-    std::string mess = StringUtils::format("JS: %s:%u:%s",
-                                           report->filename ? report->filename : "<no filename=\"filename\">",
-                                           (unsigned int) report->lineno,
-                                           message);
+    std::string search = "\n";
+    std::string replace = "\\n";
+    size_t pos = 0;
+    while ((pos = mess.find(search, pos)) != std::string::npos) {
+      mess.replace(pos, search.length(), replace);
+      pos += replace.length();
+    }
+    
+    pos = 0;
+    string fullPath = FileUtils::getInstance()->fullPathForFilename("main.js");
+    fullPath = fullPath.substr(0, fullPath.size()-7);
+    replace = "";
+    while ((pos = mess.find(fullPath, pos)) != std::string::npos) {
+      mess.replace(pos, fullPath.length(), replace);
+      pos += replace.length();
+    }
+    
+    CCLOG("%s", mess.c_str());
+    
     Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
                                                                            CallFunc::create([mess](){
-      ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);
+      std::string evalStr = StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str());
+      ScriptingCore::getInstance()->evalString(evalStr.c_str(), NULL);
     }), NULL));
   });
 
