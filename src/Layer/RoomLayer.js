@@ -36,7 +36,7 @@ var RoomLayer = cc.Layer.extend({
         // this.addBackButton();
         this.addHud();
         this.runHintObjectUp();
-        // this.playBackgroundMusic();
+        
         this.runSoundCountDown();
         
         cc.eventManager.addListener({
@@ -46,14 +46,6 @@ var RoomLayer = cc.Layer.extend({
                 onTouchMoved: this.onTouchMoved,
                 onTouchEnded: this.onTouchEnded
         }, this);
-    },
-
-    playBackgroundMusic: function() {
-        if (cc.audioEngine.isMusicPlaying())
-            return
-        // play background music
-        cc.audioEngine.setMusicVolume(0.2);
-        cc.audioEngine.playMusic(res.BEDROOM_mp3, true);
     },
 
     resetAllArrays: function() {

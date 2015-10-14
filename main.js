@@ -111,8 +111,8 @@ cc.game.onStart = function(){
     // The game will be resized when browser size change
     cc.view.resizeWithBrowserSize(true);
     //load resources
-    // if (jsb.fileUtils.isFileExist("src/WhoAmI.js"));
-    //     require("src/WhoAmI.js");
+    if (jsb.fileUtils.isFileExist("src/WhoAmI.js"))
+        require("src/WhoAmI.js");
 
     cc.LoaderScene.preload(g_resources, function () {
         KVDatabase.setupInstance(CocosKVImpl);
@@ -134,6 +134,9 @@ cc.game.onStart = function(){
         //     cc.director.runScene(new RoomScene());
         // else
         cc.director.runScene(new MainScreenScene());
+
+        cc.audioEngine.playMusic(res.BACKGROUND_mp3);
+        cc.audioEngine.setMusicVolume(0.1);
 
         cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
             cc.spriteFrameCache.addSpriteFrames(res.Ball_plist);

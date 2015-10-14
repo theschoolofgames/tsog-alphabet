@@ -90,7 +90,6 @@ var res = {
    // Sound effect
    DROP_mp3: "sounds/drop.mp3",
    PICKUP_mp3: "sounds/pickup.mp3",
-   
 
 
    // Animal Sound
@@ -164,8 +163,7 @@ var res = {
    COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
    
    // BG sound 
-   BEDROOM_mp3: "res/sounds/bedroom.mp3",
-   FOREST_mp3: "res/sounds/forest.mp3",
+   BACKGROUND_mp3: "sounds/background.mp3",
 
 
 };
