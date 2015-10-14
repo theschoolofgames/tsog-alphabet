@@ -406,10 +406,10 @@ var ForestLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 this._objects[i].runAction(
                                         cc.sequence(
-                                            cc.scaleTo(0.2, 0.3 * this._allScale),
-                                            cc.scaleTo(0.4, 1.1 * this._allScale),
-                                            cc.scaleTo(0.2, 0.3 * this._allScale),
-                                            cc.scaleTo(0.4, 1.1 * this._allScale),
+                                            cc.scaleTo(0.1, 0.7 * this._allScale),
+                                            cc.scaleTo(0.3, 1.05 * this._allScale),
+                                            cc.scaleTo(0.1, 0.7 * this._allScale),
+                                            cc.scaleTo(0.3, 1.05 * this._allScale),
                                             cc.scaleTo(0.1, 1 * this._allScale),
                                             cc.callFunc(function() {
                                                 self._lastClickTime = self._hudLayer.getRemainingTime();
