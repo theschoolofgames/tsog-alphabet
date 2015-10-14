@@ -515,14 +515,13 @@ var RoomLayer = cc.Layer.extend({
                     if (!isDragging) {
                         self._removeWarnLabel();
                         self.checkWonGame();
-                    }
+                        if (self._maskLayer) {
+                            self._maskLayer.removeFromParent();
+                            self._maskLayer = null;
+                        }
 
-                    if (self._maskLayer) {
-                        self._maskLayer.removeFromParent();
-                        self._maskLayer = null;
+                        object.setLocalZOrder(oldZOrder);
                     }
-
-                    object.setLocalZOrder(oldZOrder);
                 }
             })
         ));
