@@ -1,8 +1,8 @@
 var SettingDialog = cc.Layer.extend({
     _dialogBg: null,
     _mask: null,
-    _userName: null,
-    _schoolName: null,
+    _userName: "",
+    _schoolName: "",
 
     ctor: function() {
         this._super();
@@ -64,9 +64,16 @@ var SettingDialog = cc.Layer.extend({
         logoutBtn.y = 20;
         this._dialogBg.addChild(logoutBtn);
 
+        var self = this;
         logoutBtn.addClickEventListener(function() {
             KVDatabase.getInstance().remove(STRING_USER_ID);
+            KVDatabase.getInstance().remove(STRING_USER_NAME);
+            KVDatabase.getInstance().remove(STRING_SCHOOL_NAME);
+            KVDatabase.getInstance().remove("numberItems");
+            KVDatabase.getInstance().remove("amountGamePlayed");
+            
             cc.director.replaceScene(new MainScreenScene());
+            Utils.moveToMainApp();
         })
     },
 

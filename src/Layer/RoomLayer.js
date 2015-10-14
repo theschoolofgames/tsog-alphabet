@@ -19,14 +19,18 @@ var RoomLayer = cc.Layer.extend({
 
     _effectAudioID: null,
 
-    _numberItems: 3,
     _isLevelCompleted: false,
+    _numberItems: 0,
+    _amountOfPlay: 0,
+    _numberGamePlayed: 0,
 
-    ctor: function() {
+    ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
-
-        this._isLevelCompleted = false;
+        this._numberItems = numberItems || NUMBER_ITEMS;
+        this._numberGamePlayed = numberGamePlayed || 0;
+        cc.log("numberItems " + numberItems);
+        // this._isLevelCompleted = false;
 
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -128,7 +132,7 @@ var RoomLayer = cc.Layer.extend({
 
     addObjects: function() {
         var dsInstance = ConfigStore.getInstance();
-        this._numberItems = this.getNumberOfObjects();
+        // this._numberItems = this.getNumberOfObjects();
 
         var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._numberItems);
         var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
@@ -245,9 +249,9 @@ var RoomLayer = cc.Layer.extend({
 
     completedScene: function() {
         // printStackTrace();
-        if (this._isLevelCompleted)
-            return;
-        this._isLevelCompleted = true;
+        // if (this._isLevelCompleted)
+        //     return;
+        // this._isLevelCompleted = true;
 
         var starEarned = this._hudLayer.getStarEarned();
 
@@ -259,9 +263,12 @@ var RoomLayer = cc.Layer.extend({
 
         this.increaseAmountGamePlayed();
 
-        this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                    cc.director.replaceScene(new ForestScene());
-                });
+        var self = this;
+        this.runObjectAction(this, CHANGE_SCENE_TIME, 
+            function() {
+                cc.log("numberItems: " + self._numberItems);    
+                cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
+            });
     },
 
     _findTouchedObject: function(touchedPos) {
@@ -622,19 +629,20 @@ var RoomLayer = cc.Layer.extend({
     },
 
     increaseAmountGamePlayed: function() {
-        var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed", 0);
-        numberGamePlayed += 1;
-        cc.log("numberGamePlayed : %d", numberGamePlayed)
-        this.setNumberOfObjects(numberGamePlayed);
+        // var numberGamePlayed = this._kvInstance.getInt("amountGamePlayed", 0);
+        // numberGamePlayed += 1;
+        // cc.log("numberGamePlayed : %d", numberGamePlayed)
+        // this.setNumberOfObjects(numberGamePlayed);
+        this._numberGamePlayed += 1;
     },
 
-    getNumberOfObjects: function() {
-        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
-    },
+    // getNumberOfObjects: function() {
+    //     return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+    // },
 
-    setNumberOfObjects: function(numberGamePlayed) {
-        this._kvInstance.set("amountGamePlayed", numberGamePlayed);
-    },
+    // setNumberOfObjects: function(numberGamePlayed) {
+    //     this._kvInstance.set("amountGamePlayed", numberGamePlayed);
+    // },
 
     hadObjectRequired: function() {
         var requireObjectsToHideAllShadow = GAME_CONFIG.requireObjectsToHideAllShadow;
@@ -661,10 +669,10 @@ var RoomLayer = cc.Layer.extend({
 });
 
 var RoomScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(numberItems, numberGamePlayed) {
         this._super();
 
-        var roomLayer = new RoomLayer();
+        var roomLayer = new RoomLayer(numberItems, numberGamePlayed);
         this.addChild(roomLayer);
     }
 });

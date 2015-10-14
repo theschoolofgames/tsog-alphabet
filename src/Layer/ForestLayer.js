@@ -22,10 +22,15 @@ var ForestLayer = cc.Layer.extend({
 
     _allScale: 1,
 
-    _numberItems: 3,
+    _numberItems: 0,
+    _amountOfPlay: 0,
+    _numberGamePlayed: 0,
 
-    ctor: function() {
+    ctor: function(numberItems, numberGamePlayed) {
         this._super();
+
+        this._numberItems = numberItems;
+        this._numberGamePlayed = numberGamePlayed;
 
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
@@ -97,9 +102,9 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimals: function() {
-        this._numberItems = this.getNumberOfObjects();
+        // this._numberItems = this.getNumberOfObjects();
         cc.log("this._numberItems: %d, ", this._numberItems)
-        var animals = this._dsInstance.getObjects(FOREST_ID, this._numberItems);
+        var animals = this._dsInstance.getRandomObjects(FOREST_ID, this._numberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         for ( var i = 0; i < this._numberItems; i++) {
             var animalPositionArray = this.getAnimalPositionType(animals[i].type, shuffledArrays);
@@ -328,8 +333,9 @@ var ForestLayer = cc.Layer.extend({
         this.increaseAmountGamePlayeds();
         this.increaseObjectAmountBaseOnPlay();
 
+        var self = this;
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                    cc.director.replaceScene(new RoomScene());
+                    cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
                 });
     },
 
@@ -566,49 +572,50 @@ var ForestLayer = cc.Layer.extend({
         }
     },
 
-    getAmountGamePlayeds: function() {
-        return this._kvInstance.getInt("amountGamePlayed", 0);
-    },
+    // getAmountGamePlayeds: function() {
+    //     return this._kvInstance.getInt("amountGamePlayed", 0);
+    // },
 
-    getNumberOfObjects: function() {
-        return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
-    },
+    // getNumberOfObjects: function() {
+    //     return this._kvInstance.getInt("numberItems", GAME_CONFIG.objectStartCount);
+    // },
 
-    setNumberOfObjects: function(numberItems) {
-        this._kvInstance.set("numberItems", numberItems);
-    },
+    // setNumberOfObjects: function(numberItems) {
+    //     this._kvInstance.set("numberItems", numberItems);
+    // },
 
-    setAmountGamePlayeds: function(numberGamePlayed) {
-        this._kvInstance.set("amountGamePlayed", numberGamePlayed);
-    },
+    // setAmountGamePlayeds: function(numberGamePlayed) {
+    //     this._kvInstance.set("amountGamePlayed", numberGamePlayed);
+    // },
 
     increaseAmountGamePlayeds: function() {
-        var numberGamePlayed = this.getAmountGamePlayeds();
-        numberGamePlayed += 1;
-        this.setAmountGamePlayeds(numberGamePlayed);
+        // var numberGamePlayed = this.getAmountGamePlayeds();
+        // numberGamePlayed += 1;
+        // this.setAmountGamePlayeds(numberGamePlayed);
+        this._numberGamePlayed += 1;
     },
 
     increaseObjectAmountBaseOnPlay: function() {
-        var numberGamePlayed = this.getAmountGamePlayeds();
+        // var numberGamePlayed = this.getAmountGamePlayeds();
         var baseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.base;
         var increaseObjectAmounts = GAME_CONFIG.amountOfObjectBaseOnPlay.increase;
 
         // cc.log("(numberGamePlayed % baseObjectAmounts) " + (numberGamePlayed % baseObjectAmounts));
-        if ((numberGamePlayed % baseObjectAmounts) == 0)
+        if ((this._numberGamePlayed % baseObjectAmounts) == 0)
             this._numberItems += increaseObjectAmounts;
 
         // cc.log("numberItems: %d", this._numberItems);
         // cc.log("numberGamePlayed: %d", numberGamePlayed);
         // cc.log("baseObjectAmounts: %d", baseObjectAmounts);
         // cc.log("increaseObjectAmounts: %d", increaseObjectAmounts);
-        this.setNumberOfObjects(this._numberItems);
+        // this.setNumberOfObjects(this._numberItems);
     },
 });
 var ForestScene = cc.Scene.extend({
-    ctor: function() {
+    ctor: function(numberItems, numberGamePlayed) {
         this._super();
 
-        var forestLayer = new ForestLayer();
+        var forestLayer = new ForestLayer(numberItems, numberGamePlayed);
         this.addChild(forestLayer);
     }
 });

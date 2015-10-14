@@ -6,5 +6,6 @@
         "increase": 1
     },
     "requireObjectsToHideAllShadow": 6,
-    "levelTime": 120
+    "levelTime": 120,
+    "amountOfPlay": 1
 }
