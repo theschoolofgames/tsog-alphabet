@@ -41,6 +41,10 @@
 
 #include "jsapi.h"
 
+#define ARRAY_SIZE(a)                               \
+  ((sizeof(a) / sizeof(*(a))) /                     \
+  static_cast<size_t>(!(sizeof(a) % sizeof(*(a)))))
+
 USING_NS_CC;
 using namespace CocosDenshion;
 
@@ -157,11 +161,51 @@ bool AppDelegate::applicationDidFinishLaunching()
   console->listenOnTCP(6050);
   
   JS_SetErrorReporter(sc->getGlobalContext(), [](JSContext *cx, const char *message, JSErrorReport *report) {
+    
+    std::stringstream msg;
+    bool isWarning = JSREPORT_IS_WARNING(report->flags);
+    msg << (isWarning ? "JavaScript warning: " : "JavaScript error: ");
+    if (report->filename)
+    {
+      msg << report->filename;
+      msg << " line " << report->lineno << "\n";
+    }
+    
+    JS::RootedValue excn(cx);
+    if (JS_GetPendingException(cx, &excn) && excn.isObject())
+    {
+      JS::RootedObject excnObj(cx, &excn.toObject());
+      // TODO: this violates the docs ("The error reporter callback must not reenter the JSAPI.")
+      
+      // Hide the exception from EvaluateScript
+      JSExceptionState* excnState = JS_SaveExceptionState(cx);
+      JS_ClearPendingException(cx);
+      
+      JS::RootedValue rval(cx);
+      const char dumpStack[] = "this.stack.trimRight().replace(/^/mg, '  ')"; // indent each line
+      if (JS_EvaluateScript(cx, excnObj, dumpStack, ARRAY_SIZE(dumpStack)-1, "(eval)", 1, &rval))
+      {
+        std::string stackTrace;
+        
+//        if (ScriptInterface::FromJSVal(cx, rval, stackTrace))
+        jsval_to_std_string(cx, rval, &stackTrace);
+          msg << "\n" << stackTrace;
+        
+        JS_RestoreExceptionState(cx, excnState);
+      }
+      else
+      {
+        // Error got replaced by new exception from EvaluateScript
+        JS_DropExceptionState(cx, excnState);
+      }
+    }
+    
+    CCLOG("%s", msg.str().c_str());
+    
     std::string mess = StringUtils::format("JS: %s:%u:%s",
                                            report->filename ? report->filename : "<no filename=\"filename\">",
                                            (unsigned int) report->lineno,
                                            message);
-    CCLOG("%s", mess.c_str());
     Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
                                                                            CallFunc::create([mess](){
       ScriptingCore::getInstance()->evalString(StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str()).c_str(), NULL);

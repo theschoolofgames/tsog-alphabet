@@ -135,6 +135,13 @@ cc.game.onStart = function(){
         // else
         cc.director.runScene(new MainScreenScene());
 
+        cc.eventManager.addCustomListener(cc.game.EVENT_SHOW, function () {
+            cc.spriteFrameCache.addSpriteFrames(res.Ball_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Board_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Game_plist);
+            cc.spriteFrameCache.addSpriteFrames(res.Effect_plist);
+        });
+
     }, this);
 };
 cc.game.run();

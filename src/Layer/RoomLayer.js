@@ -252,8 +252,10 @@ var RoomLayer = cc.Layer.extend({
     },
 
     completedScene: function() {
+        // printStackTrace();
         if (this._isLevelCompleted)
             return;
+        this._isLevelCompleted = true;
 
         var starEarned = this._hudLayer.getStarEarned();
 
@@ -263,9 +265,7 @@ var RoomLayer = cc.Layer.extend({
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
-        this._isLevelCompleted = true;
-        if (this._isLevelCompleted)
-            this.increaseAmountGamePlayed();
+        this.increaseAmountGamePlayed();
 
         this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
                     cc.director.replaceScene(new ForestScene());
@@ -520,14 +520,16 @@ var RoomLayer = cc.Layer.extend({
                     blockFlag = false;
                 } else {
                     self._blockAllObjects = false;
-                    self._removeWarnLabel();
+                    if (!isDragging) {
+                        self._removeWarnLabel();
+                        self.checkWonGame();
+                    }
 
                     if (self._maskLayer) {
                         self._maskLayer.removeFromParent();
                         self._maskLayer = null;
                     }
 
-                    self.checkWonGame();
                     object.setLocalZOrder(oldZOrder);
                 }
             })
