@@ -10,6 +10,8 @@
 		018661941B9FE5F60002036C /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661931B9FE5F60002036C /* H102Wrapper.m */; };
 		018661A51B9FE6480002036C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A41B9FE6480002036C /* CoreData.framework */; };
 		018661A71B9FE6540002036C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A61B9FE6540002036C /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		01ADA5D01BCF5FE00049B7A5 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */; settings = {ASSET_TAGS = (); }; };
+		01ADA5D11BCF5FE00049B7A5 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */; settings = {ASSET_TAGS = (); }; };
 		01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DB61BCC18E300253473 /* AnalyticManager.cpp */; settings = {ASSET_TAGS = (); }; };
 		01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DC11BCCA43900253473 /* AnalyticManager.mm */; settings = {ASSET_TAGS = (); }; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
@@ -143,6 +145,10 @@
 		018661931B9FE5F60002036C /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
 		018661A41B9FE6480002036C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		018661A61B9FE6540002036C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		01ADA5CC1BCF5FE00049B7A5 /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
+		01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
+		01ADA5CE1BCF5FE00049B7A5 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
+		01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		01F76DB61BCC18E300253473 /* AnalyticManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AnalyticManager.cpp; sourceTree = "<group>"; };
 		01F76DC01BCCA40700253473 /* AnalyticManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnalyticManager.h; sourceTree = "<group>"; };
 		01F76DC11BCCA43900253473 /* AnalyticManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnalyticManager.mm; sourceTree = "<group>"; };
@@ -260,6 +266,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01ADA5CB1BCF5FE00049B7A5 /* PDKeychainBindingsController */ = {
+			isa = PBXGroup;
+			children = (
+				01ADA5CC1BCF5FE00049B7A5 /* PDKeychainBindings.h */,
+				01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */,
+				01ADA5CE1BCF5FE00049B7A5 /* PDKeychainBindingsController.h */,
+				01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */,
+			);
+			path = PDKeychainBindingsController;
+			sourceTree = "<group>";
+		};
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +334,7 @@
 				C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */,
 				1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */,
 				BAF426FA19484B3E002B22EF /* script */,
+				01ADA5CB1BCF5FE00049B7A5 /* PDKeychainBindingsController */,
 				D4545214156E28EF00887EB5 /* Classes */,
 				A92275401517C094001B78AA /* Frameworks */,
 				D45446CC156DE73F00887EB5 /* ios */,
@@ -583,7 +601,9 @@
 				D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */,
 				01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */,
 				509D4AC817EBB2AB00697056 /* main.m in Sources */,
+				01ADA5D11BCF5FE00049B7A5 /* PDKeychainBindingsController.m in Sources */,
 				01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */,
+				01ADA5D01BCF5FE00049B7A5 /* PDKeychainBindings.m in Sources */,
 				509D4ABC17EBB2AB00697056 /* AppController.mm in Sources */,
 				018661941B9FE5F60002036C /* H102Wrapper.m in Sources */,
 			);

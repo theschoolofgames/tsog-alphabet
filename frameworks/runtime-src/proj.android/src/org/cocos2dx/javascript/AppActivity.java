@@ -42,6 +42,7 @@ public class AppActivity extends Cocos2dxActivity {
 
     private static AppActivity app = null;
     private static final String TAG = "AppActivity";
+    private static String udid;
 	
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -60,6 +61,8 @@ public class AppActivity extends Cocos2dxActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
+
+        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
         return glSurfaceView;
     }
@@ -106,5 +109,9 @@ public class AppActivity extends Cocos2dxActivity {
         i.addCategory(Intent.CATEGORY_LAUNCHER);
         app.startActivity(i);
         return true;    
+    }
+
+    public static String getId() {
+        return udid;
     }
 }

@@ -38,21 +38,31 @@ Utils.moveToMainApp = function() {
     }
 }
 
+Utils.getUDID = function() {
+  if (cc.sys.os == cc.sys.OS_IOS)
+    return jsb.reflection.callStaticMethod("H102Wrapper", 
+                                           "getUniqueDeviceId");
+  else if (cc.sys.os == cc.sys.OS_ANDROID)
+    return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
+}
+
 Utils.receiveData = function(data) {
     var decodedData = Base64.decode(data);
     var dataArray = decodedData.split(':');
 
-    var message = cc.formatStr("UserName: %s\nSchoolName: %s", dataArray[0], dataArray[1]);
+    var message = cc.formatStr("UserName: %s\nSchoolName: %s", dataArray[0], dataArray[2]);
     // showNativeMessage("TSOG", message);
 
     KVDatabase.getInstance().set(STRING_USER_NAME, dataArray[0]);
-    KVDatabase.getInstance().set(STRING_SCHOOL_NAME, dataArray[1]);
-    KVDatabase.getInstance().set(STRING_USER_ID, dataArray[2]);
+    KVDatabase.getInstance().set(STRING_USER_ID, dataArray[1]);
+    KVDatabase.getInstance().set(STRING_SCHOOL_NAME, dataArray[2]);
+    KVDatabase.getInstance().set(STRING_SCHOOL_ID, dataArray[3]);
 
     var receivedData = {
         user_name: dataArray[0],
-        school_name: dataArray[1],
-        user_id: dataArray[2]
+        user_id: dataArray[1],
+        school_name: dataArray[2],
+        school_id: dataArray[3]
     }
     cc.eventManager.dispatchCustomEvent(STRING_EVENT_MAIN_APP_CALLED, receivedData);
 }

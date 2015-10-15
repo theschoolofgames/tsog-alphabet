@@ -70,8 +70,7 @@ var MainScreenLayer = cc.LayerColor.extend({
         var self = this;
         this._eventMainAppCall = cc.eventManager.addCustomListener(STRING_EVENT_MAIN_APP_CALLED, function (event) {
             var data = event.getUserData();
-            // if (self._lbWelcome)
-                self._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);
+            self._lbWelcome.string = cc.formatStr("Welcome %s\nfrom %s", data.user_name, data.school_name);
         });
     },
 

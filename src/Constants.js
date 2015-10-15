@@ -2,6 +2,7 @@ var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var GAME_ID = "5604beb2ded84d7c8083389a";
+var SEGMENT_KEY = "TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak";
 
 var MOVE_DELAY_TIME = 1;
 var ANIMATE_DELAY_TIME = 0.2;
@@ -147,5 +148,6 @@ var FONT_COLOR = [
 var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";
+var STRING_SCHOOL_ID = "self_school_id";
 
 var STRING_EVENT_MAIN_APP_CALLED = "event_main_app_called";
