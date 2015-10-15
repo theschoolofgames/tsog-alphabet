@@ -1,6 +1,51 @@
 {
     "items": [
         {
+            "imageName": "key",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 849.6,
+            "y": 430.83333,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
+            "imageName": "kite",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 117.1,
+            "y": 185.5,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
+            "imageName": "jocker",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 392.1,
+            "y": 312.1,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
+            "imageName": "strawberry",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 252.08333333,
+            "y": 272.08333333,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
+            "imageName": "sock",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 475,
+            "y": 272.08333333,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
             "imageName": "duster",
             "type": "HEAVY_WEIGHT_ITEM",
             "x": 217.5,

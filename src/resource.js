@@ -68,6 +68,11 @@ var res = {
    Potato_png: "things/potato.png",
    Towel_png: "things/towel.png",
    Umbrella_png: "things/umbrella.png",
+   Key_png:"things/key.png",
+   Sock_png: "things/sock.png",
+   Jocker_png: "things/jocker.png",
+   Kite_png: "things/kite.png",
+   Strawberry_png: "things/strawberry.png",
 
    // Hud
    Hud_plist: "hud/hud.plist",
