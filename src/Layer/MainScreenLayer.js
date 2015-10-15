@@ -62,7 +62,7 @@ var MainScreenLayer = cc.LayerColor.extend({
                 }
         }, this);
 
-        // this.downloadAssets();
+        this.downloadAssets();
     },
 
     onEnter: function() {
