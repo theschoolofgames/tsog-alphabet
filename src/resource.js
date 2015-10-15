@@ -93,6 +93,7 @@ var res = {
    // Sound effect
    DROP_mp3: "sounds/drop.mp3",
    PICKUP_mp3: "sounds/pickup.mp3",
+   SMOKE_mp3: "sounds/smoke.mp3",
 
 
    // Animal Sound

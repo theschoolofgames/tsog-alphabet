@@ -53,14 +53,6 @@ cc.game.onStart = function(){
 
     cc.log(jsb.fileUtils.getWritablePath());
 
-    if (cc.sys.isNative && (cc.sys.platform == sys.IPAD || cc.sys.platform == sys.IPHONE)) {
-        var appKey = "77af1c70dbcd203a25fab74149db708eef866eb6";
-        var hostUrl = "http://tsog.hub102.com";
-        jsb.reflection.callStaticMethod("H102Wrapper",
-                                             "countlyStart:withUrl:",
-                                             appKey,
-                                             hostUrl);
-    }
 
     // Pass true to enable retina display, disabled by default to improve performance
     cc.view.enableRetina(false);

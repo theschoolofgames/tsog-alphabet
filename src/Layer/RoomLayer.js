@@ -204,6 +204,7 @@ var RoomLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
+                    cc.audioEngine.playEffect(res.SMOKE_mp3),
                     new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
