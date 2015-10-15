@@ -18,9 +18,12 @@ var Clock = cc.Node.extend({
     },
 
     createCountDownClockLabel: function() {
-        var countDownClockLabel = cc.LabelTTF(this.getCurrentTime(), "Arial", 32);
+        font = res.HudFont_fnt;
+        var text = this.getCurrentTime();
+        var countDownClockLabel = new cc.LabelBMFont(text, font);
+        // var countDownClockLabel = cc.LabelTTF(, "Arial", 32);
         countDownClockLabel.color = cc.color("#ffd902");
-
+        countDownClockLabel.y = this.height + 31;
         this._countDownClock = countDownClockLabel;
         this.addChild(countDownClockLabel);
     },

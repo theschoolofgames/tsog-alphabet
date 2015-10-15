@@ -4,9 +4,9 @@
         <key>fileFormatVersion</key>
         <int>3</int>
         <key>texturePackerVersion</key>
-        <string>3.9.4</string>
+        <string>3.9.2</string>
         <key>fileName</key>
-        <string>/Volumes/Source/_Dev/tsog-alphabet/_sourceart/HUD/HUD.tps</string>
+        <string>/Users/Tony/dev/project/tsog-alphabet/tsog-alphabet/_sourceart/HUD/HUD.tps</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">

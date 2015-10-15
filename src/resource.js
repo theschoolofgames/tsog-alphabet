@@ -74,6 +74,8 @@ var res = {
    Hud_png: "hud/hud.png",
    Hud_progress_bar_png: "hud/progress-bar.jpg",
    Hud_progress_bar_alpha_png: "hud/progress-bar-alpha.jpg",
+   HudFont_fnt: "hud-font-export.fnt",
+   HudFont_png: "hud-font.png",
 
    // Shader
    SpriteDistort_fsh: "res/shader/SpriteDistort.fsh",

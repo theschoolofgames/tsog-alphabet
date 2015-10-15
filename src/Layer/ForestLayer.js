@@ -440,9 +440,9 @@ var ForestLayer = cc.Layer.extend({
                 var i = Math.floor(Math.random() * (this._objects.length - 1));
                 this._objects[i].runAction(
                                         cc.sequence(
-                                            cc.scaleTo(0.2, 0.7 * this._allScale),
+                                            cc.scaleTo(0.3, 0.7 * this._allScale),
                                             cc.scaleTo(0.2, 1.05 * this._allScale),
-                                            cc.scaleTo(0.2, 0.7 * this._allScale),
+                                            cc.scaleTo(0.3, 0.7 * this._allScale),
                                             cc.scaleTo(0.2, 1.05 * this._allScale),
                                             cc.scaleTo(0.2, 1 * this._allScale),
                                             cc.callFunc(function() {
