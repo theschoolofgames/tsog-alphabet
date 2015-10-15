@@ -134,7 +134,12 @@ var OBJECT_SOUNDS_LENGTH = [
 	{name: "TOWEL", length: 2},
 	{name: "UMBRELLA", length: 2},
 	{name: "VEST", length: 2},
-	{name: "WATCH", length: 2}
+	{name: "WATCH", length: 2},
+    {name: "PEN", length: 2},
+    {name: "STRAWBERRY", length: 2},
+    {name: "SOCK", length: 2},
+
+
 ];
 
 // bitmap font

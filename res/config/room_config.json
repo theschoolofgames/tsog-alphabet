@@ -19,10 +19,18 @@
         },
 
         {
-            "imageName": "jocker",
+            "imageName": "joker",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 392.1,
             "y": 312.1,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "imageName": "pen",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1089.25,
+            "y": 236.29166667,
             "anchorX": 0.5,
             "anchorY": 0.5
         },

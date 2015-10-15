@@ -70,9 +70,10 @@ var res = {
    Umbrella_png: "things/umbrella.png",
    Key_png:"things/key.png",
    Sock_png: "things/sock.png",
-   Jocker_png: "things/jocker.png",
+   Joker_png: "things/joker.png",
    Kite_png: "things/kite.png",
    Strawberry_png: "things/strawberry.png",
+   Pen_png: "things/pen.png",
 
    // Hud
    Hud_plist: "hud/hud.plist",
@@ -169,7 +170,16 @@ var res = {
    VEST_2_mp3: "res/sounds/things/vest-2.mp3",
    WATCH_1_mp3: "res/sounds/things/watch-1.mp3",
    WATCH_2_mp3: "res/sounds/things/watch-2.mp3",
-
+   KEY_1_mp3:"res/sounds/things/key-1.mp3",
+   KEY_2_mp3:"res/sounds/things/key-2.mp3",
+   JOCKER_1_mp3:"res/sounds/things/jocker-1.mp3",
+   JOCKER_2_mp3: "res/sounds/things/jocker-2.mp3",
+   SOCK_1_mp3: "res/sounds/things/sock-1.mp3",
+   SOCK_2_mp3: "res/sounds/things/sock-2.mp3",
+   STRAWBERRY_1_mp3: "res/sounds/things/strawberry-1.mp3",
+   STRAWBERRY_2_mp3: "res/sounds/things/strawberry-2.mp3",
+   PEN_1_mp3: "res/sounds/things/pen-1.mp3",
+   PEN_2_mp3: "res/sounds/things/pen-2.mp3",
    //countdown
    COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
    
