@@ -151,7 +151,7 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "PEN", length: 2},
     {name: "STRAWBERRY", length: 2},
     {name: "SOCK", length: 2},
-    {name: "TABLE", length:2},
+    {name: "DESK", length:2},
 
 
 ];
