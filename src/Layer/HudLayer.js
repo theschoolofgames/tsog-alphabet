@@ -105,7 +105,7 @@ var HudLayer = cc.Layer.extend({
 
     addProgressLabel: function(object, text) {
         // cc.log("text: " + text);
-        font = res.HudFont_fnt;
+        font =  "hud-font-export.fnt";
 
         var label = new cc.LabelBMFont(text, font);
         // label.scale = 0.5;

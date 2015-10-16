@@ -70,7 +70,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addRefreshButton: function() {
-        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
+        var refreshButton = new ccui.Button( "res/refresh-button.png", "", "");
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = refreshButton.height / 2;
         this.addChild(refreshButton);
@@ -82,7 +82,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addBackButton: function() {
-        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
+        var backButton = new ccui.Button( "res/back.png",  "res/back-pressed.png", "");
         backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = backButton.height / 2;
 
@@ -95,7 +95,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var background = new cc.Sprite(res.room_jpg);
+        var background = new cc.Sprite( "Bedroom-screen.jpg");
         this._allScale = cc.winSize.width / background.width;
 
         background.setScale(this._allScale);
@@ -104,27 +104,27 @@ var RoomLayer = cc.Layer.extend({
         background.anchorY = 0;
         this.addChild(background);
 
-        var roof = new cc.Sprite(res.room_roof_png);
+        var roof = new cc.Sprite("bedroom-roof.png");
         roof.scale = this._allScale;
         roof.x = cc.winSize.width/2;
         roof.y = cc.winSize.height;
         roof.anchorY = 1;
         this.addChild(roof);
 
-        var roomRibbon = new cc.Sprite(res.room_ribbon_png);
+        var roomRibbon = new cc.Sprite("bedroom-ribbon.png");
         roomRibbon.x = 0
         roomRibbon.y = cc.winSize.height - 135;
         roomRibbon.anchorX = 0;
         roomRibbon.scale = this._allScale;
         this.addChild(roomRibbon);
 
-        var roomClock = new cc.Sprite(res.room_clock_png);
+        var roomClock = new cc.Sprite("bedroom-clock.png");
         roomClock.x = 350 * this._allScale;
         roomClock.y = cc.winSize.height - 195 / this._allScale;
         roomClock.scale = this._allScale;
         this.addChild(roomClock);
 
-        var roomWindow = new cc.Sprite(res.room_window_png);
+        var roomWindow = new cc.Sprite("bedroom-window.png");
         roomWindow.x = 620 * this._allScale;
         roomWindow.y = cc.winSize.height - 230 / this._allScale;
         roomWindow.scale = this._allScale;
@@ -204,7 +204,7 @@ var RoomLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
-                    cc.audioEngine.playEffect(res.SMOKE_mp3),
+                    cc.audioEngine.playEffect("sounds/smoke.mp3"),
                     new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
@@ -316,7 +316,7 @@ var RoomLayer = cc.Layer.extend({
         if (!targetNode._objectTouching)
             return false;
 
-        cc.audioEngine.playEffect(res.PICKUP_mp3);
+        cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
 
         var oldScale = targetNode._objectTouching.scale;
@@ -369,7 +369,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
 
-        cc.audioEngine.playEffect(res.DROP_mp3);
+        cc.audioEngine.playEffect("sounds/drop.mp3");
 
         return true;
     },
@@ -571,7 +571,7 @@ var RoomLayer = cc.Layer.extend({
 
     addSoundCountDown: function() {
         if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
-            cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
+            cc.audioEngine.playEffect("res/sounds/Countdown.mp3")
         }
     },
 

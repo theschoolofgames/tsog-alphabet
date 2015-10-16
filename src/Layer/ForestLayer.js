@@ -62,7 +62,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
-        var background = new cc.Sprite(res.BG_jpg);
+        var background = new cc.Sprite("BG.jpg");
         this._allScale = cc.winSize.width / background.width;
 
         background.x = cc.winSize.width;
@@ -274,7 +274,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addRefreshButton: function() {
-        var refreshButton = new ccui.Button(res.Button_Refresh_png, "", "");
+        var refreshButton = new ccui.Button("res/refresh-button.png", "", "");
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = refreshButton.height / 2;
 
@@ -286,7 +286,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addBackButton: function() {
-        var backButton = new ccui.Button(res.Back_Button_png, res.Back_Button_Pressed_png, "");
+        var backButton = new ccui.Button( "res/back.png",  "res/back-pressed.png", "");
         backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = backButton.height / 2;
 
@@ -421,7 +421,7 @@ var ForestLayer = cc.Layer.extend({
             cc.sequence(
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
-                    cc.audioEngine.playEffect(res.SMOKE_mp3),
+                    cc.audioEngine.playEffect( "sounds/smoke.mp3"),
                     new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9)),
@@ -517,7 +517,7 @@ var ForestLayer = cc.Layer.extend({
             }
         }, mask);
 
-        cc.audioEngine.playEffect(res[animalName.toUpperCase() + "_mp3"]);
+        cc.audioEngine.playEffect("sounds/animals/" + animalName + ".mp3");
 
         animal.runAction(cc.sequence(
             cc.callFunc(function() {
@@ -586,7 +586,7 @@ var ForestLayer = cc.Layer.extend({
 
     addSoundCountDown: function() {
         if (this._hudLayer.getRemainingTime() == COUNT_DOWN_TIME){
-            cc.audioEngine.playEffect(res.COUNTDOWN_mp3)
+            cc.audioEngine.playEffect( "res/sounds/Countdown.mp3")
         }
     },
 
