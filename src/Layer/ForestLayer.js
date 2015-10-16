@@ -226,6 +226,8 @@ var ForestLayer = cc.Layer.extend({
             this.runStandAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.OWL_ITEM)
             this.runLieAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.NEST_ITEM)
+            this.runLieAnimalAction(animal);
     },
 
     runFlyAnimalAction: function(animal) {
@@ -375,13 +377,15 @@ var ForestLayer = cc.Layer.extend({
         var monkeyPositionArray = Utils.shuffle(FOREST_MONKEY_POSITION);
         var owlPositionArray = Utils.shuffle(FOREST_OWL_POSITION);
         var frogPositionArray = Utils.shuffle(FOREST_FROG_POSITION);
+        var nestPositionArray = Utils.shuffle(FOREST_NEST_POSITION);
 
         return {flyPositionArray: flyPositionArray, 
             groundPositionArray: groundPositionArray, 
-            waterPositionArray: waterPositionArray,
+            frogPositionArray: frogPositionArray,
             monkeyPositionArray: monkeyPositionArray,
+            nestPositionArray: nestPositionArray,
             owlPositionArray: owlPositionArray,
-            frogPositionArray: frogPositionArray
+            waterPositionArray: waterPositionArray
         };
     },
 
@@ -399,6 +403,8 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.owlPositionArray
         if (type === FOREST_ITEM_TYPE.FROG_ITEM)
             animalPositionArray = shuffledArrays.frogPositionArray
+        if (type === FOREST_ITEM_TYPE.NEST_ITEM)
+            animalPositionArray = shuffledArrays.nestPositionArray
 
         return animalPositionArray
     },

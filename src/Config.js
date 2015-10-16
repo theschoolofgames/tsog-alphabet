@@ -18,6 +18,7 @@ var FOREST_WATER_POSITION = [];
 var FOREST_MONKEY_POSITION = [];
 var FOREST_OWL_POSITION = [];
 var FOREST_FROG_POSITION = []; 
+var FOREST_NEST_POSITION = [];
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: 668,
@@ -281,6 +282,7 @@ ConfigStore.setupInstance = function () {
             FOREST_FROG_POSITION = preProcessData(data.frog);
             FOREST_OWL_POSITION = preProcessData(data.owl);
             FOREST_MONKEY_POSITION = preProcessData(data.monkey);
+            FOREST_NEST_POSITION = preProcessData(data.nest);
             forestLoaded = true;
         } else {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Forest_Config_JSON);
@@ -292,6 +294,7 @@ ConfigStore.setupInstance = function () {
                 FOREST_FROG_POSITION = preProcessData(data.frog);
                 FOREST_OWL_POSITION = preProcessData(data.owl);
                 FOREST_MONKEY_POSITION = preProcessData(data.monkey);
+                FOREST_NEST_POSITION = preProcessData(data.nest);
                 forestLoaded = true;
             });
         }

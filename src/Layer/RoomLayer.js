@@ -506,7 +506,7 @@ var RoomLayer = cc.Layer.extend({
 
         if (this._effectAudioID)
             cc.audioEngine.stopEffect(this._effectAudioID);
-        this._effectAudioID = cc.audioEngine.playEffect(res[objectName.toUpperCase() + "_" + soundNumb + "_mp3"], isDragging);
+        this._effectAudioID = cc.audioEngine.playEffect("res/sounds/things/" + objectName + "-" + soundNumb + ".mp3", isDragging);
 
         if (!isDragging)
         {
