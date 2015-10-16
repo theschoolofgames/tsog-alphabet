@@ -49,6 +49,9 @@ var res = {
    Frog_png: "animals/frog.png",
    Owl_ong:"animals/owl.png",
    Tiger_png: "animals/tiger.png",
+   Rat_png: "animals/rat.png",
+   Panda_png: "animals/panda.mp3",
+   Nest_png: "animals/nest.png",
 
    // Things
    Map_png: "things/map.png",
@@ -74,6 +77,7 @@ var res = {
    Kite_png: "things/kite.png",
    Strawberry_png: "things/strawberry.png",
    Pen_png: "things/pen.png",
+   Table_png: "things/table.png",
 
    // Hud
    Hud_plist: "hud/hud.plist",

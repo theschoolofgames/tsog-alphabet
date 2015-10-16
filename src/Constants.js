@@ -28,7 +28,8 @@ var FOREST_ITEM_TYPE = {
     WATER_ITEM: "WATER_ITEM",
     MONKEY_ITEM: "MONKEY_ITEM",
     OWL_ITEM: "OWL_ITEM",
-    FROG_ITEM: "FROG_ITEM"
+    FROG_ITEM: "FROG_ITEM",
+    NEST_ITEM: "NEST_ITEM"
 }
 
 // var STAR_GOAL_1 = 1;
@@ -109,6 +110,18 @@ var ANIMAL_SOUNDS_LENGTH = [
     {
         name: "TIGER", 
         length: 3
+    },
+    {
+        name: "RAT",
+        length: 3
+    },
+    {
+        name: "NEST",
+        length: 3
+    },
+    {
+        name: "PANDA",
+        length: 3
     }
 ];
 
@@ -138,6 +151,7 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "PEN", length: 2},
     {name: "STRAWBERRY", length: 2},
     {name: "SOCK", length: 2},
+    {name: "TABLE", length:2},
 
 
 ];

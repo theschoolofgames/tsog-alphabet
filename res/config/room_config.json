@@ -19,6 +19,15 @@
         },
 
         {
+            "imageName": "desk",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 667.5,
+            "y": 264.75,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+
+        {
             "imageName": "joker",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 392.1,
