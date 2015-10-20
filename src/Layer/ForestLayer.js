@@ -338,6 +338,16 @@ var ForestLayer = cc.Layer.extend({
         // var str = (starEarned > 1) ? " stars" : " star";
         var lbText = "You Win";
         this.createWarnLabel(lbText, 24);
+        var warningLabel = this._warningLabel;
+        warningLabel.runAction(cc.sequence(
+            cc.callFunc(function() { 
+                new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+            }), 
+             cc.scaleTo(8, 2).easing(cc.easeElasticOut(0.05))
+            ));
+        
+
+        new EffectLayer(warningLabel, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
 
         this.increaseAmountGamePlayeds();
         this.increaseObjectAmountBaseOnPlay();

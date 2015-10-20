@@ -259,6 +259,13 @@ var RoomLayer = cc.Layer.extend({
 
         var lbText = "You Win";
         this.createWarnLabel(lbText);
+        var warningLabel = this._warningLabel;
+        warningLabel.runAction(cc.sequence(
+            cc.callFunc(function() { 
+                new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+            }), 
+            cc.scaleTo(8, 2).easing(cc.easeElasticOut(0.05))
+            ));
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
