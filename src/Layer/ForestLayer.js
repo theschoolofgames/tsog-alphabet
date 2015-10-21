@@ -24,6 +24,8 @@ var ForestLayer = cc.Layer.extend({
 
     _numberItems: 0,
     _numberGamePlayed: 0,
+    _tutorial:null,
+    _shadeObjects:null,
 
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
@@ -37,10 +39,11 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
+        this.addBackButton();
+        this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
+        this.runTutorial();
         this.runHintObjectUp();
         this.runSoundCountDown();
 
@@ -58,7 +61,8 @@ var ForestLayer = cc.Layer.extend({
         this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
-        this._lastClickTime = this._hudLayer.getRemainingTime();
+        if (this._numberGamePlayed > 1 )
+            this._lastClickTime = this._hudLayer.getRemainingTime();
     },
 
     createBackground: function() {
@@ -161,6 +165,10 @@ var ForestLayer = cc.Layer.extend({
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
+        if(targetNode._tutorial != null) {
+            targetNode._tutorial.removeFromParent();
+            targetNode._tutorial = null;
+        };
 
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
@@ -362,6 +370,12 @@ var ForestLayer = cc.Layer.extend({
         }   
 
     },
+
+    runTutorial: function() {
+        this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
+        if(this._numberGamePlayed == 0)
+            this.addChild(this._tutorial, 10000)
+    }, 
 
     runObjectAction: function(object, delayTime, func) {
         object.runAction(cc.sequence(

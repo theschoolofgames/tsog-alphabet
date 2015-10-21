@@ -25,6 +25,7 @@
         "src/meerkat/RequestsManager.js",
         "src/Layer/EffectLayer.js",
         "src/Layer/HudLayer.js",
-        "src/Layer/SettingDialog.js"
+        "src/Layer/SettingDialog.js",
+        "src/Layer/TutorialLayer.js"
     ]
 }

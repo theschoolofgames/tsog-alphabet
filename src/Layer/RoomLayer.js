@@ -22,6 +22,7 @@ var RoomLayer = cc.Layer.extend({
     _isLevelCompleted: false,
     _numberItems: 0,
     _numberGamePlayed: 0,
+    _tutorial: null,
 
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
@@ -35,9 +36,10 @@ var RoomLayer = cc.Layer.extend({
         this.resetAllArrays();
         this.createBackground();
         this.addObjects();
-        // this.addRefreshButton();
-        // this.addBackButton();
+        this.addRefreshButton();
+        this.addBackButton();
         this.addHud();
+        this.runTutorial();
         this.runHintObjectUp();
         
         this.runSoundCountDown();
@@ -67,6 +69,12 @@ var RoomLayer = cc.Layer.extend({
         this.addChild(hudLayer, 99);
 
         this._hudLayer = hudLayer;
+    },
+
+    runTutorial: function() {
+        this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
+        if(this._numberGamePlayed == 0)
+            this.addChild(this._tutorial, 10000)
     },
 
     addRefreshButton: function() {
@@ -168,6 +176,7 @@ var RoomLayer = cc.Layer.extend({
         this._objects.push(object);
         this.runObjectAction(this, 0,
             function(){
+                if (this._numberGamePlayed)
                 self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
@@ -213,6 +222,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.runObjectAction(this, 0,
             function(){
+                if (this._numberGamePlayed > 1)
                 self._lastClickTime = self._hudLayer.getRemainingTime();
             }
         )
@@ -325,7 +335,10 @@ var RoomLayer = cc.Layer.extend({
 
         cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
-
+        if(targetNode._tutorial != null) {
+            targetNode._tutorial.removeFromParent();
+            targetNode._tutorial = null;
+        };
         var oldScale = targetNode._objectTouching.scale;
         targetNode._objectTouching.setScale(0.7 * oldScale);
         targetNode._objectTouching.runAction(cc.sequence(

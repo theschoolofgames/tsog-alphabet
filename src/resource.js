@@ -99,6 +99,8 @@ var res = {
    Smoke_effect_png: "effect-smoke.png",
    Sparkle_effect_png: "sparkle-effect.png",
    Sparkle_effect_plist: "sparkle-effect.plist",
+   Tutorial_png: "tutorial.png",
+   Tutorial_plist: "tutorial.plist",
 
    // Smoke_sound: "res/smoke-sound.mp3"
 
