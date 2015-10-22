@@ -138,6 +138,8 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
         });
 
+        Utils.appReady();
+
     }, this);
 };
 cc.game.run();

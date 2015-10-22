@@ -70,7 +70,7 @@ public class AppActivity extends Cocos2dxActivity {
     void handleSendText(Intent intent) {
         String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
         if (sharedText != null) {
-            Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s')", sharedText));
+            // Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s')", sharedText));
         }
     }
 

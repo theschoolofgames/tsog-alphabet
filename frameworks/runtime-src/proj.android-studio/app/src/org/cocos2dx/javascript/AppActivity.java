@@ -32,14 +32,29 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.Context;
+import android.os.Bundle;
 
 import android.util.Log;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.Map;
+import java.util.HashMap;
+
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Traits;
+import com.segment.analytics.Properties;
+import com.segment.analytics.ValueMap;
 
 public class AppActivity extends Cocos2dxActivity {
 
     private static AppActivity app = null;
     private static final String TAG = "AppActivity";
     private static String udid;
+
+    private static boolean crossAppReady = false;
+    private static String receivedData = null;
     
     @Override
     public Cocos2dxGLSurfaceView onCreateView() {
@@ -47,6 +62,15 @@ public class AppActivity extends Cocos2dxActivity {
         app = this;
         // TestCpp should create stencil buffer
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
+
+        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+        
+        return glSurfaceView;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         // Intent
         Intent intent = getIntent();
@@ -58,16 +82,23 @@ public class AppActivity extends Cocos2dxActivity {
                 handleSendText(intent); // Handle text being sent
             }
         }
-
-        udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-
-        return glSurfaceView;
     }
 
     void handleSendText(Intent intent) {
-        String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        final String sharedText = intent.getStringExtra(Intent.EXTRA_TEXT);
+
         if (sharedText != null) {
-            Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s')", sharedText));
+
+            if (crossAppReady)
+                //we must use runOnGLThread here
+                this.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s');", sharedText));
+                    }
+                });
+            else
+                AppActivity.receivedData = sharedText;
         }
     }
 
@@ -110,5 +141,39 @@ public class AppActivity extends Cocos2dxActivity {
 
     public static String getId() {
         return udid;
+    }
+
+    public static void appReady() {
+        if (!AppActivity.crossAppReady) {
+            AppActivity.crossAppReady = true;
+            if (receivedData != null)
+                app.runOnGLThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Cocos2dxJavascriptJavaBridge.evalString(String.format("Utils.receiveData('%s');", receivedData));
+                    }
+                });
+        }
+    }
+
+    public static void segmentIdentity(String userId, String traits) {
+        Map<String, Object> retMap = new Gson().fromJson(traits, new TypeToken<HashMap<String, Object>>() {}.getType());
+
+        Traits t = new Traits();
+        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+            t.putValue(entry.getKey(), entry.getValue());
+        }
+
+        Analytics.with(app).identify(userId, t, null);
+    }
+
+    public static void segmentTrack(String event, String properties) {
+        Map<String, Object> retMap = new Gson().fromJson(properties, new TypeToken<HashMap<String, Object>>() {}.getType());
+
+        Properties p = new Properties();
+        for(Map.Entry<String, Object> entry : retMap.entrySet()) {
+            p.putValue(entry.getKey(), entry.getValue());
+        }
+        Analytics.with(app).track(event, p);
     }
 }
