@@ -1,11 +1,15 @@
 tools/
 publish/
 simulator/
+build/
 .DS_Store
 
-frameworks/runtime-src/proj.android/ant.properties
-frameworks/runtime-src/proj.android/hub102.keystore
+local.properties
 
+frameworks/runtime-src/proj.android/ant.properties
+frameworks/runtime-src/hub102.keystore
+
+frameworks/runtime-src/proj.ios_mac/tsog-alphabet.xcodeproj/project.xcworkspace/xcshareddata/
 frameworks/js-bindings/bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj/xcuserdata/
 frameworks/js-bindings/cocos2d-x/build/cocos2d_libs.xcodeproj/xcuserdata/
 frameworks/js-bindings/bindings/proj.ios_mac/build/
@@ -14,6 +18,7 @@ frameworks/runtime-src/proj.ios_mac/tsog-alphabet.xcodeproj/project.xcworkspace/
 frameworks/runtime-src/proj.ios_mac/tsog-alphabet.xcodeproj/xcuserdata/
 frameworks/runtime-src/proj.ios_mac/tsog-alphabet.xcodeproj/project.xcworkspace/xcuserdata/
 frameworks/runtime-src/proj.ios_mac/build/
+frameworks/runtime-src/proj.ios_mac/Pods/
 frameworks/cocos2d-x/build/build/
 frameworks/cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/build/
 
@@ -29,4 +34,13 @@ frameworks/runtime-src/proj.android/gen/
 frameworks/runtime-src/proj.android/libs/armeabi/
 frameworks/runtime-src/proj.android/libs/x86/
 frameworks/runtime-src/proj.android/obj/
+
+frameworks/runtime-src/proj.android-studio/app/assets/
+frameworks/runtime-src/proj.android-studio/app/bin/
+frameworks/runtime-src/proj.android-studio/app/gen/
+frameworks/runtime-src/proj.android-studio/app/libs/armeabi/
+frameworks/runtime-src/proj.android-studio/app/libs/x86/
+frameworks/runtime-src/proj.android-studio/app/obj/
+frameworks/runtime-src/proj.android-studio/app/gradle.properties
+
 src/WhoAmI.js

@@ -10,10 +10,11 @@
 		018661941B9FE5F60002036C /* H102Wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 018661931B9FE5F60002036C /* H102Wrapper.m */; };
 		018661A51B9FE6480002036C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A41B9FE6480002036C /* CoreData.framework */; };
 		018661A71B9FE6540002036C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 018661A61B9FE6540002036C /* CoreTelephony.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		01ADA5D01BCF5FE00049B7A5 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */; settings = {ASSET_TAGS = (); }; };
-		01ADA5D11BCF5FE00049B7A5 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */; settings = {ASSET_TAGS = (); }; };
-		01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DB61BCC18E300253473 /* AnalyticManager.cpp */; settings = {ASSET_TAGS = (); }; };
-		01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DC11BCCA43900253473 /* AnalyticManager.mm */; settings = {ASSET_TAGS = (); }; };
+		01A076EA1BD8C0D1007DC53A /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01A076E91BD8C0D1007DC53A /* GameController.framework */; };
+		01ADA5D01BCF5FE00049B7A5 /* PDKeychainBindings.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */; };
+		01ADA5D11BCF5FE00049B7A5 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */; };
+		01F76DB81BCC18E300253473 /* AnalyticManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DB61BCC18E300253473 /* AnalyticManager.cpp */; };
+		01F76DC21BCCA43900253473 /* AnalyticManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 01F76DC11BCCA43900253473 /* AnalyticManager.mm */; };
 		1A67682A180E9C060076BC67 /* libcocos2d Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB48180E9ACB004C840B /* libcocos2d Mac.a */; };
 		1A676839180E9C1E0076BC67 /* libcocos2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB56180E9ACB004C840B /* libcocos2d iOS.a */; };
 		1A82F5FB169AC92500C4B13A /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */; };
@@ -146,6 +147,7 @@
 		018661931B9FE5F60002036C /* H102Wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = H102Wrapper.m; path = ios/H102Wrapper.m; sourceTree = "<group>"; };
 		018661A41B9FE6480002036C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
 		018661A61B9FE6540002036C /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
+		01A076E91BD8C0D1007DC53A /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.1.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		01ADA5CC1BCF5FE00049B7A5 /* PDKeychainBindings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindings.h; sourceTree = "<group>"; };
 		01ADA5CD1BCF5FE00049B7A5 /* PDKeychainBindings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindings.m; sourceTree = "<group>"; };
 		01ADA5CE1BCF5FE00049B7A5 /* PDKeychainBindingsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDKeychainBindingsController.h; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01A076EA1BD8C0D1007DC53A /* GameController.framework in Frameworks */,
 				018661A71B9FE6540002036C /* CoreTelephony.framework in Frameworks */,
 				018661A51B9FE6480002036C /* CoreData.framework in Frameworks */,
 				EDD7E32A1B58AE29009F9DEB /* libiconv.dylib in Frameworks */,
@@ -371,6 +374,7 @@
 		A92275401517C094001B78AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01A076E91BD8C0D1007DC53A /* GameController.framework */,
 				018661A61B9FE6540002036C /* CoreTelephony.framework */,
 				018661A41B9FE6480002036C /* CoreData.framework */,
 				EDD7E32B1B58AE30009F9DEB /* libiconv.dylib */,
