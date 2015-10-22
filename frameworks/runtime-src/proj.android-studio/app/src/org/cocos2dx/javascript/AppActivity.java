@@ -64,16 +64,21 @@ public class AppActivity extends Cocos2dxActivity {
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
         udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        // Intent
+        Intent intent = getIntent();
+        handleReceiveIntent(intent);
+        
         
         return glSurfaceView;
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onNewIntent (Intent intent) {
+        handleReceiveIntent(intent);
+    }
 
-        // Intent
-        Intent intent = getIntent();
+    void handleReceiveIntent(Intent intent) {
         String action = intent.getAction();
         String type = intent.getType();
 
