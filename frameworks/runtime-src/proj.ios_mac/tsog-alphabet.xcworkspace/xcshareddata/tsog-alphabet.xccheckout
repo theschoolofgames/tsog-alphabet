@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>1592C87F-5937-4A5E-B38C-35957C4B4DBB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tsog-alphabet</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>7A7D92D3231871387C70A9B035F1F8AEA5146789</key>
+		<string>lab.hub102.com:stefan/tsog-alphabet.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>frameworks/runtime-src/proj.ios_mac/tsog-alphabet.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>7A7D92D3231871387C70A9B035F1F8AEA5146789</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>lab.hub102.com:stefan/tsog-alphabet.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>7A7D92D3231871387C70A9B035F1F8AEA5146789</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>7A7D92D3231871387C70A9B035F1F8AEA5146789</string>
+			<key>IDESourceControlWCCName</key>
+			<string>tsog-alphabet</string>
+		</dict>
+	</array>
+</dict>
+</plist>
