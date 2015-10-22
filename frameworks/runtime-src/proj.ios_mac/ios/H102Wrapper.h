@@ -17,6 +17,9 @@
 + (void)showMessage:(NSString *)title message:(NSString *)message;
 
 + (NSString *)getUniqueDeviceId;
+
++ (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits;
++ (void)segmentTrack:(NSString *)event properties:(NSString *)traits;
 @end
 
 

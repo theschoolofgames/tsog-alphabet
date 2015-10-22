@@ -46,6 +46,50 @@ Utils.getUDID = function() {
     return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
 }
 
+Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
+    traits = {
+        userName: userName,
+        schoolName: schoolName,
+        schoolId: schoolId
+    };
+
+    if (cc.sys.isNative) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "segmentIdentity:traits:",
+                                            userId,
+                                            JSON.stringify(traits));
+        }
+
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                            "segmentIdentity",
+                                            "(Ljava/lang/String;Ljava/lang/String;)V",
+                                            userId,
+                                            JSON.stringify(traits));   
+        }
+    }
+}
+
+Utils.segmentTrack = function(event, properties) {
+    if (cc.sys.isNative) {
+        if (cc.sys.os == cc.sys.OS_IOS) {
+            jsb.reflection.callStaticMethod("H102Wrapper",
+                                            "segmentTrack:properties:",
+                                            event,
+                                            JSON.stringify(properties));
+        }
+
+        if (cc.sys.os == cc.sys.OS_ANDROID) {
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                            "segmentTrack",
+                                            "(Ljava/lang/String;Ljava/lang/String;)V",
+                                            event,
+                                            JSON.stringify(properties));   
+        }
+    }
+}
+
 Utils.receiveData = function(data) {
     var decodedData = Base64.decode(data);
     var dataArray = decodedData.split(':');

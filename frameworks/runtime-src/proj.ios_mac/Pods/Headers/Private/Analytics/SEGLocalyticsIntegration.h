@@ -1,0 +1,1 @@
+../../../Analytics/Analytics/Integrations/Localytics/SEGLocalyticsIntegration.h

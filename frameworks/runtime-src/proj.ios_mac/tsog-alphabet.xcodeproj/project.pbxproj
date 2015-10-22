@@ -74,6 +74,7 @@
 		C06E23CC18CEFE680093C81A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C06E23CB18CEFE680093C81A /* main.cpp */; };
 		C0799CB918BAE62000E9C828 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C0799CB518BAE62000E9C828 /* res */; };
 		C0799CBA18BAE62000E9C828 /* res in Resources */ = {isa = PBXBuildFile; fileRef = C0799CB518BAE62000E9C828 /* res */; };
+		C32F3F292CEA69C1BFC93005 /* libPods-tsog-alphabet-mobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 918804E62C89752F238AE1F1 /* libPods-tsog-alphabet-mobile.a */; };
 		D454520C156E22BD00887EB5 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D454520B156E22BD00887EB5 /* libz.dylib */; };
 		D4545227156E28EF00887EB5 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D4545215156E28EF00887EB5 /* AppDelegate.cpp */; };
 		D6B061241803AB9F0077942B /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6B061231803AB9F0077942B /* CoreMotion.framework */; };
@@ -157,6 +158,7 @@
 		1A82F5FA169AC92500C4B13A /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		1A96A4F2174A3432008653A9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = "../../cocos2d-x/cocos2dx/platform/third_party/ios/libraries/libcurl.a"; sourceTree = "<group>"; };
 		1AC6FB34180E9ACB004C840B /* cocos2d_libs.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_libs.xcodeproj; path = "../../cocos2d-x/build/cocos2d_libs.xcodeproj"; sourceTree = "<group>"; };
+		4BE5B5A834CFF032FF3BBA70 /* Pods-tsog-alphabet-mobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-alphabet-mobile.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-alphabet-mobile/Pods-tsog-alphabet-mobile.debug.xcconfig"; sourceTree = "<group>"; };
 		502380DB17EBB88200990C9B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
 		5091731417ECDF7A00D62437 /* Icon-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-29.png"; path = "ios/Icon-29.png"; sourceTree = "<group>"; };
 		5091731517ECDF7A00D62437 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-40.png"; path = "ios/Icon-40.png"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		509D4AE617EBB81800697056 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		509D4AE817EBB82000697056 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		509D4AEA17EBB82600697056 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		918804E62C89752F238AE1F1 /* libPods-tsog-alphabet-mobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tsog-alphabet-mobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A922753D1517C094001B78AA /* tsog-alphabet-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tsog-alphabet-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A92275411517C094001B78AA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A92275431517C094001B78AA /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -202,6 +205,7 @@
 		BA4E718219EB6E4600932425 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		BAEE4D831AC40C11003BEB0F /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		BAF426FA19484B3E002B22EF /* script */ = {isa = PBXFileReference; lastKnownFileType = folder; name = script; path = "../../cocos2d-x/cocos/scripting/js-bindings/script"; sourceTree = "<group>"; };
+		BFDCD7A64B158F1FCA58CD7E /* Pods-tsog-alphabet-mobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tsog-alphabet-mobile.release.xcconfig"; path = "Pods/Target Support Files/Pods-tsog-alphabet-mobile/Pods-tsog-alphabet-mobile.release.xcconfig"; sourceTree = "<group>"; };
 		C03780EA18BEE0E400FE4F13 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../../../src; sourceTree = "<group>"; };
 		C037820118BF76AF00FE4F13 /* cocos2d_js_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_js_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/js-bindings/proj.ios_mac/cocos2d_js_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C06E23CB18CEFE680093C81A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -260,6 +264,7 @@
 				A922754C1517C094001B78AA /* UIKit.framework in Frameworks */,
 				A922754E1517C094001B78AA /* Foundation.framework in Frameworks */,
 				A92275501517C094001B78AA /* CoreGraphics.framework in Frameworks */,
+				C32F3F292CEA69C1BFC93005 /* libPods-tsog-alphabet-mobile.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +280,15 @@
 				01ADA5CF1BCF5FE00049B7A5 /* PDKeychainBindingsController.m */,
 			);
 			path = PDKeychainBindingsController;
+			sourceTree = "<group>";
+		};
+		0A0212A7C3D39626650D6BA6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4BE5B5A834CFF032FF3BBA70 /* Pods-tsog-alphabet-mobile.debug.xcconfig */,
+				BFDCD7A64B158F1FCA58CD7E /* Pods-tsog-alphabet-mobile.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		15628F5B15F0F5C2000CF24B /* Resources */ = {
@@ -341,6 +355,7 @@
 				509D4ACA17EBB2BE00697056 /* mac */,
 				A922753E1517C094001B78AA /* Products */,
 				15628F5B15F0F5C2000CF24B /* Resources */,
+				0A0212A7C3D39626650D6BA6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -380,6 +395,7 @@
 				A922754B1517C094001B78AA /* UIKit.framework */,
 				A922754D1517C094001B78AA /* Foundation.framework */,
 				A922754F1517C094001B78AA /* CoreGraphics.framework */,
+				918804E62C89752F238AE1F1 /* libPods-tsog-alphabet-mobile.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -452,9 +468,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A92277001517C097001B78AA /* Build configuration list for PBXNativeTarget "tsog-alphabet-mobile" */;
 			buildPhases = (
+				48988754E5B5804376A84B36 /* Check Pods Manifest.lock */,
 				A92275391517C094001B78AA /* Sources */,
 				A922753A1517C094001B78AA /* Frameworks */,
 				A922753B1517C094001B78AA /* Resources */,
+				C96AD41D9884857EC723ECB9 /* Embed Pods Frameworks */,
+				4895DE2E20C7F418CF5029EA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -582,6 +601,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4895DE2E20C7F418CF5029EA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog-alphabet-mobile/Pods-tsog-alphabet-mobile-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		48988754E5B5804376A84B36 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C96AD41D9884857EC723ECB9 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tsog-alphabet-mobile/Pods-tsog-alphabet-mobile-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		509D4A8017EBB24E00697056 /* Sources */ = {
@@ -733,6 +800,7 @@
 		};
 		A92277011517C097001B78AA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BE5B5A834CFF032FF3BBA70 /* Pods-tsog-alphabet-mobile.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -750,9 +818,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hub102.tsog.alphabet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -763,6 +831,7 @@
 		};
 		A92277021517C097001B78AA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFDCD7A64B158F1FCA58CD7E /* Pods-tsog-alphabet-mobile.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -778,9 +847,9 @@
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				LIBRARY_SEARCH_PATHS = "";
-				OTHER_LDFLAGS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hub102.tsog.alphabet;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

@@ -1,0 +1,1 @@
+../../../../Apptimize/Apptimize.framework/Versions/A/Headers/Apptimize+Segment.h

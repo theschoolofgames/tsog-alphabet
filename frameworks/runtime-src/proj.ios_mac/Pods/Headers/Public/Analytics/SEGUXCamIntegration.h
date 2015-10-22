@@ -1,0 +1,1 @@
+../../../Analytics/Analytics/Integrations/UXCam/SEGUXCamIntegration.h
