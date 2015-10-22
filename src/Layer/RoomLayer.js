@@ -29,11 +29,11 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         this._numberItems = numberItems || NUMBER_ITEMS;
         this._numberGamePlayed = numberGamePlayed || 0;
-        Utils.segmentTrack("level_start", 
-                        { 
-                            Room, 
-                            object_num: this._numberItems 
-                        });
+        // Utils.segmentTrack("level_start", 
+        //                 { 
+        //                     Room, 
+        //                     object_num: this._numberItems 
+        //                 });
         cc.log("numberItems " + numberItems);
         // this._isLevelCompleted = false;
 
