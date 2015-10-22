@@ -29,14 +29,6 @@ var RoomLayer = cc.Layer.extend({
         this._super();
         this._numberItems = numberItems || NUMBER_ITEMS;
         this._numberGamePlayed = numberGamePlayed || 0;
-        // Utils.segmentTrack("level_start", 
-        //                 { 
-        //                     Room, 
-        //                     object_num: this._numberItems 
-        //                 });
-        cc.log("numberItems " + numberItems);
-        // this._isLevelCompleted = false;
-
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
         this.createBackground();
@@ -44,6 +36,10 @@ var RoomLayer = cc.Layer.extend({
         this.addRefreshButton();
         this.addBackButton();
         this.addHud();
+        cc.log("lengt: "+this._objectDisableds.length);
+        cc.log("num: "+ this._numberItems);
+        
+        
         this.runTutorial();
         this.runHintObjectUp();
         
@@ -65,18 +61,20 @@ var RoomLayer = cc.Layer.extend({
         this._correctedObject = [];
         this._objectDisableds = [];
         this._effectLayers = [];
-    },
+        cc.log("numitem: "+this._numberItems);
+          },
 
     addHud: function() {
         var hudLayer = new HudLayer(this);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
-
+        
         this._hudLayer = hudLayer;
     },
 
     runTutorial: function() {
+
         this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
         if(this._numberGamePlayed == 0)
             this.addChild(this._tutorial, 10000)
@@ -108,6 +106,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
+        
         var background = new cc.Sprite( "Bedroom-screen.jpg");
         this._allScale = cc.winSize.width / background.width;
 
@@ -142,6 +141,12 @@ var RoomLayer = cc.Layer.extend({
         roomWindow.y = cc.winSize.height - 230 / this._allScale;
         roomWindow.scale = this._allScale;
         this.addChild(roomWindow);
+
+        Utils.segmentTrack("level_start", 
+                    { 
+                        room: "room", 
+                        object_num: this._numberItems 
+                    });
     },
 
     addObjects: function() {
@@ -286,6 +291,13 @@ var RoomLayer = cc.Layer.extend({
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
         this.increaseAmountGamePlayed();
+        if (elapseTime == 120) {
+            Utils.segmentTrack("level_incomplete", 
+                        { 
+                            Room: "room", 
+                            time_taken: elapseTime 
+                        });
+        };
 
         var self = this;
         this.runObjectAction(this, CHANGE_SCENE_TIME, 
@@ -337,7 +349,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
         if (!targetNode._objectTouching)
             return false;
-
+        
         cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
         if(targetNode._tutorial != null) {
@@ -355,6 +367,13 @@ var RoomLayer = cc.Layer.extend({
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
+        if (targetNode._objectDisableds.length == 0) {
+            Utils.segmentTrack("level_start", 
+                    { 
+                        room: "room", 
+                        object_num: targetNode._numberItems 
+                    });
+        };
 
         return true;
     },
@@ -393,6 +412,31 @@ var RoomLayer = cc.Layer.extend({
             ));
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
+        if (targetNode._objectDisableds.length == 1){
+            Utils.segmentTrack("object_pick_start", 
+                        { 
+                            room: "room", 
+                            object_name:  targetNode.getObjectName(targetNode._objectDisableds[0])
+                        });
+            cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
+        };
+        if (targetNode._objectDisableds.length == targetNode._numberItems){
+            Utils.segmentTrack("object_pick_end", 
+                        { 
+                            room: "room", 
+                            object_name:  targetNode.getObjectName(targetNode._objectDisableds[targetNode._numberItems - 1])
+                        });
+            cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
+        };
+        cc.log("length: " + targetNode._objectDisableds.length);
+
+        if (targetNode._objectDisableds.length == targetNode._numberItems) {
+            Utils.segmentTrack("level_complete",
+                {
+                    room: "room",
+                    time_taken: targetNode._hudLayer._clock.getElapseTime()
+                });
+        };
 
         cc.audioEngine.playEffect("sounds/drop.mp3");
 
@@ -449,6 +493,14 @@ var RoomLayer = cc.Layer.extend({
             this._objectTouching.setLocalZOrder(1);
             this._objectTouching.userData.scaleFactor = 1;
             this._objectDisableds.push(this._objectTouching);
+            // if (this._objectDisableds.length == 1) {
+            //     Utils.segmentTrack("object_pick_start", 
+            //             { 
+            //                 Room: "room", 
+            //                 object_name: this._objectDisableds[0].name 
+            //             })
+
+            // };
             this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
@@ -472,9 +524,9 @@ var RoomLayer = cc.Layer.extend({
         return objectPosition;
     },
 
-    getObjectName: function() {
+    getObjectName: function(object) {
         for (var i = 0; i < this._objectNames.length; i++) {
-            if (this._objectTouching.tag === this._objectNames[i].tag)
+            if (object.tag === this._objectNames[i].tag)
                 return this._objectNames[i].name;
         }
     },
@@ -490,7 +542,7 @@ var RoomLayer = cc.Layer.extend({
     playObjectSound: function(isDragging){
         var self = this;
 
-        var objectName = this.getObjectName();
+        var objectName = this.getObjectName(this._objectTouching);
         var object = this._objectTouching;
         var str = objectName[0].toUpperCase();
         var soundConfig = this.getSoundConfigByName(objectName);

@@ -165,6 +165,11 @@ var ForestLayer = cc.Layer.extend({
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
+        Utils.segmentTrack("animal_click", 
+                    { 
+                        forest: "forest", 
+                        animal_name:  targetNode.getAnimalName(targetNode._objectTouching)
+                    });
         if(targetNode._tutorial != null) {
             targetNode._tutorial.removeFromParent();
             targetNode._tutorial = null;
@@ -172,6 +177,13 @@ var ForestLayer = cc.Layer.extend({
 
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
+        if (targetNode._objectDisabled.length == targetNode._numberItems) {
+            Utils.segmentTrack("level_complete",
+                {
+                    forest: "forest",
+                    time_taken: targetNode._hudLayer._clock.getElapseTime()
+                });
+        };    
         
         return true;
     },
@@ -341,7 +353,13 @@ var ForestLayer = cc.Layer.extend({
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
-
+        if (elapseTime == 120) {
+            Utils.segmentTrack("level_incomplete", 
+                        { 
+                            forest: "forest", 
+                            time_taken: elapseTime 
+                        });
+        };
         var starEarned = this._hudLayer.getStarEarned();
         // var str = (starEarned > 1) ? " stars" : " star";
         var lbText = "You Win";
@@ -434,9 +452,9 @@ var ForestLayer = cc.Layer.extend({
         return animalPositionArray
     },
 
-    getAnimalName: function() {
+    getAnimalName: function(object) {
         for (var i = 0; i < this._animalNames.length; i++) {
-            if (this._objectTouching.tag === this._animalNames[i].tag)
+            if (object.tag === this._animalNames[i].tag)
                 return this._animalNames[i].name;
         }
     },
@@ -516,7 +534,7 @@ var ForestLayer = cc.Layer.extend({
 
     playAnimalSound: function(){
         var self = this;
-        var animalName = this.getAnimalName();
+        var animalName = this.getAnimalName(this._objectTouching);
         var animal = this._objectTouching;
         var str = animalName;
         var soundConfig = this.getAnimalSoundConfigByName(animalName);

@@ -96,6 +96,29 @@ Utils.segmentTrack = function(event, properties) {
             //                                 JSON.stringify(properties));   
         }
     }
+    cc.log(cc.director.getRunningScene() == null);
+    cc.director.getRunningScene().runAction(cc.sequence(
+        cc.delayTime(0),
+        cc.callFunc(function() {
+            if (cc.sys.isNative) {
+                cc.log("abc");
+                if (cc.sys.os == cc.sys.OS_IOS) {
+                    jsb.reflection.callStaticMethod("H102Wrapper",
+                                                    "segmentTrack:properties:",
+                                                    event,
+                                                    JSON.stringify(properties));
+                }
+
+                if (cc.sys.os == cc.sys.OS_ANDROID) {
+                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                                    "segmentTrack",
+                                                    "(Ljava/lang/String;Ljava/lang/String;)V",
+                                                    event,
+                                                    JSON.stringify(properties));   
+                }
+            }
+        })
+    ));
 }
 
 Utils.receiveData = function(data) {
