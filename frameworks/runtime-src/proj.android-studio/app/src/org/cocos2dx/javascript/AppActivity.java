@@ -31,10 +31,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.Context;
-import android.os.Bundle;
-
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,7 +41,8 @@ import java.util.HashMap;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Traits;
 import com.segment.analytics.Properties;
-import com.segment.analytics.ValueMap;
+
+import static com.segment.analytics.internal.Utils.getResourceString;
 
 public class AppActivity extends Cocos2dxActivity {
 
@@ -64,6 +61,11 @@ public class AppActivity extends Cocos2dxActivity {
         glSurfaceView.setEGLConfigChooser(5, 6, 5, 0, 16, 8);
 
         udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+
+        // Analytics
+//        String writeKey = getResourceString(this, "analytics_write_key");
+//        Analytics analytics = new Analytics.Builder(this, writeKey).logLevel(Analytics.LogLevel.VERBOSE).build();
+//        Analytics.setSingletonInstance(analytics);
 
         // Intent
         Intent intent = getIntent();
