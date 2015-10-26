@@ -390,7 +390,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runTutorial: function() {
-        if(this._numberGamePlayed == 0) {
+        if(this._numberGamePlayed < 2) {
             this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
             this.addChild(this._tutorial, 10000)
         }
