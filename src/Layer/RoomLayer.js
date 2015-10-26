@@ -352,9 +352,13 @@ var RoomLayer = cc.Layer.extend({
         
         cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
-        if(targetNode._tutorial != null) {
-            targetNode._tutorial.removeFromParent();
-            targetNode._tutorial = null;
+
+        if (targetNode._numberGamePlayed < 2) {
+            if(targetNode._tutorial != null) {
+                targetNode._tutorial.removeFromParent();
+                targetNode._tutorial = null;
+            };
+
         };
         var oldScale = targetNode._objectTouching.scale;
         targetNode._objectTouching.setScale(0.7 * oldScale);
