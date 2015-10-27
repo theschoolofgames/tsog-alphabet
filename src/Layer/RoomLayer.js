@@ -262,7 +262,7 @@ var RoomLayer = cc.Layer.extend({
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 110;
+            warnLabel.y = cc.winSize.height - 160;
         }
         this.addChild(warnLabel, 9999);
 
@@ -284,8 +284,9 @@ var RoomLayer = cc.Layer.extend({
             cc.callFunc(function() { 
                 new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(8, 2).easing(cc.easeElasticOut(0.05))
-            ));
+            cc.scaleTo(3, 1.7).easing(cc.easeElasticOut(0.5))
+            // cc.delayTime(1)
+        ));
 
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);

@@ -7,28 +7,28 @@
             <key>finger-1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{163,2},{129,126}}</string>
+                <string>{{160,2},{132,135}}</string>
                 <key>offset</key>
-                <string>{15,-21}</string>
+                <string>{12,-11}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{30,42},{129,126}}</string>
+                <string>{{24,22},{132,135}}</string>
                 <key>sourceSize</key>
-                <string>{159,168}</string>
+                <string>{156,157}</string>
             </dict>
             <key>finger-2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{159,168}}</string>
+                <string>{{2,2},{156,157}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{159,168}}</string>
+                <string>{{0,0},{156,157}}</string>
                 <key>sourceSize</key>
-                <string>{159,168}</string>
+                <string>{156,157}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>tutorial.png</string>
             <key>size</key>
-            <string>{294,172}</string>
+            <string>{294,161}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:08331aae840e15bbb77c9fffe3c002ab:8b070650ca30c3ab462b1b5541a46731:f9d56bd4d7a6c765e5b9bd59b13e6385$</string>
+            <string>$TexturePacker:SmartUpdate:52ae22d8970cd3da3145e20c10b9283b:53b3d9e282ad72cf6bea551db558b987:f9d56bd4d7a6c765e5b9bd59b13e6385$</string>
             <key>textureFileName</key>
             <string>tutorial.png</string>
         </dict>
