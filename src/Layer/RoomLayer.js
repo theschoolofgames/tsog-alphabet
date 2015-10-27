@@ -36,15 +36,10 @@ var RoomLayer = cc.Layer.extend({
         this.addRefreshButton();
         this.addBackButton();
         this.addHud();
-        cc.log("lengt: "+this._objectDisableds.length);
-        cc.log("num: "+ this._numberItems);
-        
-        
         this.runTutorial();
         this.runHintObjectUp();
-        
         this.runSoundCountDown();
-        
+
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
@@ -61,22 +56,19 @@ var RoomLayer = cc.Layer.extend({
         this._correctedObject = [];
         this._objectDisableds = [];
         this._effectLayers = [];
-        cc.log("numitem: "+this._numberItems);
-          },
+    },
 
     addHud: function() {
         var hudLayer = new HudLayer(this);
         hudLayer.x = 0;
         hudLayer.y = cc.winSize.height - 80;
         this.addChild(hudLayer, 99);
-        
         this._hudLayer = hudLayer;
     },
 
     runTutorial: function() {
-
         this._tutorial = new TutorialLayer(this._objects, this._shadeObjects);
-        if(this._numberGamePlayed == 0)
+        if(this._numberGamePlayed < 2)
             this.addChild(this._tutorial, 10000)
     },
 
@@ -85,7 +77,6 @@ var RoomLayer = cc.Layer.extend({
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = refreshButton.height / 2;
         this.addChild(refreshButton);
-
         var self = this;
         refreshButton.addClickEventListener(function() {
             cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
@@ -303,6 +294,7 @@ var RoomLayer = cc.Layer.extend({
         var self = this;
         this.runObjectAction(this, CHANGE_SCENE_TIME, 
             function() {
+            cc.audioEngine.stopEffect(self._effectAudioID)               ;
                 cc.log("numberItems: " + self._numberItems);    
                 cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
             });
@@ -353,7 +345,6 @@ var RoomLayer = cc.Layer.extend({
         
         cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
-
         if (targetNode._numberGamePlayed < 2) {
             if(targetNode._tutorial != null) {
                 targetNode._tutorial.removeFromParent();
@@ -456,7 +447,6 @@ var RoomLayer = cc.Layer.extend({
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playObjectSound(true);
-
         this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
 
         //set shadeObject to visible
