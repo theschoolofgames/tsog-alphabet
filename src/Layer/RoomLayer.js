@@ -262,7 +262,7 @@ var RoomLayer = cc.Layer.extend({
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 160;
+            warnLabel.y = cc.winSize.height - 130;
         }
         this.addChild(warnLabel, 9999);
 
@@ -284,7 +284,7 @@ var RoomLayer = cc.Layer.extend({
             cc.callFunc(function() { 
                 new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(3, 1.7).easing(cc.easeElasticOut(0.5))
+            cc.scaleTo(2, 1.7).easing(cc.easeElasticOut(0.5))
             // cc.delayTime(1)
         ));
 
