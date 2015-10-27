@@ -369,7 +369,7 @@ var ForestLayer = cc.Layer.extend({
             cc.callFunc(function() { 
                 new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-             cc.scaleTo(8, 2).easing(cc.easeElasticOut(0.05))
+            cc.scaleTo(2, 1.7).easing(cc.easeElasticOut(0.5))
             ));
         
 
