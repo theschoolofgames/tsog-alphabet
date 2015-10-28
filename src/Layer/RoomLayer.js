@@ -149,11 +149,11 @@ var RoomLayer = cc.Layer.extend({
         var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < this._numberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
-                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i);
+                this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
             else
-                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i);
+                this.addObjectButton(heavyObjectPositions[i], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
 
-            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName, i);
+            this.addObjectShade(bedroomObjects[i], bedroomObjects[i].imageName, bedroomObjects[i].z);
         }
         this.runSparklesEffect();
     },
