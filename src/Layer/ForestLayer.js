@@ -47,6 +47,12 @@ var ForestLayer = cc.Layer.extend({
         this.runHintObjectUp();
         this.runSoundCountDown();
 
+        Utils.segmentTrack("level_start", 
+                    { 
+                        room: "forest", 
+                        object_num: this._numberItems 
+                    });
+
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,

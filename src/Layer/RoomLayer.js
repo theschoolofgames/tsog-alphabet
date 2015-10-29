@@ -363,13 +363,13 @@ var RoomLayer = cc.Layer.extend({
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
-        if (targetNode._objectDisableds.length == 0) {
-            Utils.segmentTrack("level_start", 
-                    { 
-                        room: "room", 
-                        object_num: targetNode._numberItems 
-                    });
-        };
+        // if (targetNode._objectDisableds.length == 0) {
+        //     Utils.segmentTrack("level_start", 
+        //             { 
+        //                 room: "room", 
+        //                 object_num: targetNode._numberItems 
+        //             });
+        // };
 
         return true;
     },
