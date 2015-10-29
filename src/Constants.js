@@ -122,7 +122,23 @@ var ANIMAL_SOUNDS_LENGTH = [
     {
         name: "PANDA",
         length: 3
-    }
+    },
+    {
+        name :" SHEEP",
+        length: 3
+    },
+    {
+        name: "RABBIT",
+        length : 3
+    },
+    {
+        name: "PUPPY",
+        length: 3
+    },
+    {
+        name: "PIG",
+        length: 3
+    },
 ];
 
 var OBJECT_SOUNDS_LENGTH = [
