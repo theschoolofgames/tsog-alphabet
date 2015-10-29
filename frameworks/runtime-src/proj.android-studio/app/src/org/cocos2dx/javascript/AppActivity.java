@@ -62,10 +62,11 @@ public class AppActivity extends Cocos2dxActivity {
 
         udid = android.provider.Settings.System.getString(super.getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
 
-        // Analytics
-//        String writeKey = getResourceString(this, "analytics_write_key");
-//        Analytics analytics = new Analytics.Builder(this, writeKey).logLevel(Analytics.LogLevel.VERBOSE).build();
-//        Analytics.setSingletonInstance(analytics);
+        Analytics.with(app).onIntegrationReady(Analytics.BundledIntegration.COUNTLY, new Analytics.Callback() {
+            @Override public void onReady(Object instance) {
+                Analytics.with(app).flush();
+            }
+        });
 
         // Intent
         Intent intent = getIntent();

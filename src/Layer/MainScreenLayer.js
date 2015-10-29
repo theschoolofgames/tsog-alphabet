@@ -113,6 +113,7 @@ var MainScreenLayer = cc.LayerColor.extend({
 
                         ConfigStore.setupInstance();
                         // You need to release the assets manager while you are sure you don't need it any more
+                        ConfigStore.setupInstance();
                         manager.release();
                         break;
                     case jsb.EventAssetsManager.UPDATE_FAILED:
