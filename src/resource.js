@@ -33,6 +33,7 @@ var res = {
    Forest_png: "forest.png",
 
    // Animals
+
    Ant_png: "animals/ant.png",
    Fish_png: "animals/fish.png",
    Bear_png: "animals/bear.png",
@@ -52,6 +53,7 @@ var res = {
    Rat_png: "animals/rat.png",
    Panda_png: "animals/panda.mp3",
    Nest_png: "animals/nest.png",
+   
 
    // Things
    Map_png: "things/map.png",
