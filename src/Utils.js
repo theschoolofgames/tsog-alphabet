@@ -70,11 +70,11 @@ Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
         }
 
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-            // jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-            //                                 "segmentIdentity",
-            //                                 "(Ljava/lang/String;Ljava/lang/String;)V",
-            //                                 userId,
-            //                                 JSON.stringify(traits));   
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                            "segmentIdentity",
+                                            "(Ljava/lang/String;Ljava/lang/String;)V",
+                                            userId,
+                                            JSON.stringify(traits));   
         }
     }
 }
@@ -89,11 +89,11 @@ Utils.segmentTrack = function(event, properties) {
         }
 
         if (cc.sys.os == cc.sys.OS_ANDROID) {
-            // jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-            //                                 "segmentTrack",
-            //                                 "(Ljava/lang/String;Ljava/lang/String;)V",
-            //                                 event,
-            //                                 JSON.stringify(properties));   
+            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
+                                            "segmentTrack",
+                                            "(Ljava/lang/String;Ljava/lang/String;)V",
+                                            event,
+                                            JSON.stringify(properties));   
         }
     }
     cc.log(cc.director.getRunningScene() == null);

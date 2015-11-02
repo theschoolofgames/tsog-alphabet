@@ -220,11 +220,11 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     CCLOG("%s", mess.c_str());
     
-    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
-                                                                           CallFunc::create([mess](){
-      std::string evalStr = StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str());
-      ScriptingCore::getInstance()->evalString(evalStr.c_str(), NULL);
-    }), NULL));
+//    Director::getInstance()->getRunningScene()->runAction(Sequence::create(DelayTime::create(0),
+//                                                                           CallFunc::create([mess](){
+//      std::string evalStr = StringUtils::format("showNativeMessage(\"%s\", \"%s\")", "Error", mess.c_str());
+//      ScriptingCore::getInstance()->evalString(evalStr.c_str(), NULL);
+//    }), NULL));
   });
 
     return true;
