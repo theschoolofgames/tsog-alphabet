@@ -80,6 +80,21 @@ Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
 }
 
 Utils.segmentTrack = function(event, properties) {
+
+    var userId = KVDatabase.getInstance().getString(STRING_USER_ID);
+    var userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
+    var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
+    var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
+
+    if (userId && userId != "")
+        properties.user_id = userId;
+    if (userName && userName != "")
+        properties.user_name = userName;
+    if (schoolId && schoolId != "")
+        properties.school_id = schoolId;
+    if (schoolName && schoolName != "")
+        properties.school_name = schoolName;
+
     if (cc.sys.isNative) {
         if (cc.sys.os == cc.sys.OS_IOS) {
             jsb.reflection.callStaticMethod("H102Wrapper",
@@ -96,12 +111,11 @@ Utils.segmentTrack = function(event, properties) {
                                             JSON.stringify(properties));   
         }
     }
-    cc.log(cc.director.getRunningScene() == null);
-    cc.director.getRunningScene().runAction(cc.sequence(
-        cc.delayTime(0),
-        cc.callFunc(function() {
+
+    // cc.director.getRunningScene().runAction(cc.sequence(
+    //     cc.delayTime(0),
+    //     cc.callFunc(function() {
             if (cc.sys.isNative) {
-                cc.log("abc");
                 if (cc.sys.os == cc.sys.OS_IOS) {
                     jsb.reflection.callStaticMethod("H102Wrapper",
                                                     "segmentTrack:properties:",
@@ -117,8 +131,8 @@ Utils.segmentTrack = function(event, properties) {
                                                     JSON.stringify(properties));   
                 }
             }
-        })
-    ));
+        // })
+    // ));
 }
 
 Utils.receiveData = function(data) {
