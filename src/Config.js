@@ -321,17 +321,26 @@ ConfigStore.setupInstance = function () {
             });
         }
     });
+    
+    GAME_CONFIG = KVDatabase.getInstance().getString(STRING_GAME_CONFIG);
+    try {
+        GAME_CONFIG = JSON.parse(GAME_CONFIG);
+    } catch(e) {
+        GAME_CONFIG = "";
+    }
 
-    cc.loader.loadJson(res.Game_Config_JSON, function(err, data) {
-        if (!err) {
-            GAME_CONFIG = data;
-        } else {
-            cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Game_Config_JSON);
-            cc.loader.loadJson(res.Game_Config_JSON, function(err, data) {
+    if (GAME_CONFIG == "") {
+        cc.loader.loadJson(res.Game_Config_JSON, function(err, data) {
+            if (!err) {
                 GAME_CONFIG = data;
-            });
-        }
-    });
+            } else {
+                cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Game_Config_JSON);
+                cc.loader.loadJson(res.Game_Config_JSON, function(err, data) {
+                    GAME_CONFIG = data;
+                });
+            }
+        });
+    }
 
     preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
 

@@ -137,7 +137,7 @@ Utils.segmentTrack = function(event, properties) {
 
 Utils.receiveData = function(data) {
     var decodedData = Base64.decode(data);
-    var dataArray = decodedData.split(':');
+    var dataArray = JSON.parse(decodedData);
 
     var message = cc.formatStr("UserName: %s\nSchoolName: %s", dataArray[0], dataArray[2]);
     // showNativeMessage("TSOG", message);
@@ -146,12 +146,16 @@ Utils.receiveData = function(data) {
     KVDatabase.getInstance().set(STRING_USER_ID, dataArray[1]);
     KVDatabase.getInstance().set(STRING_SCHOOL_NAME, dataArray[2]);
     KVDatabase.getInstance().set(STRING_SCHOOL_ID, dataArray[3]);
+    KVDatabase.getInstance().set(STRING_GAME_CONFIG, dataArray[4]);
+
+    Config.setupInstance();
 
     var receivedData = {
         user_name: dataArray[0],
         user_id: dataArray[1],
         school_name: dataArray[2],
-        school_id: dataArray[3]
+        school_id: dataArray[3],
+        game_config: dataArray[4]
     }
     cc.eventManager.dispatchCustomEvent(STRING_EVENT_MAIN_APP_CALLED, receivedData);
 }

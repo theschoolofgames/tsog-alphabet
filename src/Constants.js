@@ -183,5 +183,6 @@ var STRING_USER_ID = "self_user_id";
 var STRING_USER_NAME = "self_user_name";
 var STRING_SCHOOL_NAME = "self_school_name";
 var STRING_SCHOOL_ID = "self_school_id";
+var STRING_GAME_CONFIG = "self_game_config";
 
 var STRING_EVENT_MAIN_APP_CALLED = "event_main_app_called";
