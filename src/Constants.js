@@ -1,5 +1,5 @@
 // var BACKEND_ADDRESS = "https://tsog.herokuapp.com/";
-var BACKEND_ADDRESS = "http://104.197.109.251/";
+var BACKEND_ADDRESS = "http://130.211.178.51/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var GAME_ID = "5604beb2ded84d7c8083389a";
