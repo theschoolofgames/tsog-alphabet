@@ -2,7 +2,7 @@
 var BACKEND_ADDRESS = "http://130.211.178.51/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 
-var GAME_ID = "5604beb2ded84d7c8083389a";
+var GAME_ID = "56236595abd71555234a5c9c";
 var SEGMENT_KEY = "TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak";
 
 var MOVE_DELAY_TIME = 1;
@@ -32,10 +32,6 @@ var FOREST_ITEM_TYPE = {
     FROG_ITEM: "FROG_ITEM",
     NEST_ITEM: "NEST_ITEM"
 }
-
-// var STAR_GOAL_1 = 1;
-// var STAR_GOAL_2 = 2;
-// var STAR_GOAL_3 = 3;
 
 var SMOKE_EFFECT_DELAY = 0.1;
 var SMOKE_EFFECT_FRAMES = 8;
@@ -186,3 +182,12 @@ var STRING_SCHOOL_ID = "self_school_id";
 var STRING_GAME_CONFIG = "self_game_config";
 
 var STRING_EVENT_MAIN_APP_CALLED = "event_main_app_called";
+
+var SEGMENT = {
+    LEVEL_START: "level_start",
+    LEVEL_COMPLETE: "level_complete",
+    LEVEL_INCOMPLETE: "level_incomplete",
+    OBJECT_PICK_START: "object_pick_start",
+    OBJECT_PICK_END: "object_pick_end",
+    ANIMAL_CLICK: "animal_click"
+}

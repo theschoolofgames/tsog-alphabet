@@ -55,7 +55,7 @@ var MainScreenLayer = cc.LayerColor.extend({
                 onTouchBegan: function(touch, event) {
                     var userId = Utils.getUserId();
                     if (!userId || userId === "")
-                        Utils.moveToMainApp();
+                        NativeHelper.callNative("moveToMainApp");
                     else
                         cc.director.replaceScene(new RoomScene());
                     return true;

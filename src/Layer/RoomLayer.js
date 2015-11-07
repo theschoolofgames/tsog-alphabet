@@ -133,7 +133,7 @@ var RoomLayer = cc.Layer.extend({
         roomWindow.scale = this._allScale;
         this.addChild(roomWindow);
 
-        Utils.segmentTrack("level_start", 
+        SegmentHelper.track(SEGMENT.LEVEL_START, 
                     { 
                         room: "room", 
                         object_num: this._numberItems 
@@ -145,8 +145,8 @@ var RoomLayer = cc.Layer.extend({
         // this._numberItems = this.getNumberOfObjects();
 
         var bedroomObjects = dsInstance.getRandomObjects(BEDROOM_ID, this._numberItems);
-        var shuffledPositionArray = Utils.shuffle(BEDROOM_ITEMS_POSITION);
-        var heavyObjectPositions = Utils.shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
+        var shuffledPositionArray = shuffle(BEDROOM_ITEMS_POSITION);
+        var heavyObjectPositions = shuffle(BEDROOM_HEAVYWEIGHT_ITEMS_POSITION);
         for ( var i = 0; i < this._numberItems; i++) {
             if (bedroomObjects[i].type === ROOM_ITEM_TYPE.LIGHT_WEIGHT_ITEM)
                 this.addObjectButton(shuffledPositionArray[i], bedroomObjects[i].imageName, i, bedroomObjects[i].z);
@@ -198,9 +198,8 @@ var RoomLayer = cc.Layer.extend({
             shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
             shadeObject.setLocalZOrder(3);
 
-            this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);   
+            this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
         }
-        // cc.log("Shade " + imageName + ": " + JSON.stringify(shadeObject.getPosition()));
 
         this.addChild(shadeObject, 1);
         this._shadeObjects.push(shadeObject);
@@ -215,7 +214,7 @@ var RoomLayer = cc.Layer.extend({
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
                     cc.audioEngine.playEffect("sounds/smoke.mp3"),
-                    new EffectLayer(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                    AnimatedEffect.create(object, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1 * oldScale).easing(cc.easeElasticOut(0.9))
             )
@@ -273,7 +272,7 @@ var RoomLayer = cc.Layer.extend({
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
-                new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
             cc.scaleTo(2, 1.7).easing(cc.easeElasticOut(0.5))
             // cc.delayTime(1)
@@ -284,7 +283,7 @@ var RoomLayer = cc.Layer.extend({
 
         this.increaseAmountGamePlayed();
         if (elapseTime == 120) {
-            Utils.segmentTrack("level_incomplete", 
+            SegmentHelper.track(SEGMENT.LEVEL_INCOMPLETE, 
                         { 
                             Room: "room", 
                             time_taken: elapseTime 
@@ -363,13 +362,6 @@ var RoomLayer = cc.Layer.extend({
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
         targetNode._objectTouching.setPosition(objectPosition);
-        // if (targetNode._objectDisableds.length == 0) {
-        //     Utils.segmentTrack("level_start", 
-        //             { 
-        //                 room: "room", 
-        //                 object_num: targetNode._numberItems 
-        //             });
-        // };
 
         return true;
     },
@@ -409,7 +401,7 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
         if (targetNode._objectDisableds.length == 1){
-            Utils.segmentTrack("object_pick_start", 
+            SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
                         { 
                             room: "room", 
                             object_name:  targetNode.getObjectName(targetNode._objectDisableds[0])
@@ -417,7 +409,7 @@ var RoomLayer = cc.Layer.extend({
             cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
         };
         if (targetNode._objectDisableds.length == targetNode._numberItems){
-            Utils.segmentTrack("object_pick_end", 
+            SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
                         { 
                             room: "room", 
                             object_name:  targetNode.getObjectName(targetNode._objectDisableds[targetNode._numberItems - 1])
@@ -427,7 +419,7 @@ var RoomLayer = cc.Layer.extend({
         cc.log("length: " + targetNode._objectDisableds.length);
 
         if (targetNode._objectDisableds.length == targetNode._numberItems) {
-            Utils.segmentTrack("level_complete",
+            SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
                     room: "room",
                     time_taken: targetNode._hudLayer._clock.getElapseTime()
@@ -473,7 +465,7 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
         shadeObject.setLocalZOrder(5);
 
-        this._effectLayerShade = new EffectLayer(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+        this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
     },
 
     handleObjectCorrectPos: function(index) {
@@ -488,14 +480,7 @@ var RoomLayer = cc.Layer.extend({
             this._objectTouching.setLocalZOrder(1);
             this._objectTouching.userData.scaleFactor = 1;
             this._objectDisableds.push(this._objectTouching);
-            // if (this._objectDisableds.length == 1) {
-            //     Utils.segmentTrack("object_pick_start", 
-            //             { 
-            //                 Room: "room", 
-            //                 object_name: this._objectDisableds[0].name 
-            //             })
 
-            // };
             this.removeObjectAction();
             this.playObjectSound(false);
             this.updateProgressBar();
@@ -656,7 +641,7 @@ var RoomLayer = cc.Layer.extend({
             if (this.isObjectDisabled(this._objects[i]))
                 continue;
 
-            var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+            var effect = AnimatedEffect.create(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
     },

@@ -6,8 +6,6 @@ var TutorialLayer = cc.Layer.extend({
 	_animFrames: null,
 	_effectNode:null,
 
-
-
 	ctor: function(objects, shadeObjects) {
 		this._super();
 		this._objects = objects;
@@ -15,8 +13,8 @@ var TutorialLayer = cc.Layer.extend({
 		this.getRandomObject();
 		if (this._shadeObjects == null)
 			this.showTappingTutorial();
-		else this.showDraggingTutorial();
-
+		else 
+            this.showDraggingTutorial();
 	},
 
 	_addAnimationFrames: function() {
@@ -24,7 +22,6 @@ var TutorialLayer = cc.Layer.extend({
         for (var i = 1; i <= 2; i++) {
             var str = "finger" + "-" + i + ".png";
             var frame = cc.spriteFrameCache.getSpriteFrame(str);
-            cc.log("frame: " + frame);
             animFrames.push(frame);
         }
         this._animFrames = animFrames;
@@ -36,7 +33,6 @@ var TutorialLayer = cc.Layer.extend({
         effectNode.y = this._object.y;
 		effectNode.anchorX = 0.3;
 		effectNode.anchorY = 0.7; 
-
         this.addChild(effectNode, 999);
 
         this._effectNode = effectNode;
@@ -85,10 +81,6 @@ var TutorialLayer = cc.Layer.extend({
 		)
 
  		finger.runAction(cc.repeatForever(repeatAction));
-
-
-
- 		
  	},
 
 	getRandomObject: function(){

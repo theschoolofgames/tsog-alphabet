@@ -78,15 +78,11 @@ cc.game.onStart = function(){
             cc.director.setContentScaleFactor(largeResource.size.height/designResolutionSize.height);
             cc.log("Use largeResource");
             Utils.useHDAssets = true;
-        } else {//if (frameSize.height >= mediumResource.size.height) {
+        } else {
             searchPaths.push(mediumResource.directory);
             cc.director.setContentScaleFactor(mediumResource.size.height/designResolutionSize.height);
             cc.log("Use mediumResource");
-        } //else {
-        //     searchPaths.push(smallResource.directory);
-        //     cc.director.setContentScaleFactor(smallResource.size.height/designResolutionSize.height);
-        //     cc.log("Use smallResource");
-        // }
+        }
         searchPaths.push("res");
         jsb.fileUtils.setSearchPaths(searchPaths);
     }
@@ -122,9 +118,6 @@ cc.game.onStart = function(){
         var shaderSolidColor = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
         cc.shaderCache.addProgram(shaderSolidColor, "SolidColor");
 
-        // if (whoAmI && whoAmI === "tony")
-        //     cc.director.runScene(new RoomScene());
-        // else
         cc.director.runScene(new MainScreenScene());
 
         cc.audioEngine.playMusic(res.BACKGROUND_mp3, true);
@@ -138,7 +131,7 @@ cc.game.onStart = function(){
             cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
         });
 
-        Utils.appReady();
+        NativeHelper.callNative("appReady");
 
     }, this);
 };

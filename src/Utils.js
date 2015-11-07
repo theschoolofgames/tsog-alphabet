@@ -6,11 +6,6 @@ Utils.getAssetsManagerPath = function() {
     return ((jsb.fileUtils ? jsb.fileUtils.getWritablePath() : "/") + "assetsManager/");
 }
 
-Utils.shuffle = function(o){
-    for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-    return o;
-}
-
 Utils.getUserId = function() {
     return KVDatabase.getInstance().getString(STRING_USER_ID, "");
 }
@@ -21,118 +16,6 @@ Utils.getUserName = function() {
 
 Utils.getSchoolName = function() {
     return KVDatabase.getInstance().getString(STRING_SCHOOL_NAME, "");
-}
-
-Utils.moveToMainApp = function() {
-    if (cc.sys.os == cc.sys.OS_IOS)
-        jsb.reflection.callStaticMethod("H102Wrapper", 
-                                        "openScheme:withData:",
-                                        "com.hub102.tsog",
-                                        "");
-    if (cc.sys.os == cc.sys.OS_ANDROID) {
-        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                        "openScheme",
-                                        "(Ljava/lang/String;Ljava/lang/String;)Z",
-                                        "com.hub102.tsog",
-                                        "");
-    }
-}
-
-Utils.appReady = function() {
-    if (cc.sys.os == cc.sys.OS_ANDROID) {
-        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                        "appReady",
-                                        "()V");
-    }
-}
-
-Utils.getUDID = function() {
-  if (cc.sys.os == cc.sys.OS_IOS)
-    return jsb.reflection.callStaticMethod("H102Wrapper", 
-                                           "getUniqueDeviceId");
-  else if (cc.sys.os == cc.sys.OS_ANDROID)
-    return jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity", "getId", "()Ljava/lang/String;");
-}
-
-Utils.segmentIdentity = function(userId, userName, schoolId, schoolName) {
-    traits = {
-        userName: userName,
-        schoolName: schoolName,
-        schoolId: schoolId
-    };
-
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "segmentIdentity:traits:",
-                                            userId,
-                                            JSON.stringify(traits));
-        }
-
-        if (cc.sys.os == cc.sys.OS_ANDROID) {
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                            "segmentIdentity",
-                                            "(Ljava/lang/String;Ljava/lang/String;)V",
-                                            userId,
-                                            JSON.stringify(traits));   
-        }
-    }
-}
-
-Utils.segmentTrack = function(event, properties) {
-
-    var userId = KVDatabase.getInstance().getString(STRING_USER_ID);
-    var userName = KVDatabase.getInstance().getString(STRING_USER_NAME);
-    var schoolId = KVDatabase.getInstance().getString(STRING_SCHOOL_ID);
-    var schoolName = KVDatabase.getInstance().getString(STRING_SCHOOL_NAME);
-
-    if (userId && userId != "")
-        properties.user_id = userId;
-    if (userName && userName != "")
-        properties.user_name = userName;
-    if (schoolId && schoolId != "")
-        properties.school_id = schoolId;
-    if (schoolName && schoolName != "")
-        properties.school_name = schoolName;
-
-    if (cc.sys.isNative) {
-        if (cc.sys.os == cc.sys.OS_IOS) {
-            jsb.reflection.callStaticMethod("H102Wrapper",
-                                            "segmentTrack:properties:",
-                                            event,
-                                            JSON.stringify(properties));
-        }
-
-        if (cc.sys.os == cc.sys.OS_ANDROID) {
-            jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                            "segmentTrack",
-                                            "(Ljava/lang/String;Ljava/lang/String;)V",
-                                            event,
-                                            JSON.stringify(properties));   
-        }
-    }
-
-    // cc.director.getRunningScene().runAction(cc.sequence(
-    //     cc.delayTime(0),
-    //     cc.callFunc(function() {
-            if (cc.sys.isNative) {
-                if (cc.sys.os == cc.sys.OS_IOS) {
-                    jsb.reflection.callStaticMethod("H102Wrapper",
-                                                    "segmentTrack:properties:",
-                                                    event,
-                                                    JSON.stringify(properties));
-                }
-
-                if (cc.sys.os == cc.sys.OS_ANDROID) {
-                    jsb.reflection.callStaticMethod("org/cocos2dx/javascript/AppActivity",
-                                                    "segmentTrack",
-                                                    "(Ljava/lang/String;Ljava/lang/String;)V",
-                                                    event,
-                                                    JSON.stringify(properties));   
-                }
-            }
-        // })
-    // ));
 }
 
 Utils.receiveData = function(data) {
@@ -149,6 +32,12 @@ Utils.receiveData = function(data) {
     KVDatabase.getInstance().set(STRING_GAME_CONFIG, dataArray[4]);
 
     Config.setupInstance();
+
+    SegmentHelper.identity(
+        dataArray[1], 
+        dataArray[0], 
+        dataArray[3], 
+        dataArray[2]);
 
     var receivedData = {
         user_name: dataArray[0],

@@ -27,9 +27,7 @@ var SettingDialog = cc.Layer.extend({
         cc.eventManager.addListener({
                 event: cc.EventListener.TOUCH_ONE_BY_ONE,
                 swallowTouches: true,
-                onTouchBegan: this.onTouchBegan,
-                onTouchMoved: this.onTouchMoved,
-                onTouchEnded: this.onTouchEnded
+                onTouchBegan: function(touch, event) { return true; }
         }, this);
     },
 
@@ -79,7 +77,7 @@ var SettingDialog = cc.Layer.extend({
             KVDatabase.getInstance().remove("amountGamePlayed");
             
             cc.director.replaceScene(new MainScreenScene());
-            Utils.moveToMainApp();
+            NativeHelper.callNative("moveToMainApp");
         })
     },
 
@@ -105,14 +103,9 @@ var SettingDialog = cc.Layer.extend({
                                             font, 
                                             this._dialogBg.width*1.5);
         dialogBgLabel.scale = 0.5;
-        // dialogBgLabel.boundingWidth = this._dialogBg.width - 50;
         dialogBgLabel.textAlign = cc.TEXT_ALIGNMENT_CENTER;
         dialogBgLabel.x = this._dialogBg.width/2;
         dialogBgLabel.y = this._dialogBg.height/2;
         this._dialogBg.addChild(dialogBgLabel);
     },
-
-    onTouchBegan: function(touch, event) {
-        return true;
-    }
 })

@@ -47,7 +47,7 @@ var ForestLayer = cc.Layer.extend({
         this.runHintObjectUp();
         this.runSoundCountDown();
 
-        Utils.segmentTrack("level_start", 
+        SegmentHelper.track(SEGMENT.LEVEL_START, 
                     { 
                         room: "forest", 
                         object_num: this._numberItems 
@@ -171,7 +171,7 @@ var ForestLayer = cc.Layer.extend({
         // return if the objectTouching is disabled
         if (targetNode._isObjectDisabled())
             return false;
-        Utils.segmentTrack("animal_click", 
+        SegmentHelper.track(SEGMENT.ANIMAL_CLICK, 
                     { 
                         forest: "forest", 
                         animal_name:  targetNode.getAnimalName(targetNode._objectTouching)
@@ -184,7 +184,7 @@ var ForestLayer = cc.Layer.extend({
         targetNode.processGameLogic();
         targetNode.runSparklesEffect();
         if (targetNode._objectDisabled.length == targetNode._numberItems) {
-            Utils.segmentTrack("level_complete",
+            SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
                 {
                     forest: "forest",
                     time_taken: targetNode._hudLayer._clock.getElapseTime()
@@ -360,7 +360,7 @@ var ForestLayer = cc.Layer.extend({
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, this._star, elapseTime);
         if (elapseTime == 120) {
-            Utils.segmentTrack("level_incomplete", 
+            SegmentHelper.track(SEGMENT.LEVEL_INCOMPLETE, 
                         { 
                             forest: "forest", 
                             time_taken: elapseTime 
@@ -373,13 +373,13 @@ var ForestLayer = cc.Layer.extend({
         var warningLabel = this._warningLabel;
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
-                new EffectLayer(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
             cc.scaleTo(2, 1.7).easing(cc.easeElasticOut(0.5))
-            ));
+        ));
         
 
-        new EffectLayer(warningLabel, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+        AnimatedEffect.create(warningLabel, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
 
         this.increaseAmountGamePlayeds();
         this.increaseObjectAmountBaseOnPlay();
@@ -389,8 +389,8 @@ var ForestLayer = cc.Layer.extend({
         else {
             var self = this;
             this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                        cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
-                    });
+                cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
+            });
         }   
 
     },
@@ -420,13 +420,13 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addShuffledAnimalPosArray: function() {
-        var flyPositionArray = Utils.shuffle(FOREST_FLY_POSITION);
-        var groundPositionArray = Utils.shuffle(FOREST_GROUND_POSITION);
-        var waterPositionArray = Utils.shuffle(FOREST_WATER_POSITION);
-        var monkeyPositionArray = Utils.shuffle(FOREST_MONKEY_POSITION);
-        var owlPositionArray = Utils.shuffle(FOREST_OWL_POSITION);
-        var frogPositionArray = Utils.shuffle(FOREST_FROG_POSITION);
-        var nestPositionArray = Utils.shuffle(FOREST_NEST_POSITION);
+        var flyPositionArray = shuffle(FOREST_FLY_POSITION);
+        var groundPositionArray = shuffle(FOREST_GROUND_POSITION);
+        var waterPositionArray = shuffle(FOREST_WATER_POSITION);
+        var monkeyPositionArray = shuffle(FOREST_MONKEY_POSITION);
+        var owlPositionArray = shuffle(FOREST_OWL_POSITION);
+        var frogPositionArray = shuffle(FOREST_FROG_POSITION);
+        var nestPositionArray = shuffle(FOREST_NEST_POSITION);
 
         return {flyPositionArray: flyPositionArray, 
             groundPositionArray: groundPositionArray, 
@@ -477,7 +477,7 @@ var ForestLayer = cc.Layer.extend({
                 cc.delayTime(delay * ANIMATE_DELAY_TIME),
                 cc.callFunc(function() {
                     cc.audioEngine.playEffect( "sounds/smoke.mp3"),
-                    new EffectLayer(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
+                    AnimatedEffect.create(animal, "smoke", SMOKE_EFFECT_DELAY, SMOKE_EFFECT_FRAMES, false);
                 }),
                 cc.scaleTo(0.7, 1).easing(cc.easeElasticOut(0.9)),
                 cc.callFunc(function() {
@@ -511,7 +511,7 @@ var ForestLayer = cc.Layer.extend({
 
     runSparklesEffect: function() {
         for ( var i = 0; i < this._objects.length; i++) {
-            var effect = new EffectLayer(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+            var effect = AnimatedEffect.create(this._objects[i], "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
             this._effectLayers.push(effect)
         }
     },
