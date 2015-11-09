@@ -27,7 +27,7 @@ var RoomLayer = cc.Layer.extend({
     ctor: function(numberItems, numberGamePlayed) {
         // cc.log("Dev: " + whoAmI);
         this._super();
-        this._numberItems = numberItems || NUMBER_ITEMS;
+        this._numberItems = numberItems || GAME_CONFIG.objectStartCount;
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
@@ -406,7 +406,7 @@ var RoomLayer = cc.Layer.extend({
                             room: "room", 
                             object_name:  targetNode.getObjectName(targetNode._objectDisableds[0])
                         });
-            cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
+            // cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
         };
         if (targetNode._objectDisableds.length == targetNode._numberItems){
             SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
@@ -414,7 +414,7 @@ var RoomLayer = cc.Layer.extend({
                             room: "room", 
                             object_name:  targetNode.getObjectName(targetNode._objectDisableds[targetNode._numberItems - 1])
                         });
-            cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
+            // cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
         };
         cc.log("length: " + targetNode._objectDisableds.length);
 
