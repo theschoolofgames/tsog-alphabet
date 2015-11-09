@@ -32,7 +32,7 @@
 
         {
             "imageName": "joker",
-            "type": "LIGHT_WEIGHT_ITEM",
+            "type": "HEAVY_WEIGHT_ITEM",
             "x": 392.1,
             "y": 312.1,
             "anchorX": 0.5,
@@ -108,7 +108,7 @@
         },
         {
             "imageName": "lamp",
-            "type": "LIGHT_WEIGHT_ITEM",
+            "type": "HEAVY_WEIGHT_ITEM",
             "x": 1096.25,
             "y": 299.50,
             "anchorX": 0.5,
@@ -224,68 +224,68 @@
             "z" : 6
         }
     ],
-    "lightweight": [
+    "heavyweight": [
         {
-            "x": 400,
-            "y": 285,
+            "x": 350,
+            "y": 150,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 10
         },
         {
             "x": 450,
-            "y": 285,
+            "y": 170,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 10
         },
         {
             "x": 420,
-            "y": 320,
+            "y": 120,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 10
         },
         {
-            "x": 380,
-            "y": 320,
+            "x": 470,
+            "y": 210,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 10
+        },
+        {
+            "x": 500,
+            "y": 100,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 10
+        },
+        {
+            "x": 600,
+            "y": 170,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 10
+        },
+        {
+            "x": 710,
+            "y": 100,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 10
         },
         {
             "x": 450,
-            "y": 320,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 10
-        },
-        {
-            "x": 1080,
-            "y": 255,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 10
-        },
-        {
-            "x": 1080,
-            "y": 255,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 10
-        },
-        {
-            "x": 1100,
-            "y": 255,
+            "y": 150,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z":10
         }
     ],
-    "heavyweight": [
+    "lightweight": [
         {
-            "x": 180,
-            "y": 180,
+            "x": 70,
+            "y": 50,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z" : 5
@@ -299,77 +299,77 @@
         },
          
         {
-            "x": 758,
-            "y": 156,
+            "x": 260,
+            "y": 75,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 5
         },
         {
-            "x": 288,
-            "y": 156,
+            "x": 150,
+            "y": 220,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z":5
         },
         {
-            "x": 200,
+            "x": 224,
             "y": 120,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z":5
         },
         {
-            "x": 500,
-            "y": 200,
+            "x": 270,
+            "y": 50,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z":5
         },
         {
-            "x": 300,
-            "y": 100,
+            "x": 890,
+            "y": 80,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z" :5
         },
         {
-            "x": 400,
-            "y": 160,
+            "x": 821,
+            "y": 200,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 5
         },
         {
-            "x": 500,
-            "y": 120,
+            "x": 900,
+            "y": 80,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z" : 5
         },
         {
-            "x": 715,
+            "x": 932,
+            "y": 200,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 5
+        },
+        {
+            "x": 1000,
+            "y": 40,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z": 5
+        },
+        {
+            "x": 850,
             "y": 102,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 5
         },
         {
-            "x": 720,
-            "y": 170,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 5
-        },
-        {
-            "x": 800,
-            "y": 102,
-            "anchorX": 0.5,
-            "anchorY": 0.5,
-            "z": 5
-        },
-        {
-            "x": 776,
+            "x": 990,
             "y": 171,
             "anchorX": 0.5,
             "anchorY": 0.5,

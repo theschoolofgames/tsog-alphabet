@@ -332,7 +332,7 @@ var ForestLayer = cc.Layer.extend({
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(1.25);
+        warnLabel.setScale(2.5);
         // var warnLabel = new cc.LabelTTF(text, "Arial", size);
         // warnLabel.setColor(cc.color.RED);
         if (object) {
@@ -341,7 +341,7 @@ var ForestLayer = cc.Layer.extend({
         }
         else {
             warnLabel.x = cc.winSize.width / 2;
-            warnLabel.y = cc.winSize.height - 110;
+            warnLabel.y = cc.winSize.height/ 2;
         }
         this.addChild(warnLabel, 9999);
 
@@ -375,7 +375,7 @@ var ForestLayer = cc.Layer.extend({
             cc.callFunc(function() { 
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(2, 1.7).easing(cc.easeElasticOut(0.5))
+            cc.scaleTo(4, 3).easing(cc.easeElasticOut(0.5))
         ));
         
 

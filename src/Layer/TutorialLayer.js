@@ -69,7 +69,7 @@ var TutorialLayer = cc.Layer.extend({
  			cc.delayTime(0.5),
 			cc.spawn(
 				cc.moveTo(1, correctPos),
-				cc.fadeOut(0.5)
+				cc.fadeOut(1.2)
 			),
 			cc.delayTime(0.5),
 			cc.callFunc(function() {

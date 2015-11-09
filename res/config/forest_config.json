@@ -38,7 +38,7 @@
         },
         {
             "imageName": "cow",
-            "type": "STAND_ITEM"
+            "type": "LIE_ITEM"
         },
         {
             "imageName": "duck",
@@ -46,7 +46,7 @@
         },
         {
             "imageName": "elephant",
-            "type": "STAND_ITEM"
+            "type": "LIE_ITEM"
         },
         {
             "imageName": "fish",
