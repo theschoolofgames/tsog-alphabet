@@ -6,8 +6,10 @@
 //
 //
 #import "H102Wrapper.h"
-#import "PDKeychainBindings.h"
+#import <PDKeychainBindings.h>
 #import <Analytics.h>
+
+#import <Crashlytics/Crashlytics.h>
 
 @implementation H102Wrapper
 

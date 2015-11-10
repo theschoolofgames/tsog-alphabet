@@ -34,6 +34,10 @@
 #import "ScriptingCore.h"
 #import <Analytics.h>
 
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Optimizely/Optimizely.h>
+
 @implementation AppController
 
 #pragma mark -
@@ -86,8 +90,11 @@ static AppDelegate s_sharedApplication;
 
     cocos2d::Application::getInstance()->run();
     
-    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"uImQ7Tu4CUj3qu0ItUiTxfE41kcacg8e"]];
-//     [SEGAnalytics debug:YES];
+//    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"uImQ7Tu4CUj3qu0ItUiTxfE41kcacg8e"]];
+    [SEGAnalytics setupWithConfiguration:[SEGAnalyticsConfiguration configurationWithWriteKey:@"GM3rlJ6aErRIkZq1Epvg6qzHbeB9oGDu"]];
+     [SEGAnalytics debug:YES];
+  
+  [Fabric with:@[[Crashlytics class], [Optimizely class]]];
   
     return YES;
 }
