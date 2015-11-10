@@ -231,7 +231,7 @@ var RoomLayer = cc.Layer.extend({
     checkWonGame: function() {
         // win condition
         if (this._objectDisableds.length == this._numberItems)
-            this.completedScene()
+            this.completedScene();
     },
 
     createWarnLabel: function(text, object) {
@@ -281,19 +281,20 @@ var RoomLayer = cc.Layer.extend({
         var elapseTime = this._hudLayer._clock.getElapseTime();
         RequestsManager.getInstance().postGameProgress(Utils.getUserId(), GAME_ID, 3, elapseTime);
 
+        var eventName = elapseTime == GAME_CONFIG.levelTime ? SEGMENT.LEVEL_INCOMPLETE : SEGMENT.LEVEL_COMPLETE;
+
+        SegmentHelper.track(eventName,
+            {
+                room: "room",
+                time_taken: this._hudLayer._clock.getElapseTime()
+            });
+
         this.increaseAmountGamePlayed();
-        if (elapseTime == 120) {
-            SegmentHelper.track(SEGMENT.LEVEL_INCOMPLETE, 
-                        { 
-                            Room: "room", 
-                            time_taken: elapseTime 
-                        });
-        };
 
         var self = this;
         this.runObjectAction(this, CHANGE_SCENE_TIME, 
             function() {
-            cc.audioEngine.stopEffect(self._effectAudioID)               ;
+                cc.audioEngine.stopEffect(self._effectAudioID);
                 cc.log("numberItems: " + self._numberItems);    
                 cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
             });
@@ -318,9 +319,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     getSoundConfigByName: function(imageName) {
-        // cc.log("imageName: " + imageName);
         var strName = imageName.toUpperCase();
-        // cc.log("strName: " + strName);
         for ( var i = 0; i < OBJECT_SOUNDS_LENGTH.length; i++) {
             if (strName === OBJECT_SOUNDS_LENGTH[i].name) {
                 return OBJECT_SOUNDS_LENGTH[i];
@@ -341,6 +340,12 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching = targetNode._findTouchedObject(touchedPos);
         if (!targetNode._objectTouching)
             return false;
+
+        SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
+            { 
+                room: "room", 
+                object_name:  targetNode.getObjectName(targetNode._objectTouching)
+            });
         
         cc.audioEngine.playEffect("sounds/pickup.mp3");
         targetNode.processGameLogic();
@@ -349,14 +354,13 @@ var RoomLayer = cc.Layer.extend({
                 targetNode._tutorial.removeFromParent();
                 targetNode._tutorial = null;
             };
-
         };
         var oldScale = targetNode._objectTouching.scale;
         targetNode._objectTouching.setScale(0.7 * oldScale);
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1 * oldScale)),
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05 * oldScale))
-            ));
+        ));
         // cc.log("scale")
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         // targetNode._effectSmoke.stopRepeatAction();
@@ -373,8 +377,6 @@ var RoomLayer = cc.Layer.extend({
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
 
         targetNode._objectTouching.setPosition(objectPosition);
-
-        return true;
     },
 
     onTouchEnded: function (touch, event) {
@@ -397,38 +399,20 @@ var RoomLayer = cc.Layer.extend({
         targetNode._objectTouching.runAction(cc.sequence(
             cc.EaseBounceInOut(cc.scaleTo(0.2, 0.7 * targetNode._objectTouching.userData.scaleFactor)),
             cc.EaseBounceInOut(cc.scaleTo(0.2, 1 * targetNode._objectTouching.userData.scaleFactor))
-            ));
+        ));
+
+        if (targetNode._objectDisableds.indexOf(targetNode._objectTouching) >= 0) {
+            SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
+                { 
+                    room: "room", 
+                    object_name:  targetNode.getObjectName(targetNode._objectTouching)
+                });
+        }
+
         targetNode._objectTouching = null;
         targetNode.runSparklesEffect();
-        if (targetNode._objectDisableds.length == 1){
-            SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
-                        { 
-                            room: "room", 
-                            object_name:  targetNode.getObjectName(targetNode._objectDisableds[0])
-                        });
-            // cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
-        };
-        if (targetNode._objectDisableds.length == targetNode._numberItems){
-            SegmentHelper.track(SEGMENT.OBJECT_PICK_END, 
-                        { 
-                            room: "room", 
-                            object_name:  targetNode.getObjectName(targetNode._objectDisableds[targetNode._numberItems - 1])
-                        });
-            // cc.log("name: " + targetNode.getObjectName(targetNode._objectDisableds[0]));
-        };
-        cc.log("length: " + targetNode._objectDisableds.length);
-
-        if (targetNode._objectDisableds.length == targetNode._numberItems) {
-            SegmentHelper.track(SEGMENT.LEVEL_COMPLETE,
-                {
-                    room: "room",
-                    time_taken: targetNode._hudLayer._clock.getElapseTime()
-                });
-        };
 
         cc.audioEngine.playEffect("sounds/drop.mp3");
-
-        return true;
     },
 
     processGameLogic: function() {
