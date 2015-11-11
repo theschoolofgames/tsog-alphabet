@@ -112,11 +112,6 @@ cc.game.onStart = function(){
         cc.spriteFrameCache.addSpriteFrames(res.Sparkle_effect_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Hud_plist);
         cc.spriteFrameCache.addSpriteFrames(res.Tutorial_plist);
-        // Add Shader to cache
-        var shaderSpriteDistort = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
-        cc.shaderCache.addProgram(shaderSpriteDistort, "SpriteDistort");
-        var shaderSolidColor = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
-        cc.shaderCache.addProgram(shaderSolidColor, "SolidColor");
 
         cc.director.runScene(new MainScreenScene());
 

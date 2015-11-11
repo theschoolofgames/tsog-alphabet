@@ -2,11 +2,11 @@
 precision mediump float;
 #endif
 
-varying vec4 v_fragmentColor;
+varying vec4 cc_FragColor;
 varying vec2 cc_FragTexCoord1;
 
 void main(void)
 {
     vec4 c = texture2D(CC_Texture0, cc_FragTexCoord1);
-    gl_FragColor = vec4(0.0235*c.w, 0.259*c.w, 0.369*c.w, c.w);
+    gl_FragColor = vec4(cc_FragColor.x * c.w, cc_FragColor.y * c.w, cc_FragColor.z * c.w, c.w);
 }

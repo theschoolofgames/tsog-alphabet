@@ -171,6 +171,11 @@ var RoomLayer = cc.Layer.extend({
         object.scale = this._allScale * object.userData.scaleFactor;
         this.addChild(object, 2);
 
+        var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SpriteDistort_fsh);
+        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        shaderState.setUniformInt("useDistrort", 0);
+        object.shaderProgram = shader;
+
         this._objectNames.push({name: imageName, tag: object.tag});
 
         this.animateObjectIn(object, index);
@@ -195,7 +200,10 @@ var RoomLayer = cc.Layer.extend({
             shadeObject.visible = true;
             this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
 
-            shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+            var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
+            shadeObject.shaderProgram = shader;
+            shadeObject.color = cc.color(6, 66, 94);
+
             shadeObject.setLocalZOrder(3);
 
             this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
@@ -295,7 +303,6 @@ var RoomLayer = cc.Layer.extend({
         this.runObjectAction(this, CHANGE_SCENE_TIME, 
             function() {
                 cc.audioEngine.stopEffect(self._effectAudioID);
-                cc.log("numberItems: " + self._numberItems);    
                 cc.director.replaceScene(new ForestScene(self._numberItems, self._numberGamePlayed));
             });
     },
@@ -344,7 +351,7 @@ var RoomLayer = cc.Layer.extend({
         SegmentHelper.track(SEGMENT.OBJECT_PICK_START, 
             { 
                 room: "room", 
-                object_name:  targetNode.getObjectName(targetNode._objectTouching)
+                object_name: targetNode.getObjectName(targetNode._objectTouching)
             });
         
         cc.audioEngine.playEffect("sounds/pickup.mp3");
@@ -361,7 +368,7 @@ var RoomLayer = cc.Layer.extend({
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.1 * oldScale)),
             cc.EaseBounceInOut(cc.scaleTo(0.5, 1.05 * oldScale))
         ));
-        // cc.log("scale")
+        
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         // targetNode._effectSmoke.stopRepeatAction();
         var objectPosition = targetNode.getObjectPosWithTouchedPos(touchedPos);
@@ -390,10 +397,14 @@ var RoomLayer = cc.Layer.extend({
         targetNode._lastClickTime = targetNode._hudLayer.getRemainingTime();
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
+        targetNode._shadeObjects[index].stopAllActions();
 
         targetNode._objectTouching.setLocalZOrder(2);
-        targetNode._objectTouching.shaderProgram = cc.shaderCache.getProgram("ShaderPositionTextureColor_noMVP");
         targetNode.handleObjectCorrectPos(index);
+
+        var shader = targetNode._objectTouching.shaderProgram;
+        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        shaderState.setUniformInt("useDistrort", 0);
 
         targetNode._objectTouching.stopAllActions();
         targetNode._objectTouching.runAction(cc.sequence(
@@ -423,7 +434,10 @@ var RoomLayer = cc.Layer.extend({
         this.removeObjectAction();
         this._lastClickTime = this._hudLayer.getRemainingTime();
         this.playObjectSound(true);
-        this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
+        // this._objectTouching.shaderProgram = cc.shaderCache.getProgram("SpriteDistort");
+        var shader = this._objectTouching.shaderProgram;
+        var shaderState = cc.GLProgramState.getOrCreateWithGLProgram(shader);
+        shaderState.setUniformInt("useDistrort", 1);
 
         //set shadeObject to visible
         var index = this.getObjectIndex(this._objectTouching);
@@ -446,7 +460,12 @@ var RoomLayer = cc.Layer.extend({
         var shadeObject = this._shadeObjects[index];
         this._currentObjectShadeZOrder = shadeObject.getLocalZOrder();
 
-        shadeObject.shaderProgram = cc.shaderCache.getProgram("SolidColor");
+        var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
+        shadeObject.shaderProgram = shader;
+        shadeObject.runAction(cc.repeatForever(cc.sequence(
+            cc.tintTo(0.5, 6, 66, 94),
+            cc.tintTo(0.5, 255, 255, 255))));
+
         shadeObject.setLocalZOrder(5);
 
         this._effectLayerShade = AnimatedEffect.create(shadeObject, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
