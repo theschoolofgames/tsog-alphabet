@@ -31,6 +31,7 @@ var RoomLayer = cc.Layer.extend({
         this._numberGamePlayed = numberGamePlayed || 0;
         this._kvInstance = KVDatabase.getInstance();
         this.resetAllArrays();
+        this.setVolume();
         this.createBackground();
         this.addObjects();
         this.addRefreshButton();
@@ -47,6 +48,11 @@ var RoomLayer = cc.Layer.extend({
                 onTouchMoved: this.onTouchMoved,
                 onTouchEnded: this.onTouchEnded
         }, this);
+    },
+
+    setVolume:function() {
+        cc.audioEngine.setMusicVolume(0.1);
+        cc.audioEngine.setEffectsVolume(0.7);
     },
 
     resetAllArrays: function() {
@@ -464,7 +470,7 @@ var RoomLayer = cc.Layer.extend({
         shadeObject.shaderProgram = shader;
         shadeObject.runAction(cc.repeatForever(cc.sequence(
             cc.tintTo(0.5, 6, 66, 94),
-            cc.tintTo(0.5, 255, 255, 255))));
+            cc.tintTo(0.5, 186, 186, 186))));
 
         shadeObject.setLocalZOrder(5);
 

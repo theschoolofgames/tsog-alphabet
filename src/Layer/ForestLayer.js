@@ -36,6 +36,7 @@ var ForestLayer = cc.Layer.extend({
         this._dsInstance = ConfigStore.getInstance();
         this._kvInstance = KVDatabase.getInstance();
         this.resetObjectArrays();
+        this.setVolume();
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
@@ -58,6 +59,11 @@ var ForestLayer = cc.Layer.extend({
             swallowTouches: true,
             onTouchBegan: this.onTouchBegan
         }, this);
+    },
+
+    setVolume:function() {
+        cc.audioEngine.setMusicVolume(0.1);
+        cc.audioEngine.setEffectsVolume(0.7);
     },
 
     addHud: function() {
@@ -258,9 +264,9 @@ var ForestLayer = cc.Layer.extend({
             this.runLieAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.SNAIL_ITEM)
             this.runLieAnimalAction(animal);
-        if (itemId === FOREST_ITEM_TYPE.DOLPHIM_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.DOLPHIN_ITEM)
             this.runLieAnimalAction(animal);
-        if (itemId === FOREST_ITEM_TYPE.CROCEDILE_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.CROCODILE_ITEM)
             this.runLieAnimalAction(animal);
 
 
@@ -272,9 +278,9 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
-                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(20, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(30, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(30, animalPos)),
+                        cc.moveTo(MOVE_DELAY_TIME, this.getRamdomPositionMoveto(30, animalPos)),
                         cc.moveTo(MOVE_DELAY_TIME, animalPos)
                     )
                 )
@@ -285,8 +291,8 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
                 cc.repeatForever(
                     cc.sequence(
-                        cc.scaleTo(1, 0.98),
-                        cc.scaleTo(1, 1.02)
+                        cc.scaleTo(1, 0.9),
+                        cc.scaleTo(1, 1.1)
                     )
                 )
         )
@@ -296,9 +302,9 @@ var ForestLayer = cc.Layer.extend({
         animal.runAction(
             cc.repeatForever(
                 cc.sequence(
-                    cc.rotateBy(MOVE_DELAY_TIME, 3),
-                    cc.rotateBy(MOVE_DELAY_TIME * 2, -6),
-                    cc.rotateBy(MOVE_DELAY_TIME, 3)
+                    cc.rotateBy(MOVE_DELAY_TIME, 4),
+                    cc.rotateBy(MOVE_DELAY_TIME * 2, - 8),
+                    cc.rotateBy(MOVE_DELAY_TIME, 4)
                     )
                 )
             )
