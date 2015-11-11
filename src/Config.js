@@ -19,6 +19,10 @@ var FOREST_MONKEY_POSITION = [];
 var FOREST_OWL_POSITION = [];
 var FOREST_FROG_POSITION = []; 
 var FOREST_NEST_POSITION = [];
+var FOREST_OCTOPUS_POSITION = [];
+var FOREST_DOLPHIN_POSITION = [];
+var FOREST_SNAIL_POSITION = [];
+var FOREST_CROCODILE_POSITION = [];
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: 668,
@@ -283,6 +287,10 @@ ConfigStore.setupInstance = function () {
             FOREST_OWL_POSITION = preProcessData(data.owl);
             FOREST_MONKEY_POSITION = preProcessData(data.monkey);
             FOREST_NEST_POSITION = preProcessData(data.nest);
+            FOREST_OCTOPUS_POSITION = preProcessData(data.octopus);
+            FOREST_DOLPHIN_POSITION = preProcessData(data.dolphin);
+            FOREST_SNAIL_POSITION = preProcessData(data.snail);
+            FOREST_CROCODILE_POSITION = preProcessData(data.crocodile);
             forestLoaded = true;
         } else {
             cc.fileUtils.removeFile(Utils.getAssetsManagerPath() + res.Forest_Config_JSON);
@@ -295,6 +303,10 @@ ConfigStore.setupInstance = function () {
                 FOREST_OWL_POSITION = preProcessData(data.owl);
                 FOREST_MONKEY_POSITION = preProcessData(data.monkey);
                 FOREST_NEST_POSITION = preProcessData(data.nest);
+                FOREST_OCTOPUS_POSITION = preProcessData(data.octopus);
+                FOREST_DOLPHIN_POSITION = preProcessData(data.dolphin);
+                FOREST_SNAIL_POSITION = preProcessData(data.snail);
+                FOREST_CROCODILE_POSITION = preProcessData(data.crocodile);
                 forestLoaded = true;
             });
         }
