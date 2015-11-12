@@ -469,8 +469,8 @@ var RoomLayer = cc.Layer.extend({
         var shader = cc.GLProgram.createWithFilenames(res.PositionTextureColor_noMVP_vsh, res.SolidColor_fsh);
         shadeObject.shaderProgram = shader;
         shadeObject.runAction(cc.repeatForever(cc.sequence(
-            cc.tintTo(0.5, 6, 66, 94),
-            cc.tintTo(0.5, 186, 186, 186))));
+            cc.tintTo(0.25, 6, 66, 94),
+            cc.tintTo(0.25, 186, 186, 186))));
 
         shadeObject.setLocalZOrder(5);
 
