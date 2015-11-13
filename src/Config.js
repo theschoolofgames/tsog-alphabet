@@ -271,10 +271,10 @@ var ConfigStore = cc.Class.extend({
 ConfigStore._instance = null;
 
 ConfigStore.getInstance = function () {
-  return ConfigStore._instance || ConfigStore.setupInstance();
+  return ConfigStore._instance || ConfigStore.setupInstance(false);
 };
 
-ConfigStore.setupInstance = function () {
+ConfigStore.setupInstance = function (configOnce) {
     var forestLoaded = false, roomLoaded = false;
 
     cc.loader.loadJson(res.Forest_Config_JSON, function(err, data) {
@@ -354,7 +354,9 @@ ConfigStore.setupInstance = function () {
         });
     }
 
-    preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
+    if (configOnce) {
+        preProcessData(FOREST_BACKGROUND_ITEMS_POSITION);
+    }
 
     while(forestLoaded && roomLoaded) {
         ConfigStore._instance = new ConfigStore();

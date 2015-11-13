@@ -31,7 +31,7 @@ Utils.receiveData = function(data) {
     KVDatabase.getInstance().set(STRING_SCHOOL_ID, dataArray[3]);
     KVDatabase.getInstance().set(STRING_GAME_CONFIG, dataArray[4]);
 
-    ConfigStore.setupInstance();
+    ConfigStore.setupInstance(false);
 
     SegmentHelper.identity(
         dataArray[1], 
