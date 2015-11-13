@@ -404,7 +404,7 @@ var RoomLayer = cc.Layer.extend({
         var index = targetNode.getObjectIndex(targetNode._objectTouching);
         targetNode._shadeObjects[index].visible = false;
         targetNode._shadeObjects[index].stopAllActions();
-
+        targetNode._shadeObjects[index].setColor(cc.color(6, 66, 94, 0));
         targetNode._objectTouching.setLocalZOrder(2);
         targetNode.handleObjectCorrectPos(index);
 

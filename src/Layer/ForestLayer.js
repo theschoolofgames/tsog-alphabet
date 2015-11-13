@@ -21,6 +21,7 @@ var ForestLayer = cc.Layer.extend({
     _blockAllObjects: false,
 
     _allScale: 1,
+    _warnLabel: null,
 
     _numberItems: 0,
     _numberGamePlayed: 0,
@@ -370,6 +371,38 @@ var ForestLayer = cc.Layer.extend({
             this.completedScene();
     },
 
+    createYouWin: function() {
+        var lbText = "You Win";
+        var blockFlag = true;
+        var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
+        this.addChild(mask, 1000);
+        cc.eventManager.addListener({
+            event: cc.EventListener.TOUCH_ONE_BY_ONE,
+            swallowTouches: true,
+            onTouchBegan: function(touch, event) { return true; }
+        }, mask);
+        this.createWarnLabel(lbText, 24);
+        cc.log("warnLabel: " + this._warnLabel);
+        var warningLabel = this._warningLabel;
+        warningLabel.runAction(cc.sequence(
+            cc.callFunc(function() { 
+                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
+            })
+        ));
+        this.runAction(cc.sequence(
+            cc.delayTime(3),
+            cc.callFunc(function() {          
+                warningLabel.setVisible(false);
+                mask.setLocalZOrder(-1);
+            })
+        ));
+
+        AnimatedEffect.create(warningLabel, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
+
+        this.increaseAmountGamePlayeds();
+        this.increaseObjectAmountBaseOnPlay();
+    },
+
     completedScene: function() {
         if (this._warningLabel)
             this._warningLabel.removeFromParent();
@@ -385,32 +418,24 @@ var ForestLayer = cc.Layer.extend({
         };
         var starEarned = this._hudLayer.getStarEarned();
         // var str = (starEarned > 1) ? " stars" : " star";
-        var lbText = "You Win";
-        this.createWarnLabel(lbText, 24);
-        var warningLabel = this._warningLabel;
-        warningLabel.runAction(cc.sequence(
-            cc.callFunc(function() { 
-                AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
-            }), 
-            cc.scaleTo(4, 3).easing(cc.easeElasticOut(0.5))
-        ));
+        var self  = this;
         
-
-        AnimatedEffect.create(warningLabel, "sparkles", SPARKLE_EFFECT_DELAY, SPARKLE_EFFECT_FRAMES, true);
-
-        this.increaseAmountGamePlayeds();
-        this.increaseObjectAmountBaseOnPlay();
-
-        if (this.isGamePlayedMatchAmountOfPlay())
-            this.showTryAnOtherGameDialog();
-        else {
-            var self = this;
-            this.runObjectAction(this, CHANGE_SCENE_TIME, function() {
-                cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
-            });
-        }   
+        this.createYouWin();
+        this.runAction(cc.sequence(
+            cc.delayTime(3),
+            cc.callFunc(function() {
+                if (self.isGamePlayedMatchAmountOfPlay())
+                    self.showTryAnOtherGameDialog();
+                else {
+                    self.runObjectAction(self, CHANGE_SCENE_TIME, function() {
+                        cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
+                    })
+                };   
+            })
+        ));
 
     },
+
 
     runTutorial: function() {
         if(this._numberGamePlayed < 2) {
@@ -585,7 +610,6 @@ var ForestLayer = cc.Layer.extend({
         this.addChild(mask, 100);
         animal.setLocalZOrder(101);
 
-        var blockFlag = true;
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ONE_BY_ONE,
             swallowTouches: true,
