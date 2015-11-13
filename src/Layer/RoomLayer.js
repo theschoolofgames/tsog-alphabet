@@ -48,6 +48,12 @@ var RoomLayer = cc.Layer.extend({
                 onTouchMoved: this.onTouchMoved,
                 onTouchEnded: this.onTouchEnded
         }, this);
+
+        SegmentHelper.track(SEGMENT.LEVEL_START, 
+            { 
+                room: "room", 
+                object_num: this._numberItems 
+            });
     },
 
     setVolume:function() {
@@ -138,12 +144,6 @@ var RoomLayer = cc.Layer.extend({
         roomWindow.y = cc.winSize.height - 230 / this._allScale;
         roomWindow.scale = this._allScale;
         this.addChild(roomWindow);
-
-        SegmentHelper.track(SEGMENT.LEVEL_START, 
-                    { 
-                        room: "room", 
-                        object_num: this._numberItems 
-                    });
     },
 
     addObjects: function() {

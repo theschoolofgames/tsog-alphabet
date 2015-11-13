@@ -3,7 +3,6 @@ var BACKEND_ADDRESS = "http://130.211.178.51/";
 // var BACKEND_ADDRESS = "http://localhost:3000/";
 
 var GAME_ID = "56236595abd71555234a5c9c";
-var SEGMENT_KEY = "TQB4UsWbEoiLkoRFyBXpthCtfc7nq4Ak";
 
 var MOVE_DELAY_TIME = 1;
 var ANIMATE_DELAY_TIME = 0.2;

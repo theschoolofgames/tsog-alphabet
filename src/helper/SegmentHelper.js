@@ -27,5 +27,7 @@ SegmentHelper.track = function(event, properties) {
     if (schoolName && schoolName != "")
         properties.school_name = schoolName;
 
+    properties.realTimeStamp = Date.now();
+
     NativeHelper.callNative("segmentTrack", [event, JSON.stringify(properties)]);
 }
