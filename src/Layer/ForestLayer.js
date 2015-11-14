@@ -387,12 +387,14 @@ var ForestLayer = cc.Layer.extend({
         warningLabel.runAction(cc.sequence(
             cc.callFunc(function() { 
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
-            })
+            }),
+            cc.scaleTo(4, 3).easing(cc.easeElasticOut(0.5))
+
         ));
         this.runAction(cc.sequence(
             cc.delayTime(3),
-            cc.callFunc(function() {          
-                warningLabel.setVisible(false);
+            cc.callFunc(function() {
+                warningLabel.setVisible(false);          
                 mask.setLocalZOrder(-1);
             })
         ));
