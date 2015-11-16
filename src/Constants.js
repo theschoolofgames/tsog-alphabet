@@ -159,6 +159,50 @@ var ANIMAL_SOUNDS_LENGTH = [
     {
         name: "SHEEP",
         length: 3
+    },
+    {
+        name: "GOLDFISH",
+        length: 3
+    },
+    {
+        name: "EAGLE",
+        length:3
+    },
+    {
+        name: "HAMSTER",
+        length: 3
+    },
+    {
+        name: "GOAT",
+        length: 3
+    },
+    {
+        name: "GIRAFFE",
+        length:3
+    },
+    {
+        name: "DEER",
+        length: 3
+    },
+    {
+        name: "KITTEN",
+        length: 3
+    },
+    {
+        name: "SNAKE",
+        length: 3
+    },
+    {
+        name: "TURTLE",
+        length: 3
+    },
+    {
+        name: "FLY",
+        length: 3
+    },
+    {
+        name: "SQUIRREL",
+        length:3
     }
 ];
 

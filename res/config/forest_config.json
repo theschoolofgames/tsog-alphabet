@@ -111,6 +111,42 @@
         {
             "imageName": "octopus",
             "type": "OCTOPUS_ITEM"
+        },
+        {
+            "imageName" :"hamster",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "goat",
+            "type" : "STAND_ITEM"
+        },
+        {
+            "imageName": "giraffe",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "deer",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "kitten",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "snake",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "turtle",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "squirrel",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "goldfish",
+            "type": "WATER_ITEM"
         }
     ],
     "water": [

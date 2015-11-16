@@ -27,6 +27,7 @@ var ForestLayer = cc.Layer.extend({
     _numberGamePlayed: 0,
     _tutorial:null,
     _shadeObjects:null,
+    _isWinLabel: false,
 
     ctor: function(numberItems, numberGamePlayed) {
         this._super();
@@ -245,7 +246,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     runAnimalAction : function(animal , itemId) {
-        if (itemId === FOREST_ITEM_TYPE.FLY_ITEM)
+        if (itemId === FOREST_ITEM_TYPE.BIRD_ITEM)
             this.runFlyAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.LIE_ITEM)
             this.runLieAnimalAction(animal);
@@ -373,7 +374,6 @@ var ForestLayer = cc.Layer.extend({
 
     createYouWin: function() {
         var lbText = "You Win";
-        var blockFlag = true;
         var mask = new cc.LayerColor(cc.color(0, 0, 0, 0));
         this.addChild(mask, 1000);
         cc.eventManager.addListener({
@@ -392,7 +392,7 @@ var ForestLayer = cc.Layer.extend({
 
         ));
         this.runAction(cc.sequence(
-            cc.delayTime(3),
+            cc.delayTime(4),
             cc.callFunc(function() {
                 warningLabel.setVisible(false);          
                 mask.setLocalZOrder(-1);
@@ -424,10 +424,12 @@ var ForestLayer = cc.Layer.extend({
         
         this.createYouWin();
         this.runAction(cc.sequence(
-            cc.delayTime(3),
+            cc.delayTime(4),
             cc.callFunc(function() {
-                if (self.isGamePlayedMatchAmountOfPlay())
+                if (self.isGamePlayedMatchAmountOfPlay()) {
                     self.showTryAnOtherGameDialog();
+                    self._isWinLabel =false;
+                }
                 else {
                     self.runObjectAction(self, CHANGE_SCENE_TIME, function() {
                         cc.director.replaceScene(new RoomScene(self._numberItems, self._numberGamePlayed));
@@ -464,7 +466,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addShuffledAnimalPosArray: function() {
-        var flyPositionArray = shuffle(FOREST_FLY_POSITION);
+        var birdPositionArray = shuffle(FOREST_FLY_POSITION);
         var groundPositionArray = shuffle(FOREST_GROUND_POSITION);
         var waterPositionArray = shuffle(FOREST_WATER_POSITION);
         var monkeyPositionArray = shuffle(FOREST_MONKEY_POSITION);
@@ -476,7 +478,7 @@ var ForestLayer = cc.Layer.extend({
         var dolphinPositionArray = shuffle(FOREST_DOLPHIN_POSITION);
         var crocodilePositionArray = shuffle(FOREST_CROCODILE_POSITION);
 
-        return {flyPositionArray: flyPositionArray, 
+        return {birdPositionArray: birdPositionArray, 
             groundPositionArray: groundPositionArray, 
             frogPositionArray: frogPositionArray,
             monkeyPositionArray: monkeyPositionArray,
@@ -492,8 +494,8 @@ var ForestLayer = cc.Layer.extend({
 
     getAnimalPositionType: function(type , shuffledArrays) {
         var animalPositionArray = null;
-        if (type === FOREST_ITEM_TYPE.FLY_ITEM)
-            animalPositionArray = shuffledArrays.flyPositionArray
+        if (type === FOREST_ITEM_TYPE.BIRD_ITEM)
+            animalPositionArray = shuffledArrays.birdPositionArray
         if (type === FOREST_ITEM_TYPE.LIE_ITEM || type === FOREST_ITEM_TYPE.STAND_ITEM)
             animalPositionArray = shuffledArrays.groundPositionArray
         if (type === FOREST_ITEM_TYPE.WATER_ITEM)
@@ -708,7 +710,7 @@ var ForestLayer = cc.Layer.extend({
     showAllAnimals: function() {
         var animals = this._dsInstance.getObjects(FOREST_ID, this._numberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
-        var animalPositions = shuffledArrays.flyPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
+        var animalPositions = shuffledArrays.birdPositionArray.concat(shuffledArrays.groundPositionArray).concat(shuffledArrays.waterPositionArray);
 
         for ( var i = 0; i < animalPositions.length; i++) {
             this.createAnimal(animalPositions[i], animals[0], i);

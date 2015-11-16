@@ -62,6 +62,18 @@ var res = {
    Dolphin_png: "animals/dolphin.png",
    Crocodile_png: "animals/crocodile.png",
    Zebra_png: "animals/zebra.png",
+   Goldfish_png: "animals/goldfish.png",
+   Eagle_png: "animals/eagle.png",
+   Hamster_png: "animals/hamster.png",
+   Goat_png: "animals/goat.png",
+   Giraffe_png: "animals/giraffe.png",
+   Deer_png: "animals/deer.png",
+   Kitten_png: "animals/kitten.png",
+   Snake_png: "animals/snake.png",
+   Turtle_png : "animals/turtle.png",
+   Fly_png: "animals/fly.png",
+   Squirrel_png: "animals/squirrel.png",
+
 
    // Things
    Map_png: "things/map.png",
@@ -142,6 +154,17 @@ var res = {
    RAT_mp3: "sounds/animals/rat.mp3",
    TIGER_mp3: "sounds/animals/tiger.mp3",
    ZEBRA_mp3: "sounds/animals/zebra.mp3",
+   GOLDFISH_mp3: "sounds/animals/goldfish.mp3",
+   EAGLE_mp3: "sounds/animals/eagle.mp3",
+   HAMSTER_mp3: "sounds/animals/hamster.mp3",
+   GOAT_mp3: "sounds/animals/goat.mp3",
+   GIRAFFE_mp3: "sounds/animals/giraffe.mp3",
+   DEER_mp3: "sounds/animals/deer.mp3",
+   KITTEN_mp3: "sounds/animals/kitten.mp3",
+   SNAKE_mp3: "sounds/animals/snake.mp3",
+   TURTLE_mp3 : "sounds/animals/turtle.mp3",
+   FLY_mp3: "sounds/animals/fly.mp3",
+   SQUIRREL_mp3: "sounds/animals/squirrel.mp3",
 
    // Things sound
    APPLE_1_mp3: "res/sounds/things/apple-1.mp3",
