@@ -173,7 +173,7 @@ var RoomLayer = cc.Layer.extend({
         object.x = objPosition.x;
         object.y = objPosition.y;
         object.tag = index;
-        object.userData = { scaleFactor: 2.2 }
+        object.userData = { scaleFactor: 1 }
         object.scale = this._allScale * object.userData.scaleFactor;
         this.addChild(object, 2);
 
@@ -198,7 +198,7 @@ var RoomLayer = cc.Layer.extend({
         var shadeObject = new cc.Sprite("things/" + imageName + ".png");
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
-        shadeObject.scale = this._allScale;
+        shadeObject.scale = this._allScale /2;
 
         if (this.hadObjectRequired())
             shadeObject.visible = false;
@@ -487,7 +487,7 @@ var RoomLayer = cc.Layer.extend({
         if (distance < 100) {
             this._objectTouching.setPosition(shadePos);
             this._objectTouching.setLocalZOrder(1);
-            this._objectTouching.userData.scaleFactor = 1;
+            this._objectTouching.userData.scaleFactor = 0.5;
             this._objectDisableds.push(this._objectTouching);
 
             this.removeObjectAction();
