@@ -38,6 +38,8 @@
 #import <Crashlytics/Crashlytics.h>
 #import <Optimizely/Optimizely.h>
 
+#import <H102Wrapper.h>
+
 @implementation AppController
 
 #pragma mark -
@@ -106,6 +108,7 @@ static AppDelegate s_sharedApplication;
      Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
      */
     cocos2d::Director::getInstance()->pause();
+  [H102Wrapper fabricCustomLoggingWithKey:nil andValue:@"applicationWillResignActive"];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
@@ -113,6 +116,7 @@ static AppDelegate s_sharedApplication;
      Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
      */
     cocos2d::Director::getInstance()->resume();
+  [H102Wrapper fabricCustomLoggingWithKey:nil andValue:@"applicationDidBecomeActive"];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -121,6 +125,8 @@ static AppDelegate s_sharedApplication;
      If your application supports background execution, called instead of applicationWillTerminate: when the user quits.
      */
     cocos2d::Application::getInstance()->applicationDidEnterBackground();
+  
+  [H102Wrapper fabricCustomLoggingWithKey:nil andValue:@"applicationDidEnterBackground"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -128,6 +134,7 @@ static AppDelegate s_sharedApplication;
      Called as part of  transition from the background to the inactive state: here you can undo many of the changes made on entering the background.
      */
     cocos2d::Application::getInstance()->applicationWillEnterForeground();
+  [H102Wrapper fabricCustomLoggingWithKey:nil andValue:@"applicationWillEnterForeground"];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
@@ -159,6 +166,7 @@ static AppDelegate s_sharedApplication;
      Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
      */
      cocos2d::Director::getInstance()->purgeCachedData();
+  [H102Wrapper fabricCustomLoggingWithKey:nil andValue:@"applicationDidReceiveMemoryWarning"];
 }
 
 
