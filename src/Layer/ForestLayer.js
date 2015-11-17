@@ -42,8 +42,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        this.addBackButton();
-        this.addRefreshButton();
+        // this.addBackButton();
+        // this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runTutorial();
@@ -80,6 +80,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createBackground: function() {
+
+        NativeHelper.callNative("customLogging", ["Sprite", "BG.jpg"]);
         var background = new cc.Sprite("BG.jpg");
         this._allScale = cc.winSize.width / background.width;
 
@@ -93,6 +95,8 @@ var ForestLayer = cc.Layer.extend({
         var forestBgData = this._dsInstance.getPositions(FOREST_BACKGROUND_ID);
         for ( var i = 0; i < forestBgData.length; i++) {
             var element = forestBgData[i];
+
+            NativeHelper.callNative("customLogging", ["Sprite", element.imageName]);
             var backgroundElt = new cc.Sprite(element.imageName);
             backgroundElt.x = element.x;
             backgroundElt.y = element.y;
@@ -120,7 +124,7 @@ var ForestLayer = cc.Layer.extend({
 
     createAnimals: function() {
         // this._numberItems = this.getNumberOfObjects();
-        cc.log("this._numberItems: %d, ", this._numberItems)
+        // cc.log("this._numberItems: %d, ", this._numberItems)
         var animals = this._dsInstance.getRandomObjects(FOREST_ID, this._numberItems);
         var shuffledArrays = this.addShuffledAnimalPosArray();
         for ( var i = 0; i < this._numberItems; i++) {
@@ -220,6 +224,8 @@ var ForestLayer = cc.Layer.extend({
     },
 
     createAnimal : function(position, animalObject, i) {
+
+        NativeHelper.callNative("customLogging", ["Sprite", "animals/" + animalObject.imageName + ".png"]);
         var animal =  new cc.Sprite("animals/" + animalObject.imageName + ".png");
         animal.setAnchorPoint(position.anchorX, position.anchorY);
         animal.x = position.x;

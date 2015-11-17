@@ -56,14 +56,16 @@
 }
 
 + (void)segmentTrack:(NSString *)event properties:(NSString *)properties {
-  NSLog(@"%@", [NSThread currentThread]);
   dispatch_async(dispatch_get_main_queue(), ^{
     NSData* propertiesData = [properties dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary* propertiesDict = [NSJSONSerialization JSONObjectWithData:propertiesData options:0 error:nil];
     
     [[SEGAnalytics sharedAnalytics] track:event properties:propertiesDict];
-
   });
+}
+
++ (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value {
+  [[Crashlytics sharedInstance] setObjectValue:value forKey:key];
 }
 
 @end

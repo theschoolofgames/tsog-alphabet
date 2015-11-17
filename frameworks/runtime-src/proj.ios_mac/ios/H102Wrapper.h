@@ -20,6 +20,8 @@
 
 + (void)segmentIdentity:(NSString *)userId traits:(NSString *)traits;
 + (void)segmentTrack:(NSString *)event properties:(NSString *)traits;
+
++ (void)fabricCustomLoggingWithKey:(NSString *)key andValue:(NSString *)value;
 @end
 
 

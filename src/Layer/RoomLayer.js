@@ -34,8 +34,8 @@ var RoomLayer = cc.Layer.extend({
         this.setVolume();
         this.createBackground();
         this.addObjects();
-        this.addRefreshButton();
-        this.addBackButton();
+        // this.addRefreshButton();
+        // this.addBackButton();
         this.addHud();
         this.runTutorial();
         this.runHintObjectUp();
@@ -85,7 +85,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addRefreshButton: function() {
-        var refreshButton = new ccui.Button( "res/refresh-button.png", "", "");
+        NativeHelper.callNative("customLogging", ["Button", "res/refresh-button.png"]);
+        var refreshButton = new ccui.Button("res/refresh-button.png", "", "");
         refreshButton.x = cc.winSize.width - refreshButton.width;
         refreshButton.y = refreshButton.height / 2;
         this.addChild(refreshButton);
@@ -96,6 +97,7 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addBackButton: function() {
+        NativeHelper.callNative("customLogging", ["Button", "res/back.png"]);
         var backButton = new ccui.Button( "res/back.png",  "res/back-pressed.png", "");
         backButton.x = cc.winSize.width - backButton.width*3;
         backButton.y = backButton.height / 2;
@@ -110,6 +112,7 @@ var RoomLayer = cc.Layer.extend({
 
     createBackground: function() {
         
+        NativeHelper.callNative("customLogging", ["Sprite", "Bedroom-screen.jpg"]);
         var background = new cc.Sprite( "Bedroom-screen.jpg");
         this._allScale = cc.winSize.width / background.width;
 
@@ -119,6 +122,7 @@ var RoomLayer = cc.Layer.extend({
         background.anchorY = 0;
         this.addChild(background);
 
+        NativeHelper.callNative("customLogging", ["Sprite", "bedroom-roof.png"]);
         var roof = new cc.Sprite("bedroom-roof.png");
         roof.scale = this._allScale;
         roof.x = cc.winSize.width/2;
@@ -126,6 +130,7 @@ var RoomLayer = cc.Layer.extend({
         roof.anchorY = 1;
         this.addChild(roof);
 
+        NativeHelper.callNative("customLogging", ["Sprite", "bedroom-ribbon.png"]);
         var roomRibbon = new cc.Sprite("bedroom-ribbon.png");
         roomRibbon.x = 0
         roomRibbon.y = cc.winSize.height - 135;
@@ -133,12 +138,14 @@ var RoomLayer = cc.Layer.extend({
         roomRibbon.scale = this._allScale;
         this.addChild(roomRibbon);
 
+        NativeHelper.callNative("customLogging", ["Sprite", "bedroom-clock.png"]);
         var roomClock = new cc.Sprite("bedroom-clock.png");
         roomClock.x = 350 * this._allScale;
         roomClock.y = cc.winSize.height - 195 / this._allScale;
         roomClock.scale = this._allScale;
         this.addChild(roomClock);
 
+        NativeHelper.callNative("customLogging", ["Sprite", "bedroom-window.png"]);
         var roomWindow = new cc.Sprite("bedroom-window.png");
         roomWindow.x = 620 * this._allScale;
         roomWindow.y = cc.winSize.height - 230 / this._allScale;
@@ -166,6 +173,7 @@ var RoomLayer = cc.Layer.extend({
 
     addObjectButton: function(objPosition, imageName, index) {
         // cc.log("imageName: " + imageName);
+        NativeHelper.callNative("customLogging", ["Sprite", "things/" + imageName + ".png"]);
         var object = new cc.Sprite("things/" + imageName + ".png");
         self = this;
         object.setAnchorPoint(objPosition.anchorX, objPosition.anchorY);
@@ -195,6 +203,8 @@ var RoomLayer = cc.Layer.extend({
     },
 
     addObjectShade: function(object, imageName, index) {
+
+        NativeHelper.callNative("customLogging", ["Sprite", "things/" + imageName + ".png"]);
         var shadeObject = new cc.Sprite("things/" + imageName + ".png");
         shadeObject.setAnchorPoint(object.anchorPoint);
         shadeObject.setPosition(object.correctPos);
@@ -539,7 +549,6 @@ var RoomLayer = cc.Layer.extend({
         var soundNumb = isDragging ? 1 : 2;
         // Show cutscene
         var oldZOrder = object.getLocalZOrder();
-        cc.log("oldZOrder: " + oldZOrder);
         if (!isDragging) {
             str = objectName;
             var mask = new cc.LayerColor(cc.color(0, 0, 0, 200));

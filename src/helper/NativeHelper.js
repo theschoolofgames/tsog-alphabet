@@ -1,6 +1,12 @@
 var NativeHelper = NativeHelper || {};
 
 var NativeHelperConfig = {
+    customLogging: {
+        iOS: [
+            "H102Wrapper",
+            "fabricCustomLoggingWithKey:andValue:"
+        ]
+    },
     moveToMainApp: {
         iOS: [
             "H102Wrapper",
