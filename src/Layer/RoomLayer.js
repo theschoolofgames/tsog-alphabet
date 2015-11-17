@@ -265,7 +265,7 @@ var RoomLayer = cc.Layer.extend({
 
         text = text.toUpperCase();
         var warnLabel = new cc.LabelBMFont(text, font);
-        warnLabel.setScale(2.5);
+        warnLabel.setScale(1.5);
 
 
         // var warnLabel = new cc.LabelTTF(text, "Arial", 24);
@@ -298,7 +298,7 @@ var RoomLayer = cc.Layer.extend({
             cc.callFunc(function() { 
                 AnimatedEffect.create(warningLabel, "sparkles", 0.02, SPARKLE_EFFECT_FRAMES, true)
             }), 
-            cc.scaleTo(4, 3).easing(cc.easeElasticOut(0.5))
+            cc.scaleTo(3, 2).easing(cc.easeElasticOut(0.5))
             // cc.delayTime(1)
         ));
 
