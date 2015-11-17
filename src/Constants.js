@@ -34,6 +34,8 @@ var FOREST_ITEM_TYPE = {
     OCTOPUS_ITEM: "OCTOPUS_ITEM",
     DOLPHIN_ITEM: "DOLPHIN_ITEM",
     CROCODILE_ITEM: "CROCODILE_ITEM",
+    BIRD_ITEM: "BIRD_ITEM",
+    EAGLE_ITEM: "EAGLE_ITEM",
 
 }
 
@@ -248,6 +250,10 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "WATERMELON", length: 2},
     {name: "XMAS", length: 2},
     {name: "XYLOPHONE", length: 2},
+    {name: "ABACUS", length: 2},
+    {name: "FLAG", length :2 },
+    {name: "FEATHER", length: 2},
+    {name: "TOMATO", length: 2}
 ];
 
 // bitmap font

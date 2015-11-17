@@ -22,7 +22,7 @@
         },
         {
             "imageName": "bird",
-            "type": "FLY_ITEM"
+            "type": "BIRD_ITEM"
         },
         {
             "imageName": "bee",
@@ -147,8 +147,232 @@
         {
             "imageName": "goldfish",
             "type": "WATER_ITEM"
+        },
+        {
+            "imageName": "fly",
+            "type": "FLY_ITEM"
+        },
+        {
+            "imageName": "eagle",
+            "type": "EAGLE_ITEM"
         }
     ],
+    "eagle": [
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        },
+        {
+            "x": 263,
+            "y": 450,
+            "z": 2,
+            "anchorX": 0.5,
+            "anchorY": 0
+        }
+    ],
+    "fly": [
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        },
+        {
+            "x": 759 ,
+            "y": 35,
+            "z": 10,
+            "anchorX": 0.5,
+            "anchorY": 0.5 
+        }
+
+    ],
+
     "water": [
         {
             "x": 630,
@@ -321,7 +545,7 @@
             "anchorY": 0
         }
     ],
-    "fly": [
+    "bird": [
         {
             "x": 800,
             "y": 500,

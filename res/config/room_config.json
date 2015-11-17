@@ -40,6 +40,60 @@
             "z" : 5
         },
         {
+            "imageName": "onion",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1108,
+            "y": 280,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "medicine",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 922,
+            "y": 433,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "feather",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 947,
+            "y": 172,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "tomato",
+            "type": "LIGHT_WEIGHT_ITEM",
+            "x": 1074,
+            "y": 286,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "abacus",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 1095   ,
+            "y": 290,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
+            "imageName": "flag",
+            "type": "HEAVY_WEIGHT_ITEM",
+            "x": 1080,
+            "y": 290,
+            "anchorX": 0.5,
+            "anchorY": 0.5,
+            "z" :19
+        },
+        {
             "imageName": "pen",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 1089.25,
@@ -181,8 +235,8 @@
         {
             "imageName": "pencils",
             "type": "LIGHT_WEIGHT_ITEM",
-            "x": 1070,
-            "y": 254,
+            "x": 1065,
+            "y": 257,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 17
@@ -191,7 +245,7 @@
             "imageName": "egg",
             "type": "LIGHT_WEIGHT_ITEM",
             "x": 824,
-            "y": 441,
+            "y": 445,
             "anchorX": 0.5,
             "anchorY": 0.5,
             "z": 18

@@ -100,6 +100,12 @@ var res = {
    Strawberry_png: "things/strawberry.png",
    Pen_png: "things/pen.png",
    Table_png: "things/table.png",
+   Abacus_png: "things/abacus.png",
+   Flag_png: "things/flag.png",
+   Onion_png: "things/onion.png",
+   Medicine_png: "things/medicine.png",
+   Feather_png: "things/feather.png",
+   Tomato_png: "things/tomato.png",
 
    // Hud
    Hud_plist: "hud/hud.plist",

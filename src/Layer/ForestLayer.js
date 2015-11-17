@@ -42,8 +42,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
+        this.addBackButton();
+        this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runTutorial();
@@ -276,6 +276,10 @@ var ForestLayer = cc.Layer.extend({
             this.runLieAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.CROCODILE_ITEM)
             this.runLieAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.FLY_ITEM)
+            this.runLieAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.EAGLE_ITEM)
+            this.runStandAnimalAction(animal);
 
 
 
@@ -472,7 +476,7 @@ var ForestLayer = cc.Layer.extend({
     },
 
     addShuffledAnimalPosArray: function() {
-        var birdPositionArray = shuffle(FOREST_FLY_POSITION);
+        var birdPositionArray = shuffle(FOREST_BIRD_POSITION);
         var groundPositionArray = shuffle(FOREST_GROUND_POSITION);
         var waterPositionArray = shuffle(FOREST_WATER_POSITION);
         var monkeyPositionArray = shuffle(FOREST_MONKEY_POSITION);
@@ -483,6 +487,9 @@ var ForestLayer = cc.Layer.extend({
         var octopusPositionArray = shuffle(FOREST_OCTOPUS_POSITION);
         var dolphinPositionArray = shuffle(FOREST_DOLPHIN_POSITION);
         var crocodilePositionArray = shuffle(FOREST_CROCODILE_POSITION);
+        var flyPositionArray = shuffle(FOREST_FLY_POSITION);
+        var eaglePositionArray = shuffle(FOREST_EAGLE_POSITION);
+
 
         return {birdPositionArray: birdPositionArray, 
             groundPositionArray: groundPositionArray, 
@@ -494,7 +501,9 @@ var ForestLayer = cc.Layer.extend({
             snailPositionArray: snailPositionArray,
             octopusPositionArray: octopusPositionArray,
             dolphinPositionArray: dolphinPositionArray,
-            crocodilePositionArray: crocodilePositionArray
+            crocodilePositionArray: crocodilePositionArray,
+            flyPositionArray: flyPositionArray,
+            eaglePositionArray: eaglePositionArray
         };
     },
 
@@ -522,6 +531,10 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.dolphinPositionArray
         if (type === FOREST_ITEM_TYPE.OCTOPUS_ITEM)
             animalPositionArray = shuffledArrays.octopusPositionArray
+        if (type === FOREST_ITEM_TYPE.FLY_ITEM)
+            animalPositionArray = shuffledArrays.flyPositionArray
+        if (type === FOREST_ITEM_TYPE.EAGLE_ITEM)
+            animalPositionArray = shuffledArrays.eaglePositionArray
 
 
         return animalPositionArray
