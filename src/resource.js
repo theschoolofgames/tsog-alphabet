@@ -73,6 +73,9 @@ var res = {
    Turtle_png : "animals/turtle.png",
    Fly_png: "animals/fly.png",
    Squirrel_png: "animals/squirrel.png",
+   Fox_png: "animals/fox.png",
+   Shark_png: "animals/shark.png",
+   Camel_png: "animals/camel.png",
 
 
    // Things
@@ -106,8 +109,26 @@ var res = {
    Medicine_png: "things/medicine.png",
    Feather_png: "things/feather.png",
    Tomato_png: "things/tomato.png",
+   Computer_png: "things/computer.png",
+   Eraser_png: "things/eraser.png",
+   Gift_png: "things/gift.png",
+   Insect_png: "things/insect.png",
+   Juice_png: "things/juice.png",
+   Lemon_png: "things/lemon.png",
+   Nail_png: "things/nail.png",
+   Queen_png: "things/queen.png",
+   Raspberry_png: "things/raspberry.png",
+   Toytrain_png: "things/toytrain.png",
+   Uniform_png: "things/uniform.png",
+   Vegetable_png: "things/vegetable.png",
+   Vehicle_png: "things/vehicle.png",
+   Waterlemon_png: "things/waterlemon.png",
+   Xylyphone_png: "things/xylyphone.png",
+   Orange_png: "things/orange.png",
+   Nest_png: "things/nest.png",
 
    // Hud
+
    Hud_plist: "hud/hud.plist",
    Hud_png: "hud/hud.png",
    Hud_progress_bar_png: "hud/progress-bar.jpg",
@@ -171,6 +192,29 @@ var res = {
    TURTLE_mp3 : "sounds/animals/turtle.mp3",
    FLY_mp3: "sounds/animals/fly.mp3",
    SQUIRREL_mp3: "sounds/animals/squirrel.mp3",
+   CAMEL_mp3: "sounds/animals/camel.mp3",
+   CHEETAH_mp3:"sounds/animals/cheetah.mp3",
+   CHICKEN_mp3: "sounds/animals/chicken.mp3",
+   CHIMPANZEE_mp3: "sounds/animals/chimpanzee.mp3",
+   CROCODILE_mp3: "sounds/animals/crocodile.mp3",
+   DOLPHIN_mp3: "sounds/animals/dolphin.mp3",
+   FOX_mp3: "sounds/animals/fox.mp3",
+   GOAT_mp3: "sounds/animals/goat.mp3",
+   GOLDFISH_mp3: "sounds/animals/goldfish.mp3",
+   KANGAROO_mp3: "sounds/animals/kangaroo.mp3",
+   PIG_mp3: "sounds/animals/pig.mp3",
+   PUPPY_mp3: "sounds/animals/puppy.mp3",
+   RABBIT_mp3:"sounds/animals/rabbit.mp3",
+   SCORPION_mp3: "sounds/animals/scorpion.mp3",
+   SEAL_mp3: "sounds/animals/seal.mp3",
+   SHARK_mp3: "sounds/animals/shark.mp3",
+   SHEEP_mp3: "sounds/animals/sheep.mp3",
+   SNAIL_mp3: "sounds/animals/snail.mp3",
+   SPIDER_mp3: "sounds/animals/spider.mp3",
+   QUIRREL_mp3: "sounds/animals/quirrel.mp3",
+   WOLF_mp3: "sounds/animals/wolf.mp3",
+
+
 
    // Things sound
    APPLE_1_mp3: "res/sounds/things/apple-1.mp3",
@@ -252,6 +296,23 @@ var res = {
    XMAS_2_mp3: "res/sounds/things/xmas-2.mp3",
    XYLOPHONE_1_mp3: "res/sounds/things/xylophone-1.mp3",
    XYLOPHONE_2_mp3: "res/sounds/things/xylophone-2.mp3",
+   ABACUS_1_mp3: "res/sounds/things/abacus-1.mp3",
+   ERASER_1_mp3: "res/sounds/things/eraser-1.mp3",
+   FEATHER_1_mp3: "res/sounds/things/feather-1.mp3",
+   FLAG_1_mp3: "res/sounds/things/flag-1.mp3",
+   GIFT_1_mp3: "res/sounds/things/gift-1.mp3",
+   INSECT_1_mp3: "res/sounds/things/insect-2.mp3",
+   ABACUS_2_mp3: "res/sounds/things/abacus-2.mp3",
+   ERASER_2_mp3: "res/sounds/things/eraser-2.mp3",
+   FEATHER_2_mp3: "res/sounds/things/feather-2.mp3",
+   FLAG_2_mp3: "res/sounds/things/flag-2.mp3",
+   GIFT_2_mp3: "res/sounds/things/gift-2.mp3",
+   INSECT_2_mp3: "res/sounds/things/insect-2.mp3",
+   TOMATO_1_mp3: "res/sounds/things/tomato-1.mp3",
+   TOMATO_2_mp3: "res/sounds/things/tomato-2.mp3",
+
+
+
    //countdown
    COUNTDOWN_mp3 : "res/sounds/Countdown.mp3",
    

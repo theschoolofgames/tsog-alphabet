@@ -25,6 +25,7 @@ var FOREST_DOLPHIN_POSITION = [];
 var FOREST_SNAIL_POSITION = [];
 var FOREST_CROCODILE_POSITION = [];
 var FOREST_EAGLE_POSITION = [];
+var FOREST_SHARK_POSITION = [];
 var FOREST_BACKGROUND_ITEMS_POSITION = [
     {
         x: 668,
@@ -295,6 +296,8 @@ ConfigStore.setupInstance = function (configOnce) {
             FOREST_CROCODILE_POSITION = preProcessData(data.crocodile);
             FOREST_FLY_POSITION = preProcessData(data.fly);
             FOREST_EAGLE_POSITION = preProcessData(data.eagle);
+            FOREST_SHARK_POSITION = preProcessData(data.shark);
+
 
 
             forestLoaded = true;
@@ -315,7 +318,7 @@ ConfigStore.setupInstance = function (configOnce) {
                 FOREST_CROCODILE_POSITION = preProcessData(data.crocodile);
                 FOREST_BIRD_POSITION = preProcessData(data.bird);
                 FOREST_EAGLE_POSITION = preProcessData(data.eagle);
-
+                FOREST_SHARK_POSITION = preProcessData(data.shark);
                 forestLoaded = true;
             });
         }

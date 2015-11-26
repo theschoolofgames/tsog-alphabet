@@ -42,8 +42,8 @@ var ForestLayer = cc.Layer.extend({
         this.createBackground();
         // this.showAllAnimals();
         this.createAnimals();
-        // this.addBackButton();
-        // this.addRefreshButton();
+        this.addBackButton();
+        this.addRefreshButton();
         // this.createStarsLabel();
         this.addHud();
         this.runTutorial();
@@ -280,6 +280,8 @@ var ForestLayer = cc.Layer.extend({
             this.runLieAnimalAction(animal);
         if (itemId === FOREST_ITEM_TYPE.EAGLE_ITEM)
             this.runStandAnimalAction(animal);
+        if (itemId === FOREST_ITEM_TYPE.SHARK_ITEM)
+            this.runLieAnimalAction(animal);
 
 
 
@@ -489,7 +491,7 @@ var ForestLayer = cc.Layer.extend({
         var crocodilePositionArray = shuffle(FOREST_CROCODILE_POSITION);
         var flyPositionArray = shuffle(FOREST_FLY_POSITION);
         var eaglePositionArray = shuffle(FOREST_EAGLE_POSITION);
-
+        var sharkPositionArray = shuffle(FOREST_SHARK_POSITION);
 
         return {birdPositionArray: birdPositionArray, 
             groundPositionArray: groundPositionArray, 
@@ -503,7 +505,8 @@ var ForestLayer = cc.Layer.extend({
             dolphinPositionArray: dolphinPositionArray,
             crocodilePositionArray: crocodilePositionArray,
             flyPositionArray: flyPositionArray,
-            eaglePositionArray: eaglePositionArray
+            eaglePositionArray: eaglePositionArray,
+            sharkPositionArray: sharkPositionArray
         };
     },
 
@@ -535,6 +538,8 @@ var ForestLayer = cc.Layer.extend({
             animalPositionArray = shuffledArrays.flyPositionArray
         if (type === FOREST_ITEM_TYPE.EAGLE_ITEM)
             animalPositionArray = shuffledArrays.eaglePositionArray
+        if (type === FOREST_ITEM_TYPE.SHARK_ITEM)
+            animalPositionArray = shuffledArrays.sharkPositionArray
 
 
         return animalPositionArray

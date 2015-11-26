@@ -155,6 +155,111 @@
         {
             "imageName": "eagle",
             "type": "EAGLE_ITEM"
+        },
+        {
+            "imageName": "shark",
+            "type": "SHARK_ITEM"
+        },
+        {
+            "imageName" : "fox",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "camel",
+            "type": "STAND_ITEM"
+        }
+    ],
+    "shark" :[
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
+        },
+        {
+            "x":880, 
+            "y":215,
+            "z":2,
+            "anchorX": 0.5,
+            "anchorY": 0.5
         }
     ],
     "eagle": [

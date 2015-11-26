@@ -36,6 +36,7 @@ var FOREST_ITEM_TYPE = {
     CROCODILE_ITEM: "CROCODILE_ITEM",
     BIRD_ITEM: "BIRD_ITEM",
     EAGLE_ITEM: "EAGLE_ITEM",
+    SHARK_ITEM: "SHARK_ITEM",
 
 }
 
@@ -205,7 +206,10 @@ var ANIMAL_SOUNDS_LENGTH = [
     {
         name: "SQUIRREL",
         length:3
-    }
+    },
+    {name:"CAMEL", length: 3},
+    {name: "FOX", length:3},
+    {name: "SHARK", length:3}
 ];
 
 var OBJECT_SOUNDS_LENGTH = [
@@ -253,7 +257,19 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "ABACUS", length: 2},
     {name: "FLAG", length :2 },
     {name: "FEATHER", length: 2},
-    {name: "TOMATO", length: 2}
+    {name: "TOMATO", length: 2},
+    {name: "COMPUTER", length :2},
+    {name: "ERASER", length: 2},
+    {name: "GIFT", length: 2},
+    {name: "INSECT", length : 2},
+    {name: "JUICE", length:2},
+    {name: "LEMON", length: 2},
+    {name: "NAIL", length: 2},
+    {name: "NEST", length: 2},
+    {name: "QUEEN", length :2},
+    {name: "RASPBERRY", length:2},
+    {name: "TOYTRAIN", length:2},
+    {name: "INSECT", length:2}
 ];
 
 // bitmap font
