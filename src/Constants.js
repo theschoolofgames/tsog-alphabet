@@ -210,6 +210,13 @@ var ANIMAL_SOUNDS_LENGTH = [
     {name:"CAMEL", length: 3},
     {name: "FOX", length:3},
     {name: "SHARK", length:3}
+    // {name: "CHEETAH", length:3},
+    // {name: "CHICKEN", length:3},
+    // {name: "KANGAROO", length:3},
+    // {name: "LOBSTER", length:3},
+    // {name: "SCORPION", length:3},
+    // {name: "SEAL", length:3},
+    // {name: "WOLF", length:3}
 ];
 
 var OBJECT_SOUNDS_LENGTH = [

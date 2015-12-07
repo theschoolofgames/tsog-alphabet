@@ -167,7 +167,36 @@
         {
             "imageName": "camel",
             "type": "STAND_ITEM"
-        }
+        },
+        {
+            "imageName": "cheetah",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "chicken",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "kangaroo",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "lobster",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "scorpion",
+            "type": "LIE_ITEM"
+        },
+        {
+            "imageName": "seal",
+            "type": "STAND_ITEM"
+        },
+        {
+            "imageName": "wolf",
+            "type": "STAND_ITEM"
+        },
+
     ],
     "shark" :[
         {

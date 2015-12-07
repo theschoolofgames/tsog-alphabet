@@ -76,6 +76,13 @@ var res = {
    Fox_png: "animals/fox.png",
    Shark_png: "animals/shark.png",
    Camel_png: "animals/camel.png",
+   // Cheetah_png: "animals/cheetah.png",
+   // Chicken_png: "animals/chicken.png",
+   // Kangaroo_png: "animals/kangaroo.png",
+   // Lobster_png: "animals/lobster.png",
+   // Scorpion_png:"animals/scorpion.png",
+   // Seal_png: "animals/seal.png",
+   // Wolf_png: "animals/wolf.png",
 
 
    // Things
