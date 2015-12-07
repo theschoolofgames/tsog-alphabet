@@ -220,6 +220,9 @@ var res = {
    SPIDER_mp3: "sounds/animals/spider.mp3",
    QUIRREL_mp3: "sounds/animals/quirrel.mp3",
    WOLF_mp3: "sounds/animals/wolf.mp3",
+   LOBSTER_mp3: "sounds/animals/lobster.mp3",
+   SNAKE_mp3: "sounds/animals/snake.mp3",
+
 
 
 
@@ -317,6 +320,15 @@ var res = {
    INSECT_2_mp3: "res/sounds/things/insect-2.mp3",
    TOMATO_1_mp3: "res/sounds/things/tomato-1.mp3",
    TOMATO_2_mp3: "res/sounds/things/tomato-2.mp3",
+   COMPUTER_1_mp3: "res/sounds/things/computer-1.mp3",
+   COMPUTER_2_mp3: "res/sounds/things/computer-2.mp3",
+   CRAYON_1_mp3: "res/sounds/things/crayon-1.mp3",
+   CRAYON_2_mp3: "res/sounds/things/crayon-2.mp3",
+   JUICE_1_mp3: "res/sounds/things/juice-1.mp3",
+   JUICE_2_mp3: "res/sounds/things/juice-2.mp3",
+   TOYTRAIN_1_mp3: "res/sounds/things/toytrain-1.mp3",
+   TOYTRAIN_2_mp3: "res/sounds/things/toytrain-2.mp3",
+
 
 
 

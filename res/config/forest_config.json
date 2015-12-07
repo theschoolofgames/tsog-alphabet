@@ -195,7 +195,7 @@
         {
             "imageName": "wolf",
             "type": "STAND_ITEM"
-        },
+        }
 
     ],
     "shark" :[
@@ -667,7 +667,7 @@
         {
             "x": 293,
             "y": 225,
-            "z": 5,
+            "z": 7,
             "anchorX": 0.5,
             "anchorY": 0
         },

@@ -209,14 +209,14 @@ var ANIMAL_SOUNDS_LENGTH = [
     },
     {name:"CAMEL", length: 3},
     {name: "FOX", length:3},
-    {name: "SHARK", length:3}
-    // {name: "CHEETAH", length:3},
-    // {name: "CHICKEN", length:3},
-    // {name: "KANGAROO", length:3},
-    // {name: "LOBSTER", length:3},
-    // {name: "SCORPION", length:3},
-    // {name: "SEAL", length:3},
-    // {name: "WOLF", length:3}
+    {name: "SHARK", length:3},
+    {name: "CHEETAH", length:3},
+    {name: "CHICKEN", length:3},
+    {name: "KANGAROO", length:3},
+    {name: "LOBSTER", length:3},
+    {name: "SCORPION", length:3},
+    {name: "SEAL", length:3},
+    {name: "WOLF", length:3}
 ];
 
 var OBJECT_SOUNDS_LENGTH = [
@@ -276,7 +276,9 @@ var OBJECT_SOUNDS_LENGTH = [
     {name: "QUEEN", length :2},
     {name: "RASPBERRY", length:2},
     {name: "TOYTRAIN", length:2},
-    {name: "INSECT", length:2}
+    {name: "INSECT", length:2},
+    {name: "JUICE", length:2},
+    {name: "CRAYON", length: 2}
 ];
 
 // bitmap font
