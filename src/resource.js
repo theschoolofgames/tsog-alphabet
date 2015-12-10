@@ -76,13 +76,13 @@ var res = {
    Fox_png: "animals/fox.png",
    Shark_png: "animals/shark.png",
    Camel_png: "animals/camel.png",
-   // Cheetah_png: "animals/cheetah.png",
-   // Chicken_png: "animals/chicken.png",
-   // Kangaroo_png: "animals/kangaroo.png",
-   // Lobster_png: "animals/lobster.png",
-   // Scorpion_png:"animals/scorpion.png",
-   // Seal_png: "animals/seal.png",
-   // Wolf_png: "animals/wolf.png",
+   Cheetah_png: "animals/cheetah.png",
+   Chicken_png: "animals/chicken.png",
+   Kangaroo_png: "animals/kangaroo.png",
+   Lobster_png: "animals/lobster.png",
+   Scorpion_png:"animals/scorpion.png",
+   Seal_png: "animals/seal.png",
+   Wolf_png: "animals/wolf.png",
 
 
    // Things
@@ -328,6 +328,8 @@ var res = {
    JUICE_2_mp3: "res/sounds/things/juice-2.mp3",
    TOYTRAIN_1_mp3: "res/sounds/things/toytrain-1.mp3",
    TOYTRAIN_2_mp3: "res/sounds/things/toytrain-2.mp3",
+   RASPBERRY_1_mp3:"res/sounds/things/raspberry-1.mp3",
+   RASPBERRY_2_mp3: "res/sounds/things/raspberry-2.mp3",
 
 
 
